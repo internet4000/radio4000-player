@@ -1,0 +1,38 @@
+{
+  "name": "radio4000-player",
+  "description": "A player for Radio4000 channels",
+  "author": "Internet4000",
+  "private": true,
+  "scripts": {
+    "watchify": "watchify -vd -p browserify-hmr -e src/main.js -o dist/radio4000-player.js",
+    "serve2": "http-server -o -s -c 1 -a localhost",
+    "serve": "serve",
+    "start": "npm-run-all --parallel watchify serve",
+    "build": "cross-env NODE_ENV=production browserify -g envify src/main.js | uglifyjs -c warnings=false -m > dist/radio4000-player.js"
+  },
+  "dependencies": {
+    "vue": "^2.2.4",
+    "whatwg-fetch": "^2.0.3",
+    "youtube-player": "^4.2.2"
+  },
+  "devDependencies": {
+    "babel-core": "^6.24.0",
+    "babel-preset-es2015": "^6.24.0",
+    "babelify": "^7.2.0",
+    "browserify": "^14.1.0",
+    "browserify-hmr": "^0.3.1",
+    "cross-env": "^3.2.3",
+    "envify": "^4.0.0",
+    "npm-run-all": "^4.0.2",
+    "serve": "^5.0.3",
+    "uglify-js": "^2.5.0",
+    "vueify": "^9.4.1",
+    "watchify": "^3.4.0"
+  },
+  "browserify": {
+    "transform": [
+      "vueify",
+      "babelify"
+    ]
+  }
+}
