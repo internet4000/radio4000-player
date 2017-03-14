@@ -1,16 +1,21 @@
 <template>
   <div id="Radio4000Player">
 		<header>
+			<p>
+				You're listening to 
+				<strong>
+					<a v-bind:href="'https://radio4000.com/' + channel.slug">
+						{{channel.title}}
+					</a>
+				</strong>.
+				<em>{{channel.body}}</em>
+			</p>
 			<marquee>
-				<strong>{{channel.title}}</strong>
 				<transition name="fade">
-					<span v-if="track.title">&rarr; {{track.title}}</span>
+					<span v-if="track.title">{{track.title}}</span>
 				</transition>
 			</marquee>
 			<transition name="fade">
-			<p v-if="channel.body">
-				{{channel.body}}
-			</p>
 			</transition>
 		</header>
 		<aside>
@@ -28,7 +33,7 @@ import TrackList from './TrackList.vue'
 import YoutubePlayer from './YoutubePlayer.vue'
 
 // Data.
-const host = 'https://radio4000-api-dcobewnpjx.now.sh/v1'
+const host = 'https://r4-api.now.sh/v1'
 const parse = res => res.json()
 function findChannelBySlug(slug) {
 	const url = `${host}/channels?slug=${slug}`
@@ -67,7 +72,8 @@ export default {
 				this.channel = channel
 
 				findTracks(channel.id).then(tracks => {
-					// Define an extra `active` prop.
+					// Define an extra `active` prop. Otherwise Vue won't
+					// detect changes to it later.
 					tracks = tracks.map(t => {
 						t.active = false
 						return t
@@ -78,12 +84,7 @@ export default {
 		},
 		playTrack(track) {
 			this.track = track
-			// Change active class.
-			this.tracks
-				//.filter(t => t.id !== track.id)
-				.forEach(t => {
-					t.active = false
-				})
+			this.tracks.forEach(t => {t.active = false})
 			track.active = true
 		}
 	}
@@ -106,15 +107,19 @@ export default {
 header {
 	border-bottom: 1px solid hsla(0, 0%, 0%, 0.8);
 	display: flex;
-	flex-direction: row;
-}
-marquee {
-	display: block;
-	margin: auto;
-	padding: 1rem 0;
+	flex-direction: column;
 }
 header p {
 	font-size: 0.875em;
+	margin-left: 1rem;
+	margin-right: 1rem;
+	margin-top: 1rem;
+	margin-bottom: 0.25rem;
+}
+marquee {
+	display: block;
+	margin: 0 auto 1rem;
+	padding-top: 0.25rem;
 }
 main {
 	flex: 1;
@@ -124,9 +129,9 @@ a {
   color: blue;
 }
 .fade-enter-active, .fade-leave-active {
-  transition: opacity .5s
+	transition: opacity .5s
 }
 .fade-enter, .fade-leave-to {
-  opacity: 0
+	opacity: 0
 }
 </style>
