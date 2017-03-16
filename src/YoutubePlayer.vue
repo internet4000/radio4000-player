@@ -1,6 +1,5 @@
 <template>
 	<div id="YoutubePlayer">
-		{{videoId}}
 		<div id="player"></div>
 	</div>
 </template>

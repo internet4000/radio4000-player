@@ -15,8 +15,6 @@
 					<span v-if="track.title">{{track.title}}</span>
 				</transition>
 			</marquee>
-			<transition name="fade">
-			</transition>
 		</header>
 		<aside>
 			<youtube-player :video-id="track.ytid" />
