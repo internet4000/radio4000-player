@@ -6,12 +6,15 @@ It is an example of how you could build your own player using the official [radi
 
 ## How to use
 
-To use it, copy the `dist/radio4000-player.min.js` file from this repository and insert this markup. Change the `channel` attribute to use the radio you want.
+To use it, copy this snippet and change the `slug="my-radio"` part to match the radio you want to play.
 
 ```markup
-<script async src="radio4000-player.min.js"></script>
-<div id="radio4000-player" channel="my-radio"></div>
+<script async src="https://rawgit.com/Internet4000/radio4000-player-vue/master/dist/radio4000-player.min.js"></script>
+<div id="radio4000-player" slug="my-radio"></div>
 ```
+
+- Try it out: http://jsbin.com/siluwub/1/edit?html,output
+- Find more radios: https://radio4000.com/all
 
 ## Development
 
