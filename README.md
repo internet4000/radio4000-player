@@ -6,10 +6,10 @@ It is an example of how you could build your own player using the official [radi
 
 ## How to use
 
-To use it, copy the `dist/radio4000-player.js` file from this repository and insert this markup. Change the `channel` attribute to use the radio you want.
+To use it, copy the `dist/radio4000-player.min.js` file from this repository and insert this markup. Change the `channel` attribute to use the radio you want.
 
 ```markup
-<script async src="radio4000-player.js"></script>
+<script async src="radio4000-player.min.js"></script>
 <div id="radio4000-player" channel="my-radio"></div>
 ```
 
