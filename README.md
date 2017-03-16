@@ -8,9 +8,9 @@ It is an example of how you could build your own player using the official [radi
 
 To use it, copy this snippet and change the `slug="my-radio"` part to match the radio you want to play.
 
-```markup
+```html
 <script async src="https://rawgit.com/Internet4000/radio4000-player-vue/master/dist/radio4000-player.min.js"></script>
-<div id="radio4000-player" slug="my-radio"></div>
+<div id="radio4000-player" slug="good-time-radio" />
 ```
 
 - Try it out: http://jsbin.com/siluwub/1/edit?html,output
