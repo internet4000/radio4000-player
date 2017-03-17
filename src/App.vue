@@ -31,7 +31,7 @@ import TrackList from './TrackList.vue'
 import YoutubePlayer from './YoutubePlayer.vue'
 
 // Data.
-const host = 'https://r4-api.now.sh/v1'
+const host = 'https://api.radio4000.com/v1'
 const parse = res => res.json()
 function findChannelBySlug(slug) {
 	const url = `${host}/channels?slug=${slug}`
