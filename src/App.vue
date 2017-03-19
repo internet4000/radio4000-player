@@ -1,20 +1,7 @@
 <template>
   <div id="Radio4000Player">
 		<header>
-			<p>
-				You're listening to 
-				<strong>
-					<a v-bind:href="'https://radio4000.com/' + channel.slug">
-						{{channel.title}}
-					</a>
-				</strong>.
-				<em>{{channel.body}}</em>
-			</p>
-			<marquee>
-				<transition name="fade">
-					<span v-if="track.title">{{track.title}}</span>
-				</transition>
-			</marquee>
+			<channel-header :channel="channel" :track="track" />
 		</header>
 		<aside>
 			<youtube-player :video-id="track.ytid" />
@@ -27,6 +14,7 @@
 
 <script>
 import 'whatwg-fetch'
+import ChannelHeader from './ChannelHeader.vue'
 import TrackList from './TrackList.vue'
 import YoutubePlayer from './YoutubePlayer.vue'
 
@@ -47,16 +35,14 @@ export default {
 	props: ['slug'],
 	data () {
 		return {
-			channel: {
-				title: 'Loading Radio4000...'
-			},
+			channel: {title: 'Loading Radio4000...'},
 			tracks: [],
 			track: {},
 			videoId: ''
 		}
 	},
 	components: {
-		TrackList, YoutubePlayer
+		ChannelHeader, TrackList, YoutubePlayer
 	},
 	created() {
 		this.fetchData()
@@ -104,20 +90,8 @@ export default {
 }
 header {
 	border-bottom: 1px solid hsla(0, 0%, 0%, 0.8);
-	display: flex;
-	flex-direction: column;
 }
-header p {
-	font-size: 0.875em;
-	margin-left: 1rem;
-	margin-right: 1rem;
-	margin-top: 1rem;
-	margin-bottom: 0.25rem;
-}
-marquee {
-	display: block;
-	margin: 0 auto 1rem;
-	padding-top: 0.25rem;
+aside {
 }
 main {
 	flex: 1;
