@@ -1,7 +1,6 @@
 <template>
 	<div id="YoutubePlayer">
-		<youtube-controls :player="player" />
-
+		<youtube-controls v-if="controls" :player="player" />
 		<div class="Ratio">
 			<div id="player"></div>
 		</div>
@@ -17,6 +16,7 @@ export default {
 	props: ['video-id'],
 	data() {
 		return {
+			controls: true,
 			player: {}
 		}
 	},
