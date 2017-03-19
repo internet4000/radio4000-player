@@ -10,7 +10,7 @@ To use it, copy this snippet and change the `slug="my-radio"` part to match the 
 
 ```html
 <script async src="https://rawgit.com/Internet4000/radio4000-player-vue/master/dist/radio4000-player.min.js"></script>
-<div id="radio4000-player" slug="good-time-radio" />
+<div id="radio4000-player" slug="good-time-radio"></div>
 ```
 
 - Try it out: http://jsbin.com/siluwub/1/edit?html,output
