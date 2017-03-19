@@ -11,6 +11,11 @@ import TrackItem from './TrackItem.vue'
 export default {
   name: 'track-list',
 	props: ['tracks'],
+	data() {
+		return {
+			loop: false
+		}
+	},
 	components: {TrackItem},
 	methods: {
 		select(track) {
@@ -22,13 +27,19 @@ export default {
 
 <style scoped>
 ol {
-	margin: 0;
+	margin: 0.6em 0 0;
 	padding: 0;
 	font-size: 0.875em;
-	line-height: 2;
+	line-height: 1.6;
+	counter-reset: tracks;
 }
 li {
-	border-bottom: 1px solid hsla(0, 0%, 0%, 0.1);
 	padding: 0 0.6em;
+}
+li::before {
+	content: counter(tracks) ".";
+	counter-increment: tracks;
+	display: inline-block;
+	margin-right: 0.4em;
 }
 </style>

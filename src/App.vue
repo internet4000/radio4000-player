@@ -64,7 +64,7 @@ export default {
 #Radio4000Player {
 	display: flex;
 	flex-direction: column;
-	max-width: 500px;
+	max-width: 320px;
 	height: 500px;
 	max-height: 95vh;
 	border: 2px solid;
@@ -72,6 +72,7 @@ export default {
 	border-bottom-width: 4px;
 	background-color: hsla(260, 10%, 92%, 1);
 	font-family: 'system-ui', sans-serif;
+	font-size: 1em;
 }
 header {
 	border-bottom: 1px solid hsla(0, 0%, 0%, 0.8);

@@ -20,6 +20,7 @@ export default {
 
 <style scoped>
 #TrackItem {
+	display: inline-block;
 	cursor: pointer;
 }
 .active {

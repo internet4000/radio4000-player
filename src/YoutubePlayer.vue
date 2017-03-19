@@ -33,7 +33,9 @@ export default {
 </script>
 
 <style scoped>
+#YoutubePlayer {}
 .Ratio {
+	width: 100%;
 	overflow: hidden;
 	position: relative;
 	height: 0;
