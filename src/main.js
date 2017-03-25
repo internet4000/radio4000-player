@@ -11,7 +11,6 @@ new Vue({
 	render(h) {
 		const attrs = this.$el.attributes
 		const slug = getAttr(attrs, 'slug')
-
 		return h(App, {
 			props: {
 				slug

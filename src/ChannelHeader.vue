@@ -6,7 +6,6 @@
 					{{channel.title}}
 				</a>
 			</strong>
-			 - 
 			<em>{{channel.body}}</em>
 			<transition name="fade">
 				<span v-if="track.title">{{track.title}}</span>
@@ -23,17 +22,26 @@
 </script>
 
 <style scoped>
-div {
-	display: flex;
-	flex-direction: column;
-	font-size: 0.875em;
-	padding: 0.46rem 0 0.5em;
-}
-a {
-	color: black;
-	text-decoration: none;
-}
-marquee {
-	display: block;
-}
+	div {
+		display: flex;
+		flex-direction: column;
+		font-size: 0.875em;
+		padding: 0.46rem 0 0.5em;
+	}
+	a {
+		color: black;
+		text-decoration: none;
+	}
+	marquee {
+		display: block;
+	}
+	.fade-enter-active,
+	.fade-leave-active {
+		transition: opacity 500ms;
+	}
+	.fade-enter,
+	.fade-leave-to {
+		opacity: 0;
+	}
 </style>
+
