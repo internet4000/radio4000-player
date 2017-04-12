@@ -1,20 +1,26 @@
 import Vue from 'vue'
 import App from './App.vue'
 
-// Avoids errors when vue livereloads and the attrs are missing.
-function getAttr(context, key) {
-	return context.slug ? context[key].value : null
+// Pass attributes from the HTML element to the root Vue instance.
+function getAttr(attrs, key) {
+	return attrs[key] ? attrs[key].value : ''
 }
 
-new Vue({
-	el: 'radio4000-player',
-	render(h) {
-		const attrs = this.$el.attributes
-		const slug = getAttr(attrs, 'slug')
-		return h(App, {
-			props: {
-				slug
-			}
-		})
-	}
-})
+function createPlayer(el) {
+	const attrs = el.attributes
+	return new Vue({
+		el, 
+		render(h) {
+			return h(App, {
+				props: {
+					slug: getAttr(attrs, 'slug'),
+					volume: Number(getAttr(attrs, 'volume'))
+				}
+			})
+		}
+	})
+}
+
+// Support multiple components on the same page.
+let players = document.querySelectorAll('radio4000-player')
+players.forEach(el => createPlayer(el))

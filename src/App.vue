@@ -8,6 +8,7 @@
 		<aside>
 			<youtube-player
 				:video-id="track.ytid"
+				:volume="volume"
 				v-on:ready="onPlayerReady"></youtube-player>
 		</aside>
 		<main>
@@ -27,7 +28,10 @@ import store from './store'
 
 export default {
 	name: 'radio4000-player',
-	props: ['slug'],
+	props: {
+		slug: String,
+		volume: Number
+	},
 	data () {
 		return {
 			channel: {
@@ -38,7 +42,9 @@ export default {
 		}
 	},
 	components: {
-		ChannelHeader, TrackList, YoutubePlayer
+		ChannelHeader,
+		TrackList,
+		YoutubePlayer
 	},
 	created() {
 		this.model()
@@ -72,6 +78,9 @@ export default {
 			this.track = track
 		},
 		onPlayerReady(player) {
+			if (!player) {
+				throw new Error(`YouTube API wasn't loaded correctly. Sorry`)
+			}
 			this.player = player
 		}
 	}
@@ -105,4 +114,3 @@ export default {
 		color: blue;
 	}
 </style>
-

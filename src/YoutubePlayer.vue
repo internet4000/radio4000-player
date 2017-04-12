@@ -1,9 +1,10 @@
 <template>
 	<div id="YoutubePlayer">
-		<youtube-controls v-if="controls" :player="player"></youtube-controls>
-
+		<youtube-controls v-if="controls"
+			:player="player"
+			:masterVolume="volume"></youtube-controls>
 		<div class="Ratio" v-show="videoId">
-			<div id="player"></div>
+			<div class="ytplayer"></div>
 		</div>
 	</div>
 </template>
@@ -23,7 +24,7 @@ const stateNames = {
 
 export default {
 	name: 'youtube-player',
-	props: ['videoId'],
+	props: ['videoId', 'volume'],
 	data() {
 		return {
 			controls: true,
@@ -45,11 +46,15 @@ export default {
 		}
 	},
 	mounted() {
+		// Create the player.
 		const playerVars = this.options
-		this.player = YouTubePlayer('player', {playerVars})
+		const el = this.$el.querySelector('.ytplayer')
+		this.player = YouTubePlayer(el, {playerVars})
+		// Emit "ready" event with the player instance.
 		this.player.on('ready', () => {
 			this.$emit('ready', this.player)
 		})
+		// Emit all YouTube events. 
 		this.player.on('stateChange', event => {
 			const state = stateNames[event.data]
 			this.$emit(state, event.data)
