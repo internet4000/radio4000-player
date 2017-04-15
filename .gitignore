@@ -1,5 +1,4 @@
 .DS_Store
 node_modules/
-dist/radio4000-player.js
 npm-debug.log
 yarn-error.log
