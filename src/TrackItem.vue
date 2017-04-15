@@ -1,5 +1,5 @@
 <template>
-	<div id="TrackItem"
+	<div class="TrackItem"
 		:class="{active: track.active}"
 		v-on:click="select">
 		{{track.title}}
@@ -19,7 +19,7 @@
 </script>
 
 <style scoped>
-	#TrackItem {
+	.TrackItem {
 		display: inline-block;
 		cursor: pointer;
 	}

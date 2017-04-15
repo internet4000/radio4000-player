@@ -1,5 +1,8 @@
 <template>
-	<div class="Radio4000Player">
+	<div>
+		<input type="checkbox" v-model="isDark">
+
+		<div class="Radio4000Player" :class="{dark: isDark}">
 		<header>
 			<channel-header
 				:channel="channel"
@@ -16,6 +19,7 @@
 				:tracks="tracks"
 				v-on:select="selectTrack"></track-list>
 		</main>
+	</div>
 	</div>
 </template>
 
@@ -38,7 +42,8 @@ export default {
 				title: 'Loading Radio4000...'
 			},
 			tracks: [],
-			track: {}
+			track: {},
+			isDark: true
 		}
 	},
 	components: {
@@ -117,3 +122,23 @@ export default {
 		overflow-y: scroll;
 	}
 </style>
+
+<style>
+	.Radio4000Player.dark {
+		background-color: hsl(0, 0%, 10%);
+		color: hsl(0, 0%, 75%);
+		border: 0;
+	}
+	.Radio4000Player.dark .active {
+		color: hsl(0, 0%, 100%);
+	}
+	.Radio4000Player.dark .TrackList li:before {
+		color: hsl(0, 0%, 75%);
+	}
+	.Radio4000Player.dark button {
+		background-color: hsl(0, 0%, 10%);
+		border: 0;
+		color: hsl(0, 0%, 75%);
+	}
+</style>
+

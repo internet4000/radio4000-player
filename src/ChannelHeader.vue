@@ -2,7 +2,7 @@
 	<div>
 		<a class="Logo" :href="href">
 			<img src="https://radio4000.com/apple-touch-icon.png" alt="Radio4000">
-			<img :src="channel.image" alt="Radio4000">
+			<img v-if="channel.image" :src="channel.image" :alt="channel.title">
 		</a>
 		<marquee>
 			<strong>
