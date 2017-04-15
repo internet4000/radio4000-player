@@ -1,6 +1,11 @@
 <template>
 	<div>
-		<input type="checkbox" v-model="isDark">
+		<p>
+			<label>
+				<input type="checkbox" v-model="isDark">
+				use dark skin
+			</label>
+		</p>
 
 		<div class="Radio4000Player" :class="{dark: isDark}">
 		<header>
@@ -140,5 +145,20 @@ export default {
 		border: 0;
 		color: hsl(0, 0%, 75%);
 	}
+	/* Dark scrollbars for later.
+	::-webkit-scrollbar {
+		background-color: hsla(0, 0%, 50%, 0.4);
+		width: 0.75em;
+	}
+	::-webkit-scrollbar:hover {
+		background-color: hsla(0, 0%, 50%, 0.6);
+	}
+	::-webkit-scrollbar-thumb {
+		background-color: hsla(0, 0%, 50%, 0.4);
+	}
+	::-webkit-scrollbar-thumb:active {
+		background: rgba(0,0,0,0.61); 
+	}
+	*/
 </style>
 
