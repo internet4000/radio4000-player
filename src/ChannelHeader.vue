@@ -1,10 +1,12 @@
 <template>
 	<div>
+		<a class="Logo" :href="href">
+			<img src="https://radio4000.com/apple-touch-icon.png" alt="Radio4000">
+			<img :src="channel.image" alt="Radio4000">
+		</a>
 		<marquee>
 			<strong>
-				<a v-bind:href="'https://radio4000.com/' + channel.slug">
-					{{channel.title}}
-				</a>
+				{{channel.title}}
 			</strong>
 			<em>{{channel.body}}</em>
 			<transition name="fade">
@@ -15,18 +17,31 @@
 </template>
 
 <script>
-	export default {
-		name: 'channel-header',
-		props: ['channel', 'track']
+export default {
+	name: 'channel-header',
+	props: ['channel', 'track'],
+	computed: {
+		href: function () {
+			return `https://radio4000.com/${this.channel.slug}`
+		}
 	}
+}
 </script>
 
 <style scoped>
 	div {
 		display: flex;
-		flex-direction: column;
+		flex-wrap: nowrap;
+		align-items: center;
 		font-size: 0.875em;
-		padding: 0.46rem 0 0.5em;
+	}
+	.Logo {
+		display: flex;
+		flex-wrap: nowrap;
+	}
+	img {
+		height: 2em;
+		vertical-align: top;
 	}
 	a {
 		color: black;

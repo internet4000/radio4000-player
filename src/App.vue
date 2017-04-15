@@ -57,6 +57,13 @@ export default {
 			store.findChannelBySlug(slug).then(channel => {
 				this.channel = channel
 
+				const imageId = Object.keys(channel.images)[0]
+				if (imageId) {
+					store.findImage(imageId).then(image => {
+						this.channel.image = image.src
+					})
+				}
+
 				store.findTracks(channel.id).then(tracks => {
 					// Define an extra `active` prop. Otherwise Vue won't detect changes.
 					tracks.forEach(t => t.active = false)
@@ -108,9 +115,5 @@ export default {
 	main {
 		flex: 1;
 		overflow-y: scroll;
-	}
-
-	a {
-		color: blue;
 	}
 </style>

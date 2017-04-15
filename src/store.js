@@ -9,8 +9,12 @@ export default {
 		return fetch(url).then(parse)
 			.then(data => data[0])
 	},
-	findTracks(channelId) {
-		const url = `${host}/channels/${channelId}/tracks`
+	findTracks(id) {
+		const url = `${host}/channels/${id}/tracks`
+		return fetch(url).then(parse)
+	},
+	findImage(id) {
+		const url = `${host}/images/${id}`
 		return fetch(url).then(parse)
 	}
 }
