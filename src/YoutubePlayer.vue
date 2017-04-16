@@ -54,6 +54,9 @@ export default {
 		this.player.on('ready', () => {
 			this.$emit('ready', this.player)
 		})
+		this.player.on('error', event  => {
+			this.$emit('error', event)
+		})
 		// Emit all YouTube events. 
 		this.player.on('stateChange', event => {
 			const state = stateNames[event.data]

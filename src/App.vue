@@ -9,7 +9,8 @@
 			<youtube-player
 				:video-id="track.ytid"
 				:volume="volume"
-				v-on:ready="onPlayerReady"></youtube-player>
+				@error="onPlayerError"
+				@ready="onPlayerReady"></youtube-player>
 		</aside>
 		<main>
 			<track-list
@@ -89,6 +90,9 @@ export default {
 				throw new Error(`YouTube API wasn't loaded correctly. Sorry`)
 			}
 			this.player = player
+		},
+		onPlayerError(event) {
+			console.log({youtubeError: event.data})
 		}
 	}
 }
