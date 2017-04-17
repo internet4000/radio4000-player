@@ -20,12 +20,11 @@ const stateNames = {
 
 export default {
 	name: 'youtube-player',
-	props: ['videoId', 'volume'],
+	props: ['videoId', 'volume', 'isPlaying'],
 	data() {
 		return {
-			controls: true,
 			player: {},
-			options: {
+			playerVars: {
 				controls: 1,
 				fs: 0,
 				modestbranding: 1,
@@ -38,14 +37,20 @@ export default {
 	},
 	watch: {
 		videoId(id) {
-			this.player.cueVideoById(id)
+			this.player.loadVideoById(id)
+		},
+		isPlaying(isPlaying) {
+			if(isPlaying) {
+				this.player.playVideo();
+			} else {
+				this.player.pauseVideo();
+			}
 		}
 	},
 	mounted() {
 		// Create the player.
-		const playerVars = this.options
 		const el = this.$el.querySelector('.ytplayer')
-		this.player = YouTubePlayer(el, {playerVars})
+		this.player = YouTubePlayer(el, {playerVars: this.playerVars})
 		// Emit "ready" event with the player instance.
 		this.player.on('ready', () => {
 			this.$emit('ready', this.player)

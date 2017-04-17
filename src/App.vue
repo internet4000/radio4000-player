@@ -2,114 +2,129 @@
 	<div class="Radio4000Player">
 		<header>
 			<channel-header
-				:channel="channel"
-				:track="track"></channel-header>
+:channel="channel"
+:track="track"></channel-header>
 		</header>
 
 		<aside>
 			<youtube-player
-				:video-id="track.ytid"
-				:volume="volume"
-				@error="onPlayerError"
-				@ready="onPlayerReady"
-					@ended="onPlayerEnded"></youtube-player>
+:video-id="track.ytid"
+:volume="volume"
+:isPlaying="isPlaying"
+@error="onPlayerError"
+@ready="onPlayerReady"
+@ended="onPlayerEnded"></youtube-player>
 
-			<youtube-controls v-if="controls"
-			:player="player"
-			:masterVolume="volume"></youtube-controls>
+			<player-controls
+v-if="playerReady"
+@play="play"
+@pause="pause"
+@next="next"
+				:player="player"
+				:masterVolume="volume"></player-controls>
 		</aside>
 
 		<main>
 			<track-list
-				:tracks="tracks"
-				@select="selectTrack"></track-list>
+:tracks="tracks"
+@select="selectTrack"></track-list>
 		</main>
 	</div>
 </template>
 
 <script>
-import Vue from 'vue'
-import ChannelHeader from './ChannelHeader.vue'
-import TrackList from './TrackList.vue'
-import YoutubePlayer from './YoutubePlayer.vue'
-import YoutubeControls from './YoutubeControls.vue'
-import store from './store'
+	import Vue from 'vue'
+	import ChannelHeader from './ChannelHeader.vue'
+	import TrackList from './TrackList.vue'
+	import YoutubePlayer from './YoutubePlayer.vue'
+	import PlayerControls from './PlayerControls.vue'
+	import store from './store'
 
-export default {
-	name: 'radio4000-player',
-	props: {
-		slug: String,
-		volume: Number
-	},
-	data () {
-		return {
-			channel: {
-				title: 'Loading Radio4000...'
+	export default {
+		name: 'radio4000-player',
+		components: {
+			ChannelHeader,
+			TrackList,
+			YoutubePlayer,
+			PlayerControls
+		},
+		props: {
+			slug: String,
+			volume: Number
+		},
+		data () {
+			return {
+				playerReady: false,
+				isPlaying: false,
+				channel: {
+					title: 'Loading Radio4000...'
+				},
+				tracks: [],
+				track: {}
+			}
+		},
+		created() {
+			this.model()
+		},
+		methods: {
+			selectTrack(track) {
+				this.cueTrack(track)
+				/* Vue.nextTick(this.player.playVideo)*/
 			},
-			tracks: [],
-			track: {}
-		}
-	},
-	components: {
-		ChannelHeader,
-		TrackList,
-		YoutubePlayer,
-YoutubeControls
-	},
-	created() {
-		this.model()
-	},
-	methods: {
-		selectTrack(track) {
-			this.cueTrack(track)
-			/* Vue.nextTick(this.player.playVideo)*/
-		},
-		cueTrack(track) {
-			this.tracks.forEach(t => {t.active = false})
-			track.active = true
-			this.track = track
-		},
-		// runs once on load when yt-iframe is ready
-		onPlayerReady(player) {
-			/* if (!player) {
-				 throw new Error(`YouTube API wasn't loaded correctly. Sorry`)
-				 }
-				 this.player = player*/
-		},
-		onPlayerError(event) {
-			console.log({youtubeError: event.data})
-		},
-		onPlayerEnded(event) {
-			let index = this.tracks.indexOf(this.track);
-			this.cueTrack(this.tracks[index + 1]);
-		},
-		model() {
-			let slug = this.slug
-			if (!slug) return
+			cueTrack(track) {
+				this.tracks.forEach(t => {t.active = false})
+				track.active = true
+				this.track = track
+			},
+			// runs once on load when yt-iframe is ready
+			onPlayerReady(player) {
+				this.playerReady = true;
+			},
+			onPlayerError(event) {
+				console.log({youtubeError: event.data})
+				this.next();
+			},
+			onPlayerEnded(event) {
+				this.next();
+			},
+			play() {
+				this.isPlaying = true;
+			},
+			pause() {
+				this.isPlaying = false;
+			},
+			next() {
+				let index = this.tracks.indexOf(this.track);
+				this.cueTrack(this.tracks[index + 1]);
+				this.isPlaying = true;
+			},
+			model() {
+				let slug = this.slug
+				if (!slug) return
 
-			store.findChannelBySlug(slug).then(channel => {
-				this.channel = channel
+				store.findChannelBySlug(slug).then(channel => {
+					this.channel = channel
 
-				const imageId = Object.keys(channel.images)[0]
-				if (imageId) {
-					store.findImage(imageId).then(image => {
-						this.channel.image = image.src
+					const imageId = Object.keys(channel.images)[0]
+					if (imageId) {
+						store.findImage(imageId).then(image => {
+							this.channel.image = image.src
+						})
+					}
+
+					store.findTracks(channel.id).then(tracks => {
+						// Define an extra `active` prop. Otherwise Vue won't detect changes.
+							tracks.forEach(t => t.active = false)
+						this.tracks = tracks
+						this.afterModel()
 					})
-				}
-
-				store.findTracks(channel.id).then(tracks => {
-					// Define an extra `active` prop. Otherwise Vue won't detect changes.
-					tracks.forEach(t => t.active = false)
-					this.tracks = tracks
-					this.afterModel()
 				})
-			})
-		},
-		afterModel() {
-			this.cueTrack(this.tracks[0])
-		},
+			},
+			afterModel() {
+				this.cueTrack(this.tracks[0])
+			},
+		}
 	}
-}
 </script>
 
 <style scoped>

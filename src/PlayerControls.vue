@@ -4,9 +4,9 @@
 	<div>
 		<menu id="Controls">
 			<!-- <button @click="prev">Prev</button> -->
-			<button @click="play">Play</button>
-			<button @click="pause">Pause</button>
-			<!-- <button @click="next">Next</button> -->
+			<button @click="$emit('play')">Play</button>
+			<button @click="$emit('pause')">Pause</button>
+			<button @click="$emit('next')">Next</button>
 			<!-- <button @click="mute">Mute</button> -->
 			<!-- <button @click="unMute">Unmute</button> -->
 		</menu>
@@ -15,7 +15,7 @@
 
 <script>
 	export default {
-		name: 'youtube-controls',
+		name: 'player-controls',
 		props: ['player', 'masterVolume'],
 		watch: {
 			masterVolume(vol) {
@@ -24,12 +24,8 @@
 			}
 		},
 		methods: {
-			play() { this.player.playVideo() },
-			pause() { this.player.pauseVideo() },
-			mute() { this.player.mute() },
-			unMute() { this.player.unMute() },
-			prev() {},
-			next() {}
+			mute() { this.$emit('setVolume', 0) },
+			unMute() { this.player.unMute() }
 		}
 	}
 </script>
