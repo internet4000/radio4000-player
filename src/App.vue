@@ -2,10 +2,9 @@
 	<div class="Radio4000Player">
 		<header>
 			<channel-header
-:channel="channel"
-:track="track"></channel-header>
+				:channel="channel"
+				:track="track"></channel-header>
 		</header>
-
 		<aside>
 			<youtube-player
 				:video-id="track.ytid"
@@ -19,18 +18,18 @@
 			></youtube-player>
 
 			<player-controls
-v-if="playerReady"
-@play="play"
-@pause="pause"
-@next="next"
+				v-if="playerReady"
 				:player="player"
-				:masterVolume="volume"></player-controls>
+				@play="play"
+				@pause="pause"
+				@next="next"
+			></player-controls>
 		</aside>
 
 		<main>
 			<track-list
-:tracks="tracks"
-@select="selectTrack"></track-list>
+				:tracks="tracks"
+				@select="selectTrack"></track-list>
 		</main>
 	</div>
 </template>
