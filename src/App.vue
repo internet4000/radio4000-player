@@ -5,17 +5,24 @@
 				:channel="channel"
 				:track="track"></channel-header>
 		</header>
+
 		<aside>
 			<youtube-player
 				:video-id="track.ytid"
 				:volume="volume"
 				@error="onPlayerError"
-				@ready="onPlayerReady"></youtube-player>
+				@ready="onPlayerReady"
+					@ended="onPlayerEnded"></youtube-player>
+
+			<youtube-controls v-if="controls"
+			:player="player"
+			:masterVolume="volume"></youtube-controls>
 		</aside>
+
 		<main>
 			<track-list
 				:tracks="tracks"
-				v-on:select="selectTrack"></track-list>
+				@select="selectTrack"></track-list>
 		</main>
 	</div>
 </template>
@@ -25,6 +32,7 @@ import Vue from 'vue'
 import ChannelHeader from './ChannelHeader.vue'
 import TrackList from './TrackList.vue'
 import YoutubePlayer from './YoutubePlayer.vue'
+import YoutubeControls from './YoutubeControls.vue'
 import store from './store'
 
 export default {
@@ -45,12 +53,36 @@ export default {
 	components: {
 		ChannelHeader,
 		TrackList,
-		YoutubePlayer
+		YoutubePlayer,
+YoutubeControls
 	},
 	created() {
 		this.model()
 	},
 	methods: {
+		selectTrack(track) {
+			this.cueTrack(track)
+			/* Vue.nextTick(this.player.playVideo)*/
+		},
+		cueTrack(track) {
+			this.tracks.forEach(t => {t.active = false})
+			track.active = true
+			this.track = track
+		},
+		// runs once on load when yt-iframe is ready
+		onPlayerReady(player) {
+			/* if (!player) {
+				 throw new Error(`YouTube API wasn't loaded correctly. Sorry`)
+				 }
+				 this.player = player*/
+		},
+		onPlayerError(event) {
+			console.log({youtubeError: event.data})
+		},
+		onPlayerEnded(event) {
+			let index = this.tracks.indexOf(this.track);
+			this.cueTrack(this.tracks[index + 1]);
+		},
 		model() {
 			let slug = this.slug
 			if (!slug) return
@@ -76,24 +108,6 @@ export default {
 		afterModel() {
 			this.cueTrack(this.tracks[0])
 		},
-		selectTrack(track) {
-			this.cueTrack(track)
-			Vue.nextTick(this.player.playVideo)
-		},
-		cueTrack(track) {
-			this.tracks.forEach(t => {t.active = false})
-			track.active = true
-			this.track = track
-		},
-		onPlayerReady(player) {
-			if (!player) {
-				throw new Error(`YouTube API wasn't loaded correctly. Sorry`)
-			}
-			this.player = player
-		},
-		onPlayerError(event) {
-			console.log({youtubeError: event.data})
-		}
 	}
 }
 </script>

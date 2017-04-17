@@ -1,8 +1,5 @@
 <template>
 	<div id="YoutubePlayer">
-		<youtube-controls v-if="controls"
-			:player="player"
-			:masterVolume="volume"></youtube-controls>
 		<div class="Ratio" v-show="videoId">
 			<div class="ytplayer"></div>
 		</div>
@@ -11,7 +8,6 @@
 
 <script>
 import YouTubePlayer from 'youtube-player'
-import YoutubeControls from './YoutubeControls.vue'
 
 const stateNames = {
 	'-1': 'unstarted',
@@ -62,8 +58,7 @@ export default {
 			const state = stateNames[event.data]
 			this.$emit(state, event.data)
 		})
-	},
-	components: {YoutubeControls}
+	}
 }
 </script>
 
