@@ -7,6 +7,8 @@
 </template>
 
 <script>
+// This component uses https://github.com/gajus/youtube-player
+// to abstract the youtube iframe api.
 import YouTubePlayer from 'youtube-player'
 
 const stateNames = {

@@ -16,7 +16,13 @@
 				@playing="onPlayerPlaying"
 				@ended="onPlayerEnded"
 			></youtube-player>
-
+		</aside>
+		<main>
+			<track-list
+				:tracks="tracks"
+				@select="selectTrack"></track-list>
+		</main>
+		<footer>
 			<player-controls
 				v-if="playerReady"
 				:player="player"
@@ -24,13 +30,7 @@
 				@pause="pause"
 				@next="next"
 			></player-controls>
-		</aside>
-
-		<main>
-			<track-list
-				:tracks="tracks"
-				@select="selectTrack"></track-list>
-		</main>
+		</footer>
 	</div>
 </template>
 
@@ -156,4 +156,5 @@
 		flex: 1;
 		overflow-y: scroll;
 	}
+	footer {}
 </style>
