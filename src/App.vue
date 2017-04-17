@@ -8,12 +8,15 @@
 
 		<aside>
 			<youtube-player
-:video-id="track.ytid"
-:volume="volume"
-:isPlaying="isPlaying"
-@error="onPlayerError"
-@ready="onPlayerReady"
-@ended="onPlayerEnded"></youtube-player>
+				:video-id="track.ytid"
+				:volume="volume"
+				:autoplay="autoplay"
+				:playing="playing"
+				@error="onPlayerError"
+				@ready="onPlayerReady"
+				@playing="onPlayerPlaying"
+				@ended="onPlayerEnded"
+			></youtube-player>
 
 			<player-controls
 v-if="playerReady"
@@ -55,7 +58,8 @@ v-if="playerReady"
 		data () {
 			return {
 				playerReady: false,
-				isPlaying: false,
+				autoplay: false,
+				playing: false,
 				channel: {
 					title: 'Loading Radio4000...'
 				},
@@ -64,12 +68,14 @@ v-if="playerReady"
 			}
 		},
 		created() {
-			this.model()
+			if (this.slug) {
+				this.model(this.slug)
+			}
 		},
 		methods: {
 			selectTrack(track) {
+				this.autoplay = true
 				this.cueTrack(track)
-				/* Vue.nextTick(this.player.playVideo)*/
 			},
 			cueTrack(track) {
 				this.tracks.forEach(t => {t.active = false})
@@ -78,30 +84,32 @@ v-if="playerReady"
 			},
 			// runs once on load when yt-iframe is ready
 			onPlayerReady(player) {
-				this.playerReady = true;
+				this.playerReady = true
 			},
 			onPlayerError(event) {
 				console.log({youtubeError: event.data})
-				this.next();
+				this.next()
+			},
+			onPlayerPlaying(event) {
+				this.playing = true
 			},
 			onPlayerEnded(event) {
-				this.next();
+				console.log('onPlayerEnded')
+				this.playing = false
+				this.next()
 			},
 			play() {
-				this.isPlaying = true;
+				this.playing = true
 			},
 			pause() {
-				this.isPlaying = false;
+				this.playing = false
 			},
 			next() {
-				let index = this.tracks.indexOf(this.track);
-				this.cueTrack(this.tracks[index + 1]);
-				this.isPlaying = true;
+				let index = this.tracks.indexOf(this.track)
+				this.autoplay = true
+				this.cueTrack(this.tracks[index + 1])
 			},
-			model() {
-				let slug = this.slug
-				if (!slug) return
-
+			model(slug) {
 				store.findChannelBySlug(slug).then(channel => {
 					this.channel = channel
 
@@ -122,7 +130,7 @@ v-if="playerReady"
 			},
 			afterModel() {
 				this.cueTrack(this.tracks[0])
-			},
+			}
 		}
 	}
 </script>

@@ -20,7 +20,12 @@ const stateNames = {
 
 export default {
 	name: 'youtube-player',
-	props: ['videoId', 'volume', 'isPlaying'],
+	props: [
+		'videoId',
+		'volume',
+		'autoplay',
+		'playing'
+	],
 	data() {
 		return {
 			player: {},
@@ -37,15 +42,19 @@ export default {
 	},
 	watch: {
 		videoId(id) {
-			this.player.loadVideoById(id)
-		},
-		isPlaying(isPlaying) {
-			if(isPlaying) {
-				this.player.playVideo();
+			if (this.autoplay) {
+				this.player.loadVideoById(id)
 			} else {
-				this.player.pauseVideo();
+				this.player.cueVideoById(id)
 			}
-		}
+		},
+		playing(paused) {
+			if (paused) {
+				this.player.playVideo()
+			} else {
+				this.player.pauseVideo()
+			}
+		},
 	},
 	mounted() {
 		// Create the player.
