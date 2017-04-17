@@ -58,6 +58,7 @@
 			return {
 				playerReady: false,
 				autoplay: false,
+				loop: false,
 				playing: false,
 				channel: {
 					title: 'Loading Radio4000...'
@@ -104,9 +105,19 @@
 				this.playing = false
 			},
 			next() {
-				let index = this.tracks.indexOf(this.track)
+				const index = this.tracks.indexOf(this.track)
+				let track = this.tracks[index + 1]
+
+				if (!track && this.loop) {
+					track = this.tracks[0]
+				}
+
+				if (!track) {
+					return
+				}
+
 				this.autoplay = true
-				this.cueTrack(this.tracks[index + 1])
+				this.cueTrack(track)
 			},
 			model(slug) {
 				store.findChannelBySlug(slug).then(channel => {
