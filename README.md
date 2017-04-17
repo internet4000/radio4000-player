@@ -6,7 +6,7 @@ It is an example of how you could build your own player using the official [radi
 
 ## How to use
 
-To use it, copy this snippet and change the `slug=""` part to match the radio you want to play. 
+Copy this snippet and change the `slug=""` part to match the radio you want to play. 
 
 ```html
 <script async src="https://rawgit.com/Internet4000/radio4000-player-vue/master/dist/radio4000-player.min.js"></script>
@@ -22,11 +22,12 @@ To use it, copy this snippet and change the `slug=""` part to match the radio yo
 # install dependencies
 yarn
 
-# serve with hot reload at localhost:8080
-yarn dev
+# serve with hot reload at localhost:5000
+yarn start
 
 # build for production with minification
 yarn build
 ```
 
 For more information see the [docs for vueify](https://github.com/vuejs/vueify).
+
