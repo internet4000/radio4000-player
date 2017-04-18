@@ -19,6 +19,7 @@
 		</aside>
 		<main>
 			<track-list
+					v-if="tracks"
 				:tracks="tracks"
 				@select="selectTrack"></track-list>
 		</main>
