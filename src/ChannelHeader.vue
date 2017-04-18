@@ -2,7 +2,7 @@
 	<div>
 		<a class="Logo" :href="href">
 			<img src="https://radio4000.com/apple-touch-icon.png" alt="Radio4000">
-			<img :src="channel.image" alt="Radio4000">
+			<img v-if="channel.image" :src="channel.image" alt="">
 		</a>
 		<marquee>
 			<strong>
@@ -37,9 +37,11 @@ export default {
 	}
 	.Logo {
 		display: flex;
+		width: 4rem;
 		flex-wrap: nowrap;
 	}
 	img {
+		width: 50%;
 		height: 2em;
 		vertical-align: top;
 	}
