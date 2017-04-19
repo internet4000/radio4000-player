@@ -170,7 +170,7 @@
 		height: 400px;
 		border: 1px solid hsl(0, 0%, 60%);
 		background-color: hsl(260, 10%, 92% );
-		color: hsl(0, 0, 10%);
+		color: hsl(0, 0%, 10%);
 		font-family: 'maisonneue', 'system-ui', sans-serif;
 		font-size: 1em;
 	}
