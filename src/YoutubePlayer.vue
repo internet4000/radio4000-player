@@ -1,8 +1,5 @@
 <template>
 	<div id="YoutubePlayer">
-		<youtube-controls v-if="controls"
-			:player="player"
-			:masterVolume="volume"></youtube-controls>
 		<div class="Ratio" v-show="videoId">
 			<div class="ytplayer"></div>
 		</div>
@@ -10,8 +7,9 @@
 </template>
 
 <script>
+// This component uses https://github.com/gajus/youtube-player
+// to abstract the youtube iframe api.
 import YouTubePlayer from 'youtube-player'
-import YoutubeControls from './YoutubeControls.vue'
 
 const stateNames = {
 	'-1': 'unstarted',
@@ -24,12 +22,16 @@ const stateNames = {
 
 export default {
 	name: 'youtube-player',
-	props: ['videoId', 'volume'],
+	props: [
+		'videoId',
+		'volume',
+		'autoplay',
+		'playing'
+	],
 	data() {
 		return {
-			controls: true,
 			player: {},
-			options: {
+			playerVars: {
 				controls: 1,
 				fs: 0,
 				modestbranding: 1,
@@ -42,14 +44,24 @@ export default {
 	},
 	watch: {
 		videoId(id) {
-			this.player.cueVideoById(id)
-		}
+			if (this.autoplay) {
+				this.player.loadVideoById(id)
+			} else {
+				this.player.cueVideoById(id)
+			}
+		},
+		playing(paused) {
+			if (paused) {
+				this.player.playVideo()
+			} else {
+				this.player.pauseVideo()
+			}
+		},
 	},
 	mounted() {
 		// Create the player.
-		const playerVars = this.options
 		const el = this.$el.querySelector('.ytplayer')
-		this.player = YouTubePlayer(el, {playerVars})
+		this.player = YouTubePlayer(el, {playerVars: this.playerVars})
 		// Emit "ready" event with the player instance.
 		this.player.on('ready', () => {
 			this.$emit('ready', this.player)
@@ -57,13 +69,12 @@ export default {
 		this.player.on('error', event  => {
 			this.$emit('error', event)
 		})
-		// Emit all YouTube events. 
+		// Emit all YouTube events.
 		this.player.on('stateChange', event => {
 			const state = stateNames[event.data]
 			this.$emit(state, event.data)
 		})
-	},
-	components: {YoutubeControls}
+	}
 }
 </script>
 
