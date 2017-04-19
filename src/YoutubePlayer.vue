@@ -1,6 +1,6 @@
 <template>
 	<div id="YoutubePlayer">
-		<div class="Ratio" v-show="videoId">
+		<div class="Ratio">
 			<div class="ytplayer"></div>
 		</div>
 	</div>
@@ -84,6 +84,7 @@ export default {
 
 <style scoped>
 	.Ratio {
+		background-color: black;
 		width: 100%;
 		overflow: hidden;
 		position: relative;
