@@ -1,104 +1,104 @@
 <template>
 	<div>
-		<h3>Skins</h3>
-		<p>
-			<label>
-				<input type="checkbox" v-model="skins.dark">
-				Dark
-			</label><br>
-			<label>
-				<input type="checkbox" v-model="skins.mini">
-				Mini
-			</label>
-		</p>
+			<!--
+			<p>
+				<label>
+					<input type="checkbox" v-model="skins.dark">
+					Dark
+				</label><br>
+				<label>
+					<input type="checkbox" v-model="skins.mini">
+					Mini
+				</label>
+			</p>
+			-->
+			<div class="Radio4000Player" :class="{dark: skins.dark, mini: skins.mini}">
+			<header>
+				<channel-header
+					:channel="channel"
+					:track="track"></channel-header>
+			</header>
+			<aside>
+				<youtube-player
+					:video-id="track.ytid"
+					:volume="volume"
+					:autoplay="autoplay"
+					:playing="playing"
+					@error="onPlayerError"
+					@ready="onPlayerReady"
+					@playing="onPlayerPlaying"
+					@ended="onPlayerEnded"
+				></youtube-player>
+			</aside>
+			<main>
+				<track-list
+					v-if="tracks"
+					:tracks="tracks"
+					@select="selectTrack"></track-list>
+			</main>
+			<footer>
+				<player-controls
+					v-if="playerReady"
+					:player="player"
+					:playing="playing"
+					@play="play"
+					@pause="pause"
+					@next="next"
+				></player-controls>
+			</footer>
+		</div>
+		</div>
+	</template>
 
-		<div class="Radio4000Player" :class="{dark: skins.dark, mini: skins.mini}">
-		<header>
-			<channel-header
-				:channel="channel"
-				:track="track"></channel-header>
-		</header>
-		<aside>
-			<youtube-player
-				:video-id="track.ytid"
-				:volume="volume"
-				:autoplay="autoplay"
-				:playing="playing"
-				@error="onPlayerError"
-				@ready="onPlayerReady"
-				@playing="onPlayerPlaying"
-				@ended="onPlayerEnded"
-			></youtube-player>
-		</aside>
-		<main>
-			<track-list
-				v-if="tracks"
-				:tracks="tracks"
-				@select="selectTrack"></track-list>
-		</main>
-		<footer>
-			<player-controls
-				v-if="playerReady"
-				:player="player"
-				:playing="playing"
-				@play="play"
-				@pause="pause"
-				@next="next"
-			></player-controls>
-		</footer>
-	</div>
-	</div>
-</template>
+	<script>
+		import Vue from 'vue'
+		import ChannelHeader from './ChannelHeader.vue'
+		import TrackList from './TrackList.vue'
+		import YoutubePlayer from './YoutubePlayer.vue'
+		import PlayerControls from './PlayerControls.vue'
+		import store from './store'
 
-<script>
-	import Vue from 'vue'
-	import ChannelHeader from './ChannelHeader.vue'
-	import TrackList from './TrackList.vue'
-	import YoutubePlayer from './YoutubePlayer.vue'
-	import PlayerControls from './PlayerControls.vue'
-	import store from './store'
-
-	export default {
-		name: 'radio4000-player',
-		components: {
-			ChannelHeader,
-			TrackList,
-			YoutubePlayer,
-			PlayerControls
-		},
-		props: {
-			slug: String,
-			volume: Number
-		},
-		data () {
-			return {
-				playerReady: false,
-				autoplay: false,
-				loop: false,
-				playing: false,
-				skins: {
-					mini: false,
-					dark: false
-				},
-				channel: {
-					title: 'Loading Radio4000...'
-				},
-				tracks: [],
-				track: {},
-			}
-		},
-		created() {
-			if (this.slug) {
-				this.model(this.slug)
-			}
-		},
-		methods: {
-			selectTrack(track) {
-				this.autoplay = true
-				this.cueTrack(track)
+		export default {
+			name: 'radio4000-player',
+			components: {
+				ChannelHeader,
+				TrackList,
+				YoutubePlayer,
+				PlayerControls
 			},
-			cueTrack(track) {
-				this.tracks.forEach(t => {t.active = false})
+			props: {
+				slug: String,
+				volume: Number
+			},
+			data () {
+				return {
+					playerReady: false,
+					autoplay: false,
+					loop: false,
+					playing: false,
+					skins: {
+						mini: false,
+						dark: false
+					},
+					channel: {
+						title: 'Loading Radio4000...'
+					},
+					tracks: [],
+					track: {},
+				}
+			},
+			created() {
+				if (this.slug) {
+					this.model(this.slug)
+				}
+			},
+			methods: {
+				selectTrack(track) {
+					this.autoplay = true
+					this.cueTrack(track)
+				},
+				cueTrack(track) {
+					this.tracks.forEach(t => {t.active = false})
 				track.active = true
 				this.track = track
 			},
