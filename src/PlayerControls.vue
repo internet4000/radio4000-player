@@ -13,12 +13,6 @@
 	export default {
 		name: 'player-controls',
 		props: ['player', 'volume', 'playing'],
-		watch: {
-			masterVolume(vol) {
-				console.log('not yet setting volume to ' + vol)
-				// this.player.setVolume(vol)
-			}
-		},
 		methods: {
 			/*
 			mute() { this.$emit('setVolume', 0) },

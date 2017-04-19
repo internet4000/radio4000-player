@@ -22,7 +22,6 @@
 			<aside>
 				<youtube-player
 					:video-id="track.ytid"
-					:volume="volume"
 					:autoplay="autoplay"
 					:playing="playing"
 					@error="onPlayerError"
