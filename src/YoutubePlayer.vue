@@ -57,6 +57,10 @@ export default {
 				this.player.pauseVideo()
 			}
 		},
+		volume(vol) {
+			console.log('not yet setting volume to ' + vol)
+			// this.player.setVolume(vol)
+		}
 	},
 	mounted() {
 		// Create the player.

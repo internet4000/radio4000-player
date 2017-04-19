@@ -6,7 +6,7 @@ It is an example of how you could build your own player using the official [radi
 
 ## How to use
 
-Copy this snippet and change the `slug=""` part to match the radio you want to play. 
+Copy this snippet and paste it on your own website. Remember to change the `slug=""` part to match the radio you want to play. 
 
 ```html
 <script async src="https://rawgit.com/Internet4000/radio4000-player-vue/master/dist/radio4000-player.min.js"></script>
@@ -15,6 +15,15 @@ Copy this snippet and change the `slug=""` part to match the radio you want to p
 
 - Try it out: https://jsbin.com/siluwub/4/edit?html,output
 - Find more radios: https://radio4000.com/all
+
+## API
+
+Since `<radio4000-player`> is a web component, you can change the radio currently being played like this:
+
+```js
+var player = document.querySelector('radio4000-player')
+player.slug = 'sugar-hiccup'
+```
 
 ## Development
 
