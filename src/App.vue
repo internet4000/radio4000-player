@@ -199,21 +199,21 @@
 </style>
 
 <style id="Radio4000-dark">
-	div.Radio4000Player.dark {
+	div.Radio4000Player.dark,
+	div.Radio4000Player.dark button {
+		background-color: hsl(100, 30%, 65%);
 		background-color: hsl(0, 0%, 0%);
-		border-color: hsl(0, 0%, 0%);
 		color: hsl(0, 0%, 80%);
+	}
+	div.Radio4000Player.dark {
+		border-color: hsl(0, 0%, 0%);
+	}
+	div.Radio4000Player.dark .TrackList li:before {
+		color: hsla(0, 0%, 100%, 0.5);
 	}
 	div.Radio4000Player.dark .Header-playing,
 	div.Radio4000Player.dark .active {
 		color: hsl(0, 0%, 100%);
-	}
-	div.Radio4000Player.dark .TrackList li:before {
-		color: hsl(0, 0%, 80%);
-	}
-	div.Radio4000Player.dark button {
-		background-color: hsl(0, 0%, 0%);
-		color: hsl(0, 0%, 80%);
 	}
 	div.Radio4000Player.dark .R4 {
 		fill: hsla(0, 0%, 100%, 0.3);
@@ -232,5 +232,13 @@
 	}
 	::-webkit-scrollbar-thumb:active {
 		background: rgba(0,0,0,0.61); 
+	}*/
+</style>
+
+<style id="Radio4000-purple">
+	/* needs "dark" to be active as well
+	div.Radio4000Player.dark,
+	div.Radio4000Player.dark button {
+		background-color: #5e1ae6;
 	}*/
 </style>
