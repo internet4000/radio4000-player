@@ -167,7 +167,7 @@
 		display: flex;
 		flex-direction: column;
 		max-width: 320px;
-		height: 500px;
+		height: 400px;
 		border: 1px solid hsl(0, 0%, 60%);
 		background-color: hsl(260, 10%, 92% );
 		color: hsl(0, 0, 10%);
@@ -199,24 +199,24 @@
 </style>
 
 <style id="Radio4000-dark">
-	.Radio4000Player.dark {
-		background-color: hsl(0, 0%, 10%);
-		color: hsl(0, 0%, 75%);
+	div.Radio4000Player.dark {
+		background-color: hsl(0, 0%, 0%);
 		border-color: hsl(0, 0%, 0%);
+		color: hsl(0, 0%, 80%);
 	}
-	.Radio4000Player.dark .active {
+	div.Radio4000Player.dark .Header-playing,
+	div.Radio4000Player.dark .active {
 		color: hsl(0, 0%, 100%);
 	}
-	.Radio4000Player.dark .TrackList li:before {
-		color: hsl(0, 0%, 75%);
+	div.Radio4000Player.dark .TrackList li:before {
+		color: hsl(0, 0%, 80%);
 	}
-	.Radio4000Player.dark button {
-		background-color: hsl(0, 0%, 10%);
-		border: 0;
-		color: hsl(0, 0%, 75%);
+	div.Radio4000Player.dark button {
+		background-color: hsl(0, 0%, 0%);
+		color: hsl(0, 0%, 80%);
 	}
-	.Radio4000Player.dark .R4 {
-		fill: hsla(0, 0%, 100%, 0.2);
+	div.Radio4000Player.dark .R4 {
+		fill: hsla(0, 0%, 100%, 0.3);
 	}
 	/* Dark scrollbars for later. */
 	/*

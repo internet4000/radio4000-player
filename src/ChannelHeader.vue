@@ -53,8 +53,7 @@ export default {
 		height: 1.2em;
 		fill: hsla(0, 0%, 100%, 0.9);
 	}
-	.R4 fill,
-	.R4 use {
+	.R4 * {
 		fill: inherit;
 	}
 	p,
