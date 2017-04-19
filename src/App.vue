@@ -27,6 +27,7 @@
 			<player-controls
 				v-if="playerReady"
 				:player="player"
+				:playing="playing"
 				@play="play"
 				@pause="pause"
 				@next="next"
@@ -152,21 +153,27 @@
 		flex-direction: column;
 		max-width: 320px;
 		height: 500px;
-		max-height: 95vh;
-		border: 2px solid;
-		border-right-width: 4px;
-		border-bottom-width: 4px;
-		background-color: hsla(260, 10%, 92%, 1);
-		font-family: 'system-ui', sans-serif;
+		border: 1px solid hsl(0, 0%, 60%);
+		background-color: hsl(260, 10%, 92% );
+		font-family: 'maisonneue', 'system-ui', sans-serif;
 		font-size: 1em;
 	}
-	header {
-		border-bottom: 1px solid hsla(0, 0%, 0%, 0.8);
-	}
+	header {}
 	aside {}
 	main {
 		flex: 1;
 		overflow-y: scroll;
+		overflow-x: hidden;
 	}
 	footer {}
+</style>
+
+<style>
+	/* Mini skin. Hides track list and "play/pause" button */
+	/*
+	.Radio4000Player {height: auto !important;}
+	.Radio4000Player main {display: none;}
+	.Radio4000Player menu {border-top: 0;}
+	.Radio4000Player menu button:first-child {display: none;}
+	*/
 </style>

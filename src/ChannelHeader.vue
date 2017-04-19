@@ -1,18 +1,18 @@
 <template>
-	<div>
-		<a class="Logo" :href="href">
-			<img src="https://radio4000.com/apple-touch-icon.png" alt="Radio4000">
+	<div class="Header">
+		<a class="Logo" :href="href" target="_blank">
 			<img v-if="channel.image" :src="channel.image" alt="">
 		</a>
+		<div>
+			<p>
+			<strong>&nbsp;&nbsp;{{channel.title}}</strong><br>
+			</p>
 		<marquee>
-			<strong>
-				{{channel.title}}
-			</strong>
-			<em>{{channel.body}}</em>
 			<transition name="fade">
 				<span v-if="track.title">{{track.title}}</span>
 			</transition>
 		</marquee>
+		</div>
 	</div>
 </template>
 
@@ -29,27 +29,26 @@ export default {
 </script>
 
 <style scoped>
-	div {
+	.Header {
+		min-height: 2.75em;
 		display: flex;
 		flex-wrap: nowrap;
 		align-items: center;
-		font-size: 0.875em;
 	}
-	.Logo {
-		display: flex;
-		width: 4rem;
-		flex-wrap: nowrap;
+	.Header > div {
+		flex: 1;
 	}
-	img {
-		width: 50%;
-		height: 2em;
-		vertical-align: top;
-	}
-	a {
-		color: black;
-		text-decoration: none;
+	p,
+	marquee {
+		margin: 0;
+		font-size: 0.8125em;
 	}
 	marquee {
+		display: block;
+	}
+	img {
+		height: 2.75em;
+		vertical-align: top;
 		display: block;
 	}
 	.fade-enter-active,
