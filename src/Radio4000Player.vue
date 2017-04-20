@@ -124,7 +124,6 @@ export default {
 			this.playing = true
 		},
 		onPlayerEnded(event) {
-			console.log('onPlayerEnded')
 			this.playing = false
 			this.next()
 		},
@@ -249,3 +248,4 @@ div.Radio4000Player.dark button {
 background-color: #5e1ae6;
 }*/
 </style>
+
