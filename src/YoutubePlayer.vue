@@ -45,7 +45,11 @@ export default {
 	watch: {
 		videoId(id) {
 			if (this.autoplay) {
-				this.player.loadVideoById(id)
+				this.player.loadVideoById(id).then(() => {
+					// This extra "play" is needed on at least
+					// Chrome on Android 4.2. Otherwise it stays "buffering".
+					this.player.playVideo()
+				})
 			} else {
 				this.player.cueVideoById(id)
 			}
