@@ -25,9 +25,6 @@ export default {
 		margin: 0.6em 0 0;
 		font-size: 0.8125em;
 		line-height: 1.7;
-		/* Reverse the order so newest is on top */
-		display: flex;
-		flex-direction: column-reverse;
 	}
 	li {
 		padding: 0 0.3em;

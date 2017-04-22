@@ -16,6 +16,32 @@ export default {
 	findImage(id) {
 		const url = `${host}/images/${id}`
 		return fetch(url).then(parse)
+	},
+	async findAll(slug) {
+		let channel = await this.findChannelBySlug(slug)
+
+		let tracks = await this.findTracks(channel.id)
+
+		let imageId = Object.keys(channel.images)[0]
+		let image
+		if (imageId) {
+			image = await this.findImage(imageId)
+		}
+
+		channel = {
+			title: channel.title,
+			slug: channel.slug,
+			body: channel.body
+		}
+
+		if (image) {
+			channel.image = image.src
+		}
+
+		return {
+			channel,
+			tracks
+		}
 	}
 }
 

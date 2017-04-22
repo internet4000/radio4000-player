@@ -1,54 +1,45 @@
 <template>
-	<div>
-		<!--
-		<p>
-			<label>
-				<input type="checkbox" v-model="skins.dark">
-				Dark
-			</label><br>
-			<label>
-				<input type="checkbox" v-model="skins.mini">
-				Mini
-			</label>
-		</p>
-		-->
-		<div class="Radio4000Player" :class="{dark: skins.dark, mini: skins.mini}">
-			<header>
-				<channel-header
-					:channel="channel"
-					:image="image"
-					:track="track"></channel-header>
-			</header>
-			<aside>
-				<youtube-player
-					:video-id="track.ytid"
-					:autoplay="autoplay"
-					:playing="playing"
-					@error="onPlayerError"
-					@ready="onPlayerReady"
-					@playing="onPlayerPlaying"
-					@ended="onPlayerEnded"
-					></youtube-player>
-			</aside>
-			<main>
-				<track-list
-				v-if="tracks"
-				:tracks="tracks"
+	<div class="Radio4000Player" :class="{dark: skins.dark, mini: skins.mini}">
+		<header>
+			<channel-header
+				:channel="channel"
+				:track="track"></channel-header>
+		</header>
+		<aside>
+			<youtube-player
+				:video-id="track.ytid"
+				:autoplay="autoplay"
+				:playing="playing"
+				@error="onPlayerError"
+				@ready="onPlayerReady"
+				@playing="onPlayerPlaying"
+				@ended="onPlayerEnded"></youtube-player>
+		</aside>
+		<main>
+			<track-list
+				v-if="playlist"
+				:tracks="playlist"
 				@select="selectTrack"></track-list>
 		</main>
 		<footer>
+			<!--
+			<label>
+				<input type="checkbox" v-model="skins.dark"> Dark
+			</label>
+			<label>
+				<input type="checkbox" v-model="skins.mini"> Mini
+			</label>
+			-->
 			<player-controls
 				v-if="playerReady"
 				:player="player"
 				:playing="playing"
 				@play="play"
 				@pause="pause"
-				@next="next"
-				></player-controls>
+				@next="next"></player-controls>
 		</footer>
 	</div>
-</div>
-	</template>
+</template>
 
 	<script>
 import Vue from 'vue'
@@ -84,31 +75,36 @@ export default {
 				title: 'Loading Radio4000...'
 			},
 			tracks: [],
-			track: {},
-			image: ''
+			track: {}
 		}
 	},
 	created() {
 		if (this.slug) {
-			this.model(this.slug).then(data => {
-				this.cueTrack(data.tracks[0])
-			})
+			this.loadAndQueue(this.slug)
 		}
 	},
 	watch: {
-		slug: function (a) {
-			this.model(this.slug).then(data => {
-				this.cueTrack(data.tracks[0])
-			})
+		slug: function (slug) {
+			this.loadAndQueue(slug)
+		}
+	},
+	computed: {
+		playlist: function() {
+			return this.tracks.reverse()
 		}
 	},
 	methods: {
+		loadAndQueue(slug) {
+			this.model(slug).then(() => {
+				this.cueTrack(this.playlist[0])
+			})
+		},
 		selectTrack(track) {
 			this.autoplay = true
 			this.cueTrack(track)
 		},
 		cueTrack(track) {
-			this.tracks.forEach(t => {t.active = false})
+			this.playlist.forEach(t => {t.active = false})
 			track.active = true
 			this.track = track
 		},
@@ -134,10 +130,11 @@ export default {
 			this.playing = false
 		},
 		next() {
-			const index = this.tracks.indexOf(this.track)
-			let track = this.tracks[index + 1]
+			let playlist = this.playlist
+			const index = playlist.indexOf(this.track)
+			let track = playlist[index + 1]
 			if (!track && this.loop) {
-				track = this.tracks[0]
+				track = playlist[0]
 			}
 			if (!track) {
 				return
@@ -146,23 +143,15 @@ export default {
 			this.cueTrack(track)
 		},
 		model(slug) {
-			return store.findChannelBySlug(slug).then(channel => {
-				this.channel = channel
-				const imageId = Object.keys(channel.images)[0]
-				if (imageId) {
-					store.findImage(imageId).then(image => {
-						this.image = image.src
-					})
-				}
-				return store.findTracks(channel.id).then(tracks => {
-					// Define an extra `active` prop. Otherwise Vue won't detect changes.
-					tracks.forEach(t => t.active = false)
-					this.tracks = tracks
-					return {channel, tracks}
+			return store.findAll(slug)
+				.then(data => {
+					this.channel = data.channel
+					data.tracks.forEach(t => {t.active = false})
+					this.tracks = data.tracks
 				})
-			})
-		},
-		afterModel() {
+				.catch(err => {
+					console.log(err)
+				})
 		}
 	}
 }
