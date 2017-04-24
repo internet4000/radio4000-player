@@ -95,7 +95,7 @@ export default {
 	},
 	methods: {
 		loadAndQueue(slug) {
-			this.model(slug).then(() => {
+			this.fetchModel(slug).then(() => {
 				this.cueTrack(this.playlist[0])
 			})
 		},
@@ -142,11 +142,11 @@ export default {
 			this.autoplay = true
 			this.cueTrack(track)
 		},
-		model(slug) {
+		fetchModel(slug) {
 			return store.findAll(slug)
 				.then(data => {
-					this.channel = data.channel
 					data.tracks.forEach(t => {t.active = false})
+					this.channel = data.channel
 					this.tracks = data.tracks
 				})
 				.catch(err => {

@@ -19,11 +19,15 @@ export default {
 	},
 	async findAll(slug) {
 		let channel = await this.findChannelBySlug(slug)
-
 		let tracks = await this.findTracks(channel.id)
 
-		let imageId = Object.keys(channel.images)[0]
+		// If there's an image, fetch and embed it on the channel.
+		// This can be removed once new r4 api is deployed.
+		let imageId
 		let image
+		if (channel.images) {
+			imageId = Object.keys(channel.images)[0]
+		}
 		if (imageId) {
 			image = await this.findImage(imageId)
 		}
