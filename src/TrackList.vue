@@ -23,13 +23,21 @@ export default {
 <style scoped>
 	ol {
 		margin: 0.6em 0 0;
-		padding: 0;
 		font-size: 0.8125em;
 		line-height: 1.7;
+	}
+	li {
+		padding: 0 0.3em;
+	}
+
+	/* Add counter because it looks slightly better 
+		than the default list numbers.*/
+	ol {
+		padding: 0;
+		list-style: none;
 		counter-reset: tracks;
 	}
 	li {
-		padding: 0 0.6em;
 		display: flex;
 	}
 	li::before {

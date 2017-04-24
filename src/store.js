@@ -16,6 +16,36 @@ export default {
 	findImage(id) {
 		const url = `${host}/images/${id}`
 		return fetch(url).then(parse)
+	},
+	async findAll(slug) {
+		let channel = await this.findChannelBySlug(slug)
+		let tracks = await this.findTracks(channel.id)
+
+		// If there's an image, fetch and embed it on the channel.
+		// This can be removed once new r4 api is deployed.
+		let imageId
+		let image
+		if (channel.images) {
+			imageId = Object.keys(channel.images)[0]
+		}
+		if (imageId) {
+			image = await this.findImage(imageId)
+		}
+
+		channel = {
+			title: channel.title,
+			slug: channel.slug,
+			body: channel.body
+		}
+
+		if (image) {
+			channel.image = image.src
+		}
+
+		return {
+			channel,
+			tracks
+		}
 	}
 }
 
