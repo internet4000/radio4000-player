@@ -1,5 +1,5 @@
 <template>
-	<div class="Radio4000Player" :class="{dark: skins.dark, mini: skins.mini}">
+	<article>
 		<header>
 			<channel-header
 				:channel="channel"
@@ -22,14 +22,6 @@
 				@select="selectTrack"></track-list>
 		</main>
 		<footer>
-			<!--
-			<label>
-				<input type="checkbox" v-model="skins.dark"> Dark
-			</label>
-			<label>
-				<input type="checkbox" v-model="skins.mini"> Mini
-			</label>
-			-->
 			<player-controls
 				v-if="playerReady"
 				:player="player"
@@ -38,7 +30,7 @@
 				@pause="pause"
 				@next="next"></player-controls>
 		</footer>
-	</div>
+	</article>
 </template>
 
 	<script>
@@ -158,7 +150,7 @@ export default {
 </script>
 
 <style scoped>
-.Radio4000Player {
+article {
 	display: flex;
 	flex-direction: column;
 	max-width: 320px;
@@ -181,53 +173,31 @@ footer {}
 
 <style id="Radio4000-mini">
 /* Mini skin. Hides track list and "play/pause" button */
-/*
-.Radio4000Player {height: auto !important;}
-.Radio4000Player main {display: none;}
-.Radio4000Player menu {border-top: 0;}
-.Radio4000Player menu button:first-child {display: none;}
- */
-.Radio4000Player.mini {height: auto !important;}
-.Radio4000Player.mini main {display: none;}
-.Radio4000Player.mini menu {border-top: 0;}
-.Radio4000Player.mini menu button:first-child {display: none;}
+radio4000-player.mini article {height: auto !important;}
+radio4000-player.mini main {display: none;}
+radio4000-player.mini menu {border-top: 0;}
+radio4000-player.mini menu button:first-child {display: none;}
 </style>
 
 <style id="Radio4000-dark">
-div.Radio4000Player.dark,
-div.Radio4000Player.dark button {
-	background-color: hsl(100, 30%, 65%);
+radio4000-player.dark article,
+radio4000-player.dark button {
 	background-color: hsl(0, 0%, 0%);
 	color: hsl(0, 0%, 80%);
 }
-div.Radio4000Player.dark {
+radio4000-player.dark article {
 	border-color: hsl(0, 0%, 0%);
 }
-div.Radio4000Player.dark .TrackList li:before {
+radio4000-player.dark .TrackList li:before {
 	color: hsla(0, 0%, 100%, 0.5);
 }
-div.Radio4000Player.dark .Header-playing,
-div.Radio4000Player.dark .active {
+radio4000-player.dark .Header-playing,
+radio4000-player.dark .active {
 	color: hsl(0, 0%, 100%);
 }
-div.Radio4000Player.dark .R4 {
+radio4000-player.dark .R4 {
 	fill: hsla(0, 0%, 100%, 0.3);
 }
-/* Dark scrollbars for later. */
-/*
-::-webkit-scrollbar {
-background-color: hsla(0, 0%, 50%, 0.4);
-width: 0.75em;
-}
-::-webkit-scrollbar:hover {
-background-color: hsla(0, 0%, 50%, 0.6);
-}
-::-webkit-scrollbar-thumb {
-background-color: hsla(0, 0%, 50%, 0.4);
-}
-::-webkit-scrollbar-thumb:active {
-background: rgba(0,0,0,0.61); 
-}*/
 </style>
 
 <style id="Radio4000-purple">
