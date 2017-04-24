@@ -27,23 +27,27 @@ player.slug = 'sugar-hiccup'
 
 ## Skins
 
-We encourage you to customize the player just how you like. If you're familiar with CSS, you can write your own styles targeting the `<radio4000-player>` element. For instance, try putting this next to where you embed the player:
+We encourage you to customize the player just how you like. I
+
+For the rest of us, we have two built-in skins: *mini* and *dark*. To use either one of them, or both together, use one of these:
 
 ```html
+<radio4000-player class="mini"></radio4000-player>
+<radio4000-player class="dark"></radio4000-player>
+<radio4000-player class="mini dark"></radio4000-player>
+```
+
+If you're familiar with CSS, you can write your own styles targeting the `<radio4000-player>` element. For instance, try putting this next to where you embed the player:
+
+```html
+<radio4000-player class="black-and-yellow"></radio4000-player>
 <style>
-radio4000-player {
+radio4000-player.black-and-yellow {
 	background-color: yellow;
 	color: black;
 }
 </style>
 ```
-
-For the rest of us, we have two built-in skins: *mini* and *dark*. To use either one of them, or both, add the classes like this:
-
-
-- <radio4000-player class="mini"></radio4000-player>
-- <radio4000-player class="dark"></radio4000-player>
-- <radio4000-player class="mini dark"></radio4000-player>
 
 ## Development
 
