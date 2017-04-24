@@ -149,11 +149,18 @@ export default {
 }
 </script>
 
+<style>
+radio4000-player {
+	display: block;
+	width: 320px;
+	overflow: hidden;
+}
+</style>
+
 <style scoped>
 article {
 	display: flex;
 	flex-direction: column;
-	max-width: 320px;
 	height: 400px;
 	border: 1px solid hsl(0, 0%, 60%);
 	background-color: hsl(260, 10%, 92% );
