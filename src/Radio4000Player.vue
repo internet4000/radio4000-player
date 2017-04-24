@@ -153,7 +153,13 @@ export default {
 radio4000-player {
 	display: block;
 	width: 320px;
+	height: 400px;
 	overflow: hidden;
+	border: 1px solid hsl(0, 0%, 60%);
+	background-color: hsl(260, 10%, 92% );
+	color: hsl(0, 0%, 10%);
+	font-family: 'maisonneue', 'system-ui', sans-serif;
+	font-size: 1em;
 }
 </style>
 
@@ -161,12 +167,7 @@ radio4000-player {
 article {
 	display: flex;
 	flex-direction: column;
-	height: 400px;
-	border: 1px solid hsl(0, 0%, 60%);
-	background-color: hsl(260, 10%, 92% );
-	color: hsl(0, 0%, 10%);
-	font-family: 'maisonneue', 'system-ui', sans-serif;
-	font-size: 1em;
+	height: 100%;
 }
 header {}
 aside {}
@@ -180,19 +181,19 @@ footer {}
 
 <style id="Radio4000-mini">
 /* Mini skin. Hides track list and "play/pause" button */
-radio4000-player.mini article {height: auto !important;}
+radio4000-player.mini {height: auto !important;}
 radio4000-player.mini main {display: none;}
 radio4000-player.mini menu {border-top: 0;}
 radio4000-player.mini menu button:first-child {display: none;}
 </style>
 
 <style id="Radio4000-dark">
-radio4000-player.dark article,
+radio4000-player.dark,
 radio4000-player.dark button {
 	background-color: hsl(0, 0%, 0%);
 	color: hsl(0, 0%, 80%);
 }
-radio4000-player.dark article {
+radio4000-player.dark {
 	border-color: hsl(0, 0%, 0%);
 }
 radio4000-player.dark .TrackList li:before {

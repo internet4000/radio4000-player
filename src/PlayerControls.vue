@@ -40,10 +40,6 @@
 		border: 0;
 		font-size: 0.8125em;
 	}
-	button:hover,
-	button:focus {
-		background: hsl(0, 0%, 100%);
-	}
 	input[type="range"] {
 		width: 100%;
 	}

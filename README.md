@@ -18,12 +18,32 @@ Copy this snippet and paste it on your own website. Remember to change the `slug
 
 ## API
 
-Since `<radio4000-player`> is a web component, you can change the radio currently being played like this:
+Since `<radio4000-player`> is a web component, you can change the radio currently being played by changing the `slug` attribute:
 
 ```js
 var player = document.querySelector('radio4000-player')
 player.slug = 'sugar-hiccup'
 ```
+
+## Skins
+
+We encourage you to customize the player just how you like. If you're familiar with CSS, you can write your own styles targeting the `<radio4000-player>` element. For instance, try putting this next to where you embed the player:
+
+```html
+<style>
+radio4000-player {
+	background-color: yellow;
+	color: black;
+}
+</style>
+```
+
+For the rest of us, we have two built-in skins: *mini* and *dark*. To use either one of them, or both, add the classes like this:
+
+
+- <radio4000-player class="mini"></radio4000-player>
+- <radio4000-player class="dark"></radio4000-player>
+- <radio4000-player class="mini dark"></radio4000-player>
 
 ## Development
 
