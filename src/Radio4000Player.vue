@@ -185,6 +185,7 @@ radio4000-player.mini {height: auto !important;}
 radio4000-player.mini main {display: none;}
 radio4000-player.mini menu {border-top: 0;}
 radio4000-player.mini menu button:first-child {display: none;}
+radio4000-player.mini footer {margin-top:auto}
 </style>
 
 <style id="Radio4000-dark">
@@ -206,13 +207,5 @@ radio4000-player.dark .active {
 radio4000-player.dark .R4 {
 	fill: hsla(0, 0%, 100%, 0.3);
 }
-</style>
-
-<style id="Radio4000-purple">
-/* needs "dark" to be active as well
-div.Radio4000Player.dark,
-div.Radio4000Player.dark button {
-background-color: #5e1ae6;
-}*/
 </style>
 

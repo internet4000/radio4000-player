@@ -11,19 +11,42 @@
 
 		<!-- <script src="https://rawgit.com/Internet4000/radio4000-player-vue/master/dist/radio4000-player.min.js" async></script> -->
 		<script async src="dist/radio4000-player.js"></script>
+
+		<div class="Grid">
 		<radio4000-player slug="200ok"></radio4000-player>
-		<br>
-		<radio4000-player slug="elevator-music" class="dark"></radio4000-player>
-		<br>
-		<radio4000-player slug="elevator-music" class="mini"></radio4000-player>
-		<br>
-		<radio4000-player slug="elevator-music" class="dark mini"></radio4000-player>
+		<!-- <radio4000-player slug="200ok" class="dark purple"></radio4000-player> -->
+		<!-- <radio4000-player slug="elevator-music" class="dark"></radio4000-player> -->
+		<!-- <radio4000-player slug="elevator-music" class="dark lakers"></radio4000-player> -->
+		</div>
+
+		<!-- <div class="Grid"> -->
+		<!-- <radio4000-player slug="elevator-music" class="mini"></radio4000-player> -->
+		<!-- <radio4000-player slug="elevator-music" class="dark mini"></radio4000-player> -->
+		<!-- <radio4000-player slug="elevator-music" class="lakers dark mini"></radio4000-player> -->
+		<!-- </div> -->
 
 		<style>
-			/* Styles for this demo. */
-			body {
-				margin: 1rem;
-			}
+		/* Styles for this demo. */
+		body {
+			margin: 1rem;
+		}
+		radio4000-player {
+			margin: 1rem;
+		}
+		@media (min-width: 700px) {
+			.Grid {display: flex;}
+		}
+		/* Lakers skin */
+		radio4000-player.lakers {
+			background: linear-gradient(to bottom, purple 50%, yellow);
+		}
+		/* Radio4000 skin */
+		radio4000-player.dark.purple,
+		radio4000-player.dark.purple button {
+		background-color: #5e1ae6;
+		}
+</style>
+
 		</style>
 
 	</body>
