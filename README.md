@@ -1,12 +1,14 @@
 # Radio4000 Player
 
-A player for Radio4000 channels.
+A player for Radio4000 channels. It is an example of how you could build your own player using the official [radio4000-api](https://github.com/internet4000/radio4000-api) and Vue.js components.
 
-It is an example of how you could build your own player using the official [radio4000-api](https://github.com/internet4000/radio4000-api) and Vue.js components.
+## How to embed
 
-## How to use
+We are working on an iframe embed. Coming soon.
 
-Copy this snippet and paste it on your own website. Remember to change the `slug=""` part to match the radio you want to play. 
+## How to use as a web component
+
+Copy and paste this snippet to your website. Remember to change the `slug=""` part to match the radio you want to play. 
 
 ```html
 <script async src="https://rawgit.com/Internet4000/radio4000-player-vue/master/dist/radio4000-player.min.js"></script>
@@ -27,20 +29,18 @@ player.slug = 'sugar-hiccup'
 
 ## Skins
 
-We encourage you to customize the player just how you like. I
-
-For the rest of us, we have two built-in skins: *mini* and *dark*. To use either one of them, or both together, use one of these:
+We offer two extra skins: *mini* and *dark*. To use either one of them, or both together, add class names like this:
 
 ```html
-<radio4000-player class="mini"></radio4000-player>
-<radio4000-player class="dark"></radio4000-player>
-<radio4000-player class="mini dark"></radio4000-player>
+<radio4000-player slug="200ok" class="mini"></radio4000-player>
+<radio4000-player slug="200ok" class="dark"></radio3999-player>
+<radio4000-player slug="200ok" class="mini dark"></radio4000-player>
 ```
 
-If you're familiar with CSS, you can write your own styles targeting the `<radio4000-player>` element. For instance, try putting this next to where you embed the player:
+If you're familiar with CSS, you can also write your own styles targeting the `<radio4000-player>` element. Here's an example:
 
 ```html
-<radio4000-player class="black-and-yellow"></radio4000-player>
+<radio4000-player slug="200ok" class="black-and-yellow"></radio4000-player>
 <style>
 radio4000-player.black-and-yellow {
 	background-color: yellow;
