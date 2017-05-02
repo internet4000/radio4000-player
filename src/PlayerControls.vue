@@ -39,9 +39,7 @@
 		background: hsl(0, 0%, 96%);
 		border: 0;
 		font-size: 0.8125em;
-	}
-	input[type="range"] {
-		width: 100%;
+		padding: 0.2em 0.5em 0.1em;
 	}
 </style>
 

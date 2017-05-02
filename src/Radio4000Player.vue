@@ -192,7 +192,7 @@ radio4000-player.mini footer {margin-top:auto}
 radio4000-player.dark,
 radio4000-player.dark button {
 	background-color: hsl(0, 0%, 0%);
-	color: hsl(0, 0%, 80%);
+	color: hsl(0, 0%, 90%);
 }
 radio4000-player.dark {
 	border-color: hsl(0, 0%, 0%);

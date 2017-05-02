@@ -41,6 +41,7 @@ export default {
 	}
 	.Header > div {
 		flex: 1;
+		line-height: 1.4;
 	}
 	.Header-title {
 		margin-left: 0.3em;
@@ -51,7 +52,8 @@ export default {
 		right: 0.2em;
 		width: 1.2em;
 		height: 1.2em;
-		fill: hsla(0, 0%, 100%, 0.9);
+		/*fill: hsla(0, 0%, 100%, 0.9);*/
+		fill: hsla(0, 0%, 30%, 0.1);
 	}
 	.R4 * {
 		fill: inherit;
@@ -65,6 +67,7 @@ export default {
 		display: block;
 	}
 	img {
+		width: 2.75em;
 		height: 2.75em;
 		vertical-align: top;
 		display: block;
