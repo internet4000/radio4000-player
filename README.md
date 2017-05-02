@@ -8,7 +8,7 @@ We are working on an iframe embed. Coming soon.
 
 ## How to use as a web component
 
-Copy and paste this snippet to your website. Remember to change the `slug=""` part to match the radio you want to play. 
+Copy and paste this snippet to your website. Remember to change the `slug=""` part to match the radio you want to play.
 
 ```html
 <script async src="https://rawgit.com/Internet4000/radio4000-player-vue/master/dist/radio4000-player.min.js"></script>
@@ -29,23 +29,23 @@ player.slug = 'sugar-hiccup'
 
 ## Skins
 
-We offer two extra skins: *mini* and *dark*. To use either one of them, or both together, add class names like this:
+We offer a dark skin and a mini one. To use, add or combine the classes. Here are some examples:
 
 ```html
 <radio4000-player slug="200ok" class="mini"></radio4000-player>
-<radio4000-player slug="200ok" class="dark"></radio3999-player>
+<radio4000-player slug="200ok" class="dark"></radio4000-player>
 <radio4000-player slug="200ok" class="mini dark"></radio4000-player>
 ```
 
-If you're familiar with CSS, you can also write your own styles targeting the `<radio4000-player>` element. Here's an example:
+If you're familiar with CSS, you can also write your own styles targeting the `<radio4000-player>` element. Here's another example:
 
 ```html
 <radio4000-player slug="200ok" class="black-and-yellow"></radio4000-player>
 <style>
-radio4000-player.black-and-yellow {
-	background-color: yellow;
-	color: black;
-}
+	radio4000-player.black-and-yellow {
+		background-color: yellow;
+		color: black;
+	}
 </style>
 ```
 
@@ -61,6 +61,4 @@ yarn start
 # build for production with minification
 yarn build
 ```
-
-For more information see the [docs for vueify](https://github.com/vuejs/vueify).
 
