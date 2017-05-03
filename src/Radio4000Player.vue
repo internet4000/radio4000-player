@@ -10,6 +10,7 @@
 				:video-id="track.ytid"
 				:autoplay="autoplay"
 				:playing="playing"
+				:volume="volume"
 				@error="onPlayerError"
 				@ready="onPlayerReady"
 				@playing="onPlayerPlaying"

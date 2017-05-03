@@ -20,11 +20,18 @@ Copy and paste this snippet to your website. Remember to change the `slug=""` pa
 
 ## API
 
-Since `<radio4000-player`> is a web component, you can change the radio currently being played by changing the `slug` attribute:
+To switch the radio, change the `slug` attribute: 
 
 ```js
 var player = document.querySelector('radio4000-player')
 player.slug = 'sugar-hiccup'
+```
+
+To control the volume, change the `volume` attribute:
+
+```js
+var player = document.querySelector('radio4000-player')
+player.volume = 50
 ```
 
 ## Skins

@@ -62,14 +62,20 @@ export default {
 			}
 		},
 		volume(vol) {
-			console.log('not yet setting volume to ' + vol)
-			// this.player.setVolume(vol)
+			if (!player) return
+			this.player.setVolume(vol)
 		}
 	},
 	mounted() {
 		// Create the player.
 		const el = this.$el.querySelector('.ytplayer')
 		this.player = YouTubePlayer(el, {playerVars: this.playerVars})
+
+		// Set initial volume.
+		if (this.volume !== undefined) {
+			this.player.setVolume(this.volume)
+		}
+
 		// Emit "ready" event with the player instance.
 		this.player.on('ready', () => {
 			this.$emit('ready', this.player)
