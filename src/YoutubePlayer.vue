@@ -62,8 +62,7 @@ export default {
 			}
 		},
 		volume(vol) {
-			if (!player) return
-			this.player.setVolume(vol)
+			this.setVolume(vol)
 		}
 	},
 	mounted() {
@@ -72,9 +71,7 @@ export default {
 		this.player = YouTubePlayer(el, {playerVars: this.playerVars})
 
 		// Set initial volume.
-		if (this.volume !== undefined) {
-			this.player.setVolume(this.volume)
-		}
+		this.setVolume(this.volume)
 
 		// Emit "ready" event with the player instance.
 		this.player.on('ready', () => {
@@ -88,6 +85,13 @@ export default {
 			const state = stateNames[event.data]
 			this.$emit(state, event.data)
 		})
+	},
+	methods: {
+		setVolume(vol) {
+			if (this.player && vol !== undefined) {
+				this.player.setVolume(vol)
+			}
+		}
 	}
 }
 </script>
