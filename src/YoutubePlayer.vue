@@ -93,6 +93,7 @@ export default {
 		overflow: hidden;
 		position: relative;
 		height: 0;
+		padding-bottom: 56.25%;
 		padding-bottom: calc(9/16*100%);
 	}
 </style>
