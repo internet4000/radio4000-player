@@ -1,8 +1,7 @@
 <template>
 	<div id="YoutubePlayer">
-		<div class="Ratio">
-			<div class="ytplayer"></div>
-		</div>
+		<div class="Ratio"></div>
+		<div class="ytplayer"></div>
 	</div>
 </template>
 
@@ -97,11 +96,14 @@ export default {
 </script>
 
 <style scoped>
-	.Ratio {
-		background-color: black;
-		width: 100%;
-		overflow: hidden;
+	#YoutubePlayer {
 		position: relative;
+		background-color: black;
+		height: 25vh;
+		overflow: hidden;
+	}
+	.Ratio {
+		width: 100%;
 		height: 0;
 		padding-bottom: 56.25%;
 		padding-bottom: calc(9/16*100%);
@@ -109,7 +111,7 @@ export default {
 </style>
 
 <style>
-	.Ratio iframe {
+	#YoutubePlayer iframe {
 		position: absolute;
 		top: 0;
 		left: 0;
