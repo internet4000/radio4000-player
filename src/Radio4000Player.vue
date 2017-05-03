@@ -153,7 +153,7 @@ export default {
 <style>
 radio4000-player {
 	display: block;
-	width: 320px;
+	width: 352px; /* wide enough to show youtube time */
 	height: 400px;
 	overflow: hidden;
 	border: 1px solid hsl(0, 0%, 60%);
@@ -183,7 +183,7 @@ footer {}
 
 <style id="Radio4000-mini">
 /* Mini skin. Hides track list and "play/pause" button */
-radio4000-player.mini {height: auto !important;}
+radio4000-player.mini {max-width: 320px; height: auto !important;}
 radio4000-player.mini main {display: none;}
 radio4000-player.mini menu {border-top: 0;}
 radio4000-player.mini menu button:first-child {display: none;}
