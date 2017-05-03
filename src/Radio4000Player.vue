@@ -160,6 +160,7 @@ radio4000-player {
 	color: hsl(0, 0%, 10%);
 	font-family: 'maisonneue', 'system-ui', sans-serif;
 	font-size: 1em;
+	box-sizing: border-box;
 }
 </style>
 
