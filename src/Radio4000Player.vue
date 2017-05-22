@@ -88,6 +88,7 @@ export default {
 	},
 	methods: {
 		loadAndQueue(slug) {
+			this.channel.title = `Loading "${slug}"...`
 			this.fetchModel(slug).then(() => {
 				this.cueTrack(this.playlist[0])
 			})
@@ -97,6 +98,7 @@ export default {
 			this.cueTrack(track)
 		},
 		cueTrack(track) {
+			if (!this.playlist.length) return
 			this.playlist.forEach(t => {t.active = false})
 			track.active = true
 			this.track = track
@@ -142,8 +144,12 @@ export default {
 					this.channel = data.channel
 					this.tracks = data.tracks
 				})
-				.catch(err => {
-					console.log(err)
+				.catch(() => {
+					this.channel = {
+						title: `Could not find the radio: "${slug}"`
+					}
+					this.tracks = []
+					this.track = {}
 				})
 		}
 	}

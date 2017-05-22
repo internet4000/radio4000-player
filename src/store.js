@@ -19,6 +19,9 @@ export default {
 	},
 	async findAll(slug) {
 		let channel = await this.findChannelBySlug(slug)
+		if (!channel) {
+			throw new Error(`Could not find channel with slug: "${slug}"`)
+		}
 		let tracks = await this.findTracks(channel.id)
 
 		// If there's an image, fetch and embed it on the channel.

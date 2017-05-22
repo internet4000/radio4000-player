@@ -65,6 +65,7 @@ export default {
 	}
 	marquee {
 		display: block;
+		min-height: 1em; /* avoid jumps */
 	}
 	img {
 		width: 2.75em;
