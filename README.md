@@ -11,11 +11,11 @@ We are working on an iframe embed. Coming soon.
 Copy and paste this snippet to your website. Remember to change the `slug=""` part to match the radio you want to play.
 
 ```html
-<script async src="https://rawgit.com/Internet4000/radio4000-player-vue/master/dist/radio4000-player.min.js"></script>
+<script async src="https://rawgit.com/internet4000/radio4000-player-vue/master/dist/radio4000-player.min.js"></script>
 <radio4000-player slug="good-time-radio"></radio4000-player>
 ```
 
-- Try it out: https://jsbin.com/siluwub/4/edit?html,output
+- Try it out: https://jsbin.com/kevipe/1/edit?html,output
 - Find more radios: https://radio4000.com/all
 
 ## API
