@@ -5,7 +5,7 @@
 	"private": true,
 	"scripts": {
 		"watchify": "watchify -vd -p browserify-hmr -e src/main.js -o dist/radio4000-player.js",
-		"serve": "serve",
+		"serve": "serve -c 1",
 		"start": "npm-run-all --parallel watchify serve",
 		"build": "cross-env NODE_ENV=production browserify -g envify src/main.js | babili > dist/radio4000-player.min.js"
 	},
