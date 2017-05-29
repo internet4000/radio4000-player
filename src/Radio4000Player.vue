@@ -196,9 +196,8 @@
 				this.cueTrack(track)
 			},
 			cueTrack(track) {
-				/* if (!this.playlist.length) return
-					 this.playlist.forEach(t => {t.active = false})
-					 track.active = true*/
+				this.playlist.forEach(t => {t.active = false})
+				track.active = true
 				this.track = track
 			},
 			// runs once on load when yt-iframe is ready
