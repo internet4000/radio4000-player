@@ -83,9 +83,7 @@ export default {
 				mini: false,
 				dark: false
 			},
-			channel: {
-				title: 'Loading Radio4000...'
-			},
+			channel: {},
 			image: '',
 			tracks: [],
 			track: {}
@@ -123,11 +121,8 @@ export default {
 	},
 	methods: {
 		loadAndQueueBySlug(slug) {
-			this.channel.title = `Loading "${slug}"...`
 			this.fetchModelBySlug(slug)
-					.then(() => {
-				this.cueTrack(this.playlist[0])
-			});
+					.then(this.updatePlayerWithChannel)
 		},
 		loadAndQueueById(id) {
 			this.fetchModelById(id)
@@ -199,13 +194,7 @@ export default {
 			this.cueTrack(track)
 		},
 		fetchModelBySlug(slug) {
-			return findChannelBySlug(slug)
-				.then(data => {
-					data.tracks.forEach(t => {t.active = false})
-					this.updatePlayerWithChannel(data.channel);
-					this.updatePlayerWithTracks(data.tracks);
-				})
-				.catch(this.handleError)
+			return findChannelBySlug(slug).catch(this.handleError)
 		},
 		fetchModelById(id) {
 			return findChannelById(id).catch(this.handleError)
