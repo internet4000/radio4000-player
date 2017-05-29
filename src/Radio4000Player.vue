@@ -8,14 +8,14 @@
 		</header>
 		<aside>
 			<youtube-player
-				:video-id="track.ytid"
-				:autoplay="autoplay"
-				:playing="playing"
-				:volume="volume"
-				@error="onPlayerError"
-				@ready="onPlayerReady"
-				@playing="onPlayerPlaying"
-				@ended="onPlayerEnded"></youtube-player>
+					:video-id="track.ytid"
+					:autoplay="autoplay"
+					:playing="playing"
+					:volume="volume"
+					@error="onPlayerError"
+					@ready="onPlayerReady"
+					@playing="onPlayerPlaying"
+					@ended="onPlayerEnded"></youtube-player>
 		</aside>
 		<main v-if="showTrack">
 			<track-current
@@ -24,42 +24,42 @@
 		</main>
 		<main v-if="showTracks">
 			<track-list
-				v-if="playlist"
-				:tracks="playlist"
-				@select="selectTrack"></track-list>
+					v-if="playlist"
+					:tracks="playlist"
+					@select="selectTrack"></track-list>
 		</main>
 		<footer>
 			<player-controls
-				v-if="playerReady"
-				:player="player"
-				:playing="playing"
-				@play="play"
-				@pause="pause"
-				@next="next"></player-controls>
+					v-if="playerReady"
+					:player="player"
+					:playing="playing"
+					@play="play"
+					@pause="pause"
+					@next="next"></player-controls>
 		</footer>
 	</article>
 </template>
 
 <script>
-import Vue from 'vue'
-import ChannelHeader from './ChannelHeader.vue'
-import TrackList from './TrackList.vue'
-import YoutubePlayer from './YoutubePlayer.vue'
-import PlayerControls from './PlayerControls.vue'
-import { findAll,
-				 findChannelById,
-				 findChannelBySlug,
-				 findChannelTracks,
-				 findChannelImage} from './store'
+	import Vue from 'vue'
+	import ChannelHeader from './ChannelHeader.vue'
+	import TrackList from './TrackList.vue'
+	import YoutubePlayer from './YoutubePlayer.vue'
+	import PlayerControls from './PlayerControls.vue'
+	import { findAll,
+					 findChannelById,
+					 findChannelBySlug,
+					 findChannelTracks,
+					 findChannelImage} from './store'
 
-export default {
-	name: 'radio4000-player',
-	components: {
-		ChannelHeader,
-		TrackList,
-		YoutubePlayer,
-		PlayerControls
-	},
+	export default {
+		name: 'radio4000-player',
+		components: {
+			ChannelHeader,
+			TrackList,
+			YoutubePlayer,
+			PlayerControls
+		},
 		props: {
 			slug: String,
 			id: String,
@@ -72,204 +72,216 @@ export default {
 				type: Boolean,
 				default: false
 			}
-	},
-	data () {
-		return {
-			playerReady: false,
-			autoplay: false,
-			loop: false,
-			playing: false,
-			skins: {
-				mini: false,
-				dark: false
-			},
-			channel: {},
-			image: '',
-			tracks: [],
-			track: {}
-		}
-	},
+		},
+		data () {
+			return {
+				playerReady: false,
+				autoplay: false,
+				loop: false,
+				playing: false,
+				skins: {
+					mini: false,
+					dark: false
+				},
+				channel: {},
+				image: '',
+				tracks: [],
+				track: {}
+			}
+		},
+		// init 1 - from what `key` do we load channel data?
 		created() {
 			const { slug, id } = this;
-			
 			if (slug) {
 				return this.loadAndQueueBySlug(slug)
 			} else if (id) {
 				return this.loadAndQueueById(id)
 			}
-	},
-	watch: {
-		slug: function (slug) {
-			this.loadAndQueueBySlug(slug)
 		},
-		id: function (id) {
-			this.loadAndQueueById(id)
-		},
-		channel: function(channel) {
-			this.loadChannelImage(channel).then(image => {
-				console.log('img loaded', image)
-			});
-			this.loadChannelTracks(channel).then(() => {
-				console.log('tracks loaded')
-			});
-		}
-	},
-	computed: {
-		playlist: function() {
-			return this.tracks.reverse()
-		}
-	},
-	methods: {
-		loadAndQueueBySlug(slug) {
-			this.fetchModelBySlug(slug)
-					.then(this.updatePlayerWithChannel)
-		},
-		loadAndQueueById(id) {
-			this.fetchModelById(id)
-					.then(this.updatePlayerWithChannel)
-		},
-		loadChannelTracks(channel) {
-			return findChannelTracks(channel.id)
-				.then(this.updatePlayerWithTracks)
-		},
-		loadChannelImage(channel) {
-			if(!channel.images) {
-				return
+		watch: {
+			// init bis,
+			// `slug` and `id` are only used to assign radio externally
+			// by the <radio4000-player> web component props
+			slug: function (slug) {
+				this.loadAndQueueBySlug(slug)
+			},
+			id: function (id) {
+				this.loadAndQueueById(id)
+			},
+			// when channel is set, load img and tracks
+			channel: function(channel) {
+				this.loadChannelImage(channel).then(image => {
+					console.log('img loaded', image)
+				});
+				this.loadChannelTracks(channel).then(() => {
+					console.log('tracks loaded')
+				});
 			}
-			return findChannelImage(channel)
-				.then(this.updatePlayerWithImage)
 		},
-		updatePlayerWithChannel(channel) {
-			this.channel = channel;
-		},
-		updatePlayerWithTracks(tracks) {
-			this.tracks = tracks;
-		},
-		updatePlayerWithImage(image) {
-			console.log('this.image = image.src', this.image = image.src)
-			return this.image = image.src;
-		},
-		selectTrack(track) {
-			this.autoplay = true
-			this.cueTrack(track)
-		},
-		cueTrack(track) {
-			if (!this.playlist.length) return
-			this.playlist.forEach(t => {t.active = false})
-			track.active = true
-			this.track = track
-		},
-		// runs once on load when yt-iframe is ready
-		onPlayerReady(player) {
-			this.playerReady = true
-		},
-		onPlayerError(event) {
-			console.log({youtubeError: event.data})
-			this.next()
-		},
-		onPlayerPlaying(event) {
-			this.playing = true
-		},
-		onPlayerEnded(event) {
-			this.playing = false
-			this.next()
-		},
-		play() {
-			this.playing = true
-		},
-		pause() {
-			this.playing = false
-		},
-		next() {
-			let playlist = this.playlist
-			const index = playlist.indexOf(this.track)
-			let track = playlist[index + 1]
-			if (!track && this.loop) {
-				track = playlist[0]
+		computed: {
+			playlist: function() {
+				return this.tracks.reverse()
 			}
-			if (!track) {
-				return
+		},
+		methods: {
+			/* 
+				 player data loading
+			 */
+			loadAndQueueBySlug(slug) {
+				this.fetchModelBySlug(slug)
+						.then(this.updatePlayerWithChannel)
+			},
+			loadAndQueueById(id) {
+				this.fetchModelById(id)
+						.then(this.updatePlayerWithChannel)
+			},
+			loadChannelTracks(channel) {
+				return findChannelTracks(channel.id)
+					.then(this.updatePlayerWithTracks)
+			},
+			loadChannelImage(channel) {
+				if(!channel.images) {
+					return
+				}
+				return findChannelImage(channel)
+					.then(this.updatePlayerWithImage)
+			},
+			updatePlayerWithChannel(channel) {
+				this.channel = channel;
+			},
+			updatePlayerWithTracks(tracks) {
+				this.tracks = tracks;
+			},
+			updatePlayerWithImage(image) {
+				console.log('this.image = image.src', this.image = image.src)
+				return this.image = image.src;
+			},
+
+			
+			/* 
+ 				 player controls
+ 			 */
+			selectTrack(track) {
+				this.autoplay = true
+				this.cueTrack(track)
+			},
+			cueTrack(track) {
+				if (!this.playlist.length) return
+				this.playlist.forEach(t => {t.active = false})
+				track.active = true
+				this.track = track
+			},
+			// runs once on load when yt-iframe is ready
+			onPlayerReady(player) {
+				this.playerReady = true
+			},
+			onPlayerError(event) {
+				console.log({youtubeError: event.data})
+				this.next()
+			},
+			onPlayerPlaying(event) {
+				this.playing = true
+			},
+			onPlayerEnded(event) {
+				this.playing = false
+				this.next()
+			},
+			play() {
+				this.playing = true
+			},
+			pause() {
+				this.playing = false
+			},
+			next() {
+				let playlist = this.playlist
+				const index = playlist.indexOf(this.track)
+				let track = playlist[index + 1]
+				if (!track && this.loop) {
+					track = playlist[0]
+				}
+				if (!track) {
+					return
+				}
+				this.autoplay = true
+				this.cueTrack(track)
+			},
+			fetchModelBySlug(slug) {
+				return findChannelBySlug(slug).catch(this.handleError)
+			},
+			fetchModelById(id) {
+				return findChannelById(id).catch(this.handleError)
+			},
+			handleError(error) {
+				console.warn(error);
+				this.channel = {
+					title: `Could not find the radio, wrong <slug> or <id>`
+				}
+				this.tracks = []
+				this.track = {}
 			}
-			this.autoplay = true
-			this.cueTrack(track)
-		},
-		fetchModelBySlug(slug) {
-			return findChannelBySlug(slug).catch(this.handleError)
-		},
-		fetchModelById(id) {
-			return findChannelById(id).catch(this.handleError)
-		},
-		handleError(error) {
-			console.warn(error);
-			this.channel = {
-				title: `Could not find the radio, wrong <slug> or <id>`
-			}
-			this.tracks = []
-			this.track = {}
 		}
 	}
-}
 </script>
 
 <style>
-radio4000-player {
-	display: block;
-	width: 352px; /* wide enough to show youtube time */
-	max-width: 100%;
-	height: 400px;
-	overflow: hidden;
-	border: 1px solid hsl(0, 0%, 60%);
-	background-color: hsl(260, 10%, 92% );
-	color: hsl(0, 0%, 10%);
-	font-family: 'maisonneue', 'system-ui', sans-serif;
-	font-size: 1em;
-	box-sizing: border-box;
-}
+	radio4000-player {
+		display: block;
+		width: 352px; /* wide enough to show youtube time */
+		max-width: 100%;
+		height: 400px;
+		overflow: hidden;
+		border: 1px solid hsl(0, 0%, 60%);
+		background-color: hsl(260, 10%, 92% );
+		color: hsl(0, 0%, 10%);
+		font-family: 'maisonneue', 'system-ui', sans-serif;
+		font-size: 1em;
+		box-sizing: border-box;
+	}
 </style>
 
 <style scoped>
-article {
-	display: flex;
-	flex-direction: column;
-	height: 100%;
-}
-header {}
-aside {}
-main {
-	flex: 1;
-	overflow-y: scroll;
-	overflow-x: hidden;
-}
-footer {}
+	article {
+		display: flex;
+		flex-direction: column;
+		height: 100%;
+	}
+	header {}
+	aside {}
+	main {
+		flex: 1;
+		overflow-y: scroll;
+		overflow-x: hidden;
+	}
+	footer {}
 </style>
 
 <style id="Radio4000-mini">
-/* Mini skin. Hides track list and "play/pause" button */
-radio4000-player.mini {max-width: 320px; height: auto !important;}
-radio4000-player.mini main {display: none;}
-radio4000-player.mini menu {border-top: 0;}
-radio4000-player.mini menu button:first-child {display: none;}
-radio4000-player.mini footer {margin-top:auto}
+	/* Mini skin. Hides track list and "play/pause" button */
+	radio4000-player.mini {max-width: 320px; height: auto !important;}
+	radio4000-player.mini main {display: none;}
+	radio4000-player.mini menu {border-top: 0;}
+	radio4000-player.mini menu button:first-child {display: none;}
+	radio4000-player.mini footer {margin-top:auto}
 </style>
 
 <style id="Radio4000-dark">
-radio4000-player.dark,
-radio4000-player.dark button {
-	background-color: hsl(0, 0%, 0%);
-	color: hsl(0, 0%, 90%);
-}
-radio4000-player.dark {
-	border-color: hsl(0, 0%, 0%);
-}
-radio4000-player.dark .TrackList li:before {
-	color: hsla(0, 0%, 100%, 0.5);
-}
-radio4000-player.dark .Header-playing,
-radio4000-player.dark .active {
-	color: hsl(0, 0%, 100%);
-}
-radio4000-player.dark .R4 {
-	fill: hsla(0, 0%, 100%, 0.3);
-}
+	radio4000-player.dark,
+	radio4000-player.dark button {
+		background-color: hsl(0, 0%, 0%);
+		color: hsl(0, 0%, 90%);
+	}
+	radio4000-player.dark {
+		border-color: hsl(0, 0%, 0%);
+	}
+	radio4000-player.dark .TrackList li:before {
+		color: hsla(0, 0%, 100%, 0.5);
+	}
+	radio4000-player.dark .Header-playing,
+	radio4000-player.dark .active {
+		color: hsl(0, 0%, 100%);
+	}
+	radio4000-player.dark .R4 {
+		fill: hsla(0, 0%, 100%, 0.3);
+	}
 </style>
 
