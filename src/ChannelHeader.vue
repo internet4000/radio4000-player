@@ -1,7 +1,10 @@
 <template>
 	<div class="Header">
-		<a :href="href" target="_blank" title="Check this radio on Radio4000">
-			<img v-if="channel.image" :src="channel.image" alt="">
+		<a :href="href"
+			 target="_blank"
+			 title="Check this radio on Radio4000"
+			 class="Header-image">
+			<img v-if="image" :src="image" alt="">
 		</a>
 		<div>
 			<p class="Header-title">
@@ -22,7 +25,7 @@
 <script>
 export default {
 	name: 'channel-header',
-	props: ['channel', 'track'],
+	props: ['channel', 'track', 'image'],
 	computed: {
 		href: function () {
 			return `https://radio4000.com/${this.channel.slug}`
@@ -67,11 +70,14 @@ export default {
 		display: block;
 		min-height: 1em; /* avoid jumps */
 	}
-	img {
+	.Header-image {
 		width: 2.75em;
 		height: 2.75em;
+	}
+	.Header-image img {
 		vertical-align: top;
 		display: block;
+		width: 100%;
 	}
 	.fade-enter-active,
 	.fade-leave-active {

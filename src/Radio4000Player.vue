@@ -2,8 +2,9 @@
 	<article>
 		<header>
 			<channel-header
-				:channel="channel"
-				:track="track"></channel-header>
+					:channel="channel"
+					:image="image"
+					:track="track"></channel-header>
 		</header>
 		<aside>
 			<youtube-player
@@ -47,7 +48,9 @@ import YoutubePlayer from './YoutubePlayer.vue'
 import PlayerControls from './PlayerControls.vue'
 import { findAll,
 				 findChannelById,
-				 findChannelTracks } from './store'
+				 findChannelBySlug,
+				 findChannelTracks,
+				 findChannelImage} from './store'
 
 export default {
 	name: 'radio4000-player',
@@ -83,13 +86,13 @@ export default {
 			channel: {
 				title: 'Loading Radio4000...'
 			},
+			image: '',
 			tracks: [],
 			track: {}
 		}
 	},
 		created() {
 			const { slug, id } = this;
-			console.log(id)
 			
 			if (slug) {
 				return this.loadAndQueueBySlug(slug)
@@ -105,7 +108,12 @@ export default {
 			this.loadAndQueueById(id)
 		},
 		channel: function(channel) {
-			this.loadChannelTracks(channel);
+			this.loadChannelImage(channel).then(image => {
+				console.log('img loaded', image)
+			});
+			this.loadChannelTracks(channel).then(() => {
+				console.log('tracks loaded')
+			});
 		}
 	},
 	computed: {
@@ -116,23 +124,35 @@ export default {
 	methods: {
 		loadAndQueueBySlug(slug) {
 			this.channel.title = `Loading "${slug}"...`
-			this.fetchModelBySlug(slug).then(() => {
+			this.fetchModelBySlug(slug)
+					.then(() => {
 				this.cueTrack(this.playlist[0])
 			});
 		},
 		loadAndQueueById(id) {
 			this.fetchModelById(id)
-					.then(this.updatePlayerWithChannel)			
+					.then(this.updatePlayerWithChannel)
+		},
+		loadChannelTracks(channel) {
+			return findChannelTracks(channel.id)
+				.then(this.updatePlayerWithTracks)
+		},
+		loadChannelImage(channel) {
+			if(!channel.images) {
+				return
+			}
+			return findChannelImage(channel)
+				.then(this.updatePlayerWithImage)
 		},
 		updatePlayerWithChannel(channel) {
 			this.channel = channel;
 		},
-		loadChannelTracks(channel) {
-			findChannelTracks(channel.id)
-					.then(this.updatePlayerWithTracks)
-		},
 		updatePlayerWithTracks(tracks) {
 			this.tracks = tracks;
+		},
+		updatePlayerWithImage(image) {
+			console.log('this.image = image.src', this.image = image.src)
+			return this.image = image.src;
 		},
 		selectTrack(track) {
 			this.autoplay = true
@@ -179,22 +199,24 @@ export default {
 			this.cueTrack(track)
 		},
 		fetchModelBySlug(slug) {
-			return findAll(slug)
+			return findChannelBySlug(slug)
 				.then(data => {
 					data.tracks.forEach(t => {t.active = false})
 					this.updatePlayerWithChannel(data.channel);
 					this.updatePlayerWithTracks(data.tracks);
 				})
-				.catch(() => {
-					this.channel = {
-						title: `Could not find the radio: "${slug}"`
-					}
-					this.tracks = []
-					this.track = {}
-				})
+				.catch(this.handleError)
 		},
 		fetchModelById(id) {
-			return findChannelById(id);
+			return findChannelById(id).catch(this.handleError)
+		},
+		handleError(error) {
+			console.warn(error);
+			this.channel = {
+				title: `Could not find the radio, wrong <slug> or <id>`
+			}
+			this.tracks = []
+			this.track = {}
 		}
 	}
 }
