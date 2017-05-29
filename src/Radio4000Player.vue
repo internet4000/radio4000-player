@@ -16,7 +16,12 @@
 				@playing="onPlayerPlaying"
 				@ended="onPlayerEnded"></youtube-player>
 		</aside>
-		<main>
+		<main v-if="showTrack">
+			<track-current
+					v-if="playlist"
+					:track="track"></track-current>
+		</main>
+		<main v-if="showTracks">
 			<track-list
 				v-if="playlist"
 				:tracks="playlist"
@@ -34,13 +39,15 @@
 	</article>
 </template>
 
-	<script>
+<script>
 import Vue from 'vue'
 import ChannelHeader from './ChannelHeader.vue'
 import TrackList from './TrackList.vue'
 import YoutubePlayer from './YoutubePlayer.vue'
 import PlayerControls from './PlayerControls.vue'
-import store from './store'
+import { findAll,
+				 findChannelById,
+				 findChannelTracks } from './store'
 
 export default {
 	name: 'radio4000-player',
@@ -50,9 +57,18 @@ export default {
 		YoutubePlayer,
 		PlayerControls
 	},
-	props: {
-		slug: String,
-		volume: Number
+		props: {
+			slug: String,
+			id: String,
+			volume: Number,
+			showTracks: {
+				type: Boolean,
+				default: true
+			},
+			showCurentTrack: {
+				type: Boolean,
+				default: false
+			}
 	},
 	data () {
 		return {
@@ -71,14 +87,25 @@ export default {
 			track: {}
 		}
 	},
-	created() {
-		if (this.slug) {
-			this.loadAndQueue(this.slug)
-		}
+		created() {
+			const { slug, id } = this;
+			console.log(id)
+			
+			if (slug) {
+				return this.loadAndQueueBySlug(slug)
+			} else if (id) {
+				return this.loadAndQueueById(id)
+			}
 	},
 	watch: {
 		slug: function (slug) {
-			this.loadAndQueue(slug)
+			this.loadAndQueueBySlug(slug)
+		},
+		id: function (id) {
+			this.loadAndQueueById(id)
+		},
+		channel: function(channel) {
+			this.loadChannelTracks(channel);
 		}
 	},
 	computed: {
@@ -87,11 +114,25 @@ export default {
 		}
 	},
 	methods: {
-		loadAndQueue(slug) {
+		loadAndQueueBySlug(slug) {
 			this.channel.title = `Loading "${slug}"...`
-			this.fetchModel(slug).then(() => {
+			this.fetchModelBySlug(slug).then(() => {
 				this.cueTrack(this.playlist[0])
-			})
+			});
+		},
+		loadAndQueueById(id) {
+			this.fetchModelById(id)
+					.then(this.updatePlayerWithChannel)			
+		},
+		updatePlayerWithChannel(channel) {
+			this.channel = channel;
+		},
+		loadChannelTracks(channel) {
+			findChannelTracks(channel.id)
+					.then(this.updatePlayerWithTracks)
+		},
+		updatePlayerWithTracks(tracks) {
+			this.tracks = tracks;
 		},
 		selectTrack(track) {
 			this.autoplay = true
@@ -137,12 +178,12 @@ export default {
 			this.autoplay = true
 			this.cueTrack(track)
 		},
-		fetchModel(slug) {
-			return store.findAll(slug)
+		fetchModelBySlug(slug) {
+			return findAll(slug)
 				.then(data => {
 					data.tracks.forEach(t => {t.active = false})
-					this.channel = data.channel
-					this.tracks = data.tracks
+					this.updatePlayerWithChannel(data.channel);
+					this.updatePlayerWithTracks(data.tracks);
 				})
 				.catch(() => {
 					this.channel = {
@@ -151,6 +192,9 @@ export default {
 					this.tracks = []
 					this.track = {}
 				})
+		},
+		fetchModelById(id) {
+			return findChannelById(id);
 		}
 	}
 }
