@@ -46,11 +46,11 @@
 	import TrackList from './TrackList.vue'
 	import YoutubePlayer from './YoutubePlayer.vue'
 	import PlayerControls from './PlayerControls.vue'
-	import { findAll,
-					 findChannelById,
+	import { findChannelById,
 					 findChannelBySlug,
 					 findChannelTracks,
-					 findChannelImage} from './store'
+					 findChannelImage,
+					 findTrack } from './store'
 
 	export default {
 		name: 'radio4000-player',
@@ -63,6 +63,7 @@
 		props: {
 			slug: String,
 			id: String,
+			trackId: String,
 			volume: Number,
 			showTracks: {
 				type: Boolean,
@@ -91,11 +92,13 @@
 		},
 		// init 1 - from what `key` do we load channel data?
 		created() {
-			const { slug, id } = this;
+			const { slug, id, trackId } = this;
 			if (slug) {
-				return this.loadAndQueueBySlug(slug)
+				return this.loadBySlug(slug)
 			} else if (id) {
-				return this.loadAndQueueById(id)
+				return this.loadById(id)
+			} else if (trackId) {
+				return this.loadByTrackId(trackId)
 			}
 		},
 		watch: {
@@ -103,19 +106,16 @@
 			// `slug` and `id` are only used to assign radio externally
 			// by the <radio4000-player> web component props
 			slug: function (slug) {
-				this.loadAndQueueBySlug(slug)
+				this.cleanPlayer()
+				this.loadBySlug(slug)
 			},
 			id: function (id) {
-				this.loadAndQueueById(id)
+				this.loadById(id)
 			},
 			// when channel is set, load img and tracks
 			channel: function(channel) {
-				this.loadChannelImage(channel).then(image => {
-					console.log('img loaded', image)
-				});
-				this.loadChannelTracks(channel).then(() => {
-					console.log('tracks loaded')
-				});
+				this.loadChannelImage(channel);
+				this.loadChannelTracks(channel);
 			}
 		},
 		computed: {
@@ -127,13 +127,20 @@
 			/* 
 				 player data loading
 			 */
-			loadAndQueueBySlug(slug) {
+			loadBySlug(slug) {
 				this.fetchModelBySlug(slug)
 						.then(this.updatePlayerWithChannel)
 			},
-			loadAndQueueById(id) {
+			loadById(id) {
 				this.fetchModelById(id)
 						.then(this.updatePlayerWithChannel)
+			},
+			loadByTrackId(trackId) {
+				findTrack(trackId).then(track => {
+					this.selectTrack(track);
+					this.fetchModelById(track.channel)
+							.then(this.updatePlayerWithChannel)
+				})
 			},
 			loadChannelTracks(channel) {
 				return findChannelTracks(channel.id)
@@ -156,7 +163,19 @@
 				console.log('this.image = image.src', this.image = image.src)
 				return this.image = image.src;
 			},
-
+			fetchModelBySlug(slug) {
+				return findChannelBySlug(slug).catch(this.handleFetchError)
+			},
+			fetchModelById(id) {
+				return findChannelById(id).catch(this.handleFetchError)
+			},
+			handleFetchError(error) {
+				console.warn(error);
+				this.channel = {
+					title: `Could not find the radio, wrong <slug> or <id>`
+				}
+				this.cleanPlayer();
+			},
 			
 			/* 
  				 player controls
@@ -166,9 +185,9 @@
 				this.cueTrack(track)
 			},
 			cueTrack(track) {
-				if (!this.playlist.length) return
-				this.playlist.forEach(t => {t.active = false})
-				track.active = true
+				/* if (!this.playlist.length) return
+					 this.playlist.forEach(t => {t.active = false})
+					 track.active = true*/
 				this.track = track
 			},
 			// runs once on load when yt-iframe is ready
@@ -205,19 +224,11 @@
 				this.autoplay = true
 				this.cueTrack(track)
 			},
-			fetchModelBySlug(slug) {
-				return findChannelBySlug(slug).catch(this.handleError)
-			},
-			fetchModelById(id) {
-				return findChannelById(id).catch(this.handleError)
-			},
-			handleError(error) {
-				console.warn(error);
-				this.channel = {
-					title: `Could not find the radio, wrong <slug> or <id>`
-				}
+			cleanPlayer() {
+				this.channel = {}
 				this.tracks = []
 				this.track = {}
+				this.image = ''
 			}
 		}
 	}
