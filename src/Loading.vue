@@ -18,7 +18,7 @@
 
 <style scoped>
 	.Loading {
-		
+		font-size: 0.9rem;
 	}
 	.Loading.isAnimated {
 		display: block;
@@ -41,7 +41,6 @@
 	}
 	.TrackList .Loading {
     padding: 0 0.5rem;
-    font-size: 0.9rem;
 	}
 	.Header-image .Loading {
 		position: absolute;
