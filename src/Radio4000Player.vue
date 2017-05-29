@@ -91,16 +91,16 @@
 			}
 		},
 		// init 1 - from what `key` do we load channel data?
-		created() {
-			const { slug, id, trackId } = this;
-			if (slug) {
-				return this.loadBySlug(slug)
-			} else if (id) {
-				return this.loadById(id)
-			} else if (trackId) {
-				return this.loadByTrackId(trackId)
-			}
-		},
+					 created() {
+						 const { slug, id, trackId } = this;
+						 if (slug) {
+							 return this.loadBySlug(slug)
+						 } else if (id) {
+							 return this.loadById(id)
+						 } else if (trackId) {
+							 return this.loadByTrackId(trackId)
+						 }
+					 },
 		watch: {
 			// init bis,
 			// `slug` and `id` are only used to assign radio externally
@@ -129,11 +129,23 @@
 			 */
 			loadBySlug(slug) {
 				this.fetchModelBySlug(slug)
-						.then(this.updatePlayerWithChannel)
+						.then(channel => {
+							this.updatePlayerWithChannel(channel);
+							// not sure why -1 is needed
+							var len = channel.tracks.length -1
+							return findTrack(channel.tracks[len])
+								.then(this.selectTrack);
+						})
 			},
 			loadById(id) {
 				this.fetchModelById(id)
-						.then(this.updatePlayerWithChannel)
+						.then(channel => {
+							this.updatePlayerWithChannel(channel);
+							// not sure why -1 is needed
+							var len = channel.tracks.length -1
+							return findTrack(channel.tracks[len])
+								.then(this.selectTrack);
+						})
 			},
 			loadByTrackId(trackId) {
 				findTrack(trackId).then(track => {
