@@ -172,7 +172,6 @@
 				this.tracks = tracks;
 			},
 			updatePlayerWithImage(image) {
-				console.log('this.image = image.src', this.image = image.src)
 				return this.image = image.src;
 			},
 			fetchModelBySlug(slug) {
