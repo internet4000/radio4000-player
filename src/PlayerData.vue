@@ -94,7 +94,6 @@
 				return findChannelBySlug(slug)
 					.then(this.updatePlayerWithChannel)
 					.then(this.startSessionFirstTrack)
-
 			},
 			startById(id) {
 				return findChannelById(id)
