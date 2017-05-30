@@ -101,7 +101,7 @@
 			// all start method must return a `channel@r4` model
 			startBySlug(slug) {
 				return this.fetchChannelBySlug(slug)
-									 .then(updatePlayerWithChannel)
+									 .then(this.updatePlayerWithChannel)
 									 .then(this.startSessionFirstTrack)
 
 			},
