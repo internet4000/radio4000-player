@@ -16,6 +16,15 @@
 					 findChannelImage,
 					 findTrack } from './store'
 
+	/* function initialState() {
+		 return {
+		 channel: {},
+		 image: '',
+		 tracks: [],
+		 track: {}
+		 }
+		 }*/
+
 	export default {
 		name: 'player-data',
 		components: {
@@ -36,6 +45,7 @@
 			}
 		},
 		data () {
+			/* return initialState()*/
 			return {
 				channel: {},
 				image: '',
@@ -47,11 +57,11 @@
 			// init 1 - from what `key` do we load channel data?
 			const { slug, id, trackId } = this;
 			if (slug) {
-				return this.loadBySlug(slug)
+				return this.startR4Session(this.startBySlug, slug)
 			} else if (id) {
-				return this.loadById(id)
+				return this.startR4Session(this.startById, id)
 			} else if (trackId) {
-				return this.loadByTrackId(trackId)
+				return this.startR4Session(this.startByTrackId, trackId)
 			}
 		},
 		watch: {
@@ -59,53 +69,64 @@
 			// `slug` and `id` are only used to assign radio externally
 			// by the <radio4000-player> web component props
 			slug: function (slug) {
-				this.loadBySlug(slug)
+				this.startR4Session(this.startBySlug, slug)
+				
 			},
 			id: function (id) {
-				this.loadById(id)
+				this.startR4Session(this.startById, id)
 			},
-			// when channel is set, load img and tracks
-			channel: function(channel) {
-				this.loadChannelImage(channel);
-				this.loadChannelTracks(channel);
-			}
 		},
 		methods: {
-			/* 
-				 player data loading
-			 */
-			loadBySlug(slug) {
-				this.fetchModelBySlug(slug)
-						.then(channel => {
-							this.updatePlayerWithChannel(channel);
-							// not sure why -1 is needed
-							var len = channel.tracks.length -1
-							return findTrack(channel.tracks[len])
-								.then(this.updatePlayerWithTrack);
-						})
-			},
-			loadById(id) {
-				this.fetchModelById(id)
-						.then(channel => {
-							this.updatePlayerWithChannel(channel);
-							// not sure why -1 is needed
-							var len = channel.tracks.length -1
-							return findTrack(channel.tracks[len])
-								.then(this.updatePlayerWithTrack);
-						})
-			},
-			loadByTrackId(trackId) {
-				findTrack(trackId).then(track => {	
-					this.updatePlayerWithTrack(track);
-					this.fetchModelById(track.channel)
-							.then(this.updatePlayerWithChannel)
+			cleanR4Session() {
+				return new Promise((resolve, reject) => {
+					/* resolve(this.$data = initialState());*/
+					resolve(console.log('-- clearR4Session --'))
 				})
 			},
+			startR4Session(startMethod, param) {
+				startMethod(param).then(() => {
+					console.log('this', this.channel)
+					this.loadChannelImage(this.channel)
+					this.loadChannelTracks(this.channel)
+				})
+			},
+
+			// start player session by:
+			// all start method must return a `channel@r4` model
+			startBySlug(slug) {
+				return this.fetchChannelBySlug(slug)
+						.then(channel => {
+							this.updatePlayerWithChannel(channel);
+
+							var len = channel.tracks.length -1
+							return findTrack(channel.tracks[len])
+						})
+									 .then(this.updatePlayerWithTrack)
+			},
+			startById(id) {
+				return this.fetchChannelById(id)
+									 .then(this.updatePlayerWithChannel)
+									 .then(channel => {
+										 var len = channel.tracks.length -1
+										 return findTrack(channel.tracks[len])
+											 .then(this.updatePlayerWithTrack)
+									 });
+			},
+			startByTrackId(trackId) {
+				return findTrack(trackId)
+					.then(this.updatePlayerWithTrack)
+					.then(track => this.fetchChannelById(track.channel))
+					.then(this.updatePlayerWithChannel)
+			},
+
+			// load data
 			loadChannelTracks(channel) {
+				console.log('loadChannelTracks:channel', channel)
 				return findChannelTracks(channel.id)
 					.then(this.updatePlayerWithTracks)
 			},
 			loadChannelImage(channel) {
+				console.log('loadChannelImage:channel:', channel)
 				if(!channel.images) {
 					return
 				}
@@ -114,9 +135,11 @@
 			},
 			updatePlayerWithChannel(channel) {
 				this.channel = channel;
+				return channel;
 			},
 			updatePlayerWithTrack(track) {
-				this.track = track;
+				this.track = track
+				return new Promise(resolve => resolve(track));
 			},
 			updatePlayerWithTracks(tracks) {
 				this.tracks = tracks;
