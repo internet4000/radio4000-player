@@ -16,15 +16,6 @@
 					 findChannelImage,
 					 findTrack } from './store'
 
-	/* function initialState() {
-		 return {
-		 channel: {},
-		 image: '',
-		 tracks: [],
-		 track: {}
-		 }
-		 }*/
-
 	export default {
 		name: 'player-data',
 		components: {
@@ -74,7 +65,7 @@
 			},
 			id: function (id) {
 				this.startR4Session(this.startById, id)
-			},
+			}
 		},
 		methods: {
 			clearR4Session() {
