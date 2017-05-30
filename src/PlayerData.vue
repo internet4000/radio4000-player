@@ -91,20 +91,20 @@
 			// start player session by:
 			// all start method must return a `channel@r4` model
 			startBySlug(slug) {
-				return this.fetchChannelBySlug(slug)
-									 .then(this.updatePlayerWithChannel)
-									 .then(this.startSessionFirstTrack)
+				return findChannelBySlug(slug)
+					.then(this.updatePlayerWithChannel)
+					.then(this.startSessionFirstTrack)
 
 			},
 			startById(id) {
-				return this.fetchChannelById(id)
-									 .then(this.updatePlayerWithChannel)
-									 .then(this.startSessionFirstTrack)
+				return findChannelById(id)
+					.then(this.updatePlayerWithChannel)
+					.then(this.startSessionFirstTrack)
 			},
 			startByTrackId(trackId) {
 				return findTrack(trackId)
 					.then(this.updatePlayerWithTrack)
-					.then(track => this.fetchChannelById(track.channel))
+					.then(track => findChannelById(track.channel))
 					.then(this.updatePlayerWithChannel)
 			},
 			startSessionFirstTrack(channel) {
@@ -138,15 +138,6 @@
 			},
 			updatePlayerWithImage(image) {
 				return this.image = image.src;
-			},
-			fetchChannelBySlug(slug) {
-				return findChannelBySlug(slug).catch(this.handleFetchError)
-			},
-			fetchChannelById(id) {
-				return findChannelById(id).catch(this.handleFetchError)
-			},
-			handleFetchError(error) {
-				console.warn(error);
 			}
 		}
 	}
