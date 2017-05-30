@@ -10,10 +10,12 @@
 
 		<aside>
 			<youtube-player
-					:track="currentTrack"
-					:autoplay="autoplay"
-					:playing="playing"
 					:volume="volume"
+					:track="currentTrack"
+					:isPlaying="isPlaying"
+					:autoplay="autoplay"
+					@play="play"
+					@pause="pause"
 					@playNextTrack="playNextTrack"></youtube-player>
 		</aside>
 
@@ -32,12 +34,10 @@
 
 		<footer>
 			<player-controls
-					v-if="playerReady"
-					:player="player"
-					:playing="playing"
+					:isPlaying="isPlaying"
 					@play="play"
 					@pause="pause"
-					@next="next"></player-controls>
+					@next="playNextTrack"></player-controls>
 		</footer>
 	</article>
 </template>
@@ -71,7 +71,7 @@
 				playerReady: false,
 				autoplay: false,
 				loop: false,
-				playing: false,
+				isPlaying: false,
 				currentTrack: {},
 				tracksPool: []
 			}
@@ -110,6 +110,14 @@
 				const pool = this.tracksPool
 				const index = pool.indexOf(this.currentTrack)
 				return pool[index + 1]
+			},
+			play() {
+				this.isPlaying = true;
+				console.log(this.isPlaying)
+			},
+			pause() {
+				this.isPlaying = false;
+				console.log(this.isPlaying)
 			}
 		}
 	}

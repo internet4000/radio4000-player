@@ -12,22 +12,13 @@
 
 	localStorage.debug = 'youtube-player:*';
 
-	const eventsName = {
-		'-1': 'unstarted',
-		0: 'ended',
-		1: 'playing',
-		2: 'paused',
-		3: 'buffering',
-		5: 'cued'
-	}
-
 	export default {
 		name: 'youtube-player',
 		props: [
 			'videoId',
 			'volume',
 			'autoplay',
-			'playing',
+			'isPlaying',
 			'playNextTrack',
 			'track'
 		],
@@ -47,12 +38,18 @@
 		},
 		watch: {
 			track(track) {
-				
-				console.log('watch track!!!', track);
+				console.log('watch:track', track)
 				this.initPlayer().then(this.setTrackOnProvider(track))
 			},
 			volume(vol) {
 				this.setVolume(vol)
+			},
+			isPlaying(isPlaying) {
+				if(isPlaying) {
+					this.playProvider();
+				} else {
+					this.pauseProvider();
+				}
 			}
 		},
 		methods: {
@@ -94,22 +91,43 @@
 				console.log({youtubeError: event})
 				this.$emit('playNextTrack');
 			},
-			handleStateChange(event) {
+			handleStateChange(event) {				
+				const eventsName = {
+					'-1': 'unstarted',
+					0: 'ended',
+					1: 'playing',
+					2: 'paused',
+					3: 'buffering',
+					5: 'cued'
+				}
 				const id = event.data
 				const name = eventsName[id]
 				console.log('handleStateChange', id, name, event)
-				if (id === 0) {
-					this.$emit('playNextTrack');
+
+				const actions = {
+					'-1': () => this.$emit('pause'),
+					0: () => this.$emit('playNextTrack'),
+					1: () => this.$emit('play'),
+					2: () => this.$emit('pause')
+				}
+
+				if (id < 3) {
+					actions[id]()
 				}
 			},
 
 			// select track to play
 			setTrackOnProvider(track) {
-				const player = this.player;
 				const ytid = track.ytid;
-				player.loadVideoById({
+				this.player.loadVideoById({
 					'videoId': ytid
-				}).then(player.playVideo())
+				}).then(this.playProvider())
+			},
+			playProvider() {
+				this.player.playVideo()
+			},
+			pauseProvider() {
+				this.player.pauseVideo()
 			}
 		}
 	}

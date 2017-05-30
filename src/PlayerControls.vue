@@ -1,7 +1,7 @@
 <template>
 	<menu>
 		<!-- <button @click="prev">Prev</button> -->
-		<button v-if="!playing" @click="$emit('play')">Play</button>
+		<button v-if="!isPlaying" @click="$emit('play')">Play</button>
 		<button v-else @click="$emit('pause')">Pause</button>
 		<button @click="$emit('next')">Next</button>
 		<!-- <button @click="$emit('mute')">Mute</button> -->
@@ -12,7 +12,7 @@
 <script>
 	export default {
 		name: 'player-controls',
-		props: ['player', 'volume', 'playing'],
+		props: ['player', 'volume', 'isPlaying'],
 		methods: {
 			/*
 			mute() { this.$emit('setVolume', 0) },
