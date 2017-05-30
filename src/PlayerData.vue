@@ -124,10 +124,10 @@
 			updatePlayerWithImage(image) {
 				return this.image = image.src;
 			},
-			fetchModelBySlug(slug) {
+			fetchChannelBySlug(slug) {
 				return findChannelBySlug(slug).catch(this.handleFetchError)
 			},
-			fetchModelById(id) {
+			fetchChannelById(id) {
 				return findChannelById(id).catch(this.handleFetchError)
 			},
 			handleFetchError(error) {
