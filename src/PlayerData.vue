@@ -30,7 +30,7 @@
 				type: Boolean,
 				default: true
 			},
-			showCurentTrack: {
+			showCurrentTrack: {
 				type: Boolean,
 				default: false
 			}
