@@ -46,11 +46,6 @@
 	import TrackList from './TrackList.vue'
 	import YoutubePlayer from './YoutubePlayer.vue'
 	import PlayerControls from './PlayerControls.vue'
-	import { findChannelById,
-					 findChannelBySlug,
-					 findChannelTracks,
-					 findChannelImage,
-					 findTrack } from './store'
 
 	export default {
 		name: 'radio4000-player',
@@ -61,61 +56,20 @@
 			PlayerControls
 		},
 		props: {
-			slug: String,
-			id: String,
-			trackId: String,
-			volume: Number,
-			showTracks: {
-				type: Boolean,
-				default: true
-			},
-			showCurentTrack: {
-				type: Boolean,
-				default: false
-			}
+			channel: Object,
+			tracks: Array,
+			track: Object,
+			image: String,
+			showCurrentTrack: Boolean,
+			showTracks: Boolean,
+			volume: Number
 		},
 		data () {
 			return {
 				playerReady: false,
 				autoplay: false,
 				loop: false,
-				playing: false,
-				skins: {
-					mini: false,
-					dark: false
-				},
-				channel: {},
-				image: '',
-				tracks: [],
-				track: {}
-			}
-		},
-		// init 1 - from what `key` do we load channel data?
-					 created() {
-						 const { slug, id, trackId } = this;
-						 if (slug) {
-							 return this.loadBySlug(slug)
-						 } else if (id) {
-							 return this.loadById(id)
-						 } else if (trackId) {
-							 return this.loadByTrackId(trackId)
-						 }
-					 },
-		watch: {
-			// init bis,
-			// `slug` and `id` are only used to assign radio externally
-			// by the <radio4000-player> web component props
-			slug: function (slug) {
-				this.cleanPlayer()
-				this.loadBySlug(slug)
-			},
-			id: function (id) {
-				this.loadById(id)
-			},
-			// when channel is set, load img and tracks
-			channel: function(channel) {
-				this.loadChannelImage(channel);
-				this.loadChannelTracks(channel);
+				playing: false
 			}
 		},
 		computed: {
@@ -124,73 +78,6 @@
 			}
 		},
 		methods: {
-			/* 
-				 player data loading
-			 */
-			loadBySlug(slug) {
-				this.fetchModelBySlug(slug)
-						.then(channel => {
-							this.updatePlayerWithChannel(channel);
-							// not sure why -1 is needed
-							var len = channel.tracks.length -1
-							return findTrack(channel.tracks[len])
-								.then(this.selectTrack);
-						})
-			},
-			loadById(id) {
-				this.fetchModelById(id)
-						.then(channel => {
-							this.updatePlayerWithChannel(channel);
-							// not sure why -1 is needed
-							var len = channel.tracks.length -1
-							return findTrack(channel.tracks[len])
-								.then(this.selectTrack);
-						})
-			},
-			loadByTrackId(trackId) {
-				findTrack(trackId).then(track => {
-					this.selectTrack(track);
-					this.fetchModelById(track.channel)
-							.then(this.updatePlayerWithChannel)
-				})
-			},
-			loadChannelTracks(channel) {
-				return findChannelTracks(channel.id)
-					.then(this.updatePlayerWithTracks)
-			},
-			loadChannelImage(channel) {
-				if(!channel.images) {
-					return
-				}
-				return findChannelImage(channel)
-					.then(this.updatePlayerWithImage)
-			},
-			updatePlayerWithChannel(channel) {
-				this.channel = channel;
-			},
-			updatePlayerWithTracks(tracks) {
-				this.tracks = tracks;
-			},
-			updatePlayerWithImage(image) {
-				return this.image = image.src;
-			},
-			fetchModelBySlug(slug) {
-				return findChannelBySlug(slug).catch(this.handleFetchError)
-			},
-			fetchModelById(id) {
-				return findChannelById(id).catch(this.handleFetchError)
-			},
-			handleFetchError(error) {
-				console.warn(error);
-				this.channel = {
-					title: `Could not find the radio, wrong <slug> or <id>`
-				}
-				this.cleanPlayer();
-			},
-			
-			/* 
- 				 player controls
- 			 */
 			selectTrack(track) {
 				this.autoplay = true
 				this.cueTrack(track)
