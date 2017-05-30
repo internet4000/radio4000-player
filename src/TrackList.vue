@@ -1,13 +1,13 @@
 <template>
 
-	<div class="TrackList">
-		<ol v-if="tracks.length">
+	<div v-if="tracks.length" class="TrackList">
+		<ol>
 			<li v-for="track in tracks">
 				<track-item :track="track" v-on:select="select"></track-item>
 			</li>
 		</ol>
-		<loading v-else message="Loading tracks"/>
 	</div>
+	<loading v-else/>
 	
 </template>
 
