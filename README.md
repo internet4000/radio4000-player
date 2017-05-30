@@ -8,43 +8,38 @@ We are working on an iframe embed. Coming soon.
 
 ## How to use as a web component
 
-Copy and paste this snippet to your website.  
-Remember to change the `channel-slug=""` part to match the radio you want to play.
+Copy and paste this snippet to your website:
 
 ```html
 <script async src="https://rawgit.com/internet4000/radio4000-player-vue/master/dist/radio4000-player.min.js"></script>
 <radio4000-player channel-slug="good-time-radio"></radio4000-player>
 ```
 
-You can use *one* of these properties to assign channel and track to the player:
+Remember to change the `channel-slug=""` part to match the radio you want to play. Find more radios on https://radio4000.com/all.
+
+## API
+
+Here's a list of all the attributes you can set and change on the web component.
 
 - `channel-slug` [string], a radio4000 channel slug (ex: `oskar`)
 - `channel-id` [string], a radio4000 channel id (ex: `-JYZvhj3vlGCjKXZ2cXO`)
 - `track-id` [string], a radio4000 track id (ex: `-JYEosmvT82Ju0vcSHVP`)
-
-- Try it out: https://jsbin.com/kevipe/1/edit?html,output
-- Find more radios: https://radio4000.com/all
-
-## API
-
-To assign the radio or track, change one of those properties on the <radio4000-player> component:
-- `channelSlug` [string], a radio4000 channel slug (ex: oskar)
-- `channelId` [string], a radio4000 channel id (ex: -JYZvhj3vlGCjKXZ2cXO)
-- `trackId` [string], a radio4000 track id (ex: -JYEosmvT82Ju0vcSHVP)
-
-```js
-var player = document.querySelector('radio4000-player')
-player.channelSlug = 'sugar-hiccup' // either by channel slug
-player.channelId = '-JYZvhj3vlGCjKXZ2cXO' // or by channel id
-player.trackId = '-JYEosmvT82Ju0vcSHVP' // or by track id
-```
-
-To control the volume, change the `volume` attribute:
 - `volume` [integer] from 0 to 100
 
+### Examples
+
 ```js
 var player = document.querySelector('radio4000-player')
-player.volume = 50
+
+// Load radio channel either by slug or id.
+player.channelSlug = 'sugar-hiccup'
+player.channelId = '-JYZvhj3vlGCjKXZ2cXO'
+
+// Load a specific track.
+player.trackId = '-JYEosmvT82Ju0vcSHVP'
+
+// Change the volume.
+player.volume = 25
 ```
 
 ## Skins
@@ -81,4 +76,3 @@ yarn start
 # build for production with minification
 yarn build
 ```
-
