@@ -40,9 +40,7 @@
 		props: ['volume',
 						'isPlaying',
 						'isMute',
-						'isNotFullVolume',
-						'mute',
-						'unMute']
+						'isNotFullVolume']
 	}
 </script>
 

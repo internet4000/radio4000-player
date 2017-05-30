@@ -42,7 +42,7 @@
 					@play="play"
 					@pause="pause"
 					@mute="mute"
-					@unmute="unMute"
+					@unMute="unMute"
 					@next="playNextTrack"></player-controls>
 		</footer>
 	</article>
@@ -133,7 +133,7 @@
 			},
 			unMute() {
 				console.log(this.isMute)
-				this.isMuteAudio = false;
+				this.isMute = false;
 			}
 		}
 	}

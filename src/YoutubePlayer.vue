@@ -19,6 +19,7 @@
 			'volume',
 			'autoplay',
 			'isPlaying',
+			'isMute',
 			'playNextTrack',
 			'track'
 		],
@@ -42,13 +43,25 @@
 				this.initPlayer().then(this.setTrackOnProvider(track))
 			},
 			volume(vol) {
+				this.isMute(false);
 				this.setVolume(vol)
+				console.log(vol)
+				if(vol = 0) {
+					this.isMute(true);
+				}
 			},
 			isPlaying(isPlaying) {
 				if(isPlaying) {
 					this.playProvider();
 				} else {
 					this.pauseProvider();
+				}
+			},
+			isMute(isMute) {
+				if(isMute) {
+					this.muteProvider();
+				} else {
+					this.unMuteProvider();
 				}
 			}
 		},
@@ -128,6 +141,12 @@
 			},
 			pauseProvider() {
 				this.player.pauseVideo()
+			},
+			muteProvider() {
+				this.setVolume(0)
+			},
+			unMuteProvider() {
+				this.setVolume(100)
 			}
 		}
 	}

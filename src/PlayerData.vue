@@ -27,7 +27,7 @@
 			trackId: String,
 			volume: {
 				type: Number,
-				default: 80
+				default: 100
 			},
 			showTracks: {
 				type: Boolean,
