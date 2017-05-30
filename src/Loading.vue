@@ -1,7 +1,8 @@
 <template>
 	<div class="Loading"
-			 v-bind:class="{ isAnimated }">
-		<span v-if="message">{{message}}…</span>
+			 v-bind:class="{ 'Loading--hasNoMessage' : hasNoMessage }">
+		<span v-if="message">{{message}}</span>
+		<span v-else></span>
 	</div>
 </template>
 
@@ -9,7 +10,7 @@
 	export default {
 		props: ['message'],
 		computed: {
-			isAnimated: function() {
+			hasNoMessage: function() {
 				return !Boolean(this.message)
 			}
 		}
@@ -19,11 +20,9 @@
 <style scoped>
 	.Loading {
 		font-size: 0.9rem;
+		position: relative;
 	}
-	.Loading.isAnimated {
-		display: block;
-	}
-	.Loading.isAnimated::before {
+	.Loading span::before {
 		display: block;
 		content: '';
 		position: absolute;
@@ -38,9 +37,6 @@
 		animation-direction: alternate;
 		animation-timing-function: ease;
 		animation-iteration-count: infinite;
-	}
-	.TrackList .Loading {
-    padding: 0 0.5rem;
 	}
 	.Header-image .Loading {
 		position: absolute;
