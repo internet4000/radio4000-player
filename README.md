@@ -76,3 +76,16 @@ yarn start
 # build for production with minification
 yarn build
 ```
+
+## Testing
+
+```bash
+# run tests using ava
+yarn test
+
+# watch for changes and run tests
+yarn test:watch
+
+# update test snapshots
+yarn test:update
+```

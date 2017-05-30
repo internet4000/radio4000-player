@@ -9,7 +9,8 @@
 		"start": "npm-run-all --parallel watchify serve",
 		"build": "cross-env NODE_ENV=production browserify -g envify src/main.js | babili > dist/radio4000-player.min.js",
 		"test": "ava",
-		"test:watch": "ava --watch"
+		"test:watch": "ava --watch",
+		"test:update": "ava --update-snapshots"
 	},
 	"browser": "dist/radio4000-player.min.js",
 	"dependencies": {
