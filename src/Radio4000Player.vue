@@ -1,33 +1,35 @@
 <template>
 	<article>
-		<header>
-			<channel-header
-					:channel="channel"
-					:image="image"
-					:track="track"></channel-header>
-		</header>
+
+		<!-- <header>
+				 <channel-header
+				 :channel="channel"
+				 :image="image"
+				 :track="track"></channel-header>
+				 </header> -->
+
 		<aside>
 			<youtube-player
-					:video-id="track.ytid"
+					:track="currentTrack"
 					:autoplay="autoplay"
 					:playing="playing"
 					:volume="volume"
-					@error="onPlayerError"
-					@ready="onPlayerReady"
-					@playing="onPlayerPlaying"
-					@ended="onPlayerEnded"></youtube-player>
+					@playNextTrack="playNextTrack"></youtube-player>
 		</aside>
+
 		<main v-if="showTrack">
 			<track-current
-					v-if="playlist"
-					:track="track"></track-current>
+					v-if="tracksPool"
+					:track="currentTrack"></track-current>
 		</main>
+
 		<main v-if="showTracks">
 			<track-list
-					v-if="playlist"
-					:tracks="playlist"
-					@select="selectTrack"></track-list>
+					v-if="tracksPool"
+					:tracks="tracksPool"
+					@select="playTrack"></track-list>
 		</main>
+
 		<footer>
 			<player-controls
 					v-if="playerReady"
@@ -69,7 +71,9 @@
 				playerReady: false,
 				autoplay: false,
 				loop: false,
-				playing: false
+				playing: false,
+				currentTrack: {},
+				tracksPool: []
 			}
 		},
 		computed: {
@@ -77,55 +81,34 @@
 				return this.tracks.reverse()
 			}
 		},
+		watch: {
+			track: function(track) {
+				this.playTrack(track);
+				return track;
+			},
+			tracks: function(tracks) {
+				this.newTracksPool(tracks);
+				return tracks;
+			}
+		},
 		methods: {
-			selectTrack(track) {
-				this.autoplay = true
-				this.cueTrack(track)
+			playTrack(track) {
+				this.currentTrack = track;
 			},
-			cueTrack(track) {
-				this.playlist.forEach(t => {t.active = false})
-				track.active = true
-				this.track = track
+			newTracksPool(tracks) {
+				this.tracksPool = tracks;
 			},
-			// runs once on load when yt-iframe is ready
-			onPlayerReady(player) {
-				this.playerReady = true
-			},
-			onPlayerError(event) {
-				console.log({youtubeError: event.data})
-				this.next()
-			},
-			onPlayerPlaying(event) {
-				this.playing = true
-			},
-			onPlayerEnded(event) {
-				this.playing = false
-				this.next()
-			},
-			play() {
-				this.playing = true
-			},
-			pause() {
-				this.playing = false
-			},
-			next() {
-				let playlist = this.playlist
-				const index = playlist.indexOf(this.track)
-				let track = playlist[index + 1]
-				if (!track && this.loop) {
-					track = playlist[0]
-				}
+			playNextTrack() {
+				const track = this.getNextTrack()
 				if (!track) {
 					return
 				}
-				this.autoplay = true
-				this.cueTrack(track)
+				this.playTrack(track)
 			},
-			cleanPlayer() {
-				this.channel = {}
-				this.tracks = []
-				this.track = {}
-				this.image = ''
+			getNextTrack() {
+				const pool = this.tracksPool
+				const index = pool.indexOf(this.currentTrack)
+				return pool[index + 1]
 			}
 		}
 	}
