@@ -22,8 +22,8 @@
 			Radio4000Player
 		},
 		props: {
-			slug: String,
-			id: String,
+			channelSlug: String,
+			channelId: String,
 			trackId: String,
 			volume: Number,
 			showTracks: {
@@ -46,11 +46,11 @@
 		},
 		created() {
 			// init 1 - from what `key` do we load channel data?
-			const { slug, id, trackId } = this;
-			if (slug) {
-				return this.startR4Session(this.startBySlug, slug)
-			} else if (id) {
-				return this.startR4Session(this.startById, id)
+			const { channelSlug, channelId, trackId } = this;
+			if (channelSlug) {
+				return this.startR4Session(this.startBySlug, channelSlug)
+			} else if (channelId) {
+				return this.startR4Session(this.startById, channelId)
 			} else if (trackId) {
 				return this.startR4Session(this.startByTrackId, trackId)
 			}
@@ -59,11 +59,11 @@
 			// init 1 bis,
 			// `slug` and `id` are only used to assign radio externally
 			// by the <radio4000-player> web component props
-			slug: function (slug) {
+			channelSlug: function (slug) {
 				this.startR4Session(this.startBySlug, slug)
 				
 			},
-			id: function (id) {
+			channelId: function (id) {
 				this.startR4Session(this.startById, id)
 			}
 		},
