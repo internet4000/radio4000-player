@@ -13,6 +13,7 @@
 					:volume="volume"
 					:track="currentTrack"
 					:isPlaying="isPlaying"
+					:isMute="isMute"
 					:autoplay="autoplay"
 					@play="play"
 					@pause="pause"
@@ -35,8 +36,13 @@
 		<footer>
 			<player-controls
 					:isPlaying="isPlaying"
+					:volume="volume"
+					:isNotFullVolume="isNotFullVolume"
+					:isMute="isMute"
 					@play="play"
 					@pause="pause"
+					@mute="mute"
+					@unmute="unMute"
 					@next="playNextTrack"></player-controls>
 		</footer>
 	</article>
@@ -72,6 +78,7 @@
 				autoplay: false,
 				loop: false,
 				isPlaying: false,
+				isMute: false,
 				currentTrack: {},
 				tracksPool: []
 			}
@@ -79,6 +86,9 @@
 		computed: {
 			playlist: function() {
 				return this.tracks.reverse()
+			},
+			isNotFullVolume: function() {
+				return this.volume < 100
 			}
 		},
 		watch: {
@@ -113,11 +123,17 @@
 			},
 			play() {
 				this.isPlaying = true;
-				console.log(this.isPlaying)
 			},
 			pause() {
 				this.isPlaying = false;
-				console.log(this.isPlaying)
+			},
+			mute() {
+				console.log(this.isMute)
+				this.isMute = true;
+			},
+			unMute() {
+				console.log(this.isMute)
+				this.isMuteAudio = false;
 			}
 		}
 	}

@@ -25,7 +25,10 @@
 			channelSlug: String,
 			channelId: String,
 			trackId: String,
-			volume: Number,
+			volume: {
+				type: Number,
+				default: 80
+			},
 			showTracks: {
 				type: Boolean,
 				default: true

@@ -1,27 +1,48 @@
 <template>
 	<menu>
-		<!-- <button @click="prev">Prev</button> -->
-		<button v-if="!isPlaying" @click="$emit('play')">Play</button>
-		<button v-else @click="$emit('pause')">Pause</button>
-		<button @click="$emit('next')">Next</button>
-		<!-- <button @click="$emit('mute')">Mute</button> -->
-		<!-- <button @click="$emit('unMute')">Unmute</button> -->
+
+		<!-- https://en.wikipedia.org/wiki/Geometric_Shapes -->
+		<div class="PlayerControl-group">
+			<button v-if="!isMute"
+							@click="$emit('mute')"
+							v-bind:class="{ 'Btn--isNotFullVolume' : isNotFullVolume }"
+							class="Btn">
+				<span>■</span>
+			</button>
+			<button v-else
+							@click="$emit('unMute')"
+							class="Btn">
+				<span>□</span>
+			</button>
+		</div>
+
+		<div class="PlayerControl-group PlayerControl-group--large">
+			<button v-if="!isPlaying"
+							@click="$emit('play')"
+							class="Btn">Play</button>
+			<button v-else
+							@click="$emit('pause')"
+							class="Btn">Pause</button>
+		</div>
+
+		<div class="PlayerControl-group PlayerControl-group--large">
+			<!-- <button class=Btn @click="prev">Prev</button> -->
+			<button @click="$emit('next')"
+							class="Btn">Next</button>
+		</div>
+		
 	</menu>
 </template>
 
 <script>
 	export default {
 		name: 'player-controls',
-		props: ['player', 'volume', 'isPlaying'],
-		methods: {
-			/*
-			mute() { this.$emit('setVolume', 0) },
-			unMute() { this.player.unMute() },
-			changeVolume(vol) {
-				this.$emit('volumeChanged', vol)
-			}
-			*/
-		}
+		props: ['volume',
+						'isPlaying',
+						'isMute',
+						'isNotFullVolume',
+						'mute',
+						'unMute']
 	}
 </script>
 
@@ -33,13 +54,23 @@
 		display: flex;
 		flex-flow: row nowrap;
 	}
-	button {
+	.PlayerControl-group {
 		flex: 1;
+	}
+	.PlayerControl-group--large {
+		flex: 3;
+	}
+	.Btn {
+		flex: 1;
+		width: 100%;
 		min-height: 2.7em;
 		background: hsl(0, 0%, 96%);
 		border: 0;
 		font-size: 0.8125em;
 		padding: 0.2em 0.5em 0.1em;
+	}
+	.Btn--isNotFullVolume span {
+		opacity: 0.4;
 	}
 </style>
 

@@ -102,7 +102,7 @@
 				}
 				const id = event.data
 				const name = eventsName[id]
-				console.log('handleStateChange', id, name, event)
+				/* console.log('handleStateChange', id, name, event)*/
 
 				const actions = {
 					'-1': () => this.$emit('pause'),
