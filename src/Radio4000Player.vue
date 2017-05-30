@@ -100,6 +100,7 @@
 			},
 			playNextTrack() {
 				const track = this.getNextTrack()
+				console.log('playNextTrack:track', track)
 				if (!track) {
 					return
 				}

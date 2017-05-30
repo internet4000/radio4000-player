@@ -10,7 +10,9 @@
 	// to abstract the youtube iframe api.
 	import YouTubePlayer from 'youtube-player'
 
-	const stateNames = {
+	localStorage.debug = 'youtube-player:*';
+
+	const eventsName = {
 		'-1': 'unstarted',
 		0: 'ended',
 		1: 'playing',
@@ -45,7 +47,9 @@
 		},
 		watch: {
 			track(track) {
-				this.initPlayer().then(this.playTrack)
+				
+				console.log('watch track!!!', track);
+				this.initPlayer().then(this.setTrackOnProvider(track))
 			},
 			volume(vol) {
 				this.setVolume(vol)
@@ -54,8 +58,13 @@
 		methods: {
 			initPlayer() {
 				return new Promise(resolve => {
+					const playerExists = this.player.hasOwnProperty('getIframe')
+					if(playerExists) {
+						resolve();
+					}
+					
 					const element = this.$el.querySelector('.ytplayer')
-					this.player = YouTubePlayer(element, {playerVars: this.playerVars})
+					this.player = YouTubePlayer(element)
 					this.setVolume(this.volume)
 					resolve(this.attachEventListeners())
 				})
@@ -83,14 +92,30 @@
 				this.$emit('playNextTrack');
 			},
 			handleStateChange(event) {
-				console.log('handleStateChange:state:data', event)
+				const id = event.data
+				const name = eventsName[id]
+				console.log('handleStateChange', id, name, event)
+				if (id === 0) {
+					this.$emit('playNextTrack');
+				}
 			},
 
 			// select track to play
-			playTrack() {
-				this.player.loadVideoById(this.track.ytid)
-						.then(this.player.playVideo)
-			},
+			setTrackOnProvider(track) {
+				const player = this.player;
+				const ytid = track.ytid;
+				console.log('setTrackOnProvider:track:', track)
+				console.log('setTrackOnProvider:player', player)
+				/* player.loadVideoById({
+					 'videoId': ytid
+					 }).then(player.playVideo())*/
+				player.loadVideoById(ytid).then(() => {
+					// This extra "play" is needed on at least
+					// Chrome on Android 4.2. Otherwise it stays "buffering".
+					this.player.playVideo()
+					console.log('playVideo');
+				}).catch(error => consoloe.log)
+			}
 		}
 	}
 </script>
