@@ -8,6 +8,11 @@
 <script>
 	// This component uses https://github.com/gajus/youtube-player
 	// to abstract the youtube iframe api.
+	// note: https://github.com/GoogleWebComponents/google-youtube/blob/master/google-youtube.html
+	// note: https://developers.google.com/youtube/iframe_api_reference
+	// note: there are no event listeners for volume
+	//       so changing volume on YT player can't be
+	//       repercuted on <r4-player> interface
 	import YouTubePlayer from 'youtube-player'
 
 	localStorage.debug = 'youtube-player:*';
@@ -42,14 +47,6 @@
 				console.log('watch:track', track)
 				this.initPlayer().then(this.setTrackOnProvider(track))
 			},
-			volume(vol) {
-				this.isMute(false);
-				this.setVolume(vol)
-				console.log(vol)
-				if(vol = 0) {
-					this.isMute(true);
-				}
-			},
 			isPlaying(isPlaying) {
 				if(isPlaying) {
 					this.playProvider();
@@ -58,19 +55,22 @@
 				}
 			},
 			isMute(isMute) {
-				if(isMute) {
-					this.muteProvider();
+				if(isMute && this.playerExists) {
+					this.muteProvider()
 				} else {
 					this.unMuteProvider();
 				}
 			}
 		},
+		computed: {
+			playerExists: function() {
+				return this.player.hasOwnProperty('getIframe')
+			}
+		},
 		methods: {
 			initPlayer() {
 				return new Promise(resolve => {
-					const playerExists = this.player.hasOwnProperty('getIframe')
-
-					if(playerExists) {
+					if(this.playerExists) {
 						return resolve();
 					}
 					
@@ -78,7 +78,6 @@
 					this.player = YouTubePlayer(el, {
 						playerVars: this.playerVars
 					})
-					this.setVolume(this.volume)
 					return resolve(this.attachEventListeners())
 				})
 			},
@@ -91,13 +90,9 @@
 					resolve()
 				})
 			},
-			setVolume(vol) {
-				if (this.player && vol !== undefined) {
-					this.player.setVolume(vol)
-				}
-			},
 			handleReady(resolve) {
 				console.log('handleReady');
+				this.unMuteProvider();
 			},
 			handleError(event) {
 				console.log('handleError:event')
@@ -143,10 +138,11 @@
 				this.player.pauseVideo()
 			},
 			muteProvider() {
-				this.setVolume(0)
+				this.player.mute();
 			},
 			unMuteProvider() {
-				this.setVolume(100)
+				this.player.unMute()
+				this.player.setVolume(100)
 			}
 		}
 	}

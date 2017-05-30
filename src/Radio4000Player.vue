@@ -99,6 +99,12 @@
 			tracks: function(tracks) {
 				this.newTracksPool(tracks);
 				return tracks;
+			},
+			volume: function(volume) {
+				if(volume <= 0) {
+					this.mute()
+				}
+				this.unMute();
 			}
 		},
 		methods: {
@@ -128,11 +134,9 @@
 				this.isPlaying = false;
 			},
 			mute() {
-				console.log(this.isMute)
 				this.isMute = true;
 			},
 			unMute() {
-				console.log(this.isMute)
 				this.isMute = false;
 			}
 		}
