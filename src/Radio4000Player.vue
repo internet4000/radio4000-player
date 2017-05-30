@@ -1,12 +1,12 @@
 <template>
 	<article>
 
-		<!-- <header>
-				 <channel-header
-				 :channel="channel"
-				 :image="image"
-				 :track="track"></channel-header>
-				 </header> -->
+		<header>
+			<channel-header
+					:channel="channel"
+					:image="image"
+					:track="track"></channel-header>
+		</header>
 
 		<aside>
 			<youtube-player

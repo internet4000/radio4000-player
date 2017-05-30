@@ -59,14 +59,17 @@
 			initPlayer() {
 				return new Promise(resolve => {
 					const playerExists = this.player.hasOwnProperty('getIframe')
+
 					if(playerExists) {
-						resolve();
+						return resolve();
 					}
 					
-					const element = this.$el.querySelector('.ytplayer')
-					this.player = YouTubePlayer(element)
+					const el = this.$el.querySelector('.ytplayer')
+					this.player = YouTubePlayer(el, {
+						playerVars: this.playerVars
+					})
 					this.setVolume(this.volume)
-					resolve(this.attachEventListeners())
+					return resolve(this.attachEventListeners())
 				})
 			},
 			attachEventListeners() {
@@ -104,17 +107,9 @@
 			setTrackOnProvider(track) {
 				const player = this.player;
 				const ytid = track.ytid;
-				console.log('setTrackOnProvider:track:', track)
-				console.log('setTrackOnProvider:player', player)
-				/* player.loadVideoById({
-					 'videoId': ytid
-					 }).then(player.playVideo())*/
-				player.loadVideoById(ytid).then(() => {
-					// This extra "play" is needed on at least
-					// Chrome on Android 4.2. Otherwise it stays "buffering".
-					this.player.playVideo()
-					console.log('playVideo');
-				}).catch(error => consoloe.log)
+				player.loadVideoById({
+					'videoId': ytid
+				}).then(player.playVideo())
 			}
 		}
 	}
