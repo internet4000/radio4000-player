@@ -77,13 +77,19 @@
 			},
 		},
 		methods: {
-			cleanR4Session() {
+			clearR4Session() {
 				return new Promise((resolve, reject) => {
-					/* resolve(this.$data = initialState());*/
+	
+					this.channel = {};
+					this.image = ''
+					this.tracks = []
+					this.track = {}
+
 					resolve(console.log('-- clearR4Session --'))
 				})
 			},
 			startR4Session(startMethod, param) {
+				this.clearR4Session();
 				startMethod(param).then(() => {
 					console.log('this', this.channel)
 					this.loadChannelImage(this.channel)
