@@ -101,22 +101,14 @@
 			// all start method must return a `channel@r4` model
 			startBySlug(slug) {
 				return this.fetchChannelBySlug(slug)
-						.then(channel => {
-							this.updatePlayerWithChannel(channel);
+									 .then(updatePlayerWithChannel)
+									 .then(this.startSessionFirstTrack)
 
-							var len = channel.tracks.length -1
-							return findTrack(channel.tracks[len])
-						})
-									 .then(this.updatePlayerWithTrack)
 			},
 			startById(id) {
 				return this.fetchChannelById(id)
 									 .then(this.updatePlayerWithChannel)
-									 .then(channel => {
-										 var len = channel.tracks.length -1
-										 return findTrack(channel.tracks[len])
-											 .then(this.updatePlayerWithTrack)
-									 });
+									 .then(this.startSessionFirstTrack)
 			},
 			startByTrackId(trackId) {
 				return findTrack(trackId)
@@ -124,7 +116,10 @@
 					.then(track => this.fetchChannelById(track.channel))
 					.then(this.updatePlayerWithChannel)
 			},
-
+			startSessionFirstTrack(channel) {
+				var len = channel.tracks.length -1
+				findTrack(channel.tracks[len]).then(this.updatePlayerWithTrack);
+			},
 			// load data
 			loadChannelTracks(channel) {
 				console.log('loadChannelTracks:channel', channel)
