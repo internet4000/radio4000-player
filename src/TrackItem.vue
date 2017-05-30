@@ -1,6 +1,6 @@
 <template>
 	<div class="TrackItem"
-		:class="{active: track.active}"
+		v-bind:class="{active: track.active}"
 		v-on:click="select">
 		{{track.title}}
 	</div>

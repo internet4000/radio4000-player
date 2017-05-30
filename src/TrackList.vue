@@ -1,17 +1,23 @@
 <template>
-	<ol class="TrackList">
-		<li v-for="track in tracks">
-			<track-item :track="track" v-on:select="select"></track-item>
-		</li>
-	</ol>
+
+	<div v-if="tracks.length" class="TrackList">
+		<ol>
+			<li v-for="track in tracks">
+				<track-item :track="track" v-on:select="select"></track-item>
+			</li>
+		</ol>
+	</div>
+	<loading v-else/>
+	
 </template>
 
 <script>
 import TrackItem from './TrackItem.vue'
+import Loading from './Loading.vue'
 export default {
 	name: 'track-list',
 	props: ['tracks'],
-	components: {TrackItem},
+	components: { TrackItem, Loading },
 	methods: {
 		select(track) {
 			this.$emit('select', track)
@@ -21,8 +27,12 @@ export default {
 </script>
 
 <style scoped>
+	.TrackList {
+		padding-top: 0.6rem;
+		padding-bottom: 0.6rem;
+	}
 	ol {
-		margin: 0.6em 0 0;
+		margin: 0;
 		font-size: 0.8125em;
 		line-height: 1.7;
 	}
