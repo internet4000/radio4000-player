@@ -82,7 +82,6 @@
 			startR4Session(startMethod, param) {
 				this.clearR4Session();
 				startMethod(param).then(() => {
-					console.log('this', this.channel)
 					this.loadChannelImage(this.channel)
 					this.loadChannelTracks(this.channel)
 				})
@@ -112,12 +111,10 @@
 			},
 			// load data
 			loadChannelTracks(channel) {
-				console.log('loadChannelTracks:channel', channel)
 				return findChannelTracks(channel.id)
 					.then(this.updatePlayerWithTracks)
 			},
 			loadChannelImage(channel) {
-				console.log('loadChannelImage:channel:', channel)
 				if(!channel.images) {
 					return
 				}
