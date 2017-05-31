@@ -5,7 +5,7 @@
 			<channel-header
 					:channel="channel"
 					:image="image"
-					:track="track"></channel-header>
+					:track="currentTrack"></channel-header>
 		</header>
 
 		<aside>
