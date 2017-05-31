@@ -110,13 +110,15 @@
 				}
 				const id = event.data
 				const name = eventsName[id]
-				/* console.log('handleStateChange', id, name, event)*/
+				console.log('handleStateChange', id, name, event)
 
 				const actions = {
-					'-1': () => this.$emit('pause'),
+					'-1': () => {},
 					0: () => this.$emit('playNextTrack'),
 					1: () => this.$emit('play'),
-					2: () => this.$emit('pause')
+					2: () => this.$emit('pause'),
+					3: () => {},
+					5: () => {}
 				}
 
 				if (id < 3) {
