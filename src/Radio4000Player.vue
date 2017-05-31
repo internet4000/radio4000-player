@@ -13,7 +13,7 @@
 					:volume="volume"
 					:track="currentTrack"
 					:isPlaying="isPlaying"
-					:isMute="isMute"
+					:isMuted="isMuted"
 					:autoplay="autoplay"
 					@play="play"
 					@pause="pause"
@@ -38,7 +38,7 @@
 					:isPlaying="isPlaying"
 					:volume="volume"
 					:isNotFullVolume="isNotFullVolume"
-					:isMute="isMute"
+					:isMuted="isMuted"
 					@play="play"
 					@pause="pause"
 					@mute="mute"
@@ -78,7 +78,7 @@
 				autoplay: false,
 				loop: false,
 				isPlaying: false,
-				isMute: false,
+				isMuted: false,
 				currentTrack: {},
 				tracksPool: []
 			}
@@ -134,10 +134,10 @@
 				this.isPlaying = false;
 			},
 			mute() {
-				this.isMute = true;
+				this.isMuted = true;
 			},
 			unMute() {
-				this.isMute = false;
+				this.isMuted = false;
 			}
 		}
 	}

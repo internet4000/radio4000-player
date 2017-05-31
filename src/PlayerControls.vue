@@ -3,7 +3,7 @@
 
 		<!-- https://en.wikipedia.org/wiki/Geometric_Shapes -->
 		<div class="PlayerControl-group">
-			<button v-if="!isMute"
+			<button v-if="!isMuted"
 							@click="$emit('mute')"
 							v-bind:class="{ 'Btn--isNotFullVolume' : isNotFullVolume }"
 							class="Btn">
@@ -39,7 +39,7 @@
 		name: 'player-controls',
 		props: ['volume',
 						'isPlaying',
-						'isMute',
+						'isMuted',
 						'isNotFullVolume']
 	}
 </script>
