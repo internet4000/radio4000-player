@@ -1,41 +1,49 @@
 <template>
 	<article>
+
 		<header>
 			<channel-header
 					:channel="channel"
 					:image="image"
-					:track="track"></channel-header>
+					:track="currentTrack"></channel-header>
 		</header>
+
 		<aside>
-			<youtube-player
-					:video-id="track.ytid"
-					:autoplay="autoplay"
-					:playing="playing"
+			<provider-player
 					:volume="volume"
-					@error="onPlayerError"
-					@ready="onPlayerReady"
-					@playing="onPlayerPlaying"
-					@ended="onPlayerEnded"></youtube-player>
-		</aside>
-		<main v-if="showTrack">
-			<track-current
-					v-if="playlist"
-					:track="track"></track-current>
-		</main>
-		<main v-if="showTracks">
-			<track-list
-					v-if="playlist"
-					:tracks="playlist"
-					@select="selectTrack"></track-list>
-		</main>
-		<footer>
-			<player-controls
-					v-if="playerReady"
-					:player="player"
-					:playing="playing"
+					:track="currentTrack"
+					:isPlaying="isPlaying"
+					:isMuted="isMuted"
+					:autoplay="autoplay"
 					@play="play"
 					@pause="pause"
-					@next="next"></player-controls>
+					@playNextTrack="playNextTrack"></provider-player>
+		</aside>
+
+		<main v-if="showTrack">
+			<track-current
+					v-if="tracksPool"
+					:track="currentTrack"></track-current>
+		</main>
+
+		<main v-if="showTracks">
+			<track-list
+					v-if="tracksPool"
+					:tracks="tracksPool"
+					@select="playTrack"></track-list>
+		</main>
+
+		<footer>
+			<player-controls
+					:isPlaying="isPlaying"
+					:volume="volume"
+					:isNotFullVolume="isNotFullVolume"
+					:isMuted="isMuted"
+					@play="play"
+					@pause="pause"
+					@mute="mute"
+					@unMute="unMute"
+					@next="playNextTrack"></player-controls>
 		</footer>
 	</article>
 </template>
@@ -44,7 +52,7 @@
 	import Vue from 'vue'
 	import ChannelHeader from './ChannelHeader.vue'
 	import TrackList from './TrackList.vue'
-	import YoutubePlayer from './YoutubePlayer.vue'
+	import ProviderPlayer from './ProviderPlayer.vue'
 	import PlayerControls from './PlayerControls.vue'
 
 	export default {
@@ -52,7 +60,7 @@
 		components: {
 			ChannelHeader,
 			TrackList,
-			YoutubePlayer,
+			ProviderPlayer,
 			PlayerControls
 		},
 		props: {
@@ -69,63 +77,67 @@
 				playerReady: false,
 				autoplay: false,
 				loop: false,
-				playing: false
+				isPlaying: false,
+				isMuted: false,
+				currentTrack: {},
+				tracksPool: []
 			}
 		},
 		computed: {
 			playlist: function() {
 				return this.tracks.reverse()
+			},
+			isNotFullVolume: function() {
+				return this.volume < 100
+			}
+		},
+		watch: {
+			track: function(track) {
+				this.playTrack(track);
+				return track;
+			},
+			tracks: function(tracks) {
+				this.newTracksPool(tracks);
+				return tracks;
+			},
+			volume: function(volume) {
+				if(volume <= 0) {
+					this.mute()
+				}
+				this.unMute();
 			}
 		},
 		methods: {
-			selectTrack(track) {
-				this.autoplay = true
-				this.cueTrack(track)
+			playTrack(track) {
+				this.currentTrack = track;
 			},
-			cueTrack(track) {
-				this.playlist.forEach(t => {t.active = false})
-				track.active = true
-				this.track = track
+			newTracksPool(tracks) {
+				this.tracksPool = tracks;
 			},
-			// runs once on load when yt-iframe is ready
-			onPlayerReady(player) {
-				this.playerReady = true
-			},
-			onPlayerError(event) {
-				console.log({youtubeError: event.data})
-				this.next()
-			},
-			onPlayerPlaying(event) {
-				this.playing = true
-			},
-			onPlayerEnded(event) {
-				this.playing = false
-				this.next()
-			},
-			play() {
-				this.playing = true
-			},
-			pause() {
-				this.playing = false
-			},
-			next() {
-				let playlist = this.playlist
-				const index = playlist.indexOf(this.track)
-				let track = playlist[index + 1]
-				if (!track && this.loop) {
-					track = playlist[0]
-				}
+			playNextTrack() {
+				const track = this.getNextTrack()
+				console.log('playNextTrack:track', track)
 				if (!track) {
 					return
 				}
-				this.autoplay = true
-				this.cueTrack(track)
+				this.playTrack(track)
 			},
-			cleanPlayer() {
-				this.channel = {}
-				this.tracks = []
-				this.track = {}
-				this.image = ''
+			getNextTrack() {
+				const pool = this.tracksPool
+				const index = pool.indexOf(this.currentTrack)
+				return pool[index + 1]
+			},
+			play() {
+				this.isPlaying = true;
+			},
+			pause() {
+				this.isPlaying = false;
+			},
+			mute() {
+				this.isMuted = true;
+			},
+			unMute() {
+				this.isMuted = false;
 			}
 		}
 	}

@@ -1,117 +1,163 @@
 <template>
-	<div id="YoutubePlayer">
-		<div class="Ratio"></div>
+	<div class="Provider">
 		<div class="ytplayer"></div>
 	</div>
 </template>
 
 <script>
-// This component uses https://github.com/gajus/youtube-player
-// to abstract the youtube iframe api.
-import YouTubePlayer from 'youtube-player'
+	// This component uses https://github.com/gajus/youtube-player
+	// to abstract the youtube iframe api.
+	// note: https://github.com/GoogleWebComponents/google-youtube/blob/master/google-youtube.html
+	// note: https://developers.google.com/youtube/iframe_api_reference
+	// note: there are no event listeners for volume
+	//       so changing volume on YT player can't be
+	//       repercuted on <r4-player> interface
+	import YouTubePlayer from 'youtube-player'
 
-const stateNames = {
-	'-1': 'unstarted',
-	0: 'ended',
-	1: 'playing',
-	2: 'paused',
-	3: 'buffering',
-	5: 'cued'
-}
+	localStorage.debug = 'youtube-player:*';
 
-export default {
-	name: 'youtube-player',
-	props: [
-		'videoId',
-		'volume',
-		'autoplay',
-		'playing'
-	],
-	data() {
-		return {
-			player: {},
-			playerVars: {
-				controls: 1,
-				fs: 0,
-				modestbranding: 1,
-				origin: window.location.origin,
-				playsinline: 1,
-				rel: 0,
-				showinfo: 0
+	export default {
+		name: 'youtube-player',
+		props: [
+			'volume',
+			'isPlaying',
+			'isMuted',
+			'trackId'
+		],
+		data() {
+			return {
+				player: {},
+				playerVars: {
+					controls: 1,
+					fs: 0,
+					modestbranding: 1,
+					origin: window.location.origin,
+					playsinline: 1,
+					rel: 0,
+					showinfo: 0
+				}
 			}
-		}
-	},
-	watch: {
-		videoId(id) {
-			if (this.autoplay) {
-				this.player.loadVideoById(id).then(() => {
-					// This extra "play" is needed on at least
-					// Chrome on Android 4.2. Otherwise it stays "buffering".
-					this.player.playVideo()
+		},
+		mounted() {
+			if(this.trackId) {
+				this.initPlayer().then(this.setTrackOnProvider(this.trackId))
+			}
+		},
+		watch: {
+			trackId(trackId) {
+				this.initPlayer().then(this.setTrackOnProvider(trackId))
+			},
+			isPlaying(isPlaying) {
+				if(!this.player) return
+				if(isPlaying) {
+					this.playProvider();
+				} else {
+					this.pauseProvider();
+				}
+			},
+			isMuted(isMuted) {
+				if(isMuted && this.playerExists) {
+					this.muteProvider()
+				} else {
+					this.unMuteProvider();
+				}
+			}
+		},
+		computed: {
+			playerExists: function() {
+				return this.player.hasOwnProperty('getIframe')
+			}
+		},
+		methods: {
+			initPlayer() {
+				return new Promise(resolve => {
+					if (this.playerExists) {
+						resolve()
+						return
+					}
+					
+					const el = this.$el.querySelector('.ytplayer')
+					this.player = YouTubePlayer(el, {
+						playerVars: this.playerVars
+					})
+					resolve(this.attachEventListeners())
 				})
-			} else {
-				this.player.cueVideoById(id)
-			}
-		},
-		playing(paused) {
-			if (paused) {
+			},
+			attachEventListeners() {
+				return new Promise(resolve => {
+					var player = this.player;
+					player.on('error', this.handleError)
+					player.on('stateChange', this.handleStateChange)
+					player.on('ready', this.handleReady)
+					/* player.on('volumeChange', this.handleVolumeChange)*/
+					resolve()
+				})
+			},
+			handleReady(resolve) {
+				console.log('handleReady');
+				this.unMuteProvider();
+			},
+			handleError(event) {
+				console.log('handleError:event')
+				console.log({youtubeError: event})
+				this.$emit('playNextTrack');
+			},
+			handleVolumeChange(event) {
+				console.log('handleVolumeChange', event)
+			},
+			handleStateChange(event) {				
+				const eventsName = {
+					'-1': 'unstarted',
+					0: 'ended',
+					1: 'playing',
+					2: 'paused',
+					3: 'buffering',
+					5: 'cued'
+				}
+				const id = event.data
+				const name = eventsName[id]
+				console.log('handleStateChange', id, name, event)
+
+				const actions = {
+					'-1': () => {},
+					0: () => this.$emit('trackEnded'),
+					1: () => this.$emit('play'),
+					2: () => this.$emit('pause'),
+					3: () => {},
+					5: () => {}
+				}
+
+				if (id < 3) {
+					actions[id]()
+				}
+			},
+
+			// select track to play
+			setTrackOnProvider(trackId) {
+				if (!trackId) return
+				this.player.loadVideoById({
+					'videoId': trackId
+				}).then(this.playProvider())
+			},
+			playProvider() {
 				this.player.playVideo()
-			} else {
+			},
+			pauseProvider() {
 				this.player.pauseVideo()
-			}
-		},
-		volume(vol) {
-			this.setVolume(vol)
-		}
-	},
-	mounted() {
-		// Create the player.
-		const el = this.$el.querySelector('.ytplayer')
-		this.player = YouTubePlayer(el, {playerVars: this.playerVars})
-
-		// Set initial volume.
-		this.setVolume(this.volume)
-
-		// Emit "ready" event with the player instance.
-		this.player.on('ready', () => {
-			this.$emit('ready', this.player)
-		})
-		this.player.on('error', event  => {
-			this.$emit('error', event)
-		})
-		// Emit all YouTube events.
-		this.player.on('stateChange', event => {
-			const state = stateNames[event.data]
-			this.$emit(state, event.data)
-		})
-	},
-	methods: {
-		setVolume(vol) {
-			if (this.player && vol !== undefined) {
-				this.player.setVolume(vol)
+			},
+			muteProvider() {
+				this.player.mute();
+			},
+			unMuteProvider() {
+				this.player.unMute()
+				this.player.setVolume(100)
 			}
 		}
 	}
-}
 </script>
 
-<style scoped>
-	#YoutubePlayer {
-		position: relative;
-		background-color: black;
-		height: 25vh;
-		overflow: hidden;
-	}
-	.Ratio {
-		width: 100%;
-		height: 0;
-		padding-bottom: 56.25%;
-		padding-bottom: calc(9/16*100%);
-	}
-</style>
-
 <style>
-	#YoutubePlayer iframe {
+	.Provider iframe {
 		position: absolute;
 		top: 0;
 		left: 0;
