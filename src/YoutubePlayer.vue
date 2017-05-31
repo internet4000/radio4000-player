@@ -71,15 +71,16 @@
 		methods: {
 			initPlayer() {
 				return new Promise(resolve => {
-					if(this.playerExists) {
-						return resolve();
+					if (this.playerExists) {
+						resolve()
+						return
 					}
 					
 					const el = this.$el.querySelector('.ytplayer')
 					this.player = YouTubePlayer(el, {
 						playerVars: this.playerVars
 					})
-					return resolve(this.attachEventListeners())
+					resolve(this.attachEventListeners())
 				})
 			},
 			attachEventListeners() {
@@ -133,6 +134,7 @@
 
 			// select track to play
 			setTrackOnProvider(trackId) {
+				if (!trackId) return
 				this.player.loadVideoById({
 					'videoId': trackId
 				}).then(this.playProvider())

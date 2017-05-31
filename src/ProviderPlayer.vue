@@ -36,6 +36,7 @@
 		},
 		watch: {
 			track: function(track) {
+				if (!track) return
 				this.selectProvider(track)
 			}
 		},
@@ -62,7 +63,6 @@
 			}
 		}
 }
-
 </script>
 
 <style>
