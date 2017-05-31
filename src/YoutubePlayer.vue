@@ -1,5 +1,5 @@
 <template>
-	<div class="Provider">
+	<div>
 		<div class="ytplayer"></div>
 	</div>
 </template>
@@ -13,8 +13,6 @@
 	//       so changing volume on YT player can't be
 	//       repercuted on <r4-player> interface
 	import YouTubePlayer from 'youtube-player'
-
-	localStorage.debug = 'youtube-player:*';
 
 	export default {
 		name: 'youtube-player',
@@ -39,7 +37,7 @@
 			}
 		},
 		mounted() {
-			if(this.trackId) {
+			if (this.trackId) {
 				this.initPlayer().then(this.setTrackOnProvider(this.trackId))
 			}
 		},
@@ -48,15 +46,15 @@
 				this.initPlayer().then(this.setTrackOnProvider(trackId))
 			},
 			isPlaying(isPlaying) {
-				if(!this.player) return
-				if(isPlaying) {
+				if (!this.player) return
+				if (isPlaying) {
 					this.playProvider();
 				} else {
 					this.pauseProvider();
 				}
 			},
 			isMuted(isMuted) {
-				if(isMuted && this.playerExists) {
+				if (isMuted && this.playerExists) {
 					this.muteProvider()
 				} else {
 					this.unMuteProvider();
@@ -75,7 +73,6 @@
 						resolve()
 						return
 					}
-					
 					const el = this.$el.querySelector('.ytplayer')
 					this.player = YouTubePlayer(el, {
 						playerVars: this.playerVars
@@ -157,12 +154,4 @@
 </script>
 
 <style>
-	.Provider iframe {
-		position: absolute;
-		top: 0;
-		left: 0;
-		width: 100%;
-		height: 100%;
-	}
 </style>
-

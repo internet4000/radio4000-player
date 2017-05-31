@@ -1,6 +1,5 @@
 <template>
 	<article>
-
 		<header>
 			<channel-header
 					:channel="channel"
