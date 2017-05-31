@@ -2,12 +2,22 @@ import test from 'ava'
 import Vue from 'vue'
 import Component from '../src/YoutubePlayer.vue'
 
-test('renders', t => {
+test.cb('renders', t => {
 	const vm = new Vue(Component).$mount()
 	const tree = {
 		$el: vm.$el.outerHTML
 	}
-	t.snapshot(tree)
 	const $ = selector => vm.$el.querySelectorAll(selector)
-	t.is($('.ytplayer').length, 1, 'it has an empty element for the yt player to replace')
+
+	t.snapshot(tree)
+
+	t.is($('.ytplayer').length, 1, 'has an element for the youtube iframe')
+	t.is(vm.$props.autoplay, undefined, 'autoplay is not enabled')
+
+	t.is(vm.$data.didPlay, false)
+	vm.$props.trackId = '-Op4D4bkK6Y'
+	vm.$nextTick(() => {
+		t.is(vm.$data.didPlay, true, 'after playing, didPlay changes to true')
+		t.end()
+	})
 })
