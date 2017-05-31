@@ -9,11 +9,11 @@
 
 		<aside>
 			<provider-player
-					:volume="volume"
-					:track="currentTrack"
+					:autoplay="autoplay"
 					:isPlaying="isPlaying"
 					:isMuted="isMuted"
-					:autoplay="autoplay"
+					:track="currentTrack"
+					:volume="volume"
 					@play="play"
 					@pause="pause"
 					@playNextTrack="playNextTrack"></provider-player>
@@ -63,6 +63,7 @@
 			PlayerControls
 		},
 		props: {
+			autoplay: Boolean,
 			channel: Object,
 			tracks: Array,
 			track: Object,
@@ -74,7 +75,6 @@
 		data () {
 			return {
 				playerReady: false,
-				autoplay: false,
 				loop: false,
 				isPlaying: false,
 				isMuted: false,

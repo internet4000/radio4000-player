@@ -1,5 +1,6 @@
 <template>
 	<radio4000-player
+			:autoplay="autoplay"
 			:channel="channel"
 			:tracks="tracks"
 			:track="track"
@@ -22,6 +23,7 @@
 			Radio4000Player
 		},
 		props: {
+			autoplay: Boolean,
 			channelSlug: String,
 			channelId: String,
 			trackId: String,
