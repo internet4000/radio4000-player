@@ -73,20 +73,21 @@
 		methods: {
 			clearR4Session() {
 				return new Promise((resolve, reject) => {
-	
 					this.channel = {};
 					this.image = ''
 					this.tracks = []
 					this.track = {}
-
-					resolve(console.log('-- clearR4Session --'))
+					resolve()
 				})
 			},
 			startR4Session(startMethod, param) {
 				this.clearR4Session();
-				startMethod(param).then(() => {
-					this.loadChannelImage(this.channel)
-					this.loadChannelTracks(this.channel)
+				startMethod(param).then(channel => {
+					findChannelTracks(channel.id)
+						.then(this.updatePlayerWithTracks)
+					if (!channel.images) return
+					findChannelImage(channel)
+						.then(this.updatePlayerWithImage)
 				})
 			},
 
@@ -110,19 +111,9 @@
 			},
 			startSessionFirstTrack(channel) {
 				var len = channel.tracks.length -1
-				findTrack(channel.tracks[len]).then(this.updatePlayerWithTrack);
-			},
-			// load data
-			loadChannelTracks(channel) {
-				return findChannelTracks(channel.id)
-					.then(this.updatePlayerWithTracks)
-			},
-			loadChannelImage(channel) {
-				if(!channel.images) {
-					return
-				}
-				return findChannelImage(channel)
-					.then(this.updatePlayerWithImage)
+				return findTrack(channel.tracks[len])
+					.then(this.updatePlayerWithTrack)
+					.then(() => channel)
 			},
 			updatePlayerWithChannel(channel) {
 				this.channel = channel;

@@ -7,7 +7,10 @@
 		"watchify": "watchify -vd -p browserify-hmr -e src/main.js -o dist/radio4000-player.js",
 		"serve": "serve -c 1",
 		"start": "npm-run-all --parallel watchify serve",
-		"build": "cross-env NODE_ENV=production browserify -g envify src/main.js | babili > dist/radio4000-player.min.js"
+		"build": "cross-env NODE_ENV=production browserify -g envify src/main.js | babili > dist/radio4000-player.min.js",
+		"test": "ava",
+		"test:watch": "ava --watch",
+		"test:update": "ava --update-snapshots"
 	},
 	"browser": "dist/radio4000-player.min.js",
 	"dependencies": {
@@ -17,15 +20,20 @@
 		"youtube-player": "^4.2.2"
 	},
 	"devDependencies": {
+		"ava": "^0.19.1",
 		"babel-core": "^6.24.0",
 		"babel-preset-env": "^1.4.0",
 		"babelify": "^7.2.0",
 		"babili": "^0.0.12",
+		"browser-env": "^2.0.31",
 		"browserify": "^14.1.0",
 		"browserify-hmr": "^0.3.1",
 		"cross-env": "^3.2.3",
 		"envify": "^4.0.0",
 		"npm-run-all": "^4.0.2",
+		"require-extension-hooks": "^0.2.0",
+		"require-extension-hooks-babel": "^0.1.1",
+		"require-extension-hooks-vue": "^0.3.1",
 		"serve": "^5.0.3",
 		"vueify": "^9.4.1",
 		"watchify": "^3.4.0"
@@ -34,6 +42,11 @@
 		"transform": [
 			"vueify",
 			"babelify"
+		]
+	},
+	"ava": {
+		"require": [
+			"./test/helpers/setup.js"
 		]
 	}
 }
