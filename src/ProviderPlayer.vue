@@ -7,10 +7,9 @@
 				:trackId="track.ytid"
 				:isPlaying="isPlaying"
 				:isMute="isMute"
-				:autoplay="autoplay"
-				@play="play"
-				@pause="pause"
-				@playNextTrack="playNextTrack"></youtube-player>
+				@play="playProvider"
+				@pause="pauseProvider"
+				@trackEnded="trackEnded"></youtube-player>
 	</div>
 </template>
 
@@ -28,7 +27,6 @@
 			'autoplay',
 			'isPlaying',
 			'isMute',
-			'playNextTrack',
 			'track'
 		],
 		data() {
@@ -46,13 +44,28 @@
 				if (track.ytid) {
 					this.provider = 'youtube'
 				}
+			},
+			playProvider() {
+				this.$emit('play');
+			},
+			pauseProvider() {
+				this.$emit('pause');
+			},
+			muteProvider() {
+				this.$emit('mute');
+			},
+			unMuteProvider() {
+				this.$emit('unMute')
+			},
+			trackEnded() {
+				this.$emit('playNextTrack')
 			}
 		}
 }
 
 </script>
 
-<style scoped>
+<style>
 	.ProviderPlayer {
 		position: relative;
 		background-color: black;

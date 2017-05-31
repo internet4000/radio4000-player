@@ -1,5 +1,7 @@
 <template>
+	<div class="Provider">
 		<div class="ytplayer"></div>
+	</div>
 </template>
 
 <script>
@@ -17,13 +19,10 @@
 	export default {
 		name: 'youtube-player',
 		props: [
-			'videoId',
 			'volume',
-			'autoplay',
 			'isPlaying',
 			'isMute',
-			'playNextTrack',
-			'track'
+			'trackId'
 		],
 		data() {
 			return {
@@ -40,11 +39,11 @@
 			}
 		},
 		watch: {
-			track(track) {
-				console.log('watch:track', track)
-				this.initPlayer().then(this.setTrackOnProvider(track))
+			trackId(trackId) {
+				this.initPlayer().then(this.setTrackOnProvider(trackId))
 			},
 			isPlaying(isPlaying) {
+				if(!this.player) return
 				if(isPlaying) {
 					this.playProvider();
 				} else {
@@ -81,11 +80,10 @@
 			attachEventListeners() {
 				return new Promise(resolve => {
 					var player = this.player;
-					console.log('events listener player', player)
 					player.on('error', this.handleError)
 					player.on('stateChange', this.handleStateChange)
 					player.on('ready', this.handleReady)
-					player.on('volumeChange', this.handleVolumeChange)
+					/* player.on('volumeChange', this.handleVolumeChange)*/
 					resolve()
 				})
 			},
@@ -116,7 +114,7 @@
 
 				const actions = {
 					'-1': () => {},
-					0: () => this.$emit('playNextTrack'),
+					0: () => this.$emit('trackEnded'),
 					1: () => this.$emit('play'),
 					2: () => this.$emit('pause'),
 					3: () => {},
@@ -129,10 +127,9 @@
 			},
 
 			// select track to play
-			setTrackOnProvider(track) {
-				const ytid = trackId;
+			setTrackOnProvider(trackId) {
 				this.player.loadVideoById({
-					'videoId': ytid
+					'videoId': trackId
 				}).then(this.playProvider())
 			},
 			playProvider() {
@@ -153,7 +150,7 @@
 </script>
 
 <style>
-	#YoutubePlayer iframe {
+	.Provider iframe {
 		position: absolute;
 		top: 0;
 		left: 0;
