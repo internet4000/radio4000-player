@@ -38,6 +38,11 @@
 				}
 			}
 		},
+		mounted() {
+			if(this.trackId) {
+				this.initPlayer().then(this.setTrackOnProvider(this.trackId))
+			}
+		},
 		watch: {
 			trackId(trackId) {
 				this.initPlayer().then(this.setTrackOnProvider(trackId))
