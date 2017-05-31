@@ -9,7 +9,7 @@
 		</header>
 
 		<aside>
-			<youtube-player
+			<provider-player
 					:volume="volume"
 					:track="currentTrack"
 					:isPlaying="isPlaying"
@@ -17,7 +17,7 @@
 					:autoplay="autoplay"
 					@play="play"
 					@pause="pause"
-					@playNextTrack="playNextTrack"></youtube-player>
+					@playNextTrack="playNextTrack"></provider-player>
 		</aside>
 
 		<main v-if="showTrack">
@@ -52,7 +52,7 @@
 	import Vue from 'vue'
 	import ChannelHeader from './ChannelHeader.vue'
 	import TrackList from './TrackList.vue'
-	import YoutubePlayer from './YoutubePlayer.vue'
+	import ProviderPlayer from './ProviderPlayer.vue'
 	import PlayerControls from './PlayerControls.vue'
 
 	export default {
@@ -60,7 +60,7 @@
 		components: {
 			ChannelHeader,
 			TrackList,
-			YoutubePlayer,
+			ProviderPlayer,
 			PlayerControls
 		},
 		props: {

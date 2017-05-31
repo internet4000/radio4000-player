@@ -1,8 +1,5 @@
 <template>
-	<div id="YoutubePlayer">
-		<div class="Ratio"></div>
 		<div class="ytplayer"></div>
-	</div>
 </template>
 
 <script>
@@ -84,9 +81,11 @@
 			attachEventListeners() {
 				return new Promise(resolve => {
 					var player = this.player;
+					console.log('events listener player', player)
 					player.on('error', this.handleError)
 					player.on('stateChange', this.handleStateChange)
 					player.on('ready', this.handleReady)
+					player.on('volumeChange', this.handleVolumeChange)
 					resolve()
 				})
 			},
@@ -98,6 +97,9 @@
 				console.log('handleError:event')
 				console.log({youtubeError: event})
 				this.$emit('playNextTrack');
+			},
+			handleVolumeChange(event) {
+				console.log('handleVolumeChange', event)
 			},
 			handleStateChange(event) {				
 				const eventsName = {
@@ -128,7 +130,7 @@
 
 			// select track to play
 			setTrackOnProvider(track) {
-				const ytid = track.ytid;
+				const ytid = trackId;
 				this.player.loadVideoById({
 					'videoId': ytid
 				}).then(this.playProvider())
@@ -149,21 +151,6 @@
 		}
 	}
 </script>
-
-<style scoped>
-	#YoutubePlayer {
-		position: relative;
-		background-color: black;
-		height: 25vh;
-		overflow: hidden;
-	}
-	.Ratio {
-		width: 100%;
-		height: 0;
-		padding-bottom: 56.25%;
-		padding-bottom: calc(9/16*100%);
-	}
-</style>
 
 <style>
 	#YoutubePlayer iframe {
