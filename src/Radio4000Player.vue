@@ -30,6 +30,7 @@
 			<track-list
 					v-if="tracksPool"
 					:tracks="tracksPool"
+					:track="currentTrack"
 					@select="playTrack"></track-list>
 		</main>
 
@@ -146,9 +147,8 @@
 <style>
 	radio4000-player {
 		display: block;
-		width: 352px; /* wide enough to show youtube time */
-		max-width: 100%;
-		height: 400px;
+		width: 100%;
+		max-width: 352px; /* wide enough to show youtube time */
 		overflow: hidden;
 		border: 1px solid hsl(0, 0%, 60%);
 		background-color: hsl(260, 10%, 92% );
