@@ -30,6 +30,7 @@ export default {
 	.TrackList {
 		padding-top: 0.6rem;
 		padding-bottom: 0.6rem;
+		max-height: 9rem;
 	}
 	ol {
 		margin: 0;
