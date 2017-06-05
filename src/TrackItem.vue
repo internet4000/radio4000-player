@@ -24,9 +24,11 @@
 		display: block;
 		width: 100%;
 	}
+	.TrackItem span {
+		padding: 0.2rem 0.3rem;
+	}
 	.TrackItem.active span {
 		background-color: #5e1ae6;
 		color: white;
-		padding: 0.2rem 0.3rem;
 	}
 </style>
