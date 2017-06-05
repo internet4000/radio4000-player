@@ -57,6 +57,7 @@
 		bottom: 0.2rem;
 		right: 1.2rem;
 		z-index: 2;
+		opacity: 0.5;
 	}
 	.TrackList-list {
 		overflow-y: scroll;
