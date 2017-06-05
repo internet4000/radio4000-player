@@ -100,7 +100,7 @@
 			handleError(event) {
 				console.log('handleError:event')
 				console.log({youtubeError: event})
-				this.$emit('playNextTrack');
+				this.$emit('trackEnded');
 			},
 			handleVolumeChange(event) {
 				console.log('handleVolumeChange', event)
