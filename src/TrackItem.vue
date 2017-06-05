@@ -1,7 +1,7 @@
 <template>
 	<div class="TrackItem"
-		v-bind:class="{active: track.active}"
-		v-on:click="select">
+v-bind:class="{active: active}"
+v-on:click="select">
 		{{track.title}}
 	</div>
 </template>
@@ -9,7 +9,7 @@
 <script>
 	export default {
 		name: 'track-item',
-		props: ['track'],
+		props: ['track', 'active'],
 		methods: {
 			select() {
 				this.$emit('select', this.track)
@@ -20,10 +20,10 @@
 
 <style scoped>
 	.TrackItem {
-		display: inline-block;
-		cursor: pointer;
+	display: inline-block;
+	cursor: pointer;
 	}
 	.active {
-		color: #5e1ae6;
+	color: #5e1ae6;
 	}
 </style>

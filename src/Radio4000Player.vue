@@ -85,9 +85,6 @@
 			}
 		},
 		computed: {
-			playlist: function() {
-				return this.tracks.reverse()
-			},
 			isNotFullVolume: function() {
 				return this.volume < 100
 			}

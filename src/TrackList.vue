@@ -2,9 +2,12 @@
 	<div class="TrackList"
 			 v-bind:class="{ 'TrackList--isActive' : tracks.length }">
 
+		<p v-if="tracks.length">currentTrackIndex: {{ this.currentTrackIndex }}</p>
 		<ol v-if="tracks.length">
-			<li v-for="track in tracks">
-				<track-item :track="track" v-on:select="select"></track-item>
+			<li v-for="(track, index) in tracks">
+				<track-item :track="track"
+										:class="{ active : currentTrackIndex === index }"
+										v-on:select="select"></track-item>
 			</li>
 		</ol>
 		<loading v-else/>
@@ -21,12 +24,24 @@
 		components: { TrackItem, Loading },
 		data() {
 			return {
-				activeTrackIndex: 0
+				currentTrackIndex: 0
+			}
+		},
+		watch: {
+			tracks: function() {
+				this.updateList()
+			},
+			track: function() {
+				this.updateList()
 			}
 		},
 		methods: {
 			select(track) {
 				this.$emit('select', track)
+			},
+			updateList() {
+				if (!this.tracks || !this.track) return
+				this.currentTrackIndex = this.tracks.indexOf(this.track)
 			}
 		}
 	}
