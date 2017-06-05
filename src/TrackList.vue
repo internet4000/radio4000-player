@@ -1,18 +1,23 @@
 <template>
-	<div id="TrackList" class="TrackList" v-bind:class="{ 'TrackList--isActive' : tracks.length }">
-		<aside class="TrackList-controls">
+	<div id="TrackList"
+			 class="TrackList">
+
+		<aside v-if="tracks.length"
+					 class="TrackList-controls">
 			<button class="Btn"
 							@click="locateCurrentTrack"
 							title="Locate current track">◎</button>
 		</aside>
-		<ol class="TrackList-list" v-if="tracks.length">
+
+		<Loading v-if="!tracks.length"/>
+		<ol class="TrackList-list">
 			<li v-for="(track, index) in tracks">
 				<track-item :track="track"
 										:class="{ active : currentTrackIndex === index }"
 										v-on:select="select"></track-item>
 			</li>
 		</ol>
-		<loading v-else/>
+		
 	</div>
 </template>
 
@@ -49,8 +54,8 @@
 	}
 	.TrackList-controls {
 		position: absolute;
-		bottom: 0;
-		left: 0.5rem;
+		bottom: 0.2rem;
+		right: 1.2rem;
 		z-index: 2;
 	}
 	.TrackList-list {
@@ -65,11 +70,9 @@
 		flex: 1;
 		transition: max-height 400ms ease-in-out;
 		transform: translateZ(0);
-		height: 100%;
-		max-height: 0;
+		height: 8rem;
 	}
 	.TrackList--isActive .TrackList-list {
-		max-height: 8rem;
 	}
 	li {
 		padding: 0 0.3em;
