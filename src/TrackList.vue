@@ -1,9 +1,11 @@
 <template>
-	<div class="TrackList"
-			 v-bind:class="{ 'TrackList--isActive' : tracks.length }">
-
-		<p v-if="tracks.length">currentTrackIndex: {{ this.currentTrackIndex }}</p>
-		<ol v-if="tracks.length">
+	<div id="TrackList" class="TrackList" v-bind:class="{ 'TrackList--isActive' : tracks.length }">
+		<aside class="TrackList-controls">
+			<button class="Btn"
+							@click="locateCurrentTrack"
+							title="Locate current track">◎</button>
+		</aside>
+		<ol class="TrackList-list" v-if="tracks.length">
 			<li v-for="(track, index) in tracks">
 				<track-item :track="track"
 										:class="{ active : currentTrackIndex === index }"
@@ -11,7 +13,6 @@
 			</li>
 		</ol>
 		<loading v-else/>
-		
 	</div>
 </template>
 
@@ -22,26 +23,21 @@
 		name: 'track-list',
 		props: ['tracks', 'track'],
 		components: { TrackItem, Loading },
-		data() {
-			return {
-				currentTrackIndex: 0
-			}
-		},
-		watch: {
-			tracks: function() {
-				this.updateList()
-			},
-			track: function() {
-				this.updateList()
+		computed: {
+			currentTrackIndex() {
+				var index = this.tracks.indexOf(this.track)
+				return index < 0 ? 0 : index
 			}
 		},
 		methods: {
 			select(track) {
 				this.$emit('select', track)
 			},
-			updateList() {
-				if (!this.tracks || !this.track) return
-				this.currentTrackIndex = this.tracks.indexOf(this.track)
+			locateCurrentTrack() {
+				const $container = document.querySelector('.TrackList .TrackList-list');
+				const $tracks = $container.children
+				const $activeTrack = $tracks[this.currentTrackIndex];
+				$container.scrollTop = $activeTrack.offsetTop - 4;
 			}
 		}
 	}
@@ -49,33 +45,37 @@
 
 <style scoped>
 	.TrackList {
-		padding-top: 0.6rem;
-		padding-bottom: 0.6rem;
+		position: relative;
+	}
+	.TrackList-controls {
+		position: absolute;
+		bottom: 0;
+		left: 0.5rem;
+		z-index: 2;
+	}
+	.TrackList-list {
+		padding: 0.6rem;
 		max-height: 0;
 		height: 100%;
 		transition: max-height 400ms ease-in-out;
-		transform: translateZ(0)
+		transform: translateZ(0);
 	}
-	.TrackList--isActive {
-		max-height: 9rem
+	.TrackList--isActive .TrackList-list {
+		max-height: 8rem;
 	}
 	ol {
 		margin: 0;
 		font-size: 0.8125em;
 		line-height: 1.7;
-	}
-	li {
-		padding: 0 0.3em;
-	}
-
-	/* Add counter because it looks slightly better 
-		 than the default list numbers.*/
-	ol {
 		padding: 0;
 		list-style: none;
 		counter-reset: tracks;
+		flex: 1;
+		overflow-y: scroll;
+		overflow-x: hidden;
 	}
 	li {
+		padding: 0 0.3em;
 		display: flex;
 	}
 	li::before {
@@ -83,8 +83,5 @@
 		counter-increment: tracks;
 		float: left;
 		margin-right: 0.4em;
-	}
-	li > div {
-		flex: 1;
 	}
 </style>

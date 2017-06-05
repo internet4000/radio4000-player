@@ -1,8 +1,8 @@
 <template>
 	<div class="TrackItem"
-v-bind:class="{active: active}"
-v-on:click="select">
-		{{track.title}}
+			 v-bind:class="{active: active}"
+			 v-on:click="select">
+		<span>{{track.title}}</span>
 	</div>
 </template>
 
@@ -20,10 +20,16 @@ v-on:click="select">
 
 <style scoped>
 	.TrackItem {
-	display: inline-block;
-	cursor: pointer;
+		display: inline-block;
+		cursor: pointer;
+		padding-left: 0.3rem;
+		padding-right: 0.3rem;
+	}
+	.TrackItem span {
+		display: flex;
 	}
 	.active {
-	color: #5e1ae6;
+		background-color: #5e1ae6;
+		color: white;
 	}
 </style>

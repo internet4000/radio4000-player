@@ -1,5 +1,5 @@
 <template>
-	<article>
+	<article class="Player">
 
 		<header>
 			<channel-header
@@ -157,19 +157,11 @@
 </style>
 
 <style scoped>
-	article {
+	.Player {
 		display: flex;
 		flex-direction: column;
 		height: 100%;
 	}
-	header {}
-	aside {}
-	main {
-		flex: 1;
-		overflow-y: scroll;
-		overflow-x: hidden;
-	}
-	footer {}
 </style>
 
 <style id="Radio4000-mini">
