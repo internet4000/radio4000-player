@@ -4,6 +4,7 @@
 		<youtube-player
 				v-if="provider === 'youtube'"
 				:volume="volume"
+				:autoplay="autoplay"
 				:trackId="track.ytid"
 				:isPlaying="isPlaying"
 				:isMuted="isMuted"
