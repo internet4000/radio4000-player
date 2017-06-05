@@ -59,6 +59,9 @@
 		z-index: 2;
 		opacity: 0.5;
 	}
+	.TrackList-controls:hover {
+		opacity: 1;
+	}
 	.TrackList-list {
 		overflow-y: scroll;
 		overflow-x: hidden;
