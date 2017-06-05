@@ -20,16 +20,13 @@
 
 <style scoped>
 	.TrackItem {
-		display: inline-block;
 		cursor: pointer;
-		padding-left: 0.3rem;
-		padding-right: 0.3rem;
+		display: block;
+		width: 100%;
 	}
-	.TrackItem span {
-		display: flex;
-	}
-	.active {
+	.TrackItem.active span {
 		background-color: #5e1ae6;
 		color: white;
+		padding: 0.2rem 0.3rem;
 	}
 </style>

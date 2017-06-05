@@ -54,25 +54,22 @@
 		z-index: 2;
 	}
 	.TrackList-list {
-		padding: 0.6rem;
-		max-height: 0;
-		height: 100%;
-		transition: max-height 400ms ease-in-out;
-		transform: translateZ(0);
-	}
-	.TrackList--isActive .TrackList-list {
-		max-height: 8rem;
-	}
-	ol {
+		overflow-y: scroll;
+		overflow-x: hidden;
 		margin: 0;
+		padding: 0.6rem;
 		font-size: 0.8125em;
 		line-height: 1.7;
-		padding: 0;
 		list-style: none;
 		counter-reset: tracks;
 		flex: 1;
-		overflow-y: scroll;
-		overflow-x: hidden;
+		transition: max-height 400ms ease-in-out;
+		transform: translateZ(0);
+		height: 100%;
+		max-height: 0;
+	}
+	.TrackList--isActive .TrackList-list {
+		max-height: 8rem;
 	}
 	li {
 		padding: 0 0.3em;
