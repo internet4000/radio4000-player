@@ -78,4 +78,11 @@
 		padding-bottom: 56.25%;
 		padding-bottom: calc(9/16*100%);
 	}
+	.ProviderPlayer iframe {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+	}
 </style>

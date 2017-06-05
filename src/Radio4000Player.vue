@@ -1,6 +1,5 @@
 <template>
 	<article class="Player">
-
 		<header>
 			<channel-header
 					:channel="channel"

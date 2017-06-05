@@ -70,7 +70,7 @@ If you're familiar with CSS, you can also write your own styles targeting the `<
 # install dependencies
 yarn
 
-# serve with hot reload at localhost:5000
+# serve with hot reload at localhost:4002
 yarn start
 
 # build for production with minification
