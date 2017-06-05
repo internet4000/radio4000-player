@@ -1,5 +1,5 @@
 <template>
-	<article>
+	<article class="Player">
 		<header>
 			<channel-header
 					:channel="channel"
@@ -29,6 +29,7 @@
 			<track-list
 					v-if="tracksPool"
 					:tracks="tracksPool"
+					:track="currentTrack"
 					@select="playTrack"></track-list>
 		</main>
 
@@ -83,9 +84,6 @@
 			}
 		},
 		computed: {
-			playlist: function() {
-				return this.tracks.reverse()
-			},
 			isNotFullVolume: function() {
 				return this.volume < 100
 			}
@@ -145,9 +143,8 @@
 <style>
 	radio4000-player {
 		display: block;
-		width: 352px; /* wide enough to show youtube time */
-		max-width: 100%;
-		height: 400px;
+		width: 100%;
+		max-width: 352px; /* wide enough to show youtube time */
 		overflow: hidden;
 		border: 1px solid hsl(0, 0%, 60%);
 		background-color: hsl(260, 10%, 92% );
@@ -159,19 +156,11 @@
 </style>
 
 <style scoped>
-	article {
+	.Player {
 		display: flex;
 		flex-direction: column;
 		height: 100%;
 	}
-	header {}
-	aside {}
-	main {
-		flex: 1;
-		overflow-y: scroll;
-		overflow-x: hidden;
-	}
-	footer {}
 </style>
 
 <style id="Radio4000-mini">

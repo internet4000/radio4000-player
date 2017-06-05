@@ -1,12 +1,20 @@
 <template>
-	<radio4000-player
-			:channel="channel"
-			:tracks="tracks"
-			:track="track"
-			:image="image"
-			:showCurrentTrack="showCurrentTrack"
-			:showTracks="showTracks"
-			:volume="volume"/>
+	<article>
+		<radio4000-player
+				v-if="playerStartedSession"
+				:channel="channel"
+				:tracks="tracks"
+				:track="track"
+				:image="image"
+				:showCurrentTrack="showCurrentTrack"
+				:showTracks="showTracks"
+				:volume="volume"/>
+		<div v-else class="Console">
+			<p>Radio4000-player is ready to start playing data:
+				<a href="https://github.com/internet4000/radio4000-player-vue">documentation</a>
+			</p>
+		</div>
+	</article>
 </template>
 <script>
 	import Radio4000Player from './Radio4000Player.vue'
@@ -41,6 +49,7 @@
 		data () {
 			/* return initialState()*/
 			return {
+				playerStartedSession: false,
 				channel: {},
 				image: '',
 				tracks: [],
@@ -48,8 +57,13 @@
 			}
 		},
 		created() {
-			// init 1 - from what `key` do we load channel data?
+			// init 1 - if there is any following key,
+			// start the according session
+			// otherwise stay in idle mode
 			const { channelSlug, channelId, trackId } = this;
+			if (!channelSlug && !channelId && !trackId ) {
+				this.playerStartedSession = false;
+			}
 			if (channelSlug) {
 				return this.startR4Session(this.startBySlug, channelSlug)
 			} else if (channelId) {
@@ -63,8 +77,7 @@
 			// `slug` and `id` are only used to assign radio externally
 			// by the <radio4000-player> web component props
 			channelSlug: function (slug) {
-				this.startR4Session(this.startBySlug, slug)
-				
+				this.startR4Session(this.startBySlug, slug)				
 			},
 			channelId: function (id) {
 				this.startR4Session(this.startById, id)
@@ -82,6 +95,7 @@
 			},
 			startR4Session(startMethod, param) {
 				this.clearR4Session();
+				this.playerStartedSession = true;
 				startMethod(param).then(channel => {
 					findChannelTracks(channel.id)
 						.then(this.updatePlayerWithTracks)
@@ -132,3 +146,11 @@
 		}
 	}
 </script>
+
+<style>
+	.Console {
+		font-family: monospace;
+		padding: 0.5rem;
+		line-height: 1.4;
+	}
+</style>

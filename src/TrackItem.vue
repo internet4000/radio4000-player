@@ -1,15 +1,15 @@
 <template>
 	<div class="TrackItem"
-		v-bind:class="{active: track.active}"
-		v-on:click="select">
-		{{track.title}}
+			 v-bind:class="{active: active}"
+			 v-on:click="select">
+		<span>{{track.title}}</span>
 	</div>
 </template>
 
 <script>
 	export default {
 		name: 'track-item',
-		props: ['track'],
+		props: ['track', 'active'],
 		methods: {
 			select() {
 				this.$emit('select', this.track)
@@ -20,10 +20,15 @@
 
 <style scoped>
 	.TrackItem {
-		display: inline-block;
 		cursor: pointer;
+		display: block;
+		width: 100%;
 	}
-	.active {
-		color: #5e1ae6;
+	.TrackItem span {
+		padding: 0.2rem 0.3rem;
+	}
+	.TrackItem.active span {
+		background-color: #5e1ae6;
+		color: white;
 	}
 </style>
