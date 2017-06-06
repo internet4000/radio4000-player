@@ -14,7 +14,6 @@
 					:autoplay="autoplay"
 					:isPlaying="isPlaying"
 					:isMute="isMute"
-					:autoplay="autoplay"
 					@play="play"
 					@pause="pause"
 					@playNextTrack="playNextTrack"></provider-player>
