@@ -25,6 +25,7 @@ Here's a list of all the attributes you can set and change on the web component.
 - `channel-id` [string], a radio4000 channel id (ex: `-JYZvhj3vlGCjKXZ2cXO`)
 - `track-id` [string], a radio4000 track id (ex: `-JYEosmvT82Ju0vcSHVP`)
 - `volume` [integer] from 0 to 100
+- `autoplay` [boolean], if it should start playing automatically
 
 ### Examples
 
@@ -40,6 +41,12 @@ player.trackId = '-JYEosmvT82Ju0vcSHVP'
 
 // Change the volume.
 player.volume = 25
+```
+
+To enable autoplay:
+
+```html
+<radio4000-player channel-slug="200ok" autoplay="true"></radio4000-player>
 ```
 
 ## Skins

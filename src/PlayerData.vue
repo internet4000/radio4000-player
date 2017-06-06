@@ -6,6 +6,7 @@
 				:tracks="tracks"
 				:track="track"
 				:image="image"
+				:autoplay="autoplay"
 				:showCurrentTrack="showCurrentTrack"
 				:showTracks="showTracks"
 				:volume="volume"/>
@@ -30,6 +31,7 @@
 			Radio4000Player
 		},
 		props: {
+			autoplay: Boolean,
 			channelSlug: String,
 			channelId: String,
 			trackId: String,

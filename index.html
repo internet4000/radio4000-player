@@ -1,36 +1,42 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0">
-		<title>Radio4000 player</title>
-	</head>
-	<body>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0">
+	<title>Radio4000 player</title>
+</head>
+<body>
 
-		<p>This is an example of the <a href="https://github.com/Internet4000/radio4000-player-vue">&lt;radio4000-player&gt;</a> web component.</p>
+	<p>
+		Test page for the <a href="https://github.com/internet4000/radio4000-player-vue">&lt;radio4000-player&gt;</a> web component.
+	</p>
 
-		<!-- <script src="https://rawgit.com/Internet4000/radio4000-player-vue/master/dist/radio4000-player.min.js" async></script> -->
-		<script async src="dist/radio4000-player.js"></script>
-		<!-- <script async src="dist/radio4000-player.min.js"></script> -->
+	<!-- development script-->
+	<script async src="dist/radio4000-player.js"></script>
 
-		<div class="Grid">
-			<!-- <radio4000-player channel-id=""></radio4000-player> -->
-			<!-- <radio4000-player track-id="-JYZvhj3vlGCjKXZ2cXO"></radio4000-player> -->
-			<!-- <radio4000-player channel-id="-JYEosmvT82Ju0vcSHVP"></radio4000-player> -->
-			<radio4000-player channel-slug="200ok"></radio4000-player>
-			
-			<!-- <radio4000-player channel-slug="200ok" class="dark purple"></radio4000-player> -->
-			<!-- <radio4000-player channel-slug="elevator-music" class="dark"></radio4000-player> -->
-			<!-- <radio4000-player channel-slug="elevator-music" class="dark lakers"></radio4000-player> -->
-		</div>
+	<!--production scripts -->
+	<!-- <script async src="dist/radio4000-player.min.js"></script> -->
 
-		<div class="Grid">
+	<!-- cdn url from the production version from github master-->
+	<!-- <script src="https://rawgit.com/internet4000/radio4000-player-vue/master/dist/radio4000-player.min.js" async></script> -->
+
+	<!-- there are three different ways to start the player -->
+	<div class="Grid">
+		<radio4000-player channel-slug="200ok"></radio4000-player>
+		<!-- <radio4000-player channel-id=""></radio4000-player> -->
+		<!-- <radio4000-player track-id="-JYZvhj3vlGCjKXZ2cXO"></radio4000-player> -->
+	</div>
+
+	<div class="Grid">
+		<!-- <radio4000-player channel-slug="200ok" class="dark purple"></radio4000-player> -->
+		<!-- <radio4000-player channel-slug="elevator-music" class="dark"></radio4000-player> -->
+		<!-- <radio4000-player channel-slug="elevator-music" class="dark lakers"></radio4000-player> -->
 		<!-- <radio4000-player channel-slug="elevator-music" class="mini"></radio4000-player> -->
 		<!-- <radio4000-player channel-slug="elevator-music" class="dark mini"></radio4000-player> -->
 		<!-- <radio4000-player channel-slug="elevator-music" class="lakers dark mini"></radio4000-player> -->
-		</div>
+	</div>
 
-		<style>
+	<style>
 		/* Styles for this demo. */
 		body {
 			margin: 1rem;
@@ -39,20 +45,21 @@
 			margin: 1rem;
 		}
 		@media (min-width: 700px) {
-			.Grid {display: flex;}
+			.Grid {
+				display: flex;
+			}
 		}
-		/* Lakers skin */
+
+		/* Test "Lakers" skin */
 		radio4000-player.lakers {
 			background: linear-gradient(to bottom, purple 50%, yellow);
 		}
-		/* Radio4000 skin */
+		/* Test "Radio4000" skin */
 		radio4000-player.dark.purple,
 		radio4000-player.dark.purple button {
-		background-color: #5e1ae6;
+			background-color: #5e1ae6;
 		}
-</style>
+	</style>
 
-		</style>
-
-	</body>
+</body>
 </html>

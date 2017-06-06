@@ -17,6 +17,7 @@
 	export default {
 		name: 'youtube-player',
 		props: [
+			'autoplay',
 			'volume',
 			'isPlaying',
 			'isMute',
@@ -33,7 +34,8 @@
 					playsinline: 1,
 					rel: 0,
 					showinfo: 0
-				}
+				},
+				didPlay: false
 			}
 		},
 		mounted() {
@@ -130,11 +132,15 @@
 			},
 
 			// select track to play
-			setTrackOnProvider(trackId) {
-				if (!trackId) return
-				this.player.loadVideoById({
-					'videoId': trackId
-				}).then(this.playProvider())
+			setTrackOnProvider(videoId) {
+				if (!videoId) return
+				if (this.autoplay || this.didPlay) {
+					// The extra .then -> play here is to autoplay on mobile.
+					this.player.loadVideoById({videoId}).then(this.playProvider)
+				} else {
+					this.player.cueVideoById({videoId})
+					this.didPlay = true
+				}
 			},
 			playProvider() {
 				this.player.playVideo()
