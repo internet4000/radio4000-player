@@ -26,14 +26,8 @@
 	import Loading from './Loading.vue'
 	export default {
 		name: 'track-list',
-		props: ['tracks', 'track'],
+		props: ['tracks', 'track', 'currentTrackIndex'],
 		components: { TrackItem, Loading },
-		computed: {
-			currentTrackIndex() {
-				var index = this.tracks.indexOf(this.track)
-				return index < 0 ? 0 : index
-			}
-		},
 		methods: {
 			select(track) {
 				this.$emit('select', track)

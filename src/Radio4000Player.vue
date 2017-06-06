@@ -30,6 +30,7 @@
 					v-if="tracksPool"
 					:tracks="tracksPool"
 					:track="currentTrack"
+					:currentTrackIndex="currentTrackIndex"
 					@select="playTrack"></track-list>
 		</main>
 
@@ -89,6 +90,13 @@
 		computed: {
 			isNotFullVolume: function() {
 				return this.volume < 100
+			},
+			currentTrackIndex() {
+				var index = this.tracksPool.indexOf(this.currentTrack)
+				console.log('this.tracksPool', this.tracksPool)
+				console.log('this.currentTrack', this.currentTrack)
+				console.log('index', index)
+				return index;
 			}
 		},
 		watch: {
