@@ -26,12 +26,11 @@
 	import Loading from './Loading.vue'
 	export default {
 		name: 'track-list',
-		props: ['tracks', 'track'],
+		props: ['tracks', 'track', 'currentTrackIndex'],
 		components: { TrackItem, Loading },
-		computed: {
-			currentTrackIndex() {
-				var index = this.tracks.indexOf(this.track)
-				return index < 0 ? 0 : index
+		watch: {
+			tracks() {
+				this.$nextTick(this.locateCurrentTrack)
 			}
 		},
 		methods: {
@@ -39,9 +38,10 @@
 				this.$emit('select', track)
 			},
 			locateCurrentTrack() {
-				const $container = document.querySelector('.TrackList .TrackList-list');
+				const $container = this.$el.querySelector('.TrackList .TrackList-list');
 				const $tracks = $container.children
 				const $activeTrack = $tracks[this.currentTrackIndex];
+				if(!$activeTrack) return;
 				$container.scrollTop = $activeTrack.offsetTop - 4;
 			}
 		}
@@ -58,6 +58,9 @@
 		right: 1.2rem;
 		z-index: 2;
 		opacity: 0.5;
+	}
+	.TrackList-controls:hover {
+		opacity: 1;
 	}
 	.TrackList-list {
 		overflow-y: scroll;

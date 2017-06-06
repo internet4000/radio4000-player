@@ -7,7 +7,7 @@
 				:autoplay="autoplay"
 				:trackId="track.ytid"
 				:isPlaying="isPlaying"
-				:isMuted="isMuted"
+				:isMute="isMute"
 				@play="playProvider"
 				@pause="pauseProvider"
 				@trackEnded="trackEnded"></youtube-player>
@@ -27,7 +27,7 @@
 			'volume',
 			'autoplay',
 			'isPlaying',
-			'isMuted',
+			'isMute',
 			'track'
 		],
 		data() {
