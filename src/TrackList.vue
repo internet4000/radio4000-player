@@ -24,16 +24,14 @@
 <script>
 	import TrackItem from './TrackItem.vue'
 	import Loading from './Loading.vue'
-	import debounce from 'lodash/debounce'
 	export default {
 		name: 'track-list',
 		props: ['tracks', 'track', 'currentTrackIndex'],
 		components: { TrackItem, Loading },
 		watch: {
-			tracks: debounce(
-				function() {
-					this.locateCurrentTrack();
-				}, 200)
+			tracks() {
+				this.$nextTick(this.locateCurrentTrack)
+			}
 		},
 		methods: {
 			select(track) {
