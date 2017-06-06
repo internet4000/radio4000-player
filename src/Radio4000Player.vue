@@ -92,11 +92,7 @@
 				return this.volume < 100
 			},
 			currentTrackIndex() {
-				var index = this.tracksPool.indexOf(this.currentTrack)
-				console.log('this.tracksPool', this.tracksPool)
-				console.log('this.currentTrack', this.currentTrack)
-				console.log('index', index)
-				return index;
+				return this.tracksPool.findIndex(track => track.id === this.currentTrack.id)
 			}
 		},
 		watch: {
@@ -135,7 +131,7 @@
 			},
 			getNextTrack() {
 				const pool = this.tracksPool
-				const index = pool.indexOf(this.currentTrack)
+				const index = this.currentTrackIndex;
 				return pool[index + 1]
 			},
 			play() {
