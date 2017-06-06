@@ -21,13 +21,11 @@
 
 		<main v-if="showTrack">
 			<track-current
-					v-if="tracksPool"
 					:track="currentTrack"></track-current>
 		</main>
 
 		<main v-if="showTracks">
 			<track-list
-					v-if="tracksPool"
 					:tracks="tracksPool"
 					:track="currentTrack"
 					:currentTrackIndex="currentTrackIndex"
@@ -116,7 +114,9 @@
 			newTracksPool() {
 				var newTracksPool = this.tracks.slice().reverse();
 				if(this.isShuffle) {
-					this.tracksPool = shuffleArray(newTracksPool);
+					const currentTrackArray = newTracksPool.splice(this.currentTrackIndex, 1)
+					const shuffledArray = shuffleArray(newTracksPool);
+					this.tracksPool = [...currentTrackArray, ...shuffledArray]
 				} else {
 					this.tracksPool = newTracksPool;
 				}
