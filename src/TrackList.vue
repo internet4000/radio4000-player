@@ -33,7 +33,7 @@
 			tracks: debounce(
 				function() {
 					this.locateCurrentTrack();
-				}, 400)
+				}, 200)
 		},
 		methods: {
 			select(track) {
@@ -43,6 +43,7 @@
 				const $container = this.$el.querySelector('.TrackList .TrackList-list');
 				const $tracks = $container.children
 				const $activeTrack = $tracks[this.currentTrackIndex];
+				if(!$activeTrack) return;
 				$container.scrollTop = $activeTrack.offsetTop - 4;
 			}
 		}
