@@ -113,9 +113,9 @@
 			},
 			newTracksPool() {
 				if(this.isShuffle) {
-					this.tracksPool = shuffleArray(this.tracks);
+					this.tracksPool = shuffleArray(this.tracks).reverse();
 				} else {
-					this.tracksPool = this.tracks;
+					this.tracksPool = this.tracks.reverse();
 				}
 			},
 			playNextTrack() {
