@@ -3,16 +3,18 @@
 
 		<!-- https://en.wikipedia.org/wiki/Geometric_Shapes -->
 		<div class="PlayerControl-group">
-			<button v-if="!isMuted"
-							@click="$emit('mute')"
-							v-bind:class="{ 'Btn--isNotFullVolume' : isNotFullVolume }"
-							class="Btn">
-				<span>■</span>
+			<button @click="$emit('toggleMute')"
+							v-bind:class="{ 'Btn--isNotFullVolume' : isNotFullVolume, 'is-active' : isMute }"
+							class="Btn Btn--mute">
+				<span></span>
 			</button>
-			<button v-else
-							@click="$emit('unMute')"
-							class="Btn">
-				<span>□</span>
+			</button>
+		</div>
+		<div class="PlayerControl-group">
+			<button @click="$emit('toggleShuffle')"
+							class="Btn Btn--shuffle"
+							v-bind:class="{ 'is-active' : isShuffle }">
+				<span>↝</span>
 			</button>
 		</div>
 
@@ -39,7 +41,8 @@
 		name: 'player-controls',
 		props: ['volume',
 						'isPlaying',
-						'isMuted',
+						'isMute',
+						'isShuffle',
 						'isNotFullVolume']
 	}
 </script>
@@ -52,23 +55,40 @@
 		display: flex;
 		flex-flow: row nowrap;
 	}
+	
 	.PlayerControl-group {
 		flex: 1;
 	}
 	.PlayerControl-group--large {
 		flex: 3;
 	}
+
 	.Btn {
 		flex: 1;
 		width: 100%;
-		min-height: 2.7em;
+		min-height: 2.6rem;
 		background: hsl(0, 0%, 96%);
 		border: 0;
 		font-size: 0.8125em;
 		padding: 0.2em 0.5em 0.1em;
 	}
+	
 	.Btn--isNotFullVolume span {
 		opacity: 0.4;
 	}
+	.Btn--mute span::before {
+		content: '■';
+	}
+	.Btn--mute.is-active span::before {
+		content: '□';
+	}
+	
+	.Btn--shuffle {
+		font-size: 1.7rem;
+	}
+	.Btn--shuffle.is-active span {
+		opacity: 0.5;
+	}
+	
 </style>
 

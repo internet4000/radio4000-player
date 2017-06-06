@@ -19,7 +19,7 @@
 		props: [
 			'volume',
 			'isPlaying',
-			'isMuted',
+			'isMute',
 			'trackId'
 		],
 		data() {
@@ -53,8 +53,8 @@
 					this.pauseProvider();
 				}
 			},
-			isMuted(isMuted) {
-				if (isMuted && this.playerExists) {
+			isMute(isMute) {
+				if (isMute && this.playerExists) {
 					this.muteProvider()
 				} else {
 					this.unMuteProvider();

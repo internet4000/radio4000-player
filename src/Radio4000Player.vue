@@ -12,7 +12,7 @@
 					:volume="volume"
 					:track="currentTrack"
 					:isPlaying="isPlaying"
-					:isMuted="isMuted"
+					:isMute="isMute"
 					:autoplay="autoplay"
 					@play="play"
 					@pause="pause"
@@ -38,11 +38,12 @@
 					:isPlaying="isPlaying"
 					:volume="volume"
 					:isNotFullVolume="isNotFullVolume"
-					:isMuted="isMuted"
+					:isMute="isMute"
+					:isShuffle="isShuffle"
 					@play="play"
 					@pause="pause"
-					@mute="mute"
-					@unMute="unMute"
+					@toggleMute="toggleMute"
+					@toggleShuffle="toggleShuffle"
 					@next="playNextTrack"></player-controls>
 		</footer>
 	</article>
@@ -78,7 +79,8 @@
 				autoplay: false,
 				loop: false,
 				isPlaying: false,
-				isMuted: false,
+				isMute: false,
+				isShuffle: false,
 				currentTrack: {},
 				tracksPool: []
 			}
@@ -130,11 +132,19 @@
 			pause() {
 				this.isPlaying = false;
 			},
-			mute() {
-				this.isMuted = true;
+			toggleMute() {
+				if(this.isMute) {
+					this.isMute = false
+				} else {
+					this.isMute = true
+				}
 			},
-			unMute() {
-				this.isMuted = false;
+			toggleShuffle() {
+				if(this.isShuffle) {
+					this.isShuffle = false
+				} else {
+					this.isShuffle = true
+				}
 			}
 		}
 	}
