@@ -36,6 +36,7 @@
 			<player-controls
 					:isPlaying="isPlaying"
 					:volume="volume"
+					:isDisabled="!this.tracksPool.length"
 					:isNotFullVolume="isNotFullVolume"
 					:isMute="isMute"
 					:isShuffle="isShuffle"

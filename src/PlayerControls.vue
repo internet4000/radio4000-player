@@ -3,39 +3,49 @@
 
 		<!-- https://en.wikipedia.org/wiki/Geometric_Shapes -->
 		<div class="PlayerControl-group">
-			<button @click="$emit('toggleMute')"
-							v-bind:class="{ 'Btn--isNotFullVolume' : isNotFullVolume, 'is-active' : isMute }"
-							class="Btn Btn--mute"
-							title="Mute on/off">
+			<button
+					:disabled="isDisabled"
+					@click="$emit('toggleMute')"
+					v-bind:class="{ 'Btn--isNotFullVolume' : isNotFullVolume, 'is-active' : isMute }"
+					class="Btn Btn--mute"
+					title="Mute on/off">
 				<span></span>
 			</button>
 			</button>
 		</div>
 		<div class="PlayerControl-group">
-			<button @click="$emit('toggleShuffle')"
-							class="Btn Btn--shuffle"
-							v-bind:class="{ 'is-active' : !isShuffle }"
-							title="Shuffle on/off">
+			<button
+					@click="$emit('toggleShuffle')"
+					class="Btn Btn--shuffle"
+					:disabled="isDisabled"
+					v-bind:class="{ 'is-active' : !isShuffle }"
+					title="Shuffle on/off">
 				<span>↝</span>
 			</button>
 		</div>
 
 		<div class="PlayerControl-group PlayerControl-group--large">
-			<button v-if="!isPlaying"
-							@click="$emit('play')"
-							class="Btn"
-							title="Play">Play</button>
-			<button v-else
-							@click="$emit('pause')"
-							class="Btn"
-							title="Pause">Pause</button>
+			<button
+					v-if="!isPlaying"
+					:disabled="isDisabled"
+					@click="$emit('play')"
+					class="Btn"
+					title="Play">Play</button>
+			<button
+					v-else
+					:disabled="isDisabled"
+					@click="$emit('pause')"
+					class="Btn"
+					title="Pause">Pause</button>
 		</div>
 
 		<div class="PlayerControl-group PlayerControl-group--large">
 			<!-- <button class=Btn @click="prev">Prev</button> -->
-			<button @click="$emit('next')"
-							class="Btn"
-							title="Next track">Next</button>
+			<button
+					:disabled="isDisabled"
+					@click="$emit('next')"
+					class="Btn"
+					title="Next track">Next</button>
 		</div>
 		
 	</menu>
@@ -46,6 +56,7 @@
 		name: 'player-controls',
 		props: ['volume',
 						'isPlaying',
+						'isDisabled',
 						'isMute',
 						'isShuffle',
 						'isNotFullVolume']
