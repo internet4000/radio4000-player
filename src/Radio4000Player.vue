@@ -55,6 +55,7 @@
 	import TrackList from './TrackList.vue'
 	import ProviderPlayer from './ProviderPlayer.vue'
 	import PlayerControls from './PlayerControls.vue'
+	import { shuffleArray } from './utils/shuffle-helpers';
 
 	export default {
 		name: 'radio4000-player',
@@ -96,7 +97,7 @@
 				return track;
 			},
 			tracks: function(tracks) {
-				this.newTracksPool(tracks);
+				this.newTracksPool();
 				return tracks;
 			},
 			volume: function(volume) {
@@ -110,8 +111,12 @@
 			playTrack(track) {
 				this.currentTrack = track;
 			},
-			newTracksPool(tracks) {
-				this.tracksPool = tracks;
+			newTracksPool() {
+				if(this.isShuffle) {
+					this.tracksPool = shuffleArray(this.tracks);
+				} else {
+					this.tracksPool = this.tracks;
+				}
 			},
 			playNextTrack() {
 				const track = this.getNextTrack()
@@ -145,6 +150,7 @@
 				} else {
 					this.isShuffle = true
 				}
+				this.newTracksPool();
 			}
 		}
 	}

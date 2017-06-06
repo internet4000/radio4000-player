@@ -5,7 +5,8 @@
 		<div class="PlayerControl-group">
 			<button @click="$emit('toggleMute')"
 							v-bind:class="{ 'Btn--isNotFullVolume' : isNotFullVolume, 'is-active' : isMute }"
-							class="Btn Btn--mute">
+							class="Btn Btn--mute"
+							title="Mute on/off">
 				<span></span>
 			</button>
 			</button>
@@ -13,7 +14,8 @@
 		<div class="PlayerControl-group">
 			<button @click="$emit('toggleShuffle')"
 							class="Btn Btn--shuffle"
-							v-bind:class="{ 'is-active' : isShuffle }">
+							v-bind:class="{ 'is-active' : !isShuffle }"
+							title="Shuffle on/off">
 				<span>↝</span>
 			</button>
 		</div>
@@ -21,16 +23,19 @@
 		<div class="PlayerControl-group PlayerControl-group--large">
 			<button v-if="!isPlaying"
 							@click="$emit('play')"
-							class="Btn">Play</button>
+							class="Btn"
+							title="Play">Play</button>
 			<button v-else
 							@click="$emit('pause')"
-							class="Btn">Pause</button>
+							class="Btn"
+							title="Pause">Pause</button>
 		</div>
 
 		<div class="PlayerControl-group PlayerControl-group--large">
 			<!-- <button class=Btn @click="prev">Prev</button> -->
 			<button @click="$emit('next')"
-							class="Btn">Next</button>
+							class="Btn"
+							title="Next track">Next</button>
 		</div>
 		
 	</menu>
