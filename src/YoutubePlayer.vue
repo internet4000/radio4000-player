@@ -20,7 +20,7 @@
 			'autoplay',
 			'volume',
 			'isPlaying',
-			'isMute',
+			'isMuted',
 			'trackId'
 		],
 		data() {
@@ -55,8 +55,8 @@
 					this.pauseProvider();
 				}
 			},
-			isMute(isMute) {
-				if (isMute && this.playerExists) {
+			isMuted(isMuted) {
+				if (isMuted && this.playerExists) {
 					this.muteProvider()
 				} else {
 					this.unMuteProvider();

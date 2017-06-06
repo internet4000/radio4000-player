@@ -6,7 +6,7 @@
 			<button
 					:disabled="isDisabled"
 					@click="$emit('toggleMute')"
-					v-bind:class="{ 'Btn--isNotFullVolume' : isNotFullVolume, 'is-active' : isMute }"
+					v-bind:class="{ 'Btn--isNotFullVolume' : isNotFullVolume, 'is-active' : isMuted }"
 					class="Btn Btn--mute"
 					title="Mute on/off">
 				<span></span>
@@ -57,7 +57,7 @@
 		props: ['volume',
 						'isPlaying',
 						'isDisabled',
-						'isMute',
+						'isMuted',
 						'isShuffle',
 						'isNotFullVolume']
 	}
