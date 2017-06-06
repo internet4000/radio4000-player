@@ -40,7 +40,7 @@
 				this.$emit('select', track)
 			},
 			locateCurrentTrack() {
-				const $container = document.querySelector('.TrackList .TrackList-list');
+				const $container = this.$el.querySelector('.TrackList .TrackList-list');
 				const $tracks = $container.children
 				const $activeTrack = $tracks[this.currentTrackIndex];
 				$container.scrollTop = $activeTrack.offsetTop - 4;
