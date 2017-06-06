@@ -2,49 +2,49 @@
 	<article class="Player">
 		<header>
 			<channel-header
-					:channel="channel"
-					:image="image"
-					:track="currentTrack"></channel-header>
+				:channel="channel"
+				:image="image"
+				:track="currentTrack"></channel-header>
 		</header>
 
 		<aside>
 			<provider-player
-					:volume="volume"
-					:track="currentTrack"
-					:autoplay="autoplay"
-					:isPlaying="isPlaying"
-					:isMuted="isMuted"
-					@play="play"
-					@pause="pause"
-					@playNextTrack="playNextTrack"></provider-player>
+				:volume="volume"
+				:track="currentTrack"
+				:autoplay="autoplay"
+				:isPlaying="isPlaying"
+				:isMuted="isMuted"
+				@play="play"
+				@pause="pause"
+				@playNextTrack="playNextTrack"></provider-player>
 		</aside>
 
 		<main v-if="showTrack">
 			<track-current
-					:track="currentTrack"></track-current>
+				:track="currentTrack"></track-current>
 		</main>
 
 		<main v-if="showTracks">
 			<track-list
-					:tracks="tracksPool"
-					:track="currentTrack"
-					:currentTrackIndex="currentTrackIndex"
-					@select="playTrack"></track-list>
+				:tracks="tracksPool"
+				:track="currentTrack"
+				:currentTrackIndex="currentTrackIndex"
+				@select="playTrack"></track-list>
 		</main>
 
 		<footer>
 			<player-controls
-					:isPlaying="isPlaying"
-					:volume="volume"
-					:isDisabled="!this.tracksPool.length"
-					:isNotFullVolume="isNotFullVolume"
-					:isMuted="isMuted"
-					:isShuffle="isShuffle"
-					@play="play"
-					@pause="pause"
-					@toggleMute="toggleMute"
-					@toggleShuffle="toggleShuffle"
-					@next="playNextTrack"></player-controls>
+				:isPlaying="isPlaying"
+				:volume="volume"
+				:isDisabled="!this.tracksPool.length"
+				:isNotFullVolume="isNotFullVolume"
+				:isMuted="isMuted"
+				:isShuffle="isShuffle"
+				@play="play"
+				@pause="pause"
+				@toggleMute="toggleMute"
+				@toggleShuffle="toggleShuffle"
+				@next="playNextTrack"></player-controls>
 		</footer>
 	</article>
 </template>
@@ -55,7 +55,7 @@
 	import TrackList from './TrackList.vue'
 	import ProviderPlayer from './ProviderPlayer.vue'
 	import PlayerControls from './PlayerControls.vue'
-	import { shuffleArray } from './utils/shuffle-helpers';
+	import { shuffleArray } from './utils/shuffle-helpers'
 
 	export default {
 		name: 'radio4000-player',
@@ -96,64 +96,54 @@
 		},
 		watch: {
 			track: function(track) {
-				this.playTrack(track);
+				this.playTrack(track)
 			},
 			tracks: function(tracks) {
-				this.newTracksPool();
+				this.newTracksPool()
 			},
 			volume: function(volume) {
 				if(volume <= 0) {
 					this.mute()
 				}
-				this.unMute();
+				this.unMute()
 			}
 		},
 		methods: {
 			playTrack(track) {
-				this.currentTrack = track;
+				this.currentTrack = track
 			},
 			newTracksPool() {
-				var newTracksPool = this.tracks.slice().reverse();
-				if(this.isShuffle) {
+				var newTracksPool = this.tracks.slice().reverse()
+				if (this.isShuffle) {
 					const currentTrackArray = newTracksPool.splice(this.currentTrackIndex, 1)
-					const shuffledArray = shuffleArray(newTracksPool);
+					const shuffledArray = shuffleArray(newTracksPool)
 					this.tracksPool = [...currentTrackArray, ...shuffledArray]
 				} else {
-					this.tracksPool = newTracksPool;
+					this.tracksPool = newTracksPool
 				}
 			},
 			playNextTrack() {
 				const track = this.getNextTrack()
-				if (!track) {
-					return
-				}
+				if (!track) return
 				this.playTrack(track)
 			},
 			getNextTrack() {
 				const pool = this.tracksPool
-				const index = this.currentTrackIndex;
+				const index = this.currentTrackIndex
 				return pool[index + 1]
 			},
 			play() {
-				this.isPlaying = true;
+				this.isPlaying = true
 			},
 			pause() {
-				this.isPlaying = false;
+				this.isPlaying = false
 			},
 			toggleMute() {
-				if(this.isMuted) {
-					this.isMuted = false
-				} else {
-					this.isMuted = true
-				}
+				this.isMuted = !this.isMuted
 			},
 			toggleShuffle() {
-				if(this.isShuffle) {
-					this.isShuffle = false
-				} else {
-					this.isShuffle = true
-				}
-				this.newTracksPool();
+				this.isShuffle = !this.isShuffle
+				this.newTracksPool()
 			}
 		}
 	}
@@ -214,4 +204,3 @@
 		fill: hsla(0, 0%, 100%, 0.3);
 	}
 </style>
-
