@@ -1,48 +1,54 @@
 <template>
-	<div id="TrackList"
-			 class="TrackList">
-
-		<aside v-if="tracks.length"
-					 class="TrackList-controls">
-			<button class="Btn"
-							@click="locateCurrentTrack"
-							title="Locate current track">◎</button>
+	<div class="TrackList">
+	
+		<aside v-if="tracks && tracks.length" class="TrackList-controls">
+			<button class="Btn" title="Locate current track"
+				@click="locateCurrentTrack">◎</button>
 		</aside>
-
-		<Loading v-if="!tracks.length"/>
+	
+		<Loading v-if="!tracks || !tracks.length" />
+	
 		<ol class="TrackList-list">
 			<li v-for="(track, index) in tracks">
-				<track-item :track="track"
-										:class="{ active : currentTrackIndex === index }"
-										v-on:select="select"></track-item>
+				<track-item
+					:track="track"
+					:class="{ active : currentTrackIndex === index }" 
+					@select="select"></track-item>
 			</li>
 		</ol>
-		
+	
 	</div>
 </template>
 
 <script>
-	import TrackItem from './TrackItem.vue'
-	import Loading from './Loading.vue'
-	export default {
-		name: 'track-list',
-		props: ['tracks', 'track', 'currentTrackIndex'],
-		components: { TrackItem, Loading },
-		watch: {
-			tracks() {
-				this.$nextTick(this.locateCurrentTrack)
-			}
+import TrackItem from './TrackItem.vue'
+import Loading from './Loading.vue'
+export default {
+	name: 'track-list',
+	props: {
+		tracks: Array,
+		track: Object,
+		currentTrackIndex: Number
+	},
+	components: {
+		Loading,
+		TrackItem
+	},
+	watch: {
+		tracks() {
+			this.$nextTick(this.locateCurrentTrack)
+		}
+	},
+	methods: {
+		select(track) {
+			this.$emit('select', track)
 		},
-		methods: {
-			select(track) {
-				this.$emit('select', track)
-			},
-			locateCurrentTrack() {
-				const $container = this.$el.querySelector('.TrackList .TrackList-list');
-				const $tracks = $container.children
-				const $activeTrack = $tracks[this.currentTrackIndex];
-				if(!$activeTrack) return;
-				$container.scrollTop = $activeTrack.offsetTop - 4;
+		locateCurrentTrack() {
+			const $container = this.$el.querySelector('.TrackList .TrackList-list')
+			const $tracks = $container.children
+				const $activeTrack = $tracks[this.currentTrackIndex]
+				if (!$activeTrack) return
+				$container.scrollTop = $activeTrack.offsetTop - 4
 			}
 		}
 	}
