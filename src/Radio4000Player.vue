@@ -94,11 +94,9 @@
 		watch: {
 			track: function(track) {
 				this.playTrack(track);
-				return track;
 			},
 			tracks: function(tracks) {
 				this.newTracksPool();
-				return tracks;
 			},
 			volume: function(volume) {
 				if(volume <= 0) {
@@ -112,10 +110,11 @@
 				this.currentTrack = track;
 			},
 			newTracksPool() {
+				var newTracksPool = this.tracks.slice().reverse();
 				if(this.isShuffle) {
-					this.tracksPool = shuffleArray(this.tracks).reverse();
+					this.tracksPool = shuffleArray(newTracksPool);
 				} else {
-					this.tracksPool = this.tracks.reverse();
+					this.tracksPool = newTracksPool;
 				}
 			},
 			playNextTrack() {
