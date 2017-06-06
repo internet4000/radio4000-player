@@ -91,7 +91,7 @@
 				})
 			},
 			handleReady(resolve) {
-				<!-- console.log('handleReady'); -->
+				/* console.log('handleReady');*/
 				this.unMuteProvider();
 			},
 			handleError(event) {
