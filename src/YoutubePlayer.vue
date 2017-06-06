@@ -91,16 +91,16 @@
 				})
 			},
 			handleReady(resolve) {
-				console.log('handleReady');
+				<!-- console.log('handleReady'); -->
 				this.unMuteProvider();
 			},
 			handleError(event) {
-				console.log('handleError:event')
-				console.log({youtubeError: event})
+				/* console.log('handleError:event')
+					 console.log({youtubeError: event})*/
 				this.$emit('trackEnded');
 			},
 			handleVolumeChange(event) {
-				console.log('handleVolumeChange', event)
+				/* console.log('handleVolumeChange', event)*/
 			},
 			handleStateChange(event) {				
 				const eventsName = {
@@ -113,7 +113,7 @@
 				}
 				const id = event.data
 				const name = eventsName[id]
-				console.log('handleStateChange', id, name, event)
+				/* console.log('handleStateChange', id, name, event)*/
 
 				const actions = {
 					'-1': () => {},
