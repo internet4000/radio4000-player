@@ -90,6 +90,7 @@
 	
 	.Btn--shuffle {
 		font-size: 1.7rem;
+		line-height: 1;
 	}
 	.Btn--shuffle.is-active span {
 		opacity: 0.5;
