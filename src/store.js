@@ -24,10 +24,9 @@ export function findTrack(id) {
 export function findChannelImage(channel) {
 	// If there's an image, fetch and embed it on the channel.
 	// This can be removed once new r4 api is deployed.
+	if (!channel || !channel.images) return
+
 	const imageId = Object.keys(channel.images)[0]
-	if (!imageId) {
-		return
-	}
 	return findImage(imageId);
 }
 
