@@ -69,6 +69,8 @@
 				return this.playerStarted = false;
 			}
 
+			this.playerStarted = true;
+			
 			if (trackId) {
 				return this.loadTrack(trackId)
 									 .then(track => this.loadChannelById(track.channel))
@@ -118,6 +120,7 @@
 					.then(this.updatePlayerWithChannel)
 			},
 			loadChannelExtra(channel) {
+				this.playerStarted = true;
 				findChannelTracks(channel.id)
 					.then(this.updatePlayerWithTracks)
 					.then(findChannelImage(channel))
