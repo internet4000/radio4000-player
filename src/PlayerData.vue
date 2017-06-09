@@ -123,7 +123,7 @@
 				this.playerStarted = true;
 				findChannelTracks(channel.id)
 					.then(this.updatePlayerWithTracks)
-					.then(findChannelImage(channel))
+				findChannelImage(channel)
 					.then(this.updatePlayerWithImage)
 			},
 			
