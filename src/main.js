@@ -6,7 +6,7 @@ import PlayerData from './PlayerData.vue'
 
 Vue.use(vueCustomElement)
 
-// Register <radio4000-player> element to our Vue component.
+// Register our Vue commponent as the <radio4000-player> element.
 Vue.customElement('radio4000-player', PlayerData, {
 	// Enable shadow DOM.
 	shadow: false

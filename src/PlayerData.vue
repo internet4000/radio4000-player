@@ -1,5 +1,4 @@
 <template>
-	<article>
 		<radio4000-player
 				v-if="playerStartedSession"
 				:channel="channel"
@@ -15,7 +14,6 @@
 				<a href="https://github.com/internet4000/radio4000-player-vue">documentation</a>
 			</p>
 		</div>
-	</article>
 </template>
 <script>
 	import Radio4000Player from './Radio4000Player.vue'
