@@ -9,14 +9,14 @@
 
 		<aside>
 			<provider-player
-					:volume="volume"
-					:track="currentTrack"
-					:autoplay="autoplay"
-					:isPlaying="isPlaying"
-					:isMute="isMute"
-					@play="play"
-					@pause="pause"
-					@playNextTrack="playNextTrack"></provider-player>
+				:volume="volume"
+				:track="currentTrack"
+				:autoplay="autoplay"
+				:isPlaying="isPlaying"
+				:isMute="isMute"
+				@play="play"
+				@pause="pause"
+				@playNextTrack="playNextTrack"></provider-player>
 		</aside>
 
 		<main v-if="showTrack">
@@ -85,6 +85,9 @@
 				currentTrack: {},
 				tracksPool: []
 			}
+		},
+		created() {
+			if (this.track) this.playTrack(this.track)
 		},
 		computed: {
 			isNotFullVolume: function() {

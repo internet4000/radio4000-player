@@ -15,7 +15,7 @@ test.cb('renders', t => {
 	t.is(vm.$props.autoplay, undefined, 'autoplay is not enabled')
 
 	t.is(vm.$data.didPlay, false)
-	vm.$props.trackId = '-Op4D4bkK6Y'
+	vm.$props.videoId = '-Op4D4bkK6Y'
 	vm.$nextTick(() => {
 		t.is(vm.$data.didPlay, true, 'after playing, didPlay changes to true')
 		t.end()

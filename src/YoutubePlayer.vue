@@ -21,7 +21,7 @@
 			'volume',
 			'isPlaying',
 			'isMute',
-			'trackId'
+			'videoId'
 		],
 		data() {
 			return {
@@ -39,27 +39,27 @@
 			}
 		},
 		mounted() {
-			if (this.trackId) {
-				this.initPlayer().then(this.setTrackOnProvider(this.trackId))
+			if (this.videoId) {
+				this.initPlayer().then(this.setTrackOnProvider(this.videoId))
 			}
 		},
 		watch: {
-			trackId(trackId) {
-				this.initPlayer().then(this.setTrackOnProvider(trackId))
+			videoId(videoId) {
+				this.initPlayer().then(this.setTrackOnProvider(videoId))
 			},
 			isPlaying(isPlaying) {
 				if (!this.player) return
 				if (isPlaying) {
-					this.playProvider();
+					this.playProvider()
 				} else {
-					this.pauseProvider();
+					this.pauseProvider()
 				}
 			},
 			isMute(isMute) {
 				if (isMute && this.playerExists) {
 					this.muteProvider()
 				} else {
-					this.unMuteProvider();
+					this.unMuteProvider()
 				}
 			}
 		},

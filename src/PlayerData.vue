@@ -73,7 +73,7 @@
 			
 			if (trackId) {
 				return this.loadTrack(trackId)
-									 .then(track => this.loadChannelById(track.channel))
+					.then(track => this.loadChannelById(track.channel))
 			}
 			
 			if (channelSlug) {
