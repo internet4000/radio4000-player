@@ -1,21 +1,19 @@
 <template>
-	<article>
-		<radio4000-player
-				v-if="playerStarted"
-				:channel="channel"
-				:tracks="tracks"
-				:track="track"
-				:image="image"
-				:autoplay="autoplay"
-				:showCurrentTrack="showCurrentTrack"
-				:showTracks="showTracks"
-				:volume="volume"/>
-		<div v-else class="Console">
-			<p>Radio4000-player is ready to start playing data:
-				<a href="https://github.com/internet4000/radio4000-player-vue">documentation</a>
-			</p>
-		</div>
-	</article>
+	<radio4000-player
+			v-if="playerStarted"
+			:channel="channel"
+			:tracks="tracks"
+			:track="track"
+			:image="image"
+			:autoplay="autoplay"
+			:showCurrentTrack="showCurrentTrack"
+			:showTracks="showTracks"
+			:volume="volume"/>
+	<div v-else class="Console">
+		<p>Radio4000-player is ready to start playing data:
+			<a href="https://github.com/internet4000/radio4000-player-vue">documentation</a>
+		</p>
+	</div>
 </template>
 
 <script>
