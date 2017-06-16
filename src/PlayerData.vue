@@ -56,20 +56,12 @@
 				channel: {},
 				image: '',
 				tracks: [],
-				track: {}
+				track: {},
+				providerTrack: {}
 			}
 		},
 		created() {
-			// init 1 - if there is any following key,
-			// start the according session
-			// otherwise stay in idle mode
 			const { channelSlug, channelId, trackId } = this;
-
-			if (!channelSlug && !channelId && !trackId ) {
-				return this.playerStarted = false;
-			}
-
-			this.playerStarted = true;
 			
 			if (trackId) {
 				return this.loadTrack(trackId)
@@ -85,9 +77,6 @@
 			}
 		},
 		watch: {
-			// init 1 bis,
-			// `slug` and `id` are only used to assign radio externally
-			// by the <radio4000-player> web component props
 			channelSlug: function (slug) {
 				this.loadChannelBySlug(slug)				
 			},
@@ -96,6 +85,20 @@
 			},
 			trackId: function (id) {
 				this.loadTrack(id).then(track => this.loadChannelById(track.channel))
+			},
+			providerTrack: function(track) {
+				console.log("track", track)
+			}
+		},
+		computed: {
+			playerStarted: function() {
+				const { channelSlug, channelId, trackId } = this;
+
+				if (!channelSlug && !channelId && !trackId ) {
+					return false;
+				}
+				
+				return true;
 			}
 		},
 		methods: {
