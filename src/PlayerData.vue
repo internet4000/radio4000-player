@@ -1,15 +1,15 @@
 <template>
 	<radio4000-player
-			v-if="playerStarted"
-			:channel="channel"
-			:tracks="tracks"
-			:track="track"
-			:image="image"
-			:autoplay="autoplay"
-			:showTracks="showTracks"
-			:volume="volume"/>
+		v-if="canLoad"
+		:channel="channel"
+		:tracks="tracks"
+		:track="track"
+		:image="image"
+		:autoplay="autoplay"
+		:showTracks="showTracks"
+		:volume="volume"/>
 	<div v-else class="Console">
-		<p>Radio4000-player is ready to start playing data:
+		<p>Radio4000-player is ready to start playing:
 			<a href="https://github.com/internet4000/radio4000-player-vue">documentation</a>
 		</p>
 	</div>
@@ -46,7 +46,6 @@
 		},
 		data () {
 			return {
-				playerStarted: true,
 				channel: {},
 				image: '',
 				tracks: [],
@@ -82,14 +81,8 @@
 			}
 		},
 		computed: {
-			playerStarted: function() {
-				const { channelSlug, channelId, trackId } = this;
-
-				if (!channelSlug && !channelId && !trackId ) {
-					return false;
-				}
-				
-				return true;
+			canLoad: function() {
+				return this.channelSlug || this.channelId || this.trackId 
 			}
 		},
 		methods: {
@@ -104,7 +97,6 @@
 					.then(this.updatePlayerWithChannel)
 			},
 			loadChannelExtra(channel) {
-				this.playerStarted = true;
 				findChannelTracks(channel.id)
 					.then(this.updatePlayerWithTracks)
 				findChannelImage(channel)
@@ -134,7 +126,7 @@
 <style>
 	.Console {
 		font-family: monospace;
-		padding: 0.5rem;
+		padding: 0 1rem;
 		line-height: 1.4;
 	}
 </style>
