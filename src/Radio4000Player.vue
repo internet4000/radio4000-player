@@ -19,7 +19,7 @@
 				@playNextTrack="playNextTrack"></provider-player>
 		</aside>
 
-		<main v-if="showTracks">
+		<main>
 			<track-list
 				:tracks="tracksPool"
 				:track="currentTrack"
@@ -61,12 +61,11 @@
 			PlayerControls
 		},
 		props: {
-			autoplay: Boolean,
 			channel: Object,
 			tracks: Array,
 			track: Object,
 			image: String,
-			showTracks: Boolean,
+			autoplay: Boolean,
 			volume: Number
 		},
 		data () {

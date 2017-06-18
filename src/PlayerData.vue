@@ -6,8 +6,7 @@
 		:track="track"
 		:image="image"
 		:autoplay="autoplay"
-		:showTracks="showTracks"
-		:volume="volume"/>
+		:volume="volume" />
 	<div v-else class="Console">
 		<p>Radio4000-player is ready to start playing:
 			<a href="https://github.com/internet4000/radio4000-player-vue">documentation</a>
@@ -38,10 +37,6 @@
 			volume: {
 				type: Number,
 				default: 100
-			},
-			showTracks: {
-				type: Boolean,
-				default: true
 			}
 		},
 		data () {
