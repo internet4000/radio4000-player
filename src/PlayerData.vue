@@ -6,7 +6,6 @@
 			:track="track"
 			:image="image"
 			:autoplay="autoplay"
-			:showCurrentTrack="showCurrentTrack"
 			:showTracks="showTracks"
 			:volume="volume"/>
 	<div v-else class="Console">
@@ -41,10 +40,6 @@
 			showTracks: {
 				type: Boolean,
 				default: true
-			},
-			showCurrentTrack: {
-				type: Boolean,
-				default: false
 			}
 		},
 		data () {

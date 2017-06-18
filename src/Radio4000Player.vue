@@ -19,11 +19,6 @@
 				@playNextTrack="playNextTrack"></provider-player>
 		</aside>
 
-		<main v-if="showTrack">
-			<track-current
-					:track="currentTrack"></track-current>
-		</main>
-
 		<main v-if="showTracks">
 			<track-list
 					:tracks="tracksPool"
@@ -71,7 +66,6 @@
 			tracks: Array,
 			track: Object,
 			image: String,
-			showCurrentTrack: Boolean,
 			showTracks: Boolean,
 			volume: Number
 		},
@@ -217,4 +211,3 @@
 		fill: hsla(0, 0%, 100%, 0.3);
 	}
 </style>
-
