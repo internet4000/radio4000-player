@@ -2,9 +2,9 @@
 	<article class="Player">
 		<header>
 			<channel-header
-					:channel="channel"
-					:image="image"
-					:track="currentTrack"></channel-header>
+				:channel="channel"
+				:image="image"
+				:track="currentTrack"></channel-header>
 		</header>
 
 		<aside>
@@ -21,25 +21,25 @@
 
 		<main v-if="showTracks">
 			<track-list
-					:tracks="tracksPool"
-					:track="currentTrack"
-					:currentTrackIndex="currentTrackIndex"
-					@select="playTrack"></track-list>
+				:tracks="tracksPool"
+				:track="currentTrack"
+				:currentTrackIndex="currentTrackIndex"
+				@select="playTrack"></track-list>
 		</main>
 
 		<footer>
 			<player-controls
-					:isPlaying="isPlaying"
-					:volume="volume"
-					:isDisabled="!this.tracksPool.length"
-					:isNotFullVolume="isNotFullVolume"
-					:isMute="isMute"
-					:isShuffle="isShuffle"
-					@play="play"
-					@pause="pause"
-					@toggleMute="toggleMute"
-					@toggleShuffle="toggleShuffle"
-					@next="playNextTrack"></player-controls>
+				:isPlaying="isPlaying"
+				:volume="volume"
+				:isDisabled="!this.tracksPool.length"
+				:isNotFullVolume="isNotFullVolume"
+				:isMute="isMute"
+				:isShuffle="isShuffle"
+				@play="play"
+				@pause="pause"
+				@toggleMute="toggleMute"
+				@toggleShuffle="toggleShuffle"
+				@next="playNextTrack"></player-controls>
 		</footer>
 	</article>
 </template>
@@ -93,13 +93,13 @@
 		},
 		watch: {
 			track: function(track) {
-				this.playTrack(track);
+				this.playTrack(track)
 			},
 			tracks: function(tracks) {
-				this.newTracksPool();
+				this.newTracksPool()
 			},
 			volume: function(volume) {
-				if(volume <= 0) {
+				if (volume <= 0) {
 					this.mute()
 				}
 				this.unMute();
@@ -107,16 +107,16 @@
 		},
 		methods: {
 			playTrack(track) {
-				this.currentTrack = track;
+				this.currentTrack = track
 			},
 			newTracksPool() {
-				var newTracksPool = this.tracks.slice().reverse();
-				if(this.isShuffle) {
+				var newTracksPool = this.tracks.slice().reverse()
+				if (this.isShuffle) {
 					const currentTrackArray = newTracksPool.splice(this.currentTrackIndex, 1)
 					const shuffledArray = shuffleArray(newTracksPool);
 					this.tracksPool = [...currentTrackArray, ...shuffledArray]
 				} else {
-					this.tracksPool = newTracksPool;
+					this.tracksPool = newTracksPool
 				}
 			},
 			playNextTrack() {
@@ -128,7 +128,7 @@
 			},
 			getNextTrack() {
 				const pool = this.tracksPool
-				const index = this.currentTrackIndex;
+				const index = this.currentTrackIndex
 				return pool[index + 1]
 			},
 			play() {
@@ -138,19 +138,19 @@
 				this.isPlaying = false;
 			},
 			toggleMute() {
-				if(this.isMute) {
+				if (this.isMute) {
 					this.isMute = false
 				} else {
 					this.isMute = true
 				}
 			},
 			toggleShuffle() {
-				if(this.isShuffle) {
+				if (this.isShuffle) {
 					this.isShuffle = false
 				} else {
 					this.isShuffle = true
 				}
-				this.newTracksPool();
+				this.newTracksPool()
 			}
 		}
 	}

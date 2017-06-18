@@ -17,11 +17,13 @@
 
 <script>
 	import Radio4000Player from './Radio4000Player.vue'
-	import { findChannelById,
-					 findChannelBySlug,
-					 findChannelTracks,
-					 findChannelImage,
-					 findTrack } from './store'
+	import {
+		findChannelById,
+		findChannelBySlug,
+		findChannelTracks,
+		findChannelImage,
+		findTrack
+	} from './store'
 
 	export default {
 		name: 'player-data',
@@ -43,7 +45,6 @@
 			}
 		},
 		data () {
-			/* return initialState()*/
 			return {
 				playerStarted: true,
 				channel: {},
@@ -55,16 +56,13 @@
 		},
 		created() {
 			const { channelSlug, channelId, trackId } = this;
-			
 			if (trackId) {
 				return this.loadTrack(trackId)
 					.then(track => this.loadChannelById(track.channel))
 			}
-			
 			if (channelSlug) {
 				return this.loadChannelBySlug(channelSlug)
 			}
-
 			if (channelId) {
 				return this.loadChannelById(channelId)
 			}
@@ -95,16 +93,6 @@
 			}
 		},
 		methods: {
-			clearR4Session() {
-				return new Promise((resolve, reject) => {
-					this.channel = {};
-					this.image = ''
-					this.tracks = []
-					this.track = {}
-					resolve()
-				})
-			},
-
 			// start player session by:
 			// all start method must return a `channel@r4` model
 			loadChannelBySlug(slug) {
@@ -122,29 +110,22 @@
 				findChannelImage(channel)
 					.then(this.updatePlayerWithImage)
 			},
-			
 			loadTrack(trackId) {
 				return findTrack(trackId).then(this.updatePlayerWithTrack)
 			},
-			startSessionFirstTrack(channel) {
-				var len = channel.tracks.length -1
-				return loadTrack(channel.tracks[len])
-			},
-
 			updatePlayerWithChannel(channel) {
-				if(channel.id === this.channel.id) return
-			
-				this.channel = channel;
+				if (channel.id === this.channel.id) return
+				this.channel = channel
 				this.loadChannelExtra(this.channel)
 			},
 			updatePlayerWithTrack(track) {
 				return this.track = track
 			},
 			updatePlayerWithTracks(tracks) {
-				this.tracks = tracks;
+				return this.tracks = tracks
 			},
 			updatePlayerWithImage(image) {
-				this.image = image ? image.src : ''
+				return this.image = image ? image.src : ''
 			}
 		}
 	}
