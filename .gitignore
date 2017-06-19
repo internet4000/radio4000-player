@@ -3,3 +3,5 @@ node_modules/
 npm-debug.log
 yarn-error.log
 dist/radio4000-player.js
+.vscode
+
