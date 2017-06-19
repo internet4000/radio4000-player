@@ -1,27 +1,28 @@
 <template>
-		<radio4000-player
-				v-if="playerStartedSession"
-				:channel="channel"
-				:tracks="tracks"
-				:track="track"
-				:image="image"
-				:autoplay="autoplay"
-				:showCurrentTrack="showCurrentTrack"
-				:showTracks="showTracks"
-				:volume="volume"/>
-		<div v-else class="Console">
-			<p>Radio4000-player is ready to start playing data:
-				<a href="https://github.com/internet4000/radio4000-player-vue">documentation</a>
-			</p>
-		</div>
+	<radio4000-player
+		v-if="canLoad"
+		:channel="channel"
+		:tracks="tracks"
+		:track="track"
+		:image="image"
+		:autoplay="autoplay"
+		:volume="volume" />
+	<div v-else class="Console">
+		<p>Radio4000-player is ready to start playing:
+			<a href="https://github.com/internet4000/radio4000-player-vue">documentation</a>
+		</p>
+	</div>
 </template>
+
 <script>
 	import Radio4000Player from './Radio4000Player.vue'
-	import { findChannelById,
-					 findChannelBySlug,
-					 findChannelTracks,
-					 findChannelImage,
-					 findTrack } from './store'
+	import {
+		findChannelById,
+		findChannelBySlug,
+		findChannelTracks,
+		findChannelImage,
+		findTrack
+	} from './store'
 
 	export default {
 		name: 'player-data',
@@ -36,112 +37,82 @@
 			volume: {
 				type: Number,
 				default: 100
-			},
-			showTracks: {
-				type: Boolean,
-				default: true
-			},
-			showCurrentTrack: {
-				type: Boolean,
-				default: false
 			}
 		},
 		data () {
-			/* return initialState()*/
 			return {
-				playerStartedSession: false,
 				channel: {},
 				image: '',
 				tracks: [],
-				track: {}
+				track: {},
+				providerTrack: {}
 			}
 		},
 		created() {
-			// init 1 - if there is any following key,
-			// start the according session
-			// otherwise stay in idle mode
 			const { channelSlug, channelId, trackId } = this;
-			if (!channelSlug && !channelId && !trackId ) {
-				this.playerStartedSession = false;
+			if (trackId) {
+				return this.loadTrack(trackId)
+					.then(track => this.loadChannelById(track.channel))
 			}
 			if (channelSlug) {
-				return this.startR4Session(this.startBySlug, channelSlug)
-			} else if (channelId) {
-				return this.startR4Session(this.startById, channelId)
-			} else if (trackId) {
-				return this.startR4Session(this.startByTrackId, trackId)
+				return this.loadChannelBySlug(channelSlug)
+			}
+			if (channelId) {
+				return this.loadChannelById(channelId)
 			}
 		},
 		watch: {
-			// init 1 bis,
-			// `slug` and `id` are only used to assign radio externally
-			// by the <radio4000-player> web component props
 			channelSlug: function (slug) {
-				this.startR4Session(this.startBySlug, slug)				
+				this.loadChannelBySlug(slug)				
 			},
 			channelId: function (id) {
-				this.startR4Session(this.startById, id)
+				this.loadChannelById(id)
+			},
+			trackId: function (id) {
+				this.loadTrack(id).then(track => this.loadChannelById(track.channel))
+			},
+			providerTrack: function(track) {
+				console.log("track", track)
+			}
+		},
+		computed: {
+			canLoad: function() {
+				return this.channelSlug || this.channelId || this.trackId 
 			}
 		},
 		methods: {
-			clearR4Session() {
-				return new Promise((resolve, reject) => {
-					this.channel = {};
-					this.image = ''
-					this.tracks = []
-					this.track = {}
-					resolve()
-				})
-			},
-			startR4Session(startMethod, param) {
-				this.clearR4Session();
-				this.playerStartedSession = true;
-				startMethod(param).then(channel => {
-					findChannelTracks(channel.id)
-						.then(this.updatePlayerWithTracks)
-					if (!channel.images) return
-					findChannelImage(channel)
-						.then(this.updatePlayerWithImage)
-				})
-			},
-
 			// start player session by:
 			// all start method must return a `channel@r4` model
-			startBySlug(slug) {
+			loadChannelBySlug(slug) {
 				return findChannelBySlug(slug)
 					.then(this.updatePlayerWithChannel)
-					.then(this.startSessionFirstTrack)
 			},
-			startById(id) {
+			loadChannelById(id) {
 				return findChannelById(id)
 					.then(this.updatePlayerWithChannel)
-					.then(this.startSessionFirstTrack)
 			},
-			startByTrackId(trackId) {
-				return findTrack(trackId)
-					.then(this.updatePlayerWithTrack)
-					.then(track => findChannelById(track.channel))
-					.then(this.updatePlayerWithChannel)
+			loadChannelExtra(channel) {
+				findChannelTracks(channel.id)
+					.then(this.updatePlayerWithTracks)
+				findChannelImage(channel)
+					.then(this.updatePlayerWithImage)
 			},
-			startSessionFirstTrack(channel) {
-				var len = channel.tracks.length -1
-				return findTrack(channel.tracks[len])
-					.then(this.updatePlayerWithTrack)
-					.then(() => channel)
+			loadTrack(trackId) {
+				return findTrack(trackId).then(this.updatePlayerWithTrack)
 			},
 			updatePlayerWithChannel(channel) {
-				this.channel = channel;
-				return channel;
+				if (channel.id === this.channel.id) return
+				this.channel = channel
+				this.loadChannelExtra(this.channel)
 			},
 			updatePlayerWithTrack(track) {
-				this.track = track
-				return new Promise(resolve => resolve(track));
+				return this.track = track
 			},
 			updatePlayerWithTracks(tracks) {
-				this.tracks = tracks;
+				return this.tracks = tracks
 			},
 			updatePlayerWithImage(image) {
-				return this.image = image.src;
+				return this.image = image ? image.src : ''
 			}
 		}
 	}
@@ -150,7 +121,7 @@
 <style>
 	.Console {
 		font-family: monospace;
-		padding: 0.5rem;
+		padding: 0 1rem;
 		line-height: 1.4;
 	}
 </style>

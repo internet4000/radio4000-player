@@ -2,15 +2,15 @@
 	<div class="ProviderPlayer">
 		<div class="Ratio"></div>
 		<youtube-player
-				v-if="provider === 'youtube'"
-				:volume="volume"
-				:autoplay="autoplay"
-				:trackId="track.ytid"
-				:isPlaying="isPlaying"
-				:isMuted="isMuted"
-				@play="playProvider"
-				@pause="pauseProvider"
-				@trackEnded="trackEnded"></youtube-player>
+			v-if="provider === 'youtube'"
+			:volume="volume"
+			:autoplay="autoplay"
+			:videoId="track.ytid"
+			:isPlaying="isPlaying"
+			:isMuted="isMuted"
+			@play="playProvider"
+			@pause="pauseProvider"
+			@trackEnded="trackEnded"></youtube-player>
 	</div>
 </template>
 
@@ -23,30 +23,18 @@
 			YoutubePlayer
 		},
 		props: [
-			'videoId',
 			'volume',
 			'autoplay',
 			'isPlaying',
 			'isMuted',
 			'track'
 		],
-		data() {
-			return {
-				provider: ''
-			}
-		},
-		watch: {
-			track: function(track) {
-				if (!track) return
-				this.selectProvider(track)
+		computed: {
+			provider: function() {
+				return this.track.ytid ? 'youtube' : undefined
 			}
 		},
 		methods: {
-			selectProvider(track) {
-				if (track.ytid) {
-					this.provider = 'youtube'
-				}
-			},
 			playProvider() {
 				this.$emit('play');
 			},

@@ -19,12 +19,7 @@
 				@playNextTrack="playNextTrack"></provider-player>
 		</aside>
 
-		<main v-if="showTrack">
-			<track-current
-				:track="currentTrack"></track-current>
-		</main>
-
-		<main v-if="showTracks">
+		<main>
 			<track-list
 				:tracks="tracksPool"
 				:track="currentTrack"
@@ -66,13 +61,11 @@
 			PlayerControls
 		},
 		props: {
-			autoplay: Boolean,
 			channel: Object,
 			tracks: Array,
 			track: Object,
 			image: String,
-			showCurrentTrack: Boolean,
-			showTracks: Boolean,
+			autoplay: Boolean,
 			volume: Number
 		},
 		data () {
@@ -85,6 +78,9 @@
 				currentTrack: {},
 				tracksPool: []
 			}
+		},
+		created() {
+			if (this.track) this.playTrack(this.track)
 		},
 		computed: {
 			isNotFullVolume: function() {
@@ -102,7 +98,7 @@
 				this.newTracksPool()
 			},
 			volume: function(volume) {
-				if(volume <= 0) {
+				if (volume <= 0) {
 					this.mute()
 				}
 				this.unMute()
