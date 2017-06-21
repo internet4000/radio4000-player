@@ -68,6 +68,7 @@
 			image: String,
 			autoplay: Boolean,
 			r4Url: Boolean,
+			shuffle: Boolean,
 			volume: Number
 		},
 		data () {
@@ -76,7 +77,7 @@
 				loop: false,
 				isPlaying: false,
 				isMuted: false,
-				isShuffle: false,
+				isShuffle: this.$props.shuffle,
 				currentTrack: {},
 				tracksPool: []
 			}
@@ -93,6 +94,9 @@
 			}
 		},
 		watch: {
+			shuffle: function(shuffle) {
+				this.isShuffle = shuffle
+			},
 			track: function(track) {
 				this.playTrack(track)
 			},
