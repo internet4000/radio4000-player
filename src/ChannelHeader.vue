@@ -1,7 +1,6 @@
 <template>
 	<div class="Header">
 		<a :href="href"
-			 target="_blank"
 			 title="Check this radio on Radio4000"
 			 class="Header-image">
 			<img v-if="image" :src="image" alt="">
@@ -31,11 +30,21 @@
 	import Loading from './Loading.vue'
 	export default {
 		name: 'channel-header',
-		props: ['channel', 'track', 'image'],
+		props: [
+			'channel',
+			'track',
+			'image',
+			'r4Url'],
 		components: { Loading },
 		computed: {
 			href: function () {
-				const root = 'https://radio4000.com/'
+				let root;
+				if(this.r4Url) {
+					root = '/'
+				} else {
+					root = 'https://radio4000.com/'
+				}
+				
 				return this.channel.slug === undefined ? root : root + this.channel.slug
 			}
 		}

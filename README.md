@@ -71,6 +71,15 @@ If you're familiar with CSS, you can also write your own styles targeting the `<
 </style>
 ```
 
+## More
+
+If this player is used inside radio4000.com, we want the links to switch URL internally.
+For that you can use the boolean property `r4-url` like so.
+```
+<radio4000-player r4-url="true"></radio4000-player>
+```
+Therefore, URLs in the player header won't open new browser window but will just remplace the URL like Ember router would have done.
+
 ## Development
 
 ``` bash
