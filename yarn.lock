@@ -2042,11 +2042,11 @@ debug@2.6.1:
   dependencies:
     ms "0.7.2"
 
-debug@^2.1.1, debug@^2.2.0, debug@^2.6.0:
-  version "2.6.2"
-  resolved "https://registry.yarnpkg.com/debug/-/debug-2.6.2.tgz#dfa96a861ee9b8c2f29349b3bcc41aa599a71e0f"
+debug@^2.1.1, debug@^2.2.0, debug@^2.6.0, debug@^2.6.6:
+  version "2.6.8"
+  resolved "https://registry.yarnpkg.com/debug/-/debug-2.6.8.tgz#e731531ca2ede27d188222427da17821d68ff4fc"
   dependencies:
-    ms "0.7.2"
+    ms "2.0.0"
 
 decamelize@^1.0.0, decamelize@^1.1.2:
   version "1.2.0"
@@ -3502,7 +3502,7 @@ lodash.uniq@^4.3.0:
   version "4.5.0"
   resolved "https://registry.yarnpkg.com/lodash.uniq/-/lodash.uniq-4.5.0.tgz#d0225373aeb652adc1bc82e4945339a842754773"
 
-lodash@^4.0.0, lodash@^4.17.4, lodash@^4.2.0, lodash@^4.3.0:
+lodash@^4.0.0, lodash@^4.2.0:
   version "4.17.4"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.4.tgz#78203a4d1c328ae1d86dca6460e369b57f4055ae"
 
@@ -3740,6 +3740,10 @@ ms@0.7.1:
 ms@0.7.2, ms@^0.7.1:
   version "0.7.2"
   resolved "https://registry.yarnpkg.com/ms/-/ms-0.7.2.tgz#ae25cf2512b3885a1d95d7f037868d8431124765"
+
+ms@2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/ms/-/ms-2.0.0.tgz#5608aeadfc00be6c2901df5f9861788de0d597c8"
 
 multimatch@^2.1.0:
   version "2.1.0"
@@ -5786,11 +5790,10 @@ yeast@0.1.2:
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/yeast/-/yeast-0.1.2.tgz#008e06d8094320c372dbc2f8ed76a0ca6c8ac419"
 
-youtube-player@^4.2.2:
-  version "4.2.2"
-  resolved "https://registry.yarnpkg.com/youtube-player/-/youtube-player-4.2.2.tgz#131e8d2627feaedd05527468c37ecbb8d89adb6f"
+youtube-player@^5.4.0:
+  version "5.4.0"
+  resolved "https://registry.yarnpkg.com/youtube-player/-/youtube-player-5.4.0.tgz#9e3fc8a1fcae6a6cc89140e7add7c7cd86299d6e"
   dependencies:
-    babel-runtime "^6.22.0"
+    debug "^2.6.6"
     load-script "^1.0.0"
-    lodash "^4.3.0"
     sister "^3.0.0"

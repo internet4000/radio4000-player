@@ -17,7 +17,7 @@
 		"vue": "^2.2.4",
 		"vue-custom-element": "^1.1.0",
 		"whatwg-fetch": "^2.0.3",
-		"youtube-player": "^4.2.2"
+		"youtube-player": "^5.4.0"
 	},
 	"devDependencies": {
 		"ava": "^0.19.1",
