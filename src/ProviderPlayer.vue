@@ -9,7 +9,8 @@
 			:isPlaying="isPlaying"
 			:isMuted="isMuted"
 			@play="playProvider"
-			@pause="pauseProvider"
+				@pause="pauseProvider"
+				@setVolume="setVolume"
 			@trackEnded="trackEnded"></youtube-player>
 	</div>
 </template>
@@ -27,7 +28,7 @@
 			'autoplay',
 			'isPlaying',
 			'isMuted',
-			'track'
+			'track',
 		],
 		computed: {
 			provider: function() {
@@ -49,6 +50,9 @@
 			},
 			trackEnded() {
 				this.$emit('playNextTrack')
+			},
+			setVolume(volume) {
+				this.$emit('setVolume', volume)
 			}
 		}
 }

@@ -1,46 +1,53 @@
 <template>
 	<article class="Player">
+
+		{{volume}}
+		<input class="Volume"
+					 type="range"
+					 v-model.number="volume"/>
+		
 		<header>
 			<channel-header
-:r4Url="r4Url"
-:channel="channel"
-:image="image"
-:track="currentTrack"></channel-header>
+					:r4Url="r4Url"
+					:channel="channel"
+					:image="image"
+					:track="currentTrack"></channel-header>
 		</header>
 
 		<aside>
 			<provider-player
-:volume="volume"
-:track="currentTrack"
-:autoplay="autoplay"
-:isPlaying="isPlaying"
-:isMuted="isMuted"
-@play="play"
-@pause="pause"
-@playNextTrack="playNextTrack"></provider-player>
+					:volume="volume"
+					:track="currentTrack"
+					:autoplay="autoplay"
+					:isPlaying="isPlaying"
+					:isMuted="isMuted"
+					@play="play"
+					@pause="pause"
+					@setVolume="setVolume"
+					@playNextTrack="playNextTrack"></provider-player>
 		</aside>
 
 		<main>
 			<track-list
-:tracks="tracksPool"
-:track="currentTrack"
-:currentTrackIndex="currentTrackIndex"
-@select="playTrack"></track-list>
+					:tracks="tracksPool"
+					:track="currentTrack"
+					:currentTrackIndex="currentTrackIndex"
+					@select="playTrack"></track-list>
 		</main>
 
 		<footer>
 			<player-controls
-:isPlaying="isPlaying"
-:volume="volume"
-:isDisabled="!this.tracksPool.length"
-:isNotFullVolume="isNotFullVolume"
-:isMuted="isMuted"
-:isShuffle="isShuffle"
-@play="play"
-@pause="pause"
-@toggleMute="toggleMute"
-@toggleShuffle="toggleShuffle"
-@next="playNextTrack"></player-controls>
+					:isPlaying="isPlaying"
+					:volume="volume"
+					:isDisabled="!this.tracksPool.length"
+					:isNotFullVolume="isNotFullVolume"
+					:isMuted="isMuted"
+					:isShuffle="isShuffle"
+					@play="play"
+					@pause="pause"
+					@toggleMute="toggleMute"
+					@toggleShuffle="toggleShuffle"
+					@next="playNextTrack"></player-controls>
 		</footer>
 	</article>
 </template>
@@ -68,11 +75,12 @@
 			image: String,
 			autoplay: Boolean,
 			r4Url: Boolean,
-			volume: Number
+			externalVolume: Number
 		},
 		data () {
 			return {
 				playerReady: false,
+				volume: 0,
 				loop: false,
 				isPlaying: false,
 				isMuted: false,
@@ -85,6 +93,19 @@
 			if (this.track) this.playTrack(this.track)
 		},
 		computed: {
+			isMuted: {
+				get: function() {
+					return this.volume === 0
+				},
+				set: function(newValue) {
+					console.log('set:isMuted newValue', newValue)
+					if(newValue) {
+						this.setVolume(0)
+					} else {
+						this.setVolume(100)
+					}
+				}
+			},
 			isNotFullVolume: function() {
 				return this.volume < 100
 			},
@@ -99,11 +120,9 @@
 			tracks: function(tracks) {
 				this.newTracksPool()
 			},
-			volume: function(volume) {
-				if (volume <= 0) {
-					this.mute()
-				}
-				this.unMute()
+			externalVolume: function(volume) {
+				console.log('externalVolume', volume)
+				this.setVolume(volume)
 			}
 		},
 		methods: {
@@ -123,7 +142,7 @@
 			playNextTrack() {
 				const track = this.getNextTrack()
 				if (!track) return
-				this.playTrack(track)
+ 				this.playTrack(track)
 			},
 			getNextTrack() {
 				const pool = this.tracksPool
@@ -142,6 +161,9 @@
 			toggleShuffle() {
 				this.isShuffle = !this.isShuffle
 				this.newTracksPool()
+			},
+			setVolume(volume) {
+				this.volume = volume
 			}
 		}
 	}

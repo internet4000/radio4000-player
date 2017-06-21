@@ -88,7 +88,7 @@
 					player.on('error', this.handleError)
 					player.on('stateChange', this.handleStateChange)
 					player.on('ready', this.handleReady)
-					/* player.on('volumeChange', this.handleVolumeChange)*/
+					player.on('volumeChange', this.handleVolumeChange)
 					resolve()
 				})
 			},
@@ -103,6 +103,7 @@
 			},
 			handleVolumeChange(event) {
 				/* console.log('handleVolumeChange', event)*/
+				this.$emit('setVolume', event.data.volume);
 			},
 			handleStateChange(event) {				
 				const eventsName = {
