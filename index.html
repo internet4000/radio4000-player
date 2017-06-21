@@ -6,10 +6,7 @@
 	<title>Radio4000 player</title>
 </head>
 <body>
-
-	<p>
-		Test page for the <a href="https://github.com/internet4000/radio4000-player-vue">&lt;radio4000-player&gt;</a> web component.
-	</p>
+	<radio4000-player track-id="-KdVUsr70yYdIoBDmL43"></radio4000-player>
 
 	<!-- development script-->
 	<script async src="dist/radio4000-player.js"></script>
@@ -24,7 +21,6 @@
 	<div class="Grid">
 		<!-- <radio4000-player channel-slug="200ok"></radio4000-player> -->
 		<!-- <radio4000-player channel-id=""></radio4000-player> -->
-		<radio4000-player track-id="-KdVUsr70yYdIoBDmL43"></radio4000-player>
 		<!-- <radio4000-player autoplay="true"></radio4000-player> -->
 	</div>
 
@@ -41,15 +37,10 @@
 	<style>
 		/* Styles for this demo. */
 		body {
-			margin: 1rem;
+			margin: 0;
 		}
 		radio4000-player {
-			margin: 1rem;
-		}
-		@media (min-width: 700px) {
-			.Grid {
-				display: flex;
-			}
+			/*margin: 0;*/
 		}
 
 		/* Test "Lakers" skin */
@@ -62,6 +53,8 @@
 			background-color: #5e1ae6;
 		}
 	</style>
+
+	<!--<p>Test page for the <a href="https://github.com/internet4000/radio4000-player-vue">&lt;radio4000-player&gt;</a> web component.</p>-->
 
 </body>
 </html>
