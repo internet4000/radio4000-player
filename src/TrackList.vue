@@ -62,7 +62,7 @@ export default {
 		position: absolute;
 		bottom: 0.2rem;
 		right: 1.2rem;
-		z-index: 2;
+		z-index: 1;
 		opacity: 0.5;
 	}
 	.TrackList-controls:hover {
