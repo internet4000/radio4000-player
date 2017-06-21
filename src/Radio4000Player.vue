@@ -1,5 +1,5 @@
 <template>
-	<article class="Player">
+	<article class="R4PlayerLayout">
 		<header>
 			<channel-header
 :r4Url="r4Url"
@@ -149,24 +149,48 @@
 
 <style>
 	radio4000-player {
-		display: block;
-		width: 100%;
-		max-width: 352px; /* wide enough to show youtube time */
+		box-sizing: border-box;
+		display: flex;
+		flex-direction: column;
 		overflow: hidden;
 		border: 1px solid hsl(0, 0%, 60%);
+		font-family: 'maisonneue', 'system-ui', sans-serif;
 		background-color: hsl(260, 10%, 92% );
 		color: hsl(0, 0%, 10%);
-		font-family: 'maisonneue', 'system-ui', sans-serif;
+
+		/* Responsive scaling. A min. width of 352px is required to show YouTube volume. */
 		font-size: 1em;
-		box-sizing: border-box;
+		width: 100%;
+		max-width: 352px;
+		max-height: 100vh;
 	}
 </style>
 
 <style scoped>
-	.Player {
+	.R4PlayerLayout {
 		display: flex;
 		flex-direction: column;
-		height: 100%;
+		flex-basis: 100%;
+	}
+	aside {
+		overflow: hidden;
+		position: relative;
+		min-height: 109px;
+		max-height: calc(100vh - 20rem - (2.75rem * 2));
+	}
+	@media (min-width: 710px) {
+		aside {
+			/*height: 400px;*/
+		}
+	}
+	aside .FlexEmbed {
+		position: static;
+	}
+	main {
+		flex-basis: 20rem;
+		flex-grow: 1;
+		position: relative;
+		overflow-y: scroll;
 	}
 </style>
 

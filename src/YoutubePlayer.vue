@@ -1,7 +1,5 @@
 <template>
-	<div>
-		<div class="ytplayer"></div>
-	</div>
+	<div class="ytplayer"></div>
 </template>
 
 <script>
@@ -75,7 +73,7 @@
 						resolve()
 						return
 					}
-					const el = this.$el.querySelector('.ytplayer')
+					const el = this.$el
 					this.player = YouTubePlayer(el, {
 						playerVars: this.playerVars
 					})
