@@ -2,6 +2,6 @@
 
 exports[`renders 1`] = `
 Object {
-  "$el": "<div class=\\"TrackList\\"><!----><div class=\\"Loading Loading--hasNoMessage\\"><span></span></div><ol class=\\"TrackList-list\\"></ol></div>",
+  "$el": "<div><div class=\\"Loading Loading--hasNoMessage\\"><span></span></div><ol class=\\"TrackList\\"></ol><!----></div>",
 }
 `;
