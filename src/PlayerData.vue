@@ -117,7 +117,7 @@
 				return this.tracks = tracks
 			},
 			updatePlayerWithImage(image) {
-				return this.image = image ? image.src : ''
+				return this.image = image ? image : ''
 			}
 		}
 	}
