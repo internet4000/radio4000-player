@@ -9,9 +9,7 @@
 	// to abstract the youtube iframe api.
 	// note: https://github.com/GoogleWebComponents/google-youtube/blob/master/google-youtube.html
 	// note: https://developers.google.com/youtube/iframe_api_reference
-	// note: there are no event listeners for volume
-	//       so changing volume on YT player can't be
-	//       repercuted on <r4-player> interface
+
 	import YouTubePlayer from 'youtube-player'
 
 	export default {
@@ -20,14 +18,13 @@
 			'autoplay',
 			'volume',
 			'isPlaying',
-			'isMuted',
 			'videoId'
 		],
 		data() {
 			return {
 				player: {},
 				playerVars: {
-					controls: 1,
+					controls: 0,
 					fs: 0,
 					modestbranding: 1,
 					origin: window.location.origin,
@@ -53,13 +50,6 @@
 					this.playProvider()
 				} else {
 					this.pauseProvider()
-				}
-			},
-			isMuted(isMuted) {
-				if (isMuted && this.playerExists) {
-					this.muteProvider()
-				} else {
-					this.unMuteProvider()
 				}
 			}
 		},
@@ -102,8 +92,8 @@
 				this.$emit('trackEnded');
 			},
 			handleVolumeChange(event) {
-				/* console.log('handleVolumeChange', event)*/
-				this.$emit('setVolume', event.data.volume);
+				console.log('handleVolumeChange', event)
+				/* this.$emit('setVolume', event.data.volume);*/
 			},
 			handleStateChange(event) {				
 				const eventsName = {
@@ -149,12 +139,8 @@
 			pauseProvider() {
 				this.player.pauseVideo()
 			},
-			muteProvider() {
-				this.player.mute();
-			},
 			unMuteProvider() {
-				this.player.unMute()
-				this.player.setVolume(100)
+				this.$emit('setVolume', 100);
 			}
 		}
 	}

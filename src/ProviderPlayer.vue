@@ -2,16 +2,15 @@
 	<div class="ProviderPlayer">
 		<div class="Ratio"></div>
 		<youtube-player
-			v-if="provider === 'youtube'"
-			:volume="volume"
-			:autoplay="autoplay"
-			:videoId="track.ytid"
-			:isPlaying="isPlaying"
-			:isMuted="isMuted"
-			@play="playProvider"
+				v-if="provider === 'youtube'"
+				:volume="volume"
+				:autoplay="autoplay"
+				:videoId="track.ytid"
+				:isPlaying="isPlaying"
+				@play="playProvider"
 				@pause="pauseProvider"
 				@setVolume="setVolume"
-			@trackEnded="trackEnded"></youtube-player>
+				@trackEnded="trackEnded"></youtube-player>
 	</div>
 </template>
 
@@ -27,7 +26,6 @@
 			'volume',
 			'autoplay',
 			'isPlaying',
-			'isMuted',
 			'track',
 		],
 		computed: {

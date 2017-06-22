@@ -16,11 +16,10 @@
 
 		<aside>
 			<provider-player
-					:volume="volume"
 					:track="currentTrack"
 					:autoplay="autoplay"
 					:isPlaying="isPlaying"
-					:isMuted="isMuted"
+					:volume="volume"
 					@play="play"
 					@pause="pause"
 					@setVolume="setVolume"
@@ -83,7 +82,6 @@
 				volume: 0,
 				loop: false,
 				isPlaying: false,
-				isMuted: false,
 				isShuffle: false,
 				currentTrack: {},
 				tracksPool: []
@@ -95,10 +93,9 @@
 		computed: {
 			isMuted: {
 				get: function() {
-					return this.volume === 0
+					return this.volume === 0 
 				},
 				set: function(newValue) {
-					console.log('set:isMuted newValue', newValue)
 					if(newValue) {
 						this.setVolume(0)
 					} else {
@@ -155,15 +152,15 @@
 			pause() {
 				this.isPlaying = false
 			},
-			toggleMute() {
-				this.isMuted = !this.isMuted
-			},
 			toggleShuffle() {
 				this.isShuffle = !this.isShuffle
 				this.newTracksPool()
 			},
 			setVolume(volume) {
 				this.volume = volume
+			},
+			toggleMute() {
+				this.isMuted = !this.isMuted
 			}
 		}
 	}
