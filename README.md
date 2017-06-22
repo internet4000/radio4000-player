@@ -78,7 +78,7 @@ For that you can use the boolean property `r4-url` like so.
 ```
 <radio4000-player r4-url="true"></radio4000-player>
 ```
-Therefore, URLs in the player header won't open new browser window but will just remplace the URL like Ember router would have done.
+Therefore, URLs in the player header won't open new browser window but will just replace the URL like Ember router would have done.
 
 ## Development
 
@@ -89,7 +89,7 @@ yarn
 # serve with hot reload at localhost:4002
 yarn start
 
-# build for production with minification
+# build for production with minification (will update `dist/radio4000-player.min.js`)
 yarn build
 ```
 
