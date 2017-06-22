@@ -3,7 +3,7 @@
 		<div class="Ratio"></div>
 		<youtube-player
 				v-if="provider === 'youtube'"
-				:volume="volume"
+				:playerVolume="volume"
 				:autoplay="autoplay"
 				:videoId="track.ytid"
 				:isPlaying="isPlaying"

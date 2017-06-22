@@ -16,7 +16,7 @@
 		name: 'youtube-player',
 		props: [
 			'autoplay',
-			'volume',
+			'playerVolume',
 			'isPlaying',
 			'videoId'
 		],
@@ -57,13 +57,14 @@
 			playerExists: function() {
 				return this.player.hasOwnProperty('getIframe')
 			},
-			playerVolumeChanged() {
-				let playerV = Math.floor(this.volume);
-				this.player.getVolume().then(providerV => {
-					providerV = Math.floor(providerV)
-					console.log('providerV', providerV, 'playerV', playerV)
-					if(playerV != providerV) {
-						this.player.setVolume(playerV)
+			providerVolume: {
+				let playerVolume = Math.floor(this.playerVolume);
+				this.player.getVolume().then(providerVolume => {
+					providerVolume = Math.floor(providerVolume)
+					console.log('providerVolume', providerVolume, 'playerVolume', playerVolume)
+					if(playerVolume != providerVolume) {
+						this.$emit('setVolume', event.data.volume);
+						/* this.player.setVolume(playerVolume)*/
 					}
 				})
 			}
@@ -77,7 +78,7 @@
 					}
 					const el = this.$el.querySelector('.ytplayer')
 					this.player = YouTubePlayer(el, {
-						playerVars: this.playerVars
+						playerVolumears: this.playerVolumears
 					})
 					resolve(this.attachEventListeners())
 				})
@@ -103,8 +104,8 @@
 			},
 			handleVolumeChange(event) {
 				/* console.log('handleVolumeChange - youtube volume', event.data.volume)
-					 console.log('handleVolumeChange - player volume', this.volume)	*/
-				this.$emit('setVolume', event.data.volume);
+					 console.log('handleVolumeChange - player volume', this.playerVolume)	*/
+				this.providerVolume = event.data.volume
 			},
 			handleStateChange(event) {				
 				const eventsName = {
