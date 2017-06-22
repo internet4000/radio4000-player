@@ -24,7 +24,7 @@
 			return {
 				player: {},
 				playerVars: {
-					controls: 0,
+					controls: 1,
 					fs: 0,
 					modestbranding: 1,
 					origin: window.location.origin,
@@ -56,6 +56,16 @@
 		computed: {
 			playerExists: function() {
 				return this.player.hasOwnProperty('getIframe')
+			},
+			playerVolumeChanged() {
+				let playerV = Math.floor(this.volume);
+				this.player.getVolume().then(providerV => {
+					providerV = Math.floor(providerV)
+					console.log('providerV', providerV, 'playerV', playerV)
+					if(playerV != providerV) {
+						this.player.setVolume(playerV)
+					}
+				})
 			}
 		},
 		methods: {
@@ -92,8 +102,9 @@
 				this.$emit('trackEnded');
 			},
 			handleVolumeChange(event) {
-				console.log('handleVolumeChange', event)
-				/* this.$emit('setVolume', event.data.volume);*/
+				/* console.log('handleVolumeChange - youtube volume', event.data.volume)
+					 console.log('handleVolumeChange - player volume', this.volume)	*/
+				this.$emit('setVolume', event.data.volume);
 			},
 			handleStateChange(event) {				
 				const eventsName = {
