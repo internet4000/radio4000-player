@@ -68,6 +68,7 @@
 			image: String,
 			autoplay: Boolean,
 			r4Url: Boolean,
+			shuffle: Boolean,
 			volume: Number
 		},
 		data () {
@@ -76,13 +77,15 @@
 				loop: false,
 				isPlaying: false,
 				isMuted: false,
-				isShuffle: false,
+				isShuffle: this.$props.shuffle,
 				currentTrack: {},
 				tracksPool: []
 			}
 		},
 		created() {
-			if (this.track) this.playTrack(this.track)
+			if (Object.keys(this.track).length !== 0) {
+				this.playTrack(this.track)
+			} 
 		},
 		computed: {
 			isNotFullVolume: function() {
@@ -93,11 +96,17 @@
 			}
 		},
 		watch: {
+			shuffle: function(shuffle) {
+				this.isShuffle = shuffle
+			},
 			track: function(track) {
 				this.playTrack(track)
 			},
 			tracks: function(tracks) {
 				this.newTracksPool()
+
+				const noTrack = Object.keys(this.currentTrack).length === 0
+				if (noTrack) this.playNextTrack()
 			},
 			volume: function(volume) {
 				if (volume <= 0) {
