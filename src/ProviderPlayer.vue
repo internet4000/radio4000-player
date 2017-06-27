@@ -50,7 +50,7 @@
 				this.$emit('unMute')
 			},
 			trackEnded() {
-				this.$emit('playNextTrack')
+				this.$emit('trackEnded')
 			}
 		}
 }

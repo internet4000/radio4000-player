@@ -53,6 +53,23 @@ To enable autoplay:
 <radio4000-player channel-slug="200ok" autoplay="true"></radio4000-player>
 ```
 
+## Events
+
+You can listen for events directly on each `<radio4000-player>` element.
+
+### Supported events
+
+- `trackChanged` - This event fires whenever the current track is changed.
+
+Here's an example of how to listen for the `trackChanged` event. The `event.detail` argument will be a Radio4000 `track` object.
+
+```js
+var player = document.querySelector('radio4000-player')
+player.addEventListener('trackChanged', (event) => {
+	console.info('trackChanged event', event.detail)
+})
+```
+
 ## Skins
 
 We offer a dark skin and a mini one. To use, add or combine the classes. Here are some examples:
