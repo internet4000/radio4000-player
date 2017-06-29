@@ -10,6 +10,7 @@
 			:volume="volume"
 			:shuffle="shuffle"
 			@trackChanged="onTrackChanged"	
+			@trackEnded="onTrackEnded"	
 	 ></radio4000-player>
 	<div v-else class="Console">
 		<p>Radio4000-player is ready to start playing:
@@ -124,8 +125,10 @@
 				return this.image = image ? image : ''
 			},
 			onTrackChanged(...args) {
-				console.log('track changed:', ...args)
 				this.$emit('trackChanged', ...args)
+			},
+			onTrackEnded(...args) {
+				this.$emit('trackEnded', ...args)
 			}
 		}
 	}

@@ -17,6 +17,9 @@
 		player.addEventListener('trackChanged', (event) => {
 			console.info('[event:trackChanged]', event.detail)
 		})
+		player.addEventListener('trackEnded', (event) => {
+			console.info('[event:trackEnded]', event.detail)
+		})
 	</script>
 
 	<!-- Skin tests -->	

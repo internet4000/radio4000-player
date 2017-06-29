@@ -17,7 +17,7 @@
 :isMuted="isMuted"
 @play="play"
 @pause="pause"
-@trackEnded="playNextTrack"></provider-player>
+@trackEnded="trackEnded"></provider-player>
 		</aside>
 
 		<main>
@@ -152,6 +152,10 @@
 			toggleShuffle() {
 				this.isShuffle = !this.isShuffle
 				this.newTracksPool()
+			},
+			trackEnded() {
+				this.$emit('trackEnded', this.track)
+				this.playNextTrack()
 			}
 		}
 	}
