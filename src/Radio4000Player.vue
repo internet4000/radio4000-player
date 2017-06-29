@@ -17,7 +17,7 @@
 :isMuted="isMuted"
 @play="play"
 @pause="pause"
-@playNextTrack="playNextTrack"></provider-player>
+@trackEnded="trackEnded"></provider-player>
 		</aside>
 
 		<main>
@@ -85,7 +85,7 @@
 		created() {
 			if (Object.keys(this.track).length !== 0) {
 				this.playTrack(this.track)
-			} 
+			}
 		},
 		computed: {
 			isNotFullVolume: function() {
@@ -118,6 +118,7 @@
 		methods: {
 			playTrack(track) {
 				this.currentTrack = track
+				this.$emit('trackChanged', track)
 			},
 			newTracksPool() {
 				var newTracksPool = this.tracks.slice().reverse()
@@ -151,6 +152,10 @@
 			toggleShuffle() {
 				this.isShuffle = !this.isShuffle
 				this.newTracksPool()
+			},
+			trackEnded() {
+				this.$emit('trackEnded', this.track)
+				this.playNextTrack()
 			}
 		}
 	}

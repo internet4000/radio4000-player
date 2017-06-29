@@ -8,7 +8,10 @@
 			:autoplay="autoplay"
 			:r4Url="r4Url"
 			:volume="volume"
-			:shuffle="shuffle" />
+			:shuffle="shuffle"
+			@trackChanged="onTrackChanged"	
+			@trackEnded="onTrackEnded"	
+	 ></radio4000-player>
 	<div v-else class="Console">
 		<p>Radio4000-player is ready to start playing:
 			<a href="https://github.com/internet4000/radio4000-player-vue">documentation</a>
@@ -120,6 +123,12 @@
 			},
 			updatePlayerWithImage(image) {
 				return this.image = image ? image : ''
+			},
+			onTrackChanged(...args) {
+				this.$emit('trackChanged', ...args)
+			},
+			onTrackEnded(...args) {
+				this.$emit('trackEnded', ...args)
 			}
 		}
 	}
