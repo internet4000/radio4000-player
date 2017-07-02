@@ -41,7 +41,7 @@
 				class="Btn"
 				title="Next track">Next</button>
 		</div>
-		
+
 	</menu>
 </template>
 

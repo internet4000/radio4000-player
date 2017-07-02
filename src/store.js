@@ -12,7 +12,7 @@ const toArray = firebaseObj => {
 }
 const toObject = (firebaseObj, id) => {
 	firebaseObj.id = id
-	return firebaseObj 
+	return firebaseObj
 }
 
 export function findChannelBySlug(slug) {
