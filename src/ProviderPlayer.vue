@@ -33,7 +33,8 @@
 		],
 		computed: {
 			provider: function() {
-				return this.track.ytid ? 'youtube' : undefined
+				if (this.track && this.track.ytid) return 'youtube'
+				return undefined
 			}
 		},
 		methods: {
