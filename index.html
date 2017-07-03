@@ -7,22 +7,23 @@
 </head>
 <body>
 
-	<!-- There are three different ways to start playing: -->	
+	<!-- There are three different ways to start playing: -->
 	<!-- <radio4000-player track-id="-KdVUsr70yYdIoBDmL43"></radio4000-player> -->
-	<!-- <radio4000-player channel-slug="200ok"></radio4000-player> -->
-	<radio4000-player channel-id="-KFzPXLNzmKjPGwyY-xx"></radio4000-player>
+	<radio4000-player channel-slug="elevator-music"></radio4000-player>
+	<!-- <radio4000-player channel-slug="oskar"></radio4000-player> -->
+	<!-- <radio4000-player channel-id="-KFzPXLNzmKjPGwyY-xx"></radio4000-player> -->
 
 	<script>
 		var player = document.querySelector('radio4000-player')
 		player.addEventListener('trackChanged', (event) => {
-			console.info('[event:trackChanged]', event.detail)
+			console.info('[event:trackChanged]', event.detail[0])
 		})
 		player.addEventListener('trackEnded', (event) => {
-			console.info('[event:trackEnded]', event.detail)
+			console.info('[event:trackEnded]', event.detail[0])
 		})
 	</script>
 
-	<!-- Skin tests -->	
+	<!-- Skin tests -->
 	<!-- <div class="Grid">
 		<radio4000-player channel-slug="200ok" class="dark"></radio4000-player>
 		<radio4000-player channel-slug="elevator-music" class="dark"></radio4000-player>
