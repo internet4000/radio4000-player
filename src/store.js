@@ -23,10 +23,12 @@ export function findChannelById(id) {
 	const url = `${host}/channels/${id}.json`
 	return fetch(url).then(parse).then(obj => toObject(obj, id))
 }
-
 export function findChannelTracks(id) {
 	const url = `${host}/tracks.json?orderBy="channel"&startAt="${id}"&endAt="${id}"`
-	return fetch(url).then(parse).then(toArray)
+	return fetch(url).then(parse).then(toArray).then(arr => {
+		// Firebase queries through REST are not sorted.
+		return arr.sort((a, b) => a.created - b.created)
+	})
 }
 export function findTrack(id) {
 	const url = `${host}/tracks/${id}.json`
