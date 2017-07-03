@@ -204,7 +204,7 @@
 		flex-basis: 20rem;
 		flex-grow: 1;
 		position: relative;
-		overflow-y: scroll;
+		display: flex;
 	}
 </style>
 
@@ -213,7 +213,6 @@
 	radio4000-player.mini {max-width: 320px; }
 	radio4000-player.mini main {display: none;}
 	radio4000-player.mini menu {border-top: 0;}
-	/*radio4000-player.mini menu .PlayerControl-group:nth-child(1) {display: none;}*/
 	radio4000-player.mini menu .PlayerControl-group:nth-child(2) {display: none;}
 </style>
 

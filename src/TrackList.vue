@@ -1,11 +1,11 @@
 <template>
-	<div>
+	<div style="overflow-y: scroll">
 		<Loading v-if="!tracks || !tracks.length" />
 		<ol class="TrackList">
 			<li v-for="(track, index) in tracks">
 				<track-item
 					:track="track"
-					:class="{ active : currentTrackIndex === index }" 
+					:class="{ active : currentTrackIndex === index }"
 					@select="select"></track-item>
 			</li>
 		</ol>
