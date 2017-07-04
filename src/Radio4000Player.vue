@@ -1,10 +1,7 @@
 <template>
 	<article class="Player">
-
 		{{volume}}
-		<input class="Volume"
-					 type="range"
-					 v-model.number="volume"/>
+		 <input class="Volume" type="range" :value="volume" @input="setVolume"> 
 		
 		<header>
 			<channel-header
@@ -147,11 +144,11 @@
 				this.isShuffle = !this.isShuffle
 				this.newTracksPool()
 			},
-			setVolume(volume) {
-				this.volume = volume
-			},
 			toggleMute() {
 				this.isMuted = !this.isMuted
+			},
+			setVolume(event) {
+				bus.$emit('setVolume', Number(event.target.value))
 			}
 		}
 	}
