@@ -1,48 +1,52 @@
 <template>
-	<article class="R4PlayerLayout">
+	<div class="R4PlayerLayout">
 		<header>
 			<channel-header
-				:r4Url="r4Url"
 				:channel="channel"
 				:image="image"
-				:track="currentTrack"></channel-header>
+				:r4Url="r4Url"
+				:track="currentTrack"
+			></channel-header>
 		</header>
 
 		<aside>
 			<provider-player
-				:volume="volume"
-				:track="currentTrack"
 				:autoplay="autoplay"
 				:isPlaying="isPlaying"
 				:isMuted="isMuted"
+				:track="currentTrack"
+				:volume="volume"
 				@play="play"
 				@pause="pause"
-				@trackEnded="trackEnded"></provider-player>
+				@trackEnded="trackEnded"
+			></provider-player>
 		</aside>
 
 		<main>
 			<track-list
-				:tracks="tracksPool"
-				:track="currentTrack"
 				:currentTrackIndex="currentTrackIndex"
-				@select="playTrack"></track-list>
+				:track="currentTrack"
+				:tracks="tracksPool"
+				@select="playTrack"
+			></track-list>
 		</main>
 
 		<footer>
 			<player-controls
-				:isPlaying="isPlaying"
-				:volume="volume"
 				:isDisabled="!this.tracksPool.length"
 				:isNotFullVolume="isNotFullVolume"
 				:isMuted="isMuted"
+				:isPlaying="isPlaying"
 				:isShuffle="isShuffle"
+				:volume="volume"
 				@play="play"
 				@pause="pause"
 				@toggleMute="toggleMute"
 				@toggleShuffle="toggleShuffle"
-				@next="playNextTrack"></player-controls>
+				@next="playNextTrack"
+			></player-controls>
 		</footer>
-	</article>
+	</div>
 </template>
 
 <script>
@@ -63,9 +67,9 @@
 		},
 		props: {
 			channel: Object,
+			image: String,
 			tracks: Array,
 			track: Object,
-			image: String,
 			autoplay: Boolean,
 			r4Url: Boolean,
 			shuffle: Boolean,
@@ -73,12 +77,12 @@
 		},
 		data () {
 			return {
-				playerReady: false,
-				loop: false,
+				currentTrack: {},
 				isPlaying: false,
 				isMuted: false,
 				isShuffle: this.$props.shuffle,
-				currentTrack: {},
+				loop: false,
+				playerReady: false,
 				tracksPool: []
 			}
 		},
