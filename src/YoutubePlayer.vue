@@ -7,11 +7,9 @@
 <script>
 	// This component uses https://github.com/gajus/youtube-player
 	// to abstract the youtube iframe api.
-	// note: https://github.com/GoogleWebComponents/google-youtube/blob/master/google-youtube.html
-	// note: https://developers.google.com/youtube/iframe_api_reference
-
+	// https://github.com/GoogleWebComponents/google-youtube/blob/master/google-youtube.html
+	// https://developers.google.com/youtube/iframe_api_reference
 	import YouTubePlayer from 'youtube-player'
-
 	export default {
 		name: 'youtube-player',
 		props: [
@@ -78,7 +76,7 @@
 					}
 					const el = this.$el.querySelector('.ytplayer')
 					this.player = YouTubePlayer(el, {
-						playerVolumears: this.playerVolumears
+						playerVars: this.playerVars
 					})
 					resolve(this.attachEventListeners())
 				})
