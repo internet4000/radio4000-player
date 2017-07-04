@@ -1,49 +1,53 @@
 <template>
-	<article class="Player">
+	<div class="R4PlayerLayout">
 		{{volume}}
 		 <input class="Volume" type="range" :value="volume" @input="setVolume"> 
-		
 		<header>
 			<channel-header
-					:r4Url="r4Url"
-					:channel="channel"
-					:image="image"
-					:track="currentTrack"></channel-header>
+				:channel="channel"
+				:image="image"
+				:r4Url="r4Url"
+				:track="currentTrack"
+			></channel-header>
 		</header>
 
 		<aside>
 			<provider-player
-					:track="currentTrack"
-					:autoplay="autoplay"
-					:isPlaying="isPlaying"
-					:volume="volume"
-					@play="play"
-					@pause="pause"
-					@playNextTrack="playNextTrack"></provider-player>
+				:track="currentTrack"
+				:autoplay="autoplay"
+				:isMuted="isMuted"
+				:isPlaying="isPlaying"
+				:volume="volume"
+				@play="play"
+				@pause="pause"
+				@trackEnded="trackEnded"
+			></provider-player>
 		</aside>
 
 		<main>
 			<track-list
-					:tracks="tracksPool"
-					:track="currentTrack"
-					:currentTrackIndex="currentTrackIndex"
-					@select="playTrack"></track-list>
+				:currentTrackIndex="currentTrackIndex"
+				:track="currentTrack"
+				:tracks="tracksPool"
+				@select="playTrack"
+			></track-list>
 		</main>
 
 		<footer>
 			<player-controls
-					:isPlaying="isPlaying"
-					:volume="volume"
-					:isDisabled="!this.tracksPool.length"
-					:isMuted="isMuted"
-					:isShuffle="isShuffle"
-					@play="play"
-					@pause="pause"
-					@toggleMute="toggleMute"
-					@toggleShuffle="toggleShuffle"
-					@next="playNextTrack"></player-controls>
+				:isDisabled="!this.tracksPool.length"
+				:isMuted="isMuted"
+				:isPlaying="isPlaying"
+				:isShuffle="isShuffle"
+				:volume="volume"
+				@play="play"
+				@pause="pause"
+				@toggleMute="toggleMute"
+				@toggleShuffle="toggleShuffle"
+				@next="playNextTrack"
+			></player-controls>
 		</footer>
-	</article>
+	</div>
 </template>
 
 <script>
@@ -65,25 +69,28 @@
 		},
 		props: {
 			channel: Object,
+			image: String,
 			tracks: Array,
 			track: Object,
-			image: String,
 			autoplay: Boolean,
 			r4Url: Boolean,
+			shuffle: Boolean,
 			volume: Number
 		},
 		data () {
 			return {
-				playerReady: false,
-				loop: false,
-				isPlaying: false,
-				isShuffle: false,
 				currentTrack: {},
+				isPlaying: false,
+				isShuffle: this.$props.shuffle,
+				loop: false,
+				playerReady: false,
 				tracksPool: []
 			}
 		},
 		created() {
-			if (this.track) this.playTrack(this.track)
+			if (Object.keys(this.track).length !== 0) {
+				this.playTrack(this.track)
+			}
 		},
 		computed: {
 			isMuted: {
@@ -103,16 +110,23 @@
 			}
 		},
 		watch: {
+			shuffle: function(shuffle) {
+				this.isShuffle = shuffle
+			},
 			track: function(track) {
 				this.playTrack(track)
 			},
 			tracks: function(tracks) {
 				this.newTracksPool()
+
+				const noTrack = Object.keys(this.currentTrack).length === 0
+				if (noTrack) this.playNextTrack()
 			}
 		},
 		methods: {
 			playTrack(track) {
 				this.currentTrack = track
+				this.$emit('trackChanged', track)
 			},
 			newTracksPool() {
 				var newTracksPool = this.tracks.slice().reverse()
@@ -149,6 +163,10 @@
 			},
 			setVolume(event) {
 				bus.$emit('setVolume', Number(event.target.value))
+			},
+			trackEnded() {
+				this.$emit('trackEnded', this.track)
+				this.playNextTrack()
 			}
 		}
 	}
@@ -156,24 +174,49 @@
 
 <style>
 	radio4000-player {
-		display: block;
-		width: 100%;
-		max-width: 352px; /* wide enough to show youtube time */
+		box-sizing: border-box;
+		display: flex;
+		flex-direction: column;
 		overflow: hidden;
 		border: 1px solid hsl(0, 0%, 60%);
+		font-family: 'maisonneue', 'system-ui', sans-serif;
 		background-color: hsl(260, 10%, 92% );
 		color: hsl(0, 0%, 10%);
-		font-family: 'maisonneue', 'system-ui', sans-serif;
+
+		/* Responsive scaling. A min. width of 352px is required to show YouTube volume. */
 		font-size: 1em;
-		box-sizing: border-box;
+		width: 100%;
+		max-width: 352px;
+		max-height: 100vh;
 	}
 </style>
 
 <style scoped>
-	.Player {
+	.R4PlayerLayout {
 		display: flex;
 		flex-direction: column;
-		height: 100%;
+		flex-basis: 100%;
+	}
+	aside {
+		overflow: hidden;
+		position: relative;
+		min-height: 109px;
+		max-height: calc(100vh - 20rem - (2.75rem * 2));
+	}
+	@media (min-width: 710px) {
+		aside {
+			/*height: 400px;*/
+		}
+	}
+	aside .FlexEmbed {
+		position: static;
+	}
+	main {
+		flex-basis: 20rem;
+		flex-grow: 1;
+		position: relative;
+		display: flex;
+		overflow: hidden;
 	}
 </style>
 
@@ -182,7 +225,6 @@
 	radio4000-player.mini {max-width: 320px; }
 	radio4000-player.mini main {display: none;}
 	radio4000-player.mini menu {border-top: 0;}
-	/*radio4000-player.mini menu .PlayerControl-group:nth-child(1) {display: none;}*/
 	radio4000-player.mini menu .PlayerControl-group:nth-child(2) {display: none;}
 </style>
 

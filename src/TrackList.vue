@@ -1,22 +1,18 @@
 <template>
-	<div class="TrackList">
-	
-		<aside v-if="tracks && tracks.length" class="TrackList-controls">
-			<button class="Btn" title="Locate current track"
-				@click="locateCurrentTrack">◎</button>
-		</aside>
-	
+	<div style="overflow-y: scroll">
 		<Loading v-if="!tracks || !tracks.length" />
-	
-		<ol class="TrackList-list">
+		<ol class="TrackList">
 			<li v-for="(track, index) in tracks">
 				<track-item
 					:track="track"
-					:class="{ active : currentTrackIndex === index }" 
+					:class="{ active : currentTrackIndex === index }"
 					@select="select"></track-item>
 			</li>
 		</ol>
-	
+		<div v-if="tracks && tracks.length" class="TrackListControls">
+			<button class="Btn" title="Locate current track"
+				@click="locateCurrentTrack">◎</button>
+		</div>
 	</div>
 </template>
 
@@ -44,47 +40,39 @@ export default {
 			this.$emit('select', track)
 		},
 		locateCurrentTrack() {
-			const $container = this.$el.querySelector('.TrackList .TrackList-list')
-			const $tracks = $container.children
-				const $activeTrack = $tracks[this.currentTrackIndex]
-				if (!$activeTrack) return
-				$container.scrollTop = $activeTrack.offsetTop - 4
+			const container = this.$el
+			const tracks = this.$el.querySelectorAll('ol > li')
+			const activeTrack = tracks[this.currentTrackIndex]
+			if (!activeTrack) return
+				container.scrollTop = activeTrack.offsetTop - 4
 			}
 		}
 	}
 </script>
 
 <style scoped>
-	.TrackList {
-		position: relative;
-	}
-	.TrackList-controls {
+	.TrackListControls {
 		position: absolute;
-		bottom: 0.2rem;
-		right: 1.2rem;
-		z-index: 2;
+		bottom: 0.3rem;
+		right: 0.3rem;
+		z-index: 1;
 		opacity: 0.5;
 	}
-	.TrackList-controls:hover {
+	.TrackListControls:hover {
 		opacity: 1;
 	}
-	.TrackList-list {
-		overflow-y: scroll;
-		overflow-x: hidden;
+	ol {
+		box-sizing: border-box;
 		margin: 0;
 		padding: 0.6rem;
-		font-size: 0.8125em;
 		line-height: 1.7;
 		list-style: none;
 		counter-reset: tracks;
-		flex: 1;
 		transition: max-height 400ms ease-in-out;
 		transform: translateZ(0);
-		height: 8rem;
-	}
-	.TrackList--isActive .TrackList-list {
 	}
 	li {
+		font-size: 0.8125em;
 		padding: 0 0.3em;
 		display: flex;
 	}

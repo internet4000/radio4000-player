@@ -1,7 +1,8 @@
 <template>
-	<div class="ProviderPlayer">
-		<div class="Ratio"></div>
-		<youtube-player
+	<div class="ProviderPlayer FlexEmbed">
+		<div class="FlexEmbed-ratio"></div>
+		<div class="FlexEmbed-content">
+			<youtube-player
 				v-if="provider === 'youtube'"
 				:volume="volume"
 				:autoplay="autoplay"
@@ -10,6 +11,8 @@
 				@play="playProvider"
 				@pause="pauseProvider"
 				@trackEnded="trackEnded"></youtube-player>
+			</div>
+		</div>
 	</div>
 </template>
 
@@ -29,7 +32,8 @@
 		],
 		computed: {
 			provider: function() {
-				return this.track.ytid ? 'youtube' : undefined
+				if (this.track && this.track.ytid) return 'youtube'
+				return undefined
 			}
 		},
 		methods: {
@@ -46,7 +50,7 @@
 				this.$emit('unMute')
 			},
 			trackEnded() {
-				this.$emit('playNextTrack')
+				this.$emit('trackEnded')
 			}
 		}
 }
@@ -54,21 +58,26 @@
 
 <style>
 	.ProviderPlayer {
-		position: relative;
 		background-color: black;
-		height: 25vh;
+	}
+	.FlexEmbed {
+		position: relative;
 		overflow: hidden;
 	}
-	.Ratio {
+	.FlexEmbed-ratio {
 		width: 100%;
 		height: 0;
 		padding-bottom: 56.25%;
-		padding-bottom: calc(9/16*100%);
+		padding-bottom: calc(9 / 16 * 100%);
 	}
-	.ProviderPlayer iframe {
+	.FlexEmbed-content {
 		position: absolute;
 		top: 0;
 		left: 0;
+		width: 100%;
+		height: 100%;
+	}
+	.FlexEmbed iframe {
 		width: 100%;
 		height: 100%;
 	}

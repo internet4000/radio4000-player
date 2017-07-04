@@ -1,7 +1,7 @@
 <template>
 	<div class="TrackItem"
-			 v-bind:class="{active: active}"
-			 v-on:click="select">
+		:class="{active: active}"
+		@click="select">
 		<span>{{track.title}}</span>
 	</div>
 </template>

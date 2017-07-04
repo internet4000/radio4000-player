@@ -24,8 +24,9 @@ Here's a list of all the attributes you can set and change on the web component.
 - `channel-slug` [string], a radio4000 channel slug (ex: `oskar`)
 - `channel-id` [string], a radio4000 channel id (ex: `-JYZvhj3vlGCjKXZ2cXO`)
 - `track-id` [string], a radio4000 track id (ex: `-JYEosmvT82Ju0vcSHVP`)
-- `volume` [integer] from 0 to 100
-- `autoplay` [boolean], if it should start playing automatically
+- `volume` [integer] from 0 to 100 (default: `100`)
+- `autoplay` [boolean], if it should start playing automatically (default: `false`)
+- `shuffle` [boolean], if tracks should be shuffled (default: `false`)
 
 ### Examples
 
@@ -41,12 +42,33 @@ player.trackId = '-JYEosmvT82Ju0vcSHVP'
 
 // Change the volume.
 player.volume = 25
+
+// Enable shuffle.
+player.shuffle = true
 ```
 
 To enable autoplay:
 
 ```html
 <radio4000-player channel-slug="200ok" autoplay="true"></radio4000-player>
+```
+
+## Events
+
+You can listen for events directly on each `<radio4000-player>` element.
+
+### Supported events
+
+- `trackChanged` - This event fires whenever the current track is changed.
+- `trackEnded` - This event fires when the current track finishes playing.
+
+Here's an example of how to listen for the `trackChanged` event. It is the same approach for all events. In the case of both `trackChanged` and `trackEnded`, the `event.detail[0]` argument will be a Radio4000 `track` object.
+
+```js
+var player = document.querySelector('radio4000-player')
+player.addEventListener('trackChanged', (event) => {
+  console.info('trackChanged event', event.detail[0])
+})
 ```
 
 ## Skins
@@ -78,7 +100,7 @@ For that you can use the boolean property `r4-url` like so.
 ```
 <radio4000-player r4-url="true"></radio4000-player>
 ```
-Therefore, URLs in the player header won't open new browser window but will just remplace the URL like Ember router would have done.
+Therefore, URLs in the player header won't open new browser window but will just replace the URL like Ember router would have done.
 
 ## Development
 
@@ -89,7 +111,7 @@ yarn
 # serve with hot reload at localhost:4002
 yarn start
 
-# build for production with minification
+# build for production with minification (will update `dist/radio4000-player.min.js`)
 yarn build
 ```
 

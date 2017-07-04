@@ -41,7 +41,7 @@
 				class="Btn"
 				title="Next track">Next</button>
 		</div>
-		
+
 	</menu>
 </template>
 
@@ -53,8 +53,7 @@
 			'isPlaying',
 			'isDisabled',
 			'isMuted',
-			'isShuffle',
-			'isNotFullVolume'
+			'isShuffle'
 		],
 		computed: {
 			isNotFullVolume: function() {

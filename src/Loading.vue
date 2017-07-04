@@ -1,6 +1,5 @@
 <template>
-	<div class="Loading"
-			 v-bind:class="{ 'Loading--hasNoMessage' : !message }">
+	<div class="Loading" :class="{ 'Loading--hasNoMessage' : !message }">
 		<span v-if="message">{{message}}</span>
 		<span v-else></span>
 	</div>

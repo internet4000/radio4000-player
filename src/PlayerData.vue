@@ -1,13 +1,17 @@
 <template>
 	<radio4000-player
-			v-if="canLoad"
-			:channel="channel"
-			:tracks="tracks"
-			:track="track"
-			:image="image"
-			:autoplay="autoplay"
-			:r4Url="r4Url"
-			:volume="localVolume" />
+		v-if="canLoad"
+		:channel="channel"
+		:tracks="tracks"
+		:track="track"
+		:image="image"
+		:autoplay="autoplay"
+		:r4Url="r4Url"
+		:volume="localVolume"
+		:shuffle="shuffle"
+		@trackChanged="onTrackChanged"
+		@trackEnded="onTrackEnded"
+	></radio4000-player>
 	<div v-else class="Console">
 		<p>Radio4000-player is ready to start playing:
 			<a href="https://github.com/internet4000/radio4000-player-vue">documentation</a>
@@ -43,7 +47,8 @@
 			volume: {
 				type: Number,
 				default: 100
-			}
+			},
+			shuffle: Boolean
 		},
 		data () {
 			return {
@@ -75,7 +80,7 @@
 		},
 		watch: {
 			channelSlug: function (slug) {
-				this.loadChannelBySlug(slug)				
+				this.loadChannelBySlug(slug)
 			},
 			channelId: function (id) {
 				this.loadChannelById(id)
@@ -93,7 +98,7 @@
 		},
 		computed: {
 			canLoad: function() {
-				return this.channelSlug || this.channelId || this.trackId 
+				return this.channelSlug || this.channelId || this.trackId
 			}
 		},
 		methods: {
@@ -128,7 +133,13 @@
 				return this.tracks = tracks
 			},
 			updatePlayerWithImage(image) {
-				return this.image = image ? image.src : ''
+				return this.image = image ? image : ''
+			},
+			onTrackChanged(...args) {
+				this.$emit('trackChanged', ...args)
+			},
+			onTrackEnded(...args) {
+				this.$emit('trackEnded', ...args)
 			}
 		}
 	}
