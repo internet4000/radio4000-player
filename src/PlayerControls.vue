@@ -55,7 +55,12 @@
 			'isMuted',
 			'isShuffle',
 			'isNotFullVolume'
-		]
+		],
+		computed: {
+			isNotFullVolume: function() {
+				return this.volume < 100
+			}
+		}
 	}
 </script>
 

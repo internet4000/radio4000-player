@@ -39,7 +39,6 @@
 					:isPlaying="isPlaying"
 					:volume="volume"
 					:isDisabled="!this.tracksPool.length"
-					:isNotFullVolume="isNotFullVolume"
 					:isMuted="isMuted"
 					:isShuffle="isShuffle"
 					@play="play"
@@ -102,9 +101,6 @@
 						this.setVolume(100)
 					}
 				}
-			},
-			isNotFullVolume: function() {
-				return this.volume < 100
 			},
 			currentTrackIndex() {
 				return this.tracksPool.findIndex(track => track.id === this.currentTrack.id)
