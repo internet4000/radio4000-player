@@ -205,6 +205,7 @@
 		flex-grow: 1;
 		position: relative;
 		display: flex;
+		overflow: hidden;
 	}
 </style>
 

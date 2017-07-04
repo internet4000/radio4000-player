@@ -53,8 +53,8 @@ export default {
 <style scoped>
 	.TrackListControls {
 		position: absolute;
-		bottom: 0.2rem;
-		right: 1.2rem;
+		bottom: 0.3rem;
+		right: 0.3rem;
 		z-index: 1;
 		opacity: 0.5;
 	}
