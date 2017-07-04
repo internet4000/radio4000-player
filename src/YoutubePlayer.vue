@@ -14,7 +14,7 @@
 		name: 'youtube-player',
 		props: [
 			'autoplay',
-			'playerVolume',
+			'volume',
 			'isPlaying',
 			'videoId'
 		],

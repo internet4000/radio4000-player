@@ -73,12 +73,11 @@
 			image: String,
 			autoplay: Boolean,
 			r4Url: Boolean,
-			externalVolume: Number
+			volume: Number
 		},
 		data () {
 			return {
 				playerReady: false,
-				volume: 0,
 				loop: false,
 				isPlaying: false,
 				isShuffle: false,
