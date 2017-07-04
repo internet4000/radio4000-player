@@ -84,15 +84,16 @@
 	.Btn--mute.is-active span::before {
 		content: '□';
 	}
+	.PlayPause,
+	.Btn--shuffle {
+		padding-top: 0;
+		padding-bottom: 0;
+	}
 	.Btn--shuffle {
 		font-size: 1.7rem;
 		line-height: 1;
 	}
 	.Btn--shuffle.is-active span {
 		opacity: 0.5;
-	}
-	.PlayPause {
-		padding-top: 0;
-		padding-bottom: 0;
 	}
 </style>
