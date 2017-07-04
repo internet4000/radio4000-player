@@ -1,5 +1,5 @@
 <template>
-	<div style="overflow-y: scroll">
+	<div class="overflow-y: scroll">
 		<Loading v-if="!tracks || !tracks.length" />
 		<ol class="TrackList">
 			<li v-for="(track, index) in tracks">
