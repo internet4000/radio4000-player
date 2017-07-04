@@ -17,6 +17,7 @@
 
 <script>
 	import Radio4000Player from './Radio4000Player.vue'
+	import bus from './bus'
 	import {
 		findChannelById,
 		findChannelBySlug,
@@ -55,6 +56,11 @@
 			}
 		},
 		created() {
+			bus.$on('setVolume', vol => {
+				console.log('setting new volume to: ', vol)
+				this.localVolume = vol
+			})
+
 			const { channelSlug, channelId, trackId } = this;
 			if (trackId) {
 				return this.loadTrack(trackId)

@@ -22,7 +22,6 @@
 					:volume="volume"
 					@play="play"
 					@pause="pause"
-					@setVolume="setVolume"
 					@playNextTrack="playNextTrack"></provider-player>
 		</aside>
 
@@ -57,6 +56,7 @@
 	import ProviderPlayer from './ProviderPlayer.vue'
 	import PlayerControls from './PlayerControls.vue'
 	import { shuffleArray } from './utils/shuffle-helpers'
+	import bus from './bus'
 
 	export default {
 		name: 'radio4000-player',
@@ -94,10 +94,10 @@
 					return this.volume === 0 
 				},
 				set: function(newValue) {
-					if(newValue) {
-						this.setVolume(0)
+					if (newValue) {
+						bus.$emit('setVolume', 0)
 					} else {
-						this.setVolume(100)
+						bus.$emit('setVolume', 100)
 					}
 				}
 			},
@@ -111,10 +111,6 @@
 			},
 			tracks: function(tracks) {
 				this.newTracksPool()
-			},
-			externalVolume: function(volume) {
-				console.log('externalVolume', volume)
-				this.setVolume(volume)
 			}
 		},
 		methods: {

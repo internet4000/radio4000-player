@@ -9,7 +9,6 @@
 				:isPlaying="isPlaying"
 				@play="playProvider"
 				@pause="pauseProvider"
-				@setVolume="setVolume"
 				@trackEnded="trackEnded"></youtube-player>
 	</div>
 </template>
@@ -48,9 +47,6 @@
 			},
 			trackEnded() {
 				this.$emit('playNextTrack')
-			},
-			setVolume(volume) {
-				this.$emit('setVolume', volume)
 			}
 		}
 }

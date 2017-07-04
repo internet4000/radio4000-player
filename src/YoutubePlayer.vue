@@ -10,6 +10,7 @@
 	// https://github.com/GoogleWebComponents/google-youtube/blob/master/google-youtube.html
 	// https://developers.google.com/youtube/iframe_api_reference
 	import YouTubePlayer from 'youtube-player'
+	import bus from './bus'
 	export default {
 		name: 'youtube-player',
 		props: [
@@ -49,22 +50,21 @@
 				} else {
 					this.pauseProvider()
 				}
+			},
+			volume(vol) {
+				console.log('changing youtube volume from top', vol)
+				this.player.getVolume().then(youtubevol => {
+					if (vol === youtubevol) {
+						console.log('equal vol, not updating')
+						return
+					}
+					this.player.setVolume(vol)
+				})
 			}
 		},
 		computed: {
 			playerExists() {
 				return this.player.hasOwnProperty('getIframe')
-			},
-			providerVolume() {
-				let playerVolume = Math.floor(this.playerVolume)
-				this.player.getVolume().then(providerVolume => {
-					providerVolume = Math.floor(providerVolume)
-					console.log('providerVolume', providerVolume, 'playerVolume', playerVolume)
-					if(playerVolume != providerVolume) {
-						this.$emit('setVolume', event.data.volume);
-						/* this.player.setVolume(playerVolume)*/
-					}
-				})
 			}
 		},
 		methods: {
@@ -92,15 +92,19 @@
 				})
 			},
 			handleReady(resolve) {
-				this.unMuteProvider()
+				// Set initial volume.
+				console.log('setting initial volume to', this.volume)
+				this.player.setVolume(this.volume)
 			},
 			handleError(event) {
 				this.$emit('trackEnded')
 			},
 			handleVolumeChange(event) {
-				console.log('handleVolumeChange - youtube volume', event.data.volume)
-				console.log('handleVolumeChange - player volume', this.playerVolume)
-				// this.providerVolume = event.data.volume
+				console.log('handleVolumeChange', {volume: this.volume, youtubeVolume: event.data.volume})
+				if (event.data.volume !== this.volume) {
+					console.log('volume change from youtube', event.data.volume)
+					bus.$emit('setVolume', event.data.volume)
+				}
 			},
 			handleStateChange(event) {
 				const eventsName = {
@@ -145,9 +149,6 @@
 			},
 			pauseProvider() {
 				this.player.pauseVideo()
-			},
-			unMuteProvider() {
-				this.$emit('setVolume', 100);
 			}
 		}
 	}
