@@ -54,11 +54,11 @@
 			}
 		},
 		computed: {
-			playerExists: function() {
+			playerExists() {
 				return this.player.hasOwnProperty('getIframe')
 			},
-			providerVolume: {
-				let playerVolume = Math.floor(this.playerVolume);
+			providerVolume() {
+				let playerVolume = Math.floor(this.playerVolume)
 				this.player.getVolume().then(providerVolume => {
 					providerVolume = Math.floor(providerVolume)
 					console.log('providerVolume', providerVolume, 'playerVolume', playerVolume)
@@ -94,20 +94,17 @@
 				})
 			},
 			handleReady(resolve) {
-				/* console.log('handleReady');*/
-				this.unMuteProvider();
+				this.unMuteProvider()
 			},
 			handleError(event) {
-				/* console.log('handleError:event')
-					 console.log({youtubeError: event})*/
-				this.$emit('trackEnded');
+				this.$emit('trackEnded')
 			},
 			handleVolumeChange(event) {
-				/* console.log('handleVolumeChange - youtube volume', event.data.volume)
-					 console.log('handleVolumeChange - player volume', this.playerVolume)	*/
-				this.providerVolume = event.data.volume
+				console.log('handleVolumeChange - youtube volume', event.data.volume)
+				console.log('handleVolumeChange - player volume', this.playerVolume)
+				// this.providerVolume = event.data.volume
 			},
-			handleStateChange(event) {				
+			handleStateChange(event) {
 				const eventsName = {
 					'-1': 'unstarted',
 					0: 'ended',
