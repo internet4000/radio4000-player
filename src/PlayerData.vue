@@ -7,7 +7,7 @@
 			:image="image"
 			:autoplay="autoplay"
 			:r4Url="r4Url"
-			:externalVolume="volume" />
+			:volume="localVolume" />
 	<div v-else class="Console">
 		<p>Radio4000-player is ready to start playing:
 			<a href="https://github.com/internet4000/radio4000-player-vue">documentation</a>
@@ -50,7 +50,8 @@
 				image: '',
 				tracks: [],
 				track: {},
-				providerTrack: {}
+				providerTrack: {},
+				localVolume: this.$props.volume
 			}
 		},
 		created() {
@@ -78,6 +79,10 @@
 			},
 			providerTrack: function(track) {
 				console.log("track", track)
+			},
+			volume: function(vol) {
+				// map web component prop to local volume
+				this.localVolume = vol
 			}
 		},
 		computed: {
