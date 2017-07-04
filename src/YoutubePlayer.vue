@@ -95,14 +95,14 @@
 				this.unMuteProvider();
 			},
 			handleError(event) {
-				/* console.log('handleError:event')
-					 console.log({youtubeError: event})*/
+				// console.log('handleError:event')
+				// console.log({youtubeError: event})
 				this.$emit('trackEnded');
 			},
 			handleVolumeChange(event) {
 				/* console.log('handleVolumeChange', event)*/
 			},
-			handleStateChange(event) {				
+			handleStateChange(event) {
 				const eventsName = {
 					'-1': 'unstarted',
 					0: 'ended',

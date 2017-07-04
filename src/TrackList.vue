@@ -1,5 +1,5 @@
 <template>
-	<div class="overflow-y: scroll">
+	<div style="overflow-y: scroll">
 		<Loading v-if="!tracks || !tracks.length" />
 		<ol class="TrackList">
 			<li v-for="(track, index) in tracks">
@@ -40,11 +40,11 @@ export default {
 			this.$emit('select', track)
 		},
 		locateCurrentTrack() {
-			const $container = this.$el.querySelector('ol')
-			const $tracks = $container.children
-				const $activeTrack = $tracks[this.currentTrackIndex]
-				if (!$activeTrack) return
-				$container.scrollTop = $activeTrack.offsetTop - 4
+			const container = this.$el
+			const tracks = this.$el.querySelectorAll('ol > li')
+			const activeTrack = tracks[this.currentTrackIndex]
+			if (!activeTrack) return
+				container.scrollTop = activeTrack.offsetTop - 4
 			}
 		}
 	}

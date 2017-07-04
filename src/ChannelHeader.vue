@@ -1,8 +1,6 @@
 <template>
 	<div class="Header">
-		<a :href="href"
-			 title="Check this radio on Radio4000"
-			 class="Header-image">
+		<a :href="href" class="Header-image" title="Check this radio on Radio4000">
 			<img v-if="image" :src="image" alt="">
 			<loading v-else/>
 		</a>
@@ -38,14 +36,9 @@
 		components: { Loading },
 		computed: {
 			href: function () {
-				let root;
-				if(this.r4Url) {
-					root = '/'
-				} else {
-					root = 'https://radio4000.com/'
-				}
-				
-				return this.channel.slug === undefined ? root : root + this.channel.slug
+				const root = this.r4Url ? '/' : 'https://radio4000.com'
+				const slug = this.channel.slug
+				return slug === undefined ? root : root + slug 
 			}
 		}
 	}
@@ -93,8 +86,8 @@
 		height: 2.75em;
 	}
 	.Header-image img {
+		display: inline-block;
 		vertical-align: top;
-		display: block;
 		width: 100%;
 	}
 	.fade-enter-active,
