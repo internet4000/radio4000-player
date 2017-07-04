@@ -1,4 +1,4 @@
-import 'whatwg-fetch'
+import fetch from 'unfetch'
 
 const host = 'https://radio4000.firebaseio.com'
 
