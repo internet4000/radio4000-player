@@ -26,6 +26,7 @@
 	}
 	.TrackItem span {
 		padding: 0.2rem 0.3rem;
+		word-break: break-word;
 	}
 	.TrackItem.active span {
 		background-color: #5e1ae6;
