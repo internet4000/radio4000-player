@@ -8,7 +8,6 @@
 	// https://github.com/GoogleWebComponents/google-youtube/blob/master/google-youtube.html
 	// https://developers.google.com/youtube/iframe_api_reference
 	import YouTubePlayer from 'youtube-player'
-	import bus from './bus'
 	export default {
 		name: 'youtube-player',
 		props: [
@@ -101,7 +100,7 @@
 				//console.log('handleVolumeChange', {volume: this.volume, youtubeVolume: event.data.volume})
 				if (event.data.volume !== this.volume) {
 					console.log('volume change from youtube', event.data.volume)
-					bus.$emit('setVolume', event.data.volume)
+					this.$root.$emit('setVolume', event.data.volume)
 				}
 			},
 			handleStateChange(event) {

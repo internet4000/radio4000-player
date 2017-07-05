@@ -20,9 +20,8 @@
 </template>
 
 <script>
-	import Radio4000Player from './Radio4000Player.vue'
 	import debounce from 'debounce'
-	import bus from './bus'
+	import Radio4000Player from './Radio4000Player.vue'
 	import {
 		findChannelById,
 		findChannelBySlug,
@@ -33,9 +32,7 @@
 
 	export default {
 		name: 'player-data',
-		components: {
-			Radio4000Player
-		},
+		components: {Radio4000Player},
 		props: {
 			autoplay: Boolean,
 			channelSlug: String,
@@ -64,13 +61,12 @@
 		created() {
 			// Debounce volume.
 			const updateVol = vol => this.volumeData = vol
-			bus.$on('setVolume', debounce(updateVol, 100))
+			this.$root.$on('setVolume', debounce(updateVol, 100))
 
 			// Decide which method to use to load data.
 			const { channelSlug, channelId, trackId } = this;
 			if (trackId) {
-				return this.loadTrack(trackId)
-					.then(track => this.loadChannelById(track.channel))
+				return this.loadTrack(trackId).then(track => this.loadChannelById(track.channel))
 			}
 			if (channelSlug) {
 				return this.loadChannelBySlug(channelSlug)

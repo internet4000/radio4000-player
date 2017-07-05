@@ -57,7 +57,6 @@
 	import ProviderPlayer from './ProviderPlayer.vue'
 	import PlayerControls from './PlayerControls.vue'
 	import { shuffleArray } from './utils/shuffle-helpers'
-	import bus from './bus'
 
 	export default {
 		name: 'radio4000-player',
@@ -99,9 +98,9 @@
 				},
 				set: function(newValue) {
 					if (newValue) {
-						bus.$emit('setVolume', 0)
+						this.$root.$emit('setVolume', 0)
 					} else {
-						bus.$emit('setVolume', 100)
+						this.$root.$emit('setVolume', 100)
 					}
 				}
 			},
@@ -162,7 +161,7 @@
 				this.isMuted = !this.isMuted
 			},
 			volumeSliderChanged(event) {
-				bus.$emit('setVolume', Number(event.target.value))
+				this.$root.$emit('setVolume', Number(event.target.value))
 			},
 			trackEnded() {
 				this.$emit('trackEnded', this.track)
