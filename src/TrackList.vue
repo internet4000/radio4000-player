@@ -72,7 +72,7 @@ export default {
 		transform: translateZ(0);
 	}
 	li {
-		font-size: 0.8125em;
+		font-size: 0.777em;
 		padding: 0;
 		display: flex;
 	}
