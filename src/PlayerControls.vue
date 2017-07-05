@@ -2,7 +2,7 @@
 <template>
 	<menu>
 		<div class="PlayerControl-group">
-			<button title="Mute on/off"
+			<button title="Mute volume (on/off)"
 				class="Btn Btn--mute"
 				:class="{ 'Btn--isNotFullVolume' : isNotFullVolume, 'is-active' : isMuted }"
 				:disabled="isDisabled"
@@ -11,7 +11,7 @@
 			</button>
 		</div>
 		<div class="PlayerControl-group">
-			<button title="Shuffle on/off"
+			<button title="Shuffle tracks (on/off)"
 				class="Btn Btn--shuffle"
 				:class="{ 'is-active' : !isShuffle }"
 				:disabled="isDisabled"
@@ -20,14 +20,15 @@
 			</button>
 		</div>
 		<div class="PlayerControl-group PlayerControl-group--large">
-			<PlayPauseButton class="Btn"
+			<PlayPauseButton title="Play/pause"
+				class="Btn"
 				:isPlaying="isPlaying"
 				@play="$emit('play')"
 				@pause="$emit('pause')"
 			></PlayPauseButton>
 		</div>
 		<div class="PlayerControl-group PlayerControl-group--large">
-			<button
+			<button title="Next track"
 				:disabled="isDisabled"
 				@click="$emit('next')"
 				class="Btn"
