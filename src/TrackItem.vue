@@ -46,8 +46,8 @@
 		background-color: #5e1ae6;
 		color: white;
 	}
-	.TrackItem.active .TrackItem-body {
-		border-left-color: #5e1ae6;
-		transition: 400ms border-left-color cubic-bezier(0.55, 0.09, 0.68, 0.53);
-	}
+	/* .TrackItem.active .TrackItem-body {
+		 border-left-color: #5e1ae6;
+		 transition: 400ms border-left-color cubic-bezier(0.55, 0.09, 0.68, 0.53);
+		 } */
 </style>
