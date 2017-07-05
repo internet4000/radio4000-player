@@ -1,6 +1,6 @@
 <template>
 	<div class="Header">
-		<a :href="href" class="Header-image" title="Check this radio on Radio4000">
+		<a :href="href" class="Header-image" :title="[channel.body ? channel.body : '']">
 			<img v-if="image" :src="image" alt="">
 			<loading v-else/>
 		</a>
@@ -9,7 +9,7 @@
 			<marquee class="Header-playing">{{track.title}}</marquee>
 		</div>
 		<loading v-else/>
-		<a :href="href" target="_blank" title="Check this radio on Radio4000">
+		<a :href="href" target="_blank" title="Open this radio on Radio4000.com">
 			<R4Logo></R4Logo>
 		</a>
 	</div>
