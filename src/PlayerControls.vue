@@ -31,8 +31,7 @@
 			<button title="Next track"
 				:disabled="isDisabled"
 				@click="$emit('next')"
-				class="Btn"
-				title="Next track">Next</button>
+				class="Btn">Next</button>
 		</div>
 	</menu>
 </template>
