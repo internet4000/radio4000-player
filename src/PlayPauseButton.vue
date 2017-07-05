@@ -56,7 +56,7 @@ export default {
 .PlayPause-controller {
   display: inline-block;
   position: relative;
-  font-size: 18px;
+  font-size: 16px;
   width: 1em;
   height: 1.2em;
   padding: 0;
