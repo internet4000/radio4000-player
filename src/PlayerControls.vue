@@ -10,7 +10,6 @@
 				<span></span>
 			</button>
 		</div>
-
 		<div class="PlayerControl-group">
 			<button title="Shuffle on/off"
 				class="Btn Btn--shuffle"
@@ -20,20 +19,13 @@
 				<span>↝</span>
 			</button>
 		</div>
-
 		<div class="PlayerControl-group PlayerControl-group--large">
-			<button v-if="!isPlaying"
-				class="Btn"
-				:disabled="isDisabled"
-				@click="$emit('play')"
-				title="Play">Play</button>
-			<button v-else
-				class="Btn"
-				:disabled="isDisabled"
-				@click="$emit('pause')"
-				title="Pause">Pause</button>
+			<PlayPauseButton class="Btn"
+				:isPlaying="isPlaying"
+				@play="$emit('play')"
+				@pause="$emit('pause')"
+			></PlayPauseButton>
 		</div>
-
 		<div class="PlayerControl-group PlayerControl-group--large">
 			<button
 				:disabled="isDisabled"
@@ -41,13 +33,14 @@
 				class="Btn"
 				title="Next track">Next</button>
 		</div>
-
 	</menu>
 </template>
 
 <script>
+	import PlayPauseButton from './PlayPauseButton.vue'
 	export default {
 		name: 'player-controls',
+		components: {PlayPauseButton},
 		props: [
 			'volume',
 			'isPlaying',
@@ -90,6 +83,11 @@
 	}
 	.Btn--mute.is-active span::before {
 		content: '□';
+	}
+	.PlayPause,
+	.Btn--shuffle {
+		padding-top: 0;
+		padding-bottom: 0;
 	}
 	.Btn--shuffle {
 		font-size: 1.7rem;
