@@ -7,7 +7,7 @@
 		:image="image"
 		:autoplay="autoplay"
 		:r4Url="r4Url"
-		:volume="volumeData"
+		:volume="localVolume"
 		:shuffle="shuffle"
 		@trackChanged="onTrackChanged"
 		@trackEnded="onTrackEnded"
@@ -54,14 +54,13 @@
 				image: '',
 				tracks: [],
 				track: {},
-				providerTrack: {},
-				volumeData: this.$props.volume
+				providerTrack: {}
 			}
 		},
 		created() {
-			// Debounce volume.
-			const updateVol = vol => this.volumeData = vol
-			this.$root.$on('setVolume', debounce(updateVol, 100))
+			this.$root.$on('setVolume', debounce(vol => { 
+				this.localVolume = vol
+			}, 100))
 
 			// Decide which method to use to load data.
 			const { channelSlug, channelId, trackId } = this;
@@ -87,13 +86,17 @@
 			},
 			providerTrack: function(track) {
 				console.log("track", track)
-			},
-			volume: debounce(function(vol) {
-				// map web component prop to local volume
-				this.volumeData = vol
-			}, 200)
+			}
 		},
 		computed: {
+			localVolume: {
+				get: function() {
+					return this.volume
+				},
+				set: function(volume) {
+					this.$root.$el.parentNode.volume = volume;
+				}
+			},
 			canLoad: function() {
 				return this.channelSlug || this.channelId || this.trackId
 			}
