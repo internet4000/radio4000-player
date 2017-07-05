@@ -1,7 +1,6 @@
 <template>
 	<div class="R4PlayerLayout">
-		{{volume}}
-		<input class="Volume" type="range" :value="volume" @input="volumeSliderChanged"> 
+		<slot></slot>
 		<header>
 			<channel-header
 				:channel="channel"
@@ -159,9 +158,6 @@
 			},
 			toggleMute() {
 				this.isMuted = !this.isMuted
-			},
-			volumeSliderChanged(event) {
-				this.$root.$emit('setVolume', Number(event.target.value))
 			},
 			trackEnded() {
 				this.$emit('trackEnded', this.track)
