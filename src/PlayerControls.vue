@@ -1,7 +1,7 @@
 <!-- https://en.wikipedia.org/wiki/Geometric_Shapes -->
 <!-- http://jsbin.com/wiqiyat/2/edit?html,css,output -->
 <template>
-	<menu>
+	<menu class="PlayerControl">
 		<div class="PlayerControl-group">
 			<button title="Mute volume (on/off)"
 				class="Btn Btn--mute"
@@ -28,7 +28,7 @@
 				@pause="$emit('pause')"
 			></PlayPauseButton>
 		</div>
-		<div class="PlayerControl-group PlayerControl-group--large">
+		<div class="PlayerControl-group">
 			<button title="Next track"
 				:disabled="isDisabled"
 				@click="$emit('next')"
@@ -58,7 +58,7 @@
 </script>
 
 <style scoped>
-	menu {
+	.PlayerControl {
 		border-top: 1px solid hsl(0, 0%, 60%);
 		margin: 0;
 		padding: 0;
@@ -69,7 +69,7 @@
 		flex: 1;
 	}
 	.PlayerControl-group--large {
-		flex: 3;
+		flex: 2;
 	}
 	.Btn {
 		flex: 1;
