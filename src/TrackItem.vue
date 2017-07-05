@@ -43,7 +43,7 @@
     border-left: 1px solid #cecece;
 		padding-top: 0.1rem;
     padding-left: 0.4rem;
-		margin-bottom: 0.2rem;
+		margin-bottom: 0.3rem;
 	}
 	.TrackItem.active .TrackItem-title {
 		background-color: #5e1ae6;
