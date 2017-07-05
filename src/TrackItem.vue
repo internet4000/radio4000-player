@@ -38,7 +38,7 @@
 	.TrackItem-body {
 		display: block;
 		margin-left: 0.4rem;
-    border-left: 2px solid #cecece;
+    border-left: 1px solid #cecece;
     padding-left: 0.4rem;
 		margin-bottom: 0.2rem;
 	}
