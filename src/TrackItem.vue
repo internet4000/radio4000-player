@@ -24,7 +24,6 @@
 		cursor: pointer;
 		display: block;
 		width: 100%;
-		margin-bottom: 0.4rem;
 	}
 	.TrackItem-title,
 	.TrackItem-body {
@@ -38,15 +37,17 @@
 	}
 	.TrackItem-body {
 		display: block;
-		/* v1 */
-		/* margin-left: 1.2rem; */
-		/* v2 */
 		margin-left: 0.4rem;
     border-left: 2px solid #cecece;
     padding-left: 0.4rem;
+		margin-bottom: 0.2rem;
 	}
 	.TrackItem.active .TrackItem-title {
 		background-color: #5e1ae6;
 		color: white;
+	}
+	.TrackItem.active .TrackItem-body {
+		border-left-color: #5e1ae6;
+		transition: 400ms border-left-color cubic-bezier(0.55, 0.09, 0.68, 0.53);
 	}
 </style>
