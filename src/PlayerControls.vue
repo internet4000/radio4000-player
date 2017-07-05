@@ -1,4 +1,5 @@
 <!-- https://en.wikipedia.org/wiki/Geometric_Shapes -->
+<!-- http://jsbin.com/wiqiyat/2/edit?html,css,output -->
 <template>
 	<menu>
 		<div class="PlayerControl-group">
@@ -31,7 +32,7 @@
 			<button title="Next track"
 				:disabled="isDisabled"
 				@click="$emit('next')"
-				class="Btn">Next</button>
+				class="Btn Btn--next">→</button>
 		</div>
 	</menu>
 </template>
@@ -96,6 +97,9 @@
 	.Btn--shuffle {
 		font-size: 1.7rem;
 		line-height: 1;
+	}
+	.Btn--next {
+		font-size: 1.7rem;
 	}
 	.Btn--shuffle.is-active span {
 		opacity: 0.5;
