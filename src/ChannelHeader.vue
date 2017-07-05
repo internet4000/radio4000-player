@@ -1,12 +1,12 @@
 <template>
 	<div class="Header">
-		<a :href="href" class="Header-image" :title="[channel.body ? channel.body : '']">
+		<a :href="href" class="Header-image" :title="channelDescription">
 			<img v-if="image" :src="image" alt="">
 			<loading v-else/>
 		</a>
 		<div v-if="channel.title">
-			<p class="Header-title"><strong>{{channel.title}}</strong></p>
-			<marquee class="Header-playing">{{track.title}}</marquee>
+			<p class="Header-title" :title="channelDescription"><strong>{{channel.title}}</strong></p>
+			<marquee class="Header-playing" :title="[track.body ? track.body : '']">{{track.title}}</marquee>
 		</div>
 		<loading v-else/>
 		<a :href="href" target="_blank" title="Open this radio on Radio4000.com">
@@ -32,6 +32,10 @@
 				const root = this.r4Url ? '/' : 'https://radio4000.com'
 				const slug = this.channel.slug
 				return slug === undefined ? root : root + slug
+			},
+			channelDescription () {
+				const { title = '', slug = '', body = ''} = this.channel;
+				return `[ ${title}, @${slug} ] ${body}`
 			}
 		}
 	}
