@@ -98,7 +98,7 @@
 				this.$emit('trackEnded')
 			},
 			handleVolumeChange(event) {
-				console.log('handleVolumeChange', {volume: this.volume, youtubeVolume: event.data.volume})
+				//console.log('handleVolumeChange', {volume: this.volume, youtubeVolume: event.data.volume})
 				if (event.data.volume !== this.volume) {
 					console.log('volume change from youtube', event.data.volume)
 					bus.$emit('setVolume', event.data.volume)

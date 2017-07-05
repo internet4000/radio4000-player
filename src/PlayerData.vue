@@ -92,10 +92,10 @@
 			providerTrack: function(track) {
 				console.log("track", track)
 			},
-			volume: function(vol) {
+			volume: debounce(function(vol) {
 				// map web component prop to local volume
 				this.volumeData = vol
-			}
+			}, 200)
 		},
 		computed: {
 			canLoad: function() {
