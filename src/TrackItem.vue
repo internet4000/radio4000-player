@@ -35,10 +35,10 @@
 	.TrackItem-title {
 		padding: 0.2rem 0.3rem;
 		float: left;
-		clear: both;
 	}
 	.TrackItem-body {
 		display: block;
+		clear: both;
 		margin-left: 0.4rem;
     border-left: 1px solid #cecece;
     padding-left: 0.4rem;
