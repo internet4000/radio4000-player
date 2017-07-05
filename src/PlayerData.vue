@@ -21,6 +21,7 @@
 
 <script>
 	import Radio4000Player from './Radio4000Player.vue'
+	import debounce from 'debounce'
 	import bus from './bus'
 	import {
 		findChannelById,
@@ -61,11 +62,11 @@
 			}
 		},
 		created() {
-			bus.$on('setVolume', vol => {
-				console.log('setting new volume to: ', vol)
-				this.localVolume = vol
-			})
+			// Debounce volume.
+			const updateVol = vol => this.localVolume = vol
+			bus.$on('setVolume', debounce(updateVol, 100))
 
+			// Decide which method to use to load data.
 			const { channelSlug, channelId, trackId } = this;
 			if (trackId) {
 				return this.loadTrack(trackId)
