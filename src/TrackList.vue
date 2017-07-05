@@ -73,7 +73,7 @@ export default {
 	}
 	li {
 		font-size: 0.8125em;
-		padding: 0 0.3em;
+		padding: 0;
 		display: flex;
 	}
 	li::before {
