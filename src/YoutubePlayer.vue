@@ -5,20 +5,15 @@
 <script>
 	// This component uses https://github.com/gajus/youtube-player
 	// to abstract the youtube iframe api.
-	// note: https://github.com/GoogleWebComponents/google-youtube/blob/master/google-youtube.html
-	// note: https://developers.google.com/youtube/iframe_api_reference
-	// note: there are no event listeners for volume
-	//       so changing volume on YT player can't be
-	//       repercuted on <r4-player> interface
+	// https://github.com/GoogleWebComponents/google-youtube/blob/master/google-youtube.html
+	// https://developers.google.com/youtube/iframe_api_reference
 	import YouTubePlayer from 'youtube-player'
-
 	export default {
 		name: 'youtube-player',
 		props: [
 			'autoplay',
 			'volume',
 			'isPlaying',
-			'isMuted',
 			'videoId'
 		],
 		data() {
@@ -53,16 +48,19 @@
 					this.pauseProvider()
 				}
 			},
-			isMuted(isMuted) {
-				if (isMuted && this.playerExists) {
-					this.muteProvider()
-				} else {
-					this.unMuteProvider()
-				}
+			volume(vol) {
+				console.log('changing youtube volume from top', vol)
+				this.player.getVolume().then(youtubevol => {
+					if (vol === youtubevol) {
+						console.log('equal vol, not updating')
+						return
+					}
+					this.player.setVolume(vol)
+				})
 			}
 		},
 		computed: {
-			playerExists: function() {
+			playerExists() {
 				return this.player.hasOwnProperty('getIframe')
 			}
 		},
@@ -86,21 +84,24 @@
 					player.on('error', this.handleError)
 					player.on('stateChange', this.handleStateChange)
 					player.on('ready', this.handleReady)
-					/* player.on('volumeChange', this.handleVolumeChange)*/
+					player.on('volumeChange', this.handleVolumeChange)
 					resolve()
 				})
 			},
 			handleReady(resolve) {
-				/* console.log('handleReady');*/
-				this.unMuteProvider();
+				// Set initial volume.
+				console.log('setting initial volume to', this.volume)
+				this.player.setVolume(this.volume)
 			},
 			handleError(event) {
-				// console.log('handleError:event')
-				// console.log({youtubeError: event})
-				this.$emit('trackEnded');
+				this.$emit('trackEnded')
 			},
 			handleVolumeChange(event) {
-				/* console.log('handleVolumeChange', event)*/
+				//console.log('handleVolumeChange', {volume: this.volume, youtubeVolume: event.data.volume})
+				if (event.data.volume !== this.volume) {
+					console.log('volume change from youtube', event.data.volume)
+					this.$root.$emit('setVolume', event.data.volume)
+				}
 			},
 			handleStateChange(event) {
 				const eventsName = {
@@ -145,13 +146,6 @@
 			},
 			pauseProvider() {
 				this.player.pauseVideo()
-			},
-			muteProvider() {
-				this.player.mute();
-			},
-			unMuteProvider() {
-				this.player.unMute()
-				this.player.setVolume(100)
 			}
 		}
 	}

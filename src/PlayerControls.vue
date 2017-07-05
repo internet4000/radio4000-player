@@ -46,9 +46,13 @@
 			'isPlaying',
 			'isDisabled',
 			'isMuted',
-			'isShuffle',
-			'isNotFullVolume'
-		]
+			'isShuffle'
+		],
+		computed: {
+			isNotFullVolume: function() {
+				return this.volume < 100
+			}
+		}
 	}
 </script>
 

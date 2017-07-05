@@ -1,5 +1,6 @@
 <template>
 	<div class="R4PlayerLayout">
+		<slot></slot>
 		<header>
 			<channel-header
 				:channel="channel"
@@ -12,8 +13,8 @@
 		<aside>
 			<provider-player
 				:autoplay="autoplay"
-				:isPlaying="isPlaying"
 				:isMuted="isMuted"
+				:isPlaying="isPlaying"
 				:track="currentTrack"
 				:volume="volume"
 				@play="play"
@@ -34,7 +35,6 @@
 		<footer>
 			<player-controls
 				:isDisabled="!this.tracksPool.length"
-				:isNotFullVolume="isNotFullVolume"
 				:isMuted="isMuted"
 				:isPlaying="isPlaying"
 				:isShuffle="isShuffle"
@@ -79,7 +79,6 @@
 			return {
 				currentTrack: {},
 				isPlaying: false,
-				isMuted: false,
 				isShuffle: this.$props.shuffle,
 				loop: false,
 				playerReady: false,
@@ -92,8 +91,17 @@
 			}
 		},
 		computed: {
-			isNotFullVolume: function() {
-				return this.volume < 100
+			isMuted: {
+				get: function() {
+					return this.volume === 0 
+				},
+				set: function(newValue) {
+					if (newValue) {
+						this.$root.$emit('setVolume', 0)
+					} else {
+						this.$root.$emit('setVolume', 100)
+					}
+				}
 			},
 			currentTrackIndex() {
 				return this.tracksPool.findIndex(track => track.id === this.currentTrack.id)
@@ -111,12 +119,6 @@
 
 				const noTrack = Object.keys(this.currentTrack).length === 0
 				if (noTrack) this.playNextTrack()
-			},
-			volume: function(volume) {
-				if (volume <= 0) {
-					this.mute()
-				}
-				this.unMute()
 			}
 		},
 		methods: {
@@ -137,7 +139,7 @@
 			playNextTrack() {
 				const track = this.getNextTrack()
 				if (!track) return
-				this.playTrack(track)
+ 				this.playTrack(track)
 			},
 			getNextTrack() {
 				const pool = this.tracksPool
@@ -150,12 +152,12 @@
 			pause() {
 				this.isPlaying = false
 			},
-			toggleMute() {
-				this.isMuted = !this.isMuted
-			},
 			toggleShuffle() {
 				this.isShuffle = !this.isShuffle
 				this.newTracksPool()
+			},
+			toggleMute() {
+				this.isMuted = !this.isMuted
 			},
 			trackEnded() {
 				this.$emit('trackEnded', this.track)

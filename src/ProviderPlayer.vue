@@ -8,10 +8,10 @@
 				:autoplay="autoplay"
 				:videoId="track.ytid"
 				:isPlaying="isPlaying"
-				:isMuted="isMuted"
 				@play="playProvider"
 				@pause="pauseProvider"
 				@trackEnded="trackEnded"></youtube-player>
+			</div>
 		</div>
 	</div>
 </template>
@@ -28,8 +28,7 @@
 			'volume',
 			'autoplay',
 			'isPlaying',
-			'isMuted',
-			'track'
+			'track',
 		],
 		computed: {
 			provider: function() {
