@@ -2,7 +2,7 @@
 	<div class="PlayPause">
 		<input type="checkbox" :id="uid" class="PlayPause-state"
 			v-model="playing" @change="toggle" />
-		<label :for="uid" title="Toggle playback" class="PlayPause-label">
+		<label :for="uid" title="Play/pause" class="PlayPause-label">
 			<div class="PlayPause-controller"></div>
 		</label>
 	</div>
