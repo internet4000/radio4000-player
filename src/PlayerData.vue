@@ -7,7 +7,7 @@
 		:image="image"
 		:autoplay="autoplay"
 		:r4Url="r4Url"
-		:volume="localVolume"
+		:volume="volumeData"
 		:shuffle="shuffle"
 		@trackChanged="onTrackChanged"
 		@trackEnded="onTrackEnded"
@@ -58,12 +58,12 @@
 				tracks: [],
 				track: {},
 				providerTrack: {},
-				localVolume: this.$props.volume
+				volumeData: this.$props.volume
 			}
 		},
 		created() {
 			// Debounce volume.
-			const updateVol = vol => this.localVolume = vol
+			const updateVol = vol => this.volumeData = vol
 			bus.$on('setVolume', debounce(updateVol, 100))
 
 			// Decide which method to use to load data.
@@ -94,7 +94,7 @@
 			},
 			volume: function(vol) {
 				// map web component prop to local volume
-				this.localVolume = vol
+				this.volumeData = vol
 			}
 		},
 		computed: {
