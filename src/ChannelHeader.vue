@@ -48,6 +48,8 @@
 		display: flex;
 		flex-wrap: nowrap;
 		align-items: center;
+		background-color: hsl(0, 0%, 96%);
+		border-bottom: 1px solid hsl(0, 0%, 60%);
 	}
 	.Header > div {
 		flex: 1;
