@@ -184,12 +184,13 @@
 	.R4PlayerLayout {
 		display: flex;
 		flex-direction: column;
-		flex-basis: 100%;
 	}
 	.Body {
 		display: flex;
 		flex-direction: column;
-		flex-wrap: nowrap;
+		flex-basis: 20rem;
+		flex-grow: 1;
+		position: relative;
 	}
 	@media screen and (min-width: 40rem) {
 		.Body {
