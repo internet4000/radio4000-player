@@ -39,7 +39,7 @@ export default {
 			this.$emit('select', track)
 		},
 		locateCurrentTrack() {
-			const container = this.$el.querySelectorAll('.TrackList-list');
+			const container = this.$el.querySelector('.TrackList-list');
 			const tracks = this.$el.querySelectorAll('li');
 			const activeTrack = tracks[this.currentTrackIndex]
 			if (!activeTrack) return
