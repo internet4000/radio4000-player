@@ -9,7 +9,7 @@
 			</li>
 		</ol>
 		<div v-if="tracks && tracks.length" class="TrackList-controls">
-			<button class="Btn" title="Locate current track"
+			<button class="Btn Btn--locateTrack" title="Locate current track"
 				@click="locateCurrentTrack">◎</button>
 		</div>
 	</div>
@@ -90,11 +90,17 @@ export default {
 	.TrackList-controls {
 		position: absolute;
 		bottom: 0.3rem;
-		right: 0.3rem;
+		right: 1.3rem;
 		z-index: 1;
-		opacity: 0.5;
+		opacity: 0.6;
 	}
 	.TrackList-controls:hover {
 		opacity: 1;
+	}
+	.Btn--locateTrack {
+		padding: 0.5rem;
+		margin: 0;
+		line-height: 1;
+		border: 1px solid #999;
 	}
 </style>
