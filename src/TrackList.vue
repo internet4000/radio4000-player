@@ -53,7 +53,11 @@ export default {
 	.TrackList {
 		display: flex;
 		position: relative;
-		max-width: 40rem;
+	}
+	@media screen and (min-width: 80rem) {
+		.TrackList {
+			max-width: 40rem;
+		}
 	}
 	.TrackList-list {
 		overflow-y: scroll;

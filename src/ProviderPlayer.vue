@@ -1,8 +1,6 @@
 <template>
-	<div class="ProviderPlayer FlexEmbed">
-		<div class="FlexEmbed-ratio"></div>
-		<div class="FlexEmbed-content">
-			<youtube-player
+	<div class="ProviderPlayer">
+		<youtube-player
 				v-if="provider === 'youtube'"
 				:volume="volume"
 				:autoplay="autoplay"
@@ -11,8 +9,7 @@
 				@play="playProvider"
 				@pause="pauseProvider"
 				@trackEnded="trackEnded"></youtube-player>
-			</div>
-		</div>
+	</div>
 	</div>
 </template>
 
@@ -67,26 +64,5 @@
 		min-width: 200px;
 		/* min-height: 109px;
 			 max-height: calc(100vh - 20rem - (2.75rem * 2)); */
-	}
-	.FlexEmbed {
-		position: relative;
-		overflow: hidden;
-	}
-	.FlexEmbed-ratio {
-		width: 100%;
-		height: 0;
-		padding-bottom: 56.25%;
-		padding-bottom: calc(9 / 16 * 100%);
-	}
-	.FlexEmbed-content {
-		position: absolute;
-		top: 0;
-		left: 0;
-		width: 100%;
-		height: 100%;
-	}
-	.FlexEmbed iframe {
-		width: 100%;
-		height: 100%;
 	}
 </style>
