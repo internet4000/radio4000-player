@@ -1,5 +1,5 @@
 <template>
-	<div class="Header">
+	<header class="Header">
 		<a :href="href" class="Header-image" :title="channelDescription">
 			<img v-if="image" :src="image" alt="">
 			<loading v-else/>
@@ -12,7 +12,7 @@
 		<a :href="href" target="_blank" title="Open this radio on Radio4000.com">
 			<R4Logo></R4Logo>
 		</a>
-	</div>
+	</header>
 </template>
 
 <script>

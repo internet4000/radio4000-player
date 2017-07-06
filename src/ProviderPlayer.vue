@@ -59,6 +59,10 @@
 <style>
 	.ProviderPlayer {
 		background-color: black;
+		overflow: hidden;
+		position: relative;
+		min-height: 109px;
+		max-height: calc(100vh - 20rem - (2.75rem * 2));
 	}
 	.FlexEmbed {
 		position: relative;

@@ -1,39 +1,33 @@
 <template>
 	<div class="R4PlayerLayout">
 		<slot></slot>
-		<header>
-			<channel-header
+
+		<channel-header
 				:channel="channel"
 				:image="image"
 				:r4Url="r4Url"
-				:track="currentTrack"
-			></channel-header>
-		</header>
+				:track="currentTrack"></channel-header>
 
-		<aside>
+		<main>	
 			<provider-player
-				:autoplay="autoplay"
-				:isMuted="isMuted"
-				:isPlaying="isPlaying"
-				:track="currentTrack"
-				:volume="volume"
-				@play="play"
-				@pause="pause"
-				@trackEnded="trackEnded"
+					:autoplay="autoplay"
+					:isMuted="isMuted"
+					:isPlaying="isPlaying"
+					:track="currentTrack"
+					:volume="volume"
+					@play="play"
+					@pause="pause"
+					@trackEnded="trackEnded"
 			></provider-player>
-		</aside>
 
-		<main>
 			<track-list
-				:currentTrackIndex="currentTrackIndex"
-				:track="currentTrack"
-				:tracks="tracksPool"
-				@select="playTrack"
-			></track-list>
+					:currentTrackIndex="currentTrackIndex"
+					:track="currentTrack"
+					:tracks="tracksPool"
+					@select="playTrack"></track-list>
 		</main>
 
-		<footer>
-			<player-controls
+		<player-controls
 				:isDisabled="!this.tracksPool.length"
 				:isMuted="isMuted"
 				:isPlaying="isPlaying"
@@ -43,9 +37,7 @@
 				@pause="pause"
 				@toggleMute="toggleMute"
 				@toggleShuffle="toggleShuffle"
-				@next="playNextTrack"
-			></player-controls>
-		</footer>
+				@next="playNextTrack"></player-controls>
 	</div>
 </template>
 
@@ -191,27 +183,6 @@
 		display: flex;
 		flex-direction: column;
 		flex-basis: 100%;
-	}
-	aside {
-		overflow: hidden;
-		position: relative;
-		min-height: 109px;
-		max-height: calc(100vh - 20rem - (2.75rem * 2));
-	}
-	@media (min-width: 710px) {
-		aside {
-			/*height: 400px;*/
-		}
-	}
-	aside .FlexEmbed {
-		position: static;
-	}
-	main {
-		flex-basis: 20rem;
-		flex-grow: 1;
-		position: relative;
-		display: flex;
-		overflow: hidden;
 	}
 </style>
 

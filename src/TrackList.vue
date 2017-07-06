@@ -1,15 +1,15 @@
 <template>
-	<div style="overflow-y: scroll">
+	<div class="TrackList">
 		<Loading v-if="!tracks || !tracks.length" />
-		<ol class="TrackList">
+		<ol class="TrackList-list">
 			<li v-for="(track, index) in tracks">
-				<track-item
+				<track-item class="TrackList-item"
 					:track="track"
 					:class="{ active : currentTrackIndex === index }"
 					@select="select"></track-item>
 			</li>
 		</ol>
-		<div v-if="tracks && tracks.length" class="TrackListControls">
+		<div v-if="tracks && tracks.length" class="TrackList-controls">
 			<button class="Btn" title="Locate current track"
 				@click="locateCurrentTrack">◎</button>
 		</div>
@@ -51,35 +51,40 @@ export default {
 </script>
 
 <style scoped>
-	.TrackListControls {
+	.TrackList {
+		display: flex;
+		position: relative;
+		height: 100%;
+		max-height: 18rem;
+	}
+	.TrackList-list {
+		overflow-y: scroll;
+		margin: 0;
+		padding: 0.6rem;
+		line-height: 1.7;
+		list-style: none;
+		counter-reset: tracks;
+		transform: translateZ(0);
+	}
+	.TrackList-item {
+		font-size: 0.777em;
+		padding: 0;
+	}
+	.TrackList-item::before {
+		content: counter(tracks) ".";
+		counter-increment: tracks;
+		float: left;
+		margin-right: 0.4em;
+	}
+	
+	.TrackList-controls {
 		position: absolute;
 		bottom: 0.3rem;
 		right: 0.3rem;
 		z-index: 1;
 		opacity: 0.5;
 	}
-	.TrackListControls:hover {
+	.TrackList-controls:hover {
 		opacity: 1;
-	}
-	ol {
-		box-sizing: border-box;
-		margin: 0;
-		padding: 0.6rem;
-		line-height: 1.7;
-		list-style: none;
-		counter-reset: tracks;
-		transition: max-height 400ms ease-in-out;
-		transform: translateZ(0);
-	}
-	li {
-		font-size: 0.777em;
-		padding: 0;
-		display: flex;
-	}
-	li::before {
-		content: counter(tracks) ".";
-		counter-increment: tracks;
-		float: left;
-		margin-right: 0.4em;
 	}
 </style>

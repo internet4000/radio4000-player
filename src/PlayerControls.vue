@@ -1,7 +1,7 @@
 <!-- https://en.wikipedia.org/wiki/Geometric_Shapes -->
 <!-- http://jsbin.com/wiqiyat/2/edit?html,css,output -->
 <template>
-	<menu class="PlayerControl">
+	<footer class="PlayerControl">
 		<div class="PlayerControl-group">
 			<button title="Mute volume (on/off)"
 				class="Btn Btn--mute"
@@ -34,7 +34,7 @@
 				@click="$emit('next')"
 				class="Btn Btn--next">→</button>
 		</div>
-	</menu>
+	</footer>
 </template>
 
 <script>

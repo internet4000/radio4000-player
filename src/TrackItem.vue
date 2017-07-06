@@ -34,7 +34,6 @@
 	}
 	.TrackItem-title {
 		padding: 0.2rem 0.3rem;
-		float: left;
 	}
 	.TrackItem-body {
 		display: block;
