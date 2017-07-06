@@ -40,8 +40,8 @@ export default {
 			this.$emit('select', track)
 		},
 		locateCurrentTrack() {
-			const container = this.$el
-			const tracks = this.$el.querySelectorAll('ol > li')
+			const container = this.$el.querySelectorAll('.TrackList-list');
+			const tracks = this.$el.querySelectorAll('li');
 			const activeTrack = tracks[this.currentTrackIndex]
 			if (!activeTrack) return
 				container.scrollTop = activeTrack.offsetTop - 4
@@ -54,8 +54,7 @@ export default {
 	.TrackList {
 		display: flex;
 		position: relative;
-		height: 100%;
-		max-height: 18rem;
+		max-width: 40rem;
 	}
 	.TrackList-list {
 		overflow-y: scroll;

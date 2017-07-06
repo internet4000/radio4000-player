@@ -64,6 +64,7 @@
 		padding: 0;
 		display: flex;
 		flex-flow: row nowrap;
+		min-height: 2.6rem;
 	}
 	.PlayerControl-group {
 		flex: 1;

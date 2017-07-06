@@ -173,8 +173,8 @@
 		/* Responsive scaling. A min. width of 352px is required to show YouTube volume. */
 		font-size: 1em;
 		width: 100%;
-		max-width: 352px;
-		max-height: 100vh;
+		/* max-width: 352px; */
+		max-height: 90vh;
 	}
 </style>
 
@@ -183,6 +183,15 @@
 		display: flex;
 		flex-direction: column;
 		flex-basis: 100%;
+	}
+	main {
+		display: flex;
+		flex-direction: column;
+	}
+	@media screen and (min-width: 40rem) {
+		main {
+			flex-direction: row;
+		}
 	}
 </style>
 
