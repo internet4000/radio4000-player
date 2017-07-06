@@ -68,13 +68,12 @@
 		position: relative; /* on top of ProviderPlayer */
 	}
 	.PlayerControl-group {
-		flex: 1;
+		flex-basis: 3rem;
 	}
 	.PlayerControl-group--large {
-		flex: 2;
+		flex: 1;
 	}
 	.Btn {
-		flex: 1;
 		width: 100%;
 		min-height: 2.6rem;
 		background: hsl(0, 0%, 96%);
