@@ -187,7 +187,6 @@
 	.Body {
 		display: flex;
 		flex-direction: column;
-		flex-wrap: wrap;
 	}
 	@media screen and (min-width: 40rem) {
 		.Body {
