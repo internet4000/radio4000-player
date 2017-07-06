@@ -1,8 +1,9 @@
 <!-- https://en.wikipedia.org/wiki/Geometric_Shapes -->
+<!-- http://jsbin.com/wiqiyat/2/edit?html,css,output -->
 <template>
-	<menu>
+	<footer class="PlayerControl">
 		<div class="PlayerControl-group">
-			<button title="Mute on/off"
+			<button title="Mute volume (on/off)"
 				class="Btn Btn--mute"
 				:class="{ 'Btn--isNotFullVolume' : isNotFullVolume, 'is-active' : isMuted }"
 				:disabled="isDisabled"
@@ -11,7 +12,7 @@
 			</button>
 		</div>
 		<div class="PlayerControl-group">
-			<button title="Shuffle on/off"
+			<button title="Shuffle tracks (on/off)"
 				class="Btn Btn--shuffle"
 				:class="{ 'is-active' : !isShuffle }"
 				:disabled="isDisabled"
@@ -20,20 +21,20 @@
 			</button>
 		</div>
 		<div class="PlayerControl-group PlayerControl-group--large">
-			<PlayPauseButton class="Btn"
+			<PlayPauseButton title="Play/pause"
+				class="Btn"
 				:isPlaying="isPlaying"
 				@play="$emit('play')"
 				@pause="$emit('pause')"
 			></PlayPauseButton>
 		</div>
-		<div class="PlayerControl-group PlayerControl-group--large">
-			<button
+		<div class="PlayerControl-group">
+			<button title="Next track"
 				:disabled="isDisabled"
 				@click="$emit('next')"
-				class="Btn"
-				title="Next track">Next</button>
+				class="Btn Btn--next">→</button>
 		</div>
-	</menu>
+	</footer>
 </template>
 
 <script>
@@ -57,18 +58,20 @@
 </script>
 
 <style scoped>
-	menu {
+	.PlayerControl {
 		border-top: 1px solid hsl(0, 0%, 60%);
 		margin: 0;
 		padding: 0;
 		display: flex;
 		flex-flow: row nowrap;
+		min-height: 2.6rem;
+		position: relative; /* on top of ProviderPlayer */
 	}
 	.PlayerControl-group {
 		flex: 1;
 	}
 	.PlayerControl-group--large {
-		flex: 3;
+		flex: 2;
 	}
 	.Btn {
 		flex: 1;
@@ -96,6 +99,9 @@
 	.Btn--shuffle {
 		font-size: 1.7rem;
 		line-height: 1;
+	}
+	.Btn--next {
+		font-size: 1.7rem;
 	}
 	.Btn--shuffle.is-active span {
 		opacity: 0.5;

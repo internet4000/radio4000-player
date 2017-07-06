@@ -1,8 +1,6 @@
 <template>
-	<div class="ProviderPlayer FlexEmbed">
-		<div class="FlexEmbed-ratio"></div>
-		<div class="FlexEmbed-content">
-			<youtube-player
+	<div class="ProviderPlayer">
+		<youtube-player
 				v-if="provider === 'youtube'"
 				:volume="volume"
 				:autoplay="autoplay"
@@ -11,8 +9,7 @@
 				@play="playProvider"
 				@pause="pauseProvider"
 				@trackEnded="trackEnded"></youtube-player>
-			</div>
-		</div>
+	</div>
 	</div>
 </template>
 
@@ -59,26 +56,13 @@
 <style>
 	.ProviderPlayer {
 		background-color: black;
-	}
-	.FlexEmbed {
-		position: relative;
 		overflow: hidden;
-	}
-	.FlexEmbed-ratio {
-		width: 100%;
-		height: 0;
-		padding-bottom: 56.25%;
-		padding-bottom: calc(9 / 16 * 100%);
-	}
-	.FlexEmbed-content {
-		position: absolute;
-		top: 0;
-		left: 0;
-		width: 100%;
-		height: 100%;
-	}
-	.FlexEmbed iframe {
-		width: 100%;
-		height: 100%;
+		position: relative;
+		flex-basis: 100%;
+		/* https://stackoverflow.com/questions/15381172/how-to-make-flexbox-children-100-height-of-their-parent */
+		display: flex;
+		/* Youtube requirements */
+		min-height: 200px;
+		min-width: 200px;
 	}
 </style>

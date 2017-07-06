@@ -1,39 +1,33 @@
 <template>
 	<div class="R4PlayerLayout">
 		<slot></slot>
-		<header>
-			<channel-header
+
+		<channel-header
 				:channel="channel"
 				:image="image"
 				:r4Url="r4Url"
-				:track="currentTrack"
-			></channel-header>
-		</header>
+				:track="currentTrack"></channel-header>
 
-		<aside>
+		<main class="Body">	
 			<provider-player
-				:autoplay="autoplay"
-				:isMuted="isMuted"
-				:isPlaying="isPlaying"
-				:track="currentTrack"
-				:volume="volume"
-				@play="play"
-				@pause="pause"
-				@trackEnded="trackEnded"
+					:autoplay="autoplay"
+					:isMuted="isMuted"
+					:isPlaying="isPlaying"
+					:track="currentTrack"
+					:volume="volume"
+					@play="play"
+					@pause="pause"
+					@trackEnded="trackEnded"
 			></provider-player>
-		</aside>
 
-		<main>
 			<track-list
-				:currentTrackIndex="currentTrackIndex"
-				:track="currentTrack"
-				:tracks="tracksPool"
-				@select="playTrack"
-			></track-list>
+					:currentTrackIndex="currentTrackIndex"
+					:track="currentTrack"
+					:tracks="tracksPool"
+					@select="playTrack"></track-list>
 		</main>
 
-		<footer>
-			<player-controls
+		<player-controls
 				:isDisabled="!this.tracksPool.length"
 				:isMuted="isMuted"
 				:isPlaying="isPlaying"
@@ -43,9 +37,7 @@
 				@pause="pause"
 				@toggleMute="toggleMute"
 				@toggleShuffle="toggleShuffle"
-				@next="playNextTrack"
-			></player-controls>
-		</footer>
+				@next="playNextTrack"></player-controls>
 	</div>
 </template>
 
@@ -168,11 +160,19 @@
 </script>
 
 <style>
+	/* 
+		 Box sizing for all elements of the web component
+		 in non scoped style
+	 */
 	radio4000-player {
 		box-sizing: border-box;
+	}
+	radio4000-player *, radio4000-player *:before, radio4000-player*:after {
+		box-sizing: inherit;
+	}
+	radio4000-player {
 		display: flex;
 		flex-direction: column;
-		overflow: hidden;
 		border: 1px solid hsl(0, 0%, 60%);
 		font-family: 'maisonneue', 'system-ui', sans-serif;
 		background-color: hsl(260, 10%, 92% );
@@ -181,8 +181,9 @@
 		/* Responsive scaling. A min. width of 352px is required to show YouTube volume. */
 		font-size: 1em;
 		width: 100%;
-		max-width: 352px;
-		max-height: 100vh;
+		/* tests */
+		/*min-height: calc(2.75em + 200px + 2.6em);*/
+		/*height: 80vh;*/
 	}
 </style>
 
@@ -190,28 +191,21 @@
 	.R4PlayerLayout {
 		display: flex;
 		flex-direction: column;
-		flex-basis: 100%;
+		flex: 1; /* full height */
 	}
-	aside {
-		overflow: hidden;
-		position: relative;
-		min-height: 109px;
-		max-height: calc(100vh - 20rem - (2.75rem * 2));
-	}
-	@media (min-width: 710px) {
-		aside {
-			/*height: 400px;*/
-		}
-	}
-	aside .FlexEmbed {
-		position: static;
-	}
-	main {
+	.Body {
+		display: flex;
+		flex-direction: column;
 		flex-basis: 20rem;
 		flex-grow: 1;
 		position: relative;
-		display: flex;
 		overflow: hidden;
+	}
+	@media screen and (min-width: 40rem) {
+		.Body {
+			flex-direction: row;
+			max-height: 80vh;
+		}
 	}
 </style>
 

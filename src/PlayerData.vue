@@ -11,7 +11,7 @@
 		:shuffle="shuffle"
 		@trackChanged="onTrackChanged"
 		@trackEnded="onTrackEnded">
-		{{volume}} <input type="range" v-model="localVolume"> 
+		<!-- {{volume}} <input type="range" v-model="localVolume">  -->
 	</radio4000-player>
 	<div v-else class="Console">
 		<p>Radio4000-player is ready to start playing:

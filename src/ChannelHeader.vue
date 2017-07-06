@@ -1,18 +1,18 @@
 <template>
-	<div class="Header">
-		<a :href="href" class="Header-image" title="Check this radio on Radio4000">
+	<header class="Header">
+		<a :href="href" class="Header-image" :title="channelDescription">
 			<img v-if="image" :src="image" alt="">
 			<loading v-else/>
 		</a>
 		<div v-if="channel.title">
-			<p class="Header-title"><strong>{{channel.title}}</strong></p>
-			<marquee class="Header-playing">{{track.title}}</marquee>
+			<p class="Header-title" :title="channelDescription"><strong>{{channel.title}}</strong></p>
+			<marquee class="Header-playing" :title="[track.body ? track.body : '']">{{track.title}}</marquee>
 		</div>
 		<loading v-else/>
-		<a :href="href" target="_blank" title="Check this radio on Radio4000">
+		<a :href="href" target="_blank" title="Open this radio on Radio4000.com">
 			<R4Logo></R4Logo>
 		</a>
-	</div>
+	</header>
 </template>
 
 <script>
@@ -32,6 +32,10 @@
 				const root = this.r4Url ? '/' : 'https://radio4000.com'
 				const slug = this.channel.slug
 				return slug === undefined ? root : root + slug
+			},
+			channelDescription () {
+				const { title = '', slug = '', body = ''} = this.channel;
+				return `[ ${title}, @${slug} ] ${body}`
 			}
 		}
 	}
@@ -44,6 +48,8 @@
 		display: flex;
 		flex-wrap: nowrap;
 		align-items: center;
+		background-color: hsl(0, 0%, 96%);
+		border-bottom: 1px solid hsl(0, 0%, 60%);
 	}
 	.Header > div {
 		flex: 1;
