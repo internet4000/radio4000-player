@@ -62,9 +62,6 @@ export default {
 	}
 	.TrackList-list {
 		margin: 0;
-		display: flex;
-		flex-direction: column;
-		padding-top: 0.6rem;
 		overflow-y: scroll;
 		/* FF */
 		overflow-x: hidden;
@@ -80,6 +77,9 @@ export default {
 		flex-direction: row;
 		flex-wrap: nowrap;
 		align-items: center;
+	}
+	.TrackList-item:first-child {
+		padding-top: 0.6rem;
 	}
 	.TrackList-item::after {
 		content: counter(tracks) "";
