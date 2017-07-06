@@ -65,7 +65,6 @@ export default {
 		margin: 0;
 		overflow-y: scroll;
 		overflow-x: hidden; /* firefox */
-		height: 100%; /* firefox */
 		padding: 0;
 		list-style: none;
 		counter-reset: tracks;
