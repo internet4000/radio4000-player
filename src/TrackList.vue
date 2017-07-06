@@ -61,11 +61,11 @@ export default {
 		}
 	}
 	.TrackList-list {
+		margin-bottom: 0;
 		margin-top: 0.6rem;
 		overflow-y: scroll;
 		/* FF */
 		overflow-x: hidden;
-		margin: 0;
 		padding: 0;
 		list-style: none;
 		counter-reset: tracks;
