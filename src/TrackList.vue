@@ -53,6 +53,7 @@ export default {
 	.TrackList {
 		display: flex;
 		position: relative;
+		padding-top: 0.6rem;
 	}
 	@media screen and (min-width: 80rem) {
 		.TrackList {
