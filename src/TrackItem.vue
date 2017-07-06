@@ -24,6 +24,7 @@
 		cursor: pointer;
 		display: block;
 		width: 100%;
+		margin-bottom: 0.3rem;
 	}
 	.TrackItem-title,
 	.TrackItem-body {
@@ -34,6 +35,7 @@
 	}
 	.TrackItem-title {
 		padding: 0.2rem 0.3rem;
+		float: left;
 	}
 	.TrackItem-body {
 		display: block;

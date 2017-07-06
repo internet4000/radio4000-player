@@ -2,9 +2,8 @@
 	<div class="TrackList">
 		<Loading v-if="!tracks || !tracks.length" />
 		<ol class="TrackList-list">
-			<li v-for="(track, index) in tracks">
-				<track-item class="TrackList-item"
-					:track="track"
+			<li v-for="(track, index) in tracks" class="TrackList-item">
+				<track-item :track="track"
 					:class="{ active : currentTrackIndex === index }"
 					@select="select"></track-item>
 			</li>
@@ -68,12 +67,17 @@ export default {
 	.TrackList-item {
 		font-size: 0.777em;
 		padding: 0;
+		display: flex;
+		flex-direction: row;
+		flex-wrap: nowrap;
+		align-items: center;
 	}
-	.TrackList-item::before {
-		content: counter(tracks) ".";
+	.TrackList-item::after {
+		content: counter(tracks) "";
 		counter-increment: tracks;
-		float: left;
-		margin-right: 0.4em;
+		color: #737373;
+		font-size: 0.6rem;
+		padding-left: 0.4rem;
 	}
 	
 	.TrackList-controls {
