@@ -160,6 +160,17 @@
 </script>
 
 <style>
+	/* 
+		 Box sinzing for all elements of the web component
+		 in non scoped style
+	 */
+	radio4000-player {
+		box-sizing: border-box;
+	}
+	radio4000-player *, radio4000-player *:before, radio4000-player*:after {
+		box-sizing: inherit;
+	}
+	
 	radio4000-player {
 		display: flex;
 		flex-direction: column;
@@ -175,12 +186,6 @@
 </style>
 
 <style scoped>
-	radio4000-player {
-		box-sizing: border-box;
-	}
-	radio4000-player *, radio4000-player *:before, radio4000-player*:after {
-		box-sizing: inherit;
-	}
 	.R4PlayerLayout {
 		display: flex;
 		flex-direction: column;
