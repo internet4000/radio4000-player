@@ -175,10 +175,10 @@
 </style>
 
 <style scoped>
-	html {
+	radio4000-player {
 		box-sizing: border-box;
 	}
-	*, *:before, *:after {
+	radio4000-player *, radio4000-player *:before, radio4000-player*:after {
 		box-sizing: inherit;
 	}
 	.R4PlayerLayout {
