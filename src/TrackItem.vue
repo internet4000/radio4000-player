@@ -44,6 +44,8 @@
 		padding-top: 0.1rem;
     padding-left: 0.4rem;
 		margin-bottom: 0.3rem;
+		font-style: italic;
+		color: #737373;
 	}
 	.TrackItem.active .TrackItem-title {
 		background-color: #5e1ae6;
