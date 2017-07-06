@@ -25,7 +25,7 @@
 		cursor: pointer;
 		display: block;
 		width: 100%;
-		margin-bottom: 0.3rem;
+		padding-bottom: 0.3rem;
 		padding-left: 0.6rem;
 	}
 	.TrackItem-title,
