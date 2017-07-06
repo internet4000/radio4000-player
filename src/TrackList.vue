@@ -61,7 +61,7 @@ export default {
 		}
 	}
 	.TrackList-list {
-		padding-top: 0.6rem;
+		margin-top: 0.6rem;
 		overflow-y: scroll;
 		/* FF */
 		overflow-x: hidden;
