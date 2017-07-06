@@ -8,7 +8,7 @@
 				:r4Url="r4Url"
 				:track="currentTrack"></channel-header>
 
-		<main>	
+		<main class="Body">	
 			<provider-player
 					:autoplay="autoplay"
 					:isMuted="isMuted"
@@ -184,12 +184,12 @@
 		flex-direction: column;
 		flex-basis: 100%;
 	}
-	main {
+	.Body {
 		display: flex;
 		flex-direction: column;
 	}
 	@media screen and (min-width: 40rem) {
-		main {
+		.Body {
 			flex-direction: row;
 		}
 	}
