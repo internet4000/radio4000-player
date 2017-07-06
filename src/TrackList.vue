@@ -58,7 +58,7 @@ export default {
 	.TrackList-list {
 		overflow-y: scroll;
 		margin: 0;
-		padding: 0.6rem;
+		padding: 0;
 		line-height: 1.7;
 		list-style: none;
 		counter-reset: tracks;
@@ -66,7 +66,7 @@ export default {
 	}
 	.TrackList-item {
 		font-size: 0.777em;
-		padding: 0;
+		padding-right: 0.6rem;
 		display: flex;
 		flex-direction: row;
 		flex-wrap: nowrap;
