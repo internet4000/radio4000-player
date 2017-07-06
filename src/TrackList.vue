@@ -61,8 +61,10 @@ export default {
 		}
 	}
 	.TrackList-list {
-		margin-bottom: 0;
-		margin-top: 0.6rem;
+		margin: 0;
+		display: flex;
+		flex-direction: column;
+		padding-top: 0.6rem;
 		overflow-y: scroll;
 		/* FF */
 		overflow-x: hidden;
