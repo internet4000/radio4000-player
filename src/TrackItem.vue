@@ -3,7 +3,8 @@
 		:class="{active: active}"
 		@click="select">
 		<p class="TrackItem-title">{{track.title}}</p>
-		<p class="TrackItem-body">{{track.body}}</p>
+		<p v-if="track.body"
+				class="TrackItem-body">{{track.body}}</p>
 	</div>
 </template>
 
