@@ -64,7 +64,5 @@
 		/* Youtube requirements */
 		min-height: 200px;
 		min-width: 200px;
-		/* min-height: 109px;
-			 max-height: calc(100vh - 20rem - (2.75rem * 2)); */
 	}
 </style>

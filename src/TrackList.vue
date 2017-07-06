@@ -53,7 +53,6 @@ export default {
 	.TrackList {
 		display: flex;
 		position: relative;
-		padding-top: 0.6rem;
 		min-width: 200px;
 	}
 	@media screen and (min-width: 40rem) {
@@ -62,10 +61,12 @@ export default {
 		}
 	}
 	.TrackList-list {
+		padding-top: 0.6rem;
 		overflow-y: scroll;
+		/* FF */
+		overflow-x: hidden;
 		margin: 0;
 		padding: 0;
-		line-height: 1.7;
 		list-style: none;
 		counter-reset: tracks;
 		transform: translateZ(0);
