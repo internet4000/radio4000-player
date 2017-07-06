@@ -161,7 +161,7 @@
 
 <style>
 	/* 
-		 Box sinzing for all elements of the web component
+		 Box sizing for all elements of the web component
 		 in non scoped style
 	 */
 	radio4000-player {
@@ -170,7 +170,6 @@
 	radio4000-player *, radio4000-player *:before, radio4000-player*:after {
 		box-sizing: inherit;
 	}
-	
 	radio4000-player {
 		display: flex;
 		flex-direction: column;
@@ -182,6 +181,9 @@
 		/* Responsive scaling. A min. width of 352px is required to show YouTube volume. */
 		font-size: 1em;
 		width: 100%;
+		/* tests */
+		/*min-height: calc(2.75em + 200px + 2.6em);*/
+		/*height: 80vh;*/
 	}
 </style>
 
@@ -189,6 +191,7 @@
 	.R4PlayerLayout {
 		display: flex;
 		flex-direction: column;
+		flex: 1; /* full height */
 	}
 	.Body {
 		display: flex;
@@ -196,6 +199,7 @@
 		flex-basis: 20rem;
 		flex-grow: 1;
 		position: relative;
+		overflow: hidden;
 	}
 	@media screen and (min-width: 40rem) {
 		.Body {

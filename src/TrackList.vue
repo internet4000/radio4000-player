@@ -54,6 +54,7 @@ export default {
 		display: flex;
 		position: relative;
 		min-width: 200px;
+		overflow: hidden;
 	}
 	@media screen and (min-width: 40rem) {
 		.TrackList {
@@ -63,8 +64,8 @@ export default {
 	.TrackList-list {
 		margin: 0;
 		overflow-y: scroll;
-		/* FF */
-		overflow-x: hidden;
+		overflow-x: hidden; /* firefox */
+		height: 100%; /* firefox */
 		padding: 0;
 		list-style: none;
 		counter-reset: tracks;
