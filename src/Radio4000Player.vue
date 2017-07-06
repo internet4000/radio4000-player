@@ -188,25 +188,29 @@
 </style>
 
 <style scoped>
-	.R4PlayerLayout {
-		display: flex;
-		flex-direction: column;
-		flex: 1; /* full height */
-	}
-	.Body {
-		display: flex;
-		flex-direction: column;
-		flex-basis: 20rem;
-		flex-grow: 1;
-		position: relative;
-		overflow: hidden;
-	}
-	@media screen and (min-width: 40rem) {
-		.Body {
-			flex-direction: row;
-			max-height: 80vh;
-		}
-	}
+.R4PlayerLayout {
+	display: flex;
+	flex-direction: column;
+	flex: 1; /* full height */
+}
+.Body {
+	flex-basis: 20rem;
+	flex-grow: 1;
+	position: relative;
+	overflow: hidden;
+	display: flex;
+	flex-wrap: wrap;
+}
+.Body>.ProviderPlayer {
+	flex-grow: 999999;
+	flex-shrink: 1;
+	flex-basis: 300px;
+}
+.Body>.TrackList {
+	flex-grow: 1;
+	flex-shrink: 1;
+	flex-basis: 20%;
+}
 </style>
 
 <style id="Radio4000-mini">
