@@ -40,9 +40,9 @@
 		display: block;
 		clear: both;
 		margin-left: 0.4rem;
-    border-left: 1px solid #cecece;
+		border-left: 1px solid #cecece;
 		padding-top: 0.1rem;
-    padding-left: 0.4rem;
+		padding-left: 0.4rem;
 		margin-bottom: 0.3rem;
 		font-style: italic;
 		color: #737373;
@@ -51,8 +51,8 @@
 		background-color: #5e1ae6;
 		color: white;
 	}
-	/* .TrackItem.active .TrackItem-body {
-		 border-left-color: #5e1ae6;
-		 transition: 400ms border-left-color cubic-bezier(0.55, 0.09, 0.68, 0.53);
-		 } */
+	.TrackItem.active .TrackItem-body {
+		border-left-color: #5e1ae6;
+		transition: 200ms border-left-color cubic-bezier(0.55, 0.09, 0.68, 0.53);
+	}
 </style>
