@@ -90,8 +90,12 @@
 			},
 			handleReady(resolve) {
 				// Set initial volume.
-				console.log('setting initial volume to', this.volume)
-				this.player.setVolume(this.volume)
+				let vol = this.volume;
+				if(!this.volume) { vol = 100 }
+				this.player.unMute().then(() => {
+					console.log('unmuting & setting initial volume to', this.volume)
+					this.player.setVolume(vol);
+				});
 			},
 			handleError(event) {
 				this.$emit('trackEnded')
@@ -114,7 +118,6 @@
 				}
 				const id = event.data
 				const name = eventsName[id]
-				/* console.log('handleStateChange', id, name, event)*/
 
 				const actions = {
 					'-1': () => {},
