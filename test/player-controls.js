@@ -8,7 +8,7 @@ test.cb('renders', t => {
 	const $ = selector => vm.$el.querySelectorAll(selector)
 	const playPauseInput= $('.PlayPause input')[0]
 
-	t.snapshot(tree)
+	/* t.snapshot(tree)*/
 
 	t.is($('.Btn--mute').length, 1)
 	t.is($('.Btn--shuffle').length, 1)
