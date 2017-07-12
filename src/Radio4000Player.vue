@@ -1,5 +1,5 @@
 <template>
-	<div class="R4PlayerLayout">
+	<div class="R4PlayerLayout" :class="[isVertical ? 'R4PlayerLayout--vertical' : 'R4PlayerLayout--horizontal']">
 		<slot></slot>
 
 		<channel-header
@@ -74,13 +74,19 @@
 				isShuffle: this.$props.shuffle,
 				loop: false,
 				playerReady: false,
-				tracksPool: []
+				tracksPool: [],
+				elSize: null
 			}
 		},
 		created() {
+			this.addEventListeners();
+			
 			if (Object.keys(this.track).length !== 0) {
 				this.playTrack(this.track)
 			}
+		},
+		destroyed() {
+			this.removeEventListeners();
 		},
 		computed: {
 			isMuted: {
@@ -94,6 +100,10 @@
 						this.$root.$emit('setVolume', 100)
 					}
 				}
+			},
+			isVertical() {
+				console.log(this.elSize)
+				return this.elSize < 450;
 			},
 			currentTrackIndex() {
 				return this.tracksPool.findIndex(track => track.id === this.currentTrack.id)
@@ -114,6 +124,21 @@
 			}
 		},
 		methods: {
+			/* Responsive element */
+			addEventListeners() {
+				const $el = this.$root.$el;
+				window.addEventListener('resize', this.setElSize());
+			},
+			removeEventListeners() {
+				const $el = this.$root.$el;
+				window.removeEventListener('resize', this.setElSize());
+			},
+			setElSize() {
+				this.elSize = this.$root.$el.offsetWidth;
+				console.log(this.elSize)
+			},
+
+			/* Play methods */
 			playTrack(track) {
 				this.currentTrack = track
 				this.$emit('trackChanged', track)
