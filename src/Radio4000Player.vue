@@ -43,6 +43,7 @@
 
 <script>
 	import Vue from 'vue'
+	import debounce from 'debounce'
 	import ChannelHeader from './ChannelHeader.vue'
 	import TrackList from './TrackList.vue'
 	import ProviderPlayer from './ProviderPlayer.vue'
@@ -75,18 +76,21 @@
 				loop: false,
 				playerReady: false,
 				tracksPool: [],
-				elSize: null
+				playerWidth: null,
+				playerBreakPoint: 600
 			}
 		},
 		created() {
-			this.$root.$el.addEventListener('resize', this.handleResize);
+			this.$nextTick(function() {
+				window.addEventListener('resize', this.handleResize);
+			})
 			
 			if (Object.keys(this.track).length !== 0) {
 				this.playTrack(this.track)
 			}
 		},
 		destroyed() {
-			this.$root.$el.removeEventListener('resize', this.handleResize);
+			window.removeEventListener('resize', this.handleResize);
 		},
 		computed: {
 			isMuted: {
@@ -102,8 +106,7 @@
 				}
 			},
 			isVertical() {
-				console.log(this.elSize)
-				return this.elSize < 450;
+				return this.playerWidth < this.playerBreakPoint;
 			},
 			currentTrackIndex() {
 				return this.tracksPool.findIndex(track => track.id === this.currentTrack.id)
@@ -124,10 +127,10 @@
 			}
 		},
 		methods: {
-			handleResize() {
-				this.elSize = this.$root.$el.offsetWidth;
-				console.log(this.elSize)
-			},
+			handleResize: debounce(function() {
+				this.playerWidth = this.$root.$el.offsetWidth;
+				console.log(this.playerWidth)
+			}),
 
 			/* Play methods */
 			playTrack(track) {
@@ -217,11 +220,9 @@
 		position: relative;
 		overflow: hidden;
 	}
-	@media screen and (min-width: 40rem) {
-		.Body {
-			flex-direction: row;
-			max-height: 80vh;
-		}
+	.R4PlayerLayout--horizontal .Body {
+		flex-direction: row;
+		max-height: 80vh;
 	}
 </style>
 
