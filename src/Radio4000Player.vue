@@ -210,8 +210,9 @@
 	}
 	
 	.TrackList {
-		flex-basis: 300px;
+		flex-basis: 200px;
 		flex-grow: 1;
+		max-width: 400px;
 	}
 
 	.TrackList-list {
