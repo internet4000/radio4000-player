@@ -79,14 +79,14 @@
 			}
 		},
 		created() {
-			this.$root.$el.addEventListener('resize', this.handleResize());
+			this.$root.$el.addEventListener('resize', this.handleResize);
 			
 			if (Object.keys(this.track).length !== 0) {
 				this.playTrack(this.track)
 			}
 		},
 		destroyed() {
-			this.$root.$el.removeEventListener('resize', this.handleResize());
+			this.$root.$el.removeEventListener('resize', this.handleResize);
 		},
 		computed: {
 			isMuted: {
