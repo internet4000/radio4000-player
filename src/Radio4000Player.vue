@@ -130,7 +130,7 @@
 			handleResize: debounce(function() {
 				this.playerWidth = this.$root.$el.offsetWidth;
 				console.log(this.playerWidth)
-			}),
+			}, 400),
 
 			/* Play methods */
 			playTrack(track) {
@@ -186,7 +186,9 @@
 	radio4000-player {
 		box-sizing: border-box;
 	}
-	radio4000-player *, radio4000-player *:before, radio4000-player*:after {
+	radio4000-player *,
+	radio4000-player *:before,
+	radio4000-player *:after {
 		box-sizing: inherit;
 	}
 	radio4000-player {
@@ -196,13 +198,8 @@
 		font-family: 'maisonneue', 'system-ui', sans-serif;
 		background-color: hsl(260, 10%, 92% );
 		color: hsl(0, 0%, 10%);
-
-		/* Responsive scaling. A min. width of 352px is required to show YouTube volume. */
 		font-size: 1em;
 		width: 100%;
-		/* tests */
-		/*min-height: calc(2.75em + 200px + 2.6em);*/
-		/*height: 80vh;*/
 	}
 </style>
 
