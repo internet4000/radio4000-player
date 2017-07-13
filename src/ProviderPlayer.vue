@@ -58,9 +58,6 @@
 		background-color: black;
 		overflow: hidden;
 		position: relative;
-		flex-basis: 100%;
-		/* https://stackoverflow.com/questions/15381172/how-to-make-flexbox-children-100-height-of-their-parent */
-		display: flex;
 		/* Youtube requirements */
 		min-height: 200px;
 		min-width: 200px;

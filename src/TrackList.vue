@@ -51,20 +51,10 @@ export default {
 
 <style scoped>
 	.TrackList {
-		display: flex;
 		position: relative;
-		min-width: 200px;
-		overflow: hidden;
-	}
-	@media screen and (min-width: 40rem) {
-		.TrackList {
-			max-width: 40rem;
-		}
 	}
 	.TrackList-list {
 		margin: 0;
-		overflow-y: scroll;
-		overflow-x: hidden; /* firefox */
 		padding: 0;
 		list-style: none;
 		counter-reset: tracks;
