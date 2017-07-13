@@ -79,14 +79,14 @@
 			}
 		},
 		created() {
-			this.addEventListeners();
+			this.$root.$el.addEventListener('resize', this.handleResize());
 			
 			if (Object.keys(this.track).length !== 0) {
 				this.playTrack(this.track)
 			}
 		},
 		destroyed() {
-			this.removeEventListeners();
+			this.$root.$el.removeEventListener('resize', this.handleResize());
 		},
 		computed: {
 			isMuted: {
@@ -124,16 +124,7 @@
 			}
 		},
 		methods: {
-			/* Responsive element */
-			addEventListeners() {
-				const $el = this.$root.$el;
-				window.addEventListener('resize', this.setElSize());
-			},
-			removeEventListeners() {
-				const $el = this.$root.$el;
-				window.removeEventListener('resize', this.setElSize());
-			},
-			setElSize() {
+			handleResize() {
 				this.elSize = this.$root.$el.offsetWidth;
 				console.log(this.elSize)
 			},
