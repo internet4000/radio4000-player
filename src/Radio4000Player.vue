@@ -8,7 +8,7 @@
 				:r4Url="r4Url"
 				:track="currentTrack"></channel-header>
 
-		<main class="Body">	
+
 			<provider-player
 					:autoplay="autoplay"
 					:isMuted="isMuted"
@@ -17,15 +17,14 @@
 					:volume="volume"
 					@play="play"
 					@pause="pause"
-					@trackEnded="trackEnded"
-			></provider-player>
+					@trackEnded="trackEnded"></provider-player>
 
 			<track-list
 					:currentTrackIndex="currentTrackIndex"
 					:track="currentTrack"
 					:tracks="tracksPool"
 					@select="playTrack"></track-list>
-		</main>
+
 
 		<player-controls
 				:isDisabled="!this.tracksPool.length"
@@ -183,27 +182,44 @@
 	}
 </style>
 
-<style scoped>
-.R4PlayerLayout {
-}
-.Body {
-	flex-basis: 20rem;
-	flex-grow: 1;
-	position: relative;
-	overflow: hidden;
-	display: flex;
-	flex-wrap: wrap;
-}
-.Body>.ProviderPlayer {
-	flex-grow: 999999;
-	flex-shrink: 1;
-	flex-basis: 300px;
-}
-.Body>.TrackList {
-	flex-grow: 1;
-	flex-shrink: 1;
-	flex-basis: 20%;
-}
+<style>
+	/* 
+		 Follwing styles are used to make
+		 the player and all its child DOM elements
+		 responsive to its own size,
+		 without the need of a media queries
+		 (because they are triggered by viewport size)
+	 */
+
+	.R4PlayerLayout {
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+	}
+
+	.Header,
+	.PlayerControl {
+		flex-grow: 1;
+		flex-basis: 100%;
+	}
+
+	.ProviderPlayer {
+		flex-basis: 200px;
+		flex-shrink: 0;
+		flex-grow: 1;
+	}
+	
+	.TrackList {
+		flex-basis: 300px;
+		flex-grow: 1;
+	}
+
+	.TrackList-list {
+		max-height: 30vh;
+    overflow-x: hidden;
+    overflow-y: scroll;
+	}
+
 </style>
 
 <style id="Radio4000-mini">
