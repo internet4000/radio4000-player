@@ -167,31 +167,24 @@
 	radio4000-player {
 		box-sizing: border-box;
 	}
-	radio4000-player *, radio4000-player *:before, radio4000-player*:after {
+	radio4000-player *,
+	radio4000-player *:before,
+	radio4000-player *:after {
 		box-sizing: inherit;
 	}
 	radio4000-player {
-		display: flex;
-		flex-direction: column;
+		display: block;
 		border: 1px solid hsl(0, 0%, 60%);
 		font-family: 'maisonneue', 'system-ui', sans-serif;
 		background-color: hsl(260, 10%, 92% );
 		color: hsl(0, 0%, 10%);
-
-		/* Responsive scaling. A min. width of 352px is required to show YouTube volume. */
 		font-size: 1em;
 		width: 100%;
-		/* tests */
-		/*min-height: calc(2.75em + 200px + 2.6em);*/
-		/*height: 80vh;*/
 	}
 </style>
 
 <style scoped>
 .R4PlayerLayout {
-	display: flex;
-	flex-direction: column;
-	flex: 1; /* full height */
 }
 .Body {
 	flex-basis: 20rem;
