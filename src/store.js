@@ -4,6 +4,7 @@ const host = 'https://radio4000.firebaseio.com'
 
 // Utilities for working with Firebase REST API.
 const parse = res => res.json()
+const serializeId = (data, id) => Object.assign(data, {id})
 const getFirst = arr => arr[0]
 const toArray = firebaseObj => {
 	return Object.keys(firebaseObj).map(id => {
@@ -32,7 +33,7 @@ export function findChannelTracks(id) {
 }
 export function findTrack(id) {
 	const url = `${host}/tracks/${id}.json`
-	return fetch(url).then(parse)
+	return fetch(url).then(parse).then(data => serializeId(data, id))
 }
 export function findChannelImage(channel) {
 	if (!channel || !channel.images) return
