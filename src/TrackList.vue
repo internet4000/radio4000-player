@@ -56,10 +56,8 @@ export default {
 		min-width: 200px;
 		overflow: hidden;
 	}
-	@media screen and (min-width: 40rem) {
-		.TrackList {
-			max-width: 40rem;
-		}
+	.R4PlayerLayout--horizontal .TrackList {
+		max-width: 40rem;
 	}
 	.TrackList-list {
 		margin: 0;

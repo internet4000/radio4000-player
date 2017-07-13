@@ -1,5 +1,5 @@
 <template>
-	<div class="R4PlayerLayout">
+	<div class="R4PlayerLayout" :class="[isVertical ? 'R4PlayerLayout--vertical' : 'R4PlayerLayout--horizontal']">
 		<slot></slot>
 
 		<channel-header
@@ -43,6 +43,7 @@
 
 <script>
 	import Vue from 'vue'
+	import debounce from 'debounce'
 	import ChannelHeader from './ChannelHeader.vue'
 	import TrackList from './TrackList.vue'
 	import ProviderPlayer from './ProviderPlayer.vue'
@@ -74,13 +75,22 @@
 				isShuffle: this.$props.shuffle,
 				loop: false,
 				playerReady: false,
-				tracksPool: []
+				tracksPool: [],
+				playerWidth: null,
+				playerBreakPoint: 600
 			}
 		},
 		created() {
+			this.$nextTick(function() {
+				window.addEventListener('resize', this.handleResize);
+			})
+			
 			if (Object.keys(this.track).length !== 0) {
 				this.playTrack(this.track)
 			}
+		},
+		destroyed() {
+			window.removeEventListener('resize', this.handleResize);
 		},
 		computed: {
 			isMuted: {
@@ -94,6 +104,9 @@
 						this.$root.$emit('setVolume', 100)
 					}
 				}
+			},
+			isVertical() {
+				return this.playerWidth < this.playerBreakPoint;
 			},
 			currentTrackIndex() {
 				return this.tracksPool.findIndex(track => track.id === this.currentTrack.id)
@@ -114,6 +127,11 @@
 			}
 		},
 		methods: {
+			handleResize: debounce(function() {
+				this.playerWidth = this.$root.$el.offsetWidth;
+			}, 400),
+
+			/* Play methods */
 			playTrack(track) {
 				this.currentTrack = track
 				this.$emit('trackChanged', track)
@@ -167,7 +185,9 @@
 	radio4000-player {
 		box-sizing: border-box;
 	}
-	radio4000-player *, radio4000-player *:before, radio4000-player*:after {
+	radio4000-player *,
+	radio4000-player *:before,
+	radio4000-player *:after {
 		box-sizing: inherit;
 	}
 	radio4000-player {
@@ -177,13 +197,8 @@
 		font-family: 'maisonneue', 'system-ui', sans-serif;
 		background-color: hsl(260, 10%, 92% );
 		color: hsl(0, 0%, 10%);
-
-		/* Responsive scaling. A min. width of 352px is required to show YouTube volume. */
 		font-size: 1em;
 		width: 100%;
-		/* tests */
-		/*min-height: calc(2.75em + 200px + 2.6em);*/
-		/*height: 80vh;*/
 	}
 </style>
 
@@ -201,11 +216,9 @@
 		position: relative;
 		overflow: hidden;
 	}
-	@media screen and (min-width: 40rem) {
-		.Body {
-			flex-direction: row;
-			max-height: 80vh;
-		}
+	.R4PlayerLayout--horizontal .Body {
+		flex-direction: row;
+		max-height: 80vh;
 	}
 </style>
 

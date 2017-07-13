@@ -9,6 +9,7 @@
 		:r4Url="r4Url"
 		:volume="localVolume"
 		:shuffle="shuffle"
+		@resize="onResize"
 		@trackChanged="onTrackChanged"
 		@trackEnded="onTrackEnded">
 		<!-- {{volume}} <input type="range" v-model="localVolume">  -->
@@ -141,6 +142,9 @@
 			},
 			onTrackEnded(...args) {
 				this.$emit('trackEnded', ...args)
+			},
+			onResize() {
+				console.log('resized')
 			}
 		}
 	}
