@@ -129,7 +129,6 @@
 		methods: {
 			handleResize: debounce(function() {
 				this.playerWidth = this.$root.$el.offsetWidth;
-				console.log(this.playerWidth)
 			}, 400),
 
 			/* Play methods */
