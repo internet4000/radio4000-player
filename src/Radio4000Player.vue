@@ -114,6 +114,7 @@
 		},
 		methods: {
 			playTrack(track) {
+				console.log('playTrack')
 				this.currentTrack = track
 				this.$emit('trackChanged', track)
 			},
@@ -216,7 +217,7 @@
 	}
 
 	.TrackList-list {
-		max-height: 30vh;
+		height: 30vh;
     overflow-x: hidden;
     overflow-y: scroll;
 	}
