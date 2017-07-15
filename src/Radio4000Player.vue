@@ -115,8 +115,12 @@
 		methods: {
 			playTrack(track) {
 				console.log('playTrack')
+				const previousTrack = this.currentTrack;
 				this.currentTrack = track
-				this.$emit('trackChanged', track)
+				this.$emit('trackChanged', {
+					track,
+					previousTrack
+				})
 			},
 			newTracksPool() {
 				var newTracksPool = this.tracks.slice().reverse()
