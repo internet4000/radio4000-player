@@ -59,8 +59,11 @@ You can listen for events directly on each `<radio4000-player>` element.
 
 ### Supported events
 
-- `trackChanged` - This event fires whenever the current track is changed.
-- `trackEnded` - This event fires when the current track finishes playing.
+- `trackChanged` - This event fires whenever the current track is
+  changed. It is an object containing two `track` objects,
+  `previousTrack` and `track`
+- `trackEnded` - This event fires when the current track finishes
+  playing. It is an object containing a `track` object.
 
 Here's an example of how to listen for the `trackChanged` event. It is the same approach for all events. In the case of both `trackChanged` and `trackEnded`, the `event.detail[0]` argument will be a Radio4000 `track` object.
 
