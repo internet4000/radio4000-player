@@ -156,7 +156,9 @@
 				this.isMuted = !this.isMuted
 			},
 			trackEnded() {
-				this.$emit('trackEnded', this.track)
+				this.$emit('trackEnded', {
+					track: this.track
+				})
 				this.playNextTrack()
 			}
 		}
