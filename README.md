@@ -63,7 +63,7 @@ You can listen for events directly on each `<radio4000-player>` element.
   changed. It is an object containing two `track` objects,
   `previousTrack` and `track`
 - `trackEnded` - This event fires when the current track finishes
-  playing. It is an object containing a `track` object.
+  playing. It is an object containing one `track` object.
 
 Here's an example of how to listen for the `trackChanged` event. It is the same approach for all events. In the case of both `trackChanged` and `trackEnded`, the `event.detail[0]` argument will be a Radio4000 `track` object.
 
@@ -71,6 +71,7 @@ Here's an example of how to listen for the `trackChanged` event. It is the same 
 var player = document.querySelector('radio4000-player')
 player.addEventListener('trackChanged', (event) => {
   console.info('trackChanged event', event.detail[0])
+	// { track: { [...] } }
 })
 ```
 
