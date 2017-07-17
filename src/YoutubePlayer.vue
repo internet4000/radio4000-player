@@ -49,12 +49,8 @@
 				}
 			},
 			volume(vol) {
-				console.log('changing youtube volume from top', vol)
 				this.player.getVolume().then(youtubevol => {
-					if (vol === youtubevol) {
-						console.log('equal vol, not updating')
-						return
-					}
+					if (vol === youtubevol) return
 					this.player.setVolume(vol)
 				})
 			}
@@ -90,20 +86,16 @@
 			},
 			handleReady(resolve) {
 				// Set initial volume.
-				let vol = this.volume;
-				if(!this.volume) { vol = 100 }
+				let vol = this.volume
 				this.player.unMute().then(() => {
-					console.log('unmuting & setting initial volume to', this.volume)
-					this.player.setVolume(vol);
+					this.player.setVolume(vol)
 				});
 			},
 			handleError(event) {
 				this.$emit('trackEnded')
 			},
 			handleVolumeChange(event) {
-				//console.log('handleVolumeChange', {volume: this.volume, youtubeVolume: event.data.volume})
 				if (event.data.volume !== this.volume) {
-					console.log('volume change from youtube', event.data.volume)
 					this.$root.$emit('setVolume', event.data.volume)
 				}
 			},

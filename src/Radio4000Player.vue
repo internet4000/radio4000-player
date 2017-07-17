@@ -114,7 +114,6 @@
 		},
 		methods: {
 			playTrack(track) {
-				console.log('playTrack')
 				const previousTrack = this.currentTrack;
 				this.currentTrack = track
 				this.$emit('trackChanged', {
