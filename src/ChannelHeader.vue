@@ -44,24 +44,42 @@
 <style scoped>
 	.Header {
 		position: relative;
-		min-height: 2.75em;
+		min-height: 3em;
 		display: flex;
 		flex-wrap: nowrap;
 		align-items: center;
 		background-color: hsl(0, 0%, 96%);
 		border-bottom: 1px solid hsl(0, 0%, 60%);
 	}
+	.Header-media {
+		position: relative;
+		width: 1em;
+		height: 1em;
+		font-size: 3em;
+	}
+	.Header-media img {
+		display: inline-block;
+		vertical-align: top;
+		width: 100%;
+	}
 	.Header-body {
 		flex: 1;
 		line-height: 1.4;
 	}
 	.Header-channel {
-		font-size: 0.9rem;
+		font-size: 0.9em;
 		margin-left: 0.3em;
 		margin-bottom: 0;
 		margin-top: 0;
 	}
-
+	.Header-track {
+		margin: 0;
+		font-size: 0.8125em;
+	}
+	marquee {
+		display: block;
+		min-height: 1em; /* avoid jumps */
+	}
 	.Header-logo {
 		position: absolute;
 		top: 0.2em;
@@ -71,24 +89,5 @@
 	}
 	.Header-logo:hover {
 		opacity: 1;
-	}
-	
-	.Header-track {
-		margin: 0;
-		font-size: 0.8125em;
-	}
-	marquee {
-		display: block;
-		min-height: 1em; /* avoid jumps */
-	}
-	.Header-media {
-		position: relative;
-		width: 2.75em;
-		height: 2.75em;
-	}
-	.Header-media img {
-		display: inline-block;
-		vertical-align: top;
-		width: 100%;
 	}
 </style>
