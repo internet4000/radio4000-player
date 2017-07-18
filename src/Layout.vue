@@ -1,21 +1,19 @@
 <template>
 	<div class="Layout">
-		<header class="Layout-header">
+		<div class="Layout-header">
 			<slot name="header"></slot>
-		</header>
-		<section class="Layout-section">
-			<aside class="Layout-aside">
+		</div>
+		<div class="Layout-section">
+			<div class="Layout-aside">
 				<slot name="aside"></slot>
-			</aside>
-			<main class="Layout-main">
-				<div class="Layout-mainScroll">
-					<slot name="main"></slot>
-				</div>
-			</main>
-		</section>
-		<footer class="Layout-footer">
+			</div>
+			<div class="Layout-main">
+				<slot name="main"></slot>
+			</div>
+		</div>
+		<div class="Layout-footer">
 			<slot name="footer"></slot>
-		</footer>
+		</div>
 	</div>
 </template>
 
@@ -60,7 +58,7 @@ export default {
 
 .Layout-aside {
 	min-height: 200px; /* youtube requirements */
-	display: flex; /* allow child to expand */ 
+	display: flex; /* allow child to expand */
 }
 
 .Layout-main {
