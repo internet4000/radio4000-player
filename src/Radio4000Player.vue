@@ -1,47 +1,45 @@
 <template>
-	<div class="R4PlayerLayout">
-		<slot></slot>
-
+	<Layout>
 		<channel-header
-				:channel="channel"
-				:image="image"
-				:r4Url="r4Url"
-				:track="currentTrack"></channel-header>
-
-
-			<provider-player
-					:autoplay="autoplay"
-					:isMuted="isMuted"
-					:isPlaying="isPlaying"
-					:track="currentTrack"
-					:volume="volume"
-					@play="play"
-					@pause="pause"
-					@trackEnded="trackEnded"></provider-player>
-
-			<track-list
-					:currentTrackIndex="currentTrackIndex"
-					:track="currentTrack"
-					:tracks="tracksPool"
-					@select="playTrack"></track-list>
-
-
+			slot="header"
+			:channel="channel"
+			:image="image"
+			:r4Url="r4Url"
+			:track="currentTrack"></channel-header>
+		<provider-player
+			slot="aside"
+			:autoplay="autoplay"
+			:isMuted="isMuted"
+			:isPlaying="isPlaying"
+			:track="currentTrack"
+			:volume="volume"
+			@play="play"
+			@pause="pause"
+			@trackEnded="trackEnded"></provider-player>
+		<track-list
+			slot="main"
+			:currentTrackIndex="currentTrackIndex"
+			:track="currentTrack"
+			:tracks="tracksPool"
+			@select="playTrack"></track-list>
 		<player-controls
-				:isDisabled="!this.tracksPool.length"
-				:isMuted="isMuted"
-				:isPlaying="isPlaying"
-				:isShuffle="isShuffle"
-				:volume="volume"
-				@play="play"
-				@pause="pause"
-				@toggleMute="toggleMute"
-				@toggleShuffle="toggleShuffle"
-				@next="playNextTrack"></player-controls>
-	</div>
+			slot="footer"
+			:isDisabled="!this.tracksPool.length"
+			:isMuted="isMuted"
+			:isPlaying="isPlaying"
+			:isShuffle="isShuffle"
+			:volume="volume"
+			@play="play"
+			@pause="pause"
+			@toggleMute="toggleMute"
+			@toggleShuffle="toggleShuffle"
+			@next="playNextTrack"></player-controls>
+	</Layout>
 </template>
 
 <script>
 	import Vue from 'vue'
+	import Layout from './Layout.vue'
 	import ChannelHeader from './ChannelHeader.vue'
 	import TrackList from './TrackList.vue'
 	import ProviderPlayer from './ProviderPlayer.vue'
@@ -51,6 +49,7 @@
 	export default {
 		name: 'radio4000-player',
 		components: {
+			Layout,
 			ChannelHeader,
 			TrackList,
 			ProviderPlayer,
@@ -178,55 +177,17 @@
 		box-sizing: inherit;
 	}
 	radio4000-player {
-		display: block;
-		border: 1px solid hsl(0, 0%, 60%);
+		display: flex;
 		font-family: 'maisonneue', 'system-ui', sans-serif;
 		background-color: hsl(260, 10%, 92% );
 		color: hsl(0, 0%, 10%);
 		font-size: 1em;
 		width: 100%;
+		/* youtube requirements */
+		min-width: 200px;
+		/* don't expand the viewport */
+		max-height: 100vh;
 	}
-</style>
-
-<style>
-	/* 
-		 Follwing styles are used to make
-		 the player and all its child DOM elements
-		 responsive to its own size,
-		 without the need of a media queries
-		 (because they are triggered by viewport size)
-	 */
-
-	.R4PlayerLayout {
-		display: flex;
-		flex-direction: row;
-		flex-wrap: wrap;
-	}
-
-	.Header,
-	.PlayerControl {
-		flex-grow: 1;
-		flex-basis: 100%;
-	}
-
-	.ProviderPlayer {
-		flex-basis: 200px;
-		flex-shrink: 0;
-		flex-grow: 1;
-	}
-	
-	.TrackList {
-		flex-basis: 200px;
-		flex-grow: 1;
-		max-width: 400px;
-	}
-
-	.TrackList-list {
-		height: 30vh;
-    overflow-x: hidden;
-    overflow-y: scroll;
-	}
-
 </style>
 
 <style id="Radio4000-mini">

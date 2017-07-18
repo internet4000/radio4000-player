@@ -55,6 +55,7 @@
 
 <style>
 	.ProviderPlayer {
+		flex: 1;
 		background-color: black;
 		overflow: hidden;
 		position: relative;
