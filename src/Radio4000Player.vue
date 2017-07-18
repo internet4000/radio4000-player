@@ -1,5 +1,5 @@
 <template>
-	<AppLayout>
+	<Layout>
 		<channel-header
 			slot="header"
 			:channel="channel"
@@ -34,12 +34,12 @@
 			@toggleMute="toggleMute"
 			@toggleShuffle="toggleShuffle"
 			@next="playNextTrack"></player-controls>
-	</AppLayout>
+	</Layout>
 </template>
 
 <script>
 	import Vue from 'vue'
-	import AppLayout from './AppLayout.vue'
+	import Layout from './Layout.vue'
 	import ChannelHeader from './ChannelHeader.vue'
 	import TrackList from './TrackList.vue'
 	import ProviderPlayer from './ProviderPlayer.vue'
@@ -49,7 +49,7 @@
 	export default {
 		name: 'radio4000-player',
 		components: {
-			AppLayout,
+			Layout,
 			ChannelHeader,
 			TrackList,
 			ProviderPlayer,
