@@ -63,6 +63,7 @@ export default {
 
 .Layout-main {
 	flex-basis: 20em; /* this is where it breaks into two columns */
+	max-width: 30rem;
 	min-height: 10em;
 	position: relative;
 }
