@@ -50,9 +50,7 @@ export default {
 </script>
 
 <style scoped>
-	.TrackList {
-		position: relative;
-	}
+	.TrackList {}
 	.TrackList-list {
 		margin: 0;
 		padding: 0;
