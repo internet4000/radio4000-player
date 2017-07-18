@@ -182,6 +182,10 @@
 		background-color: hsl(260, 10%, 92% );
 		color: hsl(0, 0%, 10%);
 		font-size: 1em;
+		/* youtube requirements */
+		min-width: 200px;
+		/* don't expand the viewport */
+		max-height: 100vh;
 	}
 </style>
 

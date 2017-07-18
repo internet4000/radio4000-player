@@ -29,12 +29,9 @@ export default {
 .Layout {
 	/* expand to container */
 	flex: 1;
-	/* youtube requirements */
-	min-width: 200px;
+	/* min and max heights need to be on root elemenet aka <radio4000-player> */
 	/* header+aside+footer height */
 	min-height: calc(2.75em * 2 + 200px);
-	/* don't expand the viewport */
-	max-height: 100vh;
 	/* allow scrolling */
 	display: flex;
 	flex-direction: column;
