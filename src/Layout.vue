@@ -27,6 +27,8 @@ export default {
 
 <style scoped>
 .Layout {
+	/* expand to container */
+	flex: 1;
 	/* youtube requirements */
 	min-width: 200px;
 	/* header+aside+footer height */

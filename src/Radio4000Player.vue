@@ -177,7 +177,7 @@
 		box-sizing: inherit;
 	}
 	radio4000-player {
-		display: block;
+		display: flex;
 		font-family: 'maisonneue', 'system-ui', sans-serif;
 		background-color: hsl(260, 10%, 92% );
 		color: hsl(0, 0%, 10%);
