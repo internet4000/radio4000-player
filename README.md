@@ -75,28 +75,6 @@ player.addEventListener('trackChanged', (event) => {
 })
 ```
 
-## Skins
-
-We offer a dark skin and a mini one. To use, add or combine the classes. Here are some examples:
-
-```html
-<radio4000-player channel-slug="200ok" class="mini"></radio4000-player>
-<radio4000-player channel-slug="200ok" class="dark"></radio4000-player>
-<radio4000-player channel-slug="200ok" class="mini dark"></radio4000-player>
-```
-
-If you're familiar with CSS, you can also write your own styles targeting the `<radio4000-player>` element. Here's another example:
-
-```html
-<radio4000-player channel-slug="200ok" class="black-and-yellow"></radio4000-player>
-<style>
-  radio4000-player.black-and-yellow {
-    background-color: yellow;
-    color: black;
-  }
-</style>
-```
-
 ## More
 
 If this player is used inside radio4000.com, we want the links to switch URL internally.

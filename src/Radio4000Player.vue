@@ -229,34 +229,3 @@
 
 </style>
 
-<style id="Radio4000-mini">
-	/* Mini skin. Hides track list and "play/pause" button */
-	radio4000-player.mini {max-width: 320px; }
-	radio4000-player.mini main {display: none;}
-	radio4000-player.mini menu {border-top: 0;}
-	radio4000-player.mini menu .PlayerControl-group:nth-child(2) {display: none;}
-</style>
-
-<style id="Radio4000-dark">
-	radio4000-player.dark,
-	radio4000-player.dark .Btn {
-		background-color: hsl(0, 0%, 0%);
-		color: hsl(0, 0%, 90%);
-	}
-	radio4000-player.dark {
-		border-color: hsl(0, 0%, 0%);
-	}
-	radio4000-player.dark .TrackList li:before {
-		color: hsla(0, 0%, 100%, 0.5);
-	}
-	radio4000-player.dark menu {
-		border-top-color: hsl(0, 0%, 30%);
-	}
-	radio4000-player.dark .Header-playing,
-	radio4000-player.dark .active {
-		color: hsl(0, 0%, 100%);
-	}
-	radio4000-player.dark .R4 {
-		fill: hsla(0, 0%, 100%, 0.3);
-	}
-</style>
