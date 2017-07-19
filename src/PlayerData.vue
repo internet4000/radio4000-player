@@ -20,7 +20,7 @@
 </template>
 
 <script>
-	import debounce from 'debounce'
+	import debounce from 'lodash.debounce'
 	import Radio4000Player from './Radio4000Player.vue'
 	import {
 		findChannelById,
@@ -57,7 +57,7 @@
 			}
 		},
 		created() {
-			this.$root.$on('setVolume', debounce(vol => { 
+			this.$root.$on('setVolume', debounce(vol => {
 				this.localVolume = vol
 			}, 100))
 
