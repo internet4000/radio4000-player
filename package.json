@@ -14,7 +14,7 @@
 	"dependencies": {
 		"lodash.debounce": "^4.0.8",
 		"unfetch": "^3.0.0",
-		"vue": "^2.2.4",
+		"vue": "^2.4.1",
 		"vue-custom-element": "^1.1.0",
 		"youtube-player": "^5.4.0"
 	},
