@@ -104,8 +104,8 @@ yarn build
 yarn test
 
 # watch for changes and run tests
-yarn test:watch
+ava --watch
 
 # update test snapshots
-yarn test:update
+ava --update-snapshots
 ```
