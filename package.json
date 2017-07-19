@@ -2,7 +2,7 @@
 	"name": "radio4000-player",
 	"description": "A player for Radio4000 channels",
 	"author": "Internet4000",
-	"private": true,
+  "version": "0.1.1",
 	"scripts": {
 		"watchify": "watchify -vd -p browserify-hmr -e src/main.js -o dist/radio4000-player.js",
 		"serve": "serve --cache 1 --port 4002",
