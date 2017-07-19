@@ -41,7 +41,6 @@
 </template>
 
 <script>
-	import Vue from 'vue'
 	import ChannelHeader from './ChannelHeader.vue'
 	import TrackList from './TrackList.vue'
 	import ProviderPlayer from './ProviderPlayer.vue'
