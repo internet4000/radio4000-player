@@ -4,11 +4,13 @@
 	"author": "Internet4000",
 	"version": "0.1.1",
 	"scripts": {
-		"watchify": "watchify -vd -p browserify-hmr -e src/main.js -o dist/radio4000-player.js",
-		"serve": "serve --cache 1 --port 4002",
-		"start": "npm-run-all --parallel watchify serve",
-		"build": "cross-env NODE_ENV=production browserify -g envify src/main.js | babili > dist/radio4000-player.min.js",
-		"test": "ava"
+		"start": "run-p server watch",
+		"server": "serve --cache 0 --port 4002",
+		"watch": "NODE_ENV=development rollup --config --watch",
+		"build": "NODE_ENV=production rollup --config && npm run minify",
+		"minify": "babili dist/radio4000-player.js > dist/radio4000-player.min.js",
+		"test": "ava",
+		"prepublishOnly": "npm run build && npm run minify"
 	},
 	"browser": "dist/radio4000-player.min.js",
 	"main": "dist/radio4000-player.min.js",
@@ -21,29 +23,21 @@
 	},
 	"devDependencies": {
 		"ava": "^0.20.0",
-		"babel-core": "^6.25.0",
-		"babel-preset-env": "^1.5.2",
-		"babelify": "^7.2.0",
 		"babili": "^0.1.4",
-		"browser-env": "^3.0.2",
-		"browserify": "^14.4.0",
-		"browserify-hmr": "^0.3.1",
-		"cross-env": "^5.0.1",
-		"envify": "^4.0.0",
 		"npm-run-all": "^4.0.2",
 		"require-extension-hooks": "^0.2.0",
 		"require-extension-hooks-babel": "^0.1.1",
 		"require-extension-hooks-vue": "^0.3.1",
 		"rollup": "^0.45.2",
-		"serve": "^6.0.1",
-		"vueify": "^9.4.1",
-		"watchify": "^3.4.0"
-	},
-	"browserify": {
-		"transform": [
-			"vueify",
-			"babelify"
-		]
+		"rollup-plugin-alias": "^1.3.1",
+		"rollup-plugin-commonjs": "^8.0.2",
+		"rollup-plugin-node-builtins": "^2.1.2",
+		"rollup-plugin-node-globals": "^1.1.0",
+		"rollup-plugin-node-resolve": "^3.0.0",
+		"rollup-plugin-replace": "^1.1.1",
+		"rollup-plugin-vue": "^2.4.0",
+		"rollup-watch": "^4.3.1",
+		"serve": "^6.0.1"
 	},
 	"ava": {
 		"require": [

@@ -90,7 +90,7 @@ Therefore, URLs in the player header won't open new browser window but will just
 # install dependencies
 yarn
 
-# serve with hot reload at localhost:4002
+# starts a server at http://localhost:4002 that autobuilds when files change
 yarn start
 
 # build for production with minification (will update `dist/radio4000-player.min.js`)
