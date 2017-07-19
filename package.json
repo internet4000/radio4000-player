@@ -2,7 +2,7 @@
 	"name": "radio4000-player",
 	"description": "A player for Radio4000 channels",
 	"author": "Internet4000",
-  "version": "0.1.1",
+	"version": "0.1.1",
 	"scripts": {
 		"watchify": "watchify -vd -p browserify-hmr -e src/main.js -o dist/radio4000-player.js",
 		"serve": "serve --cache 1 --port 4002",
@@ -10,7 +10,10 @@
 		"build": "cross-env NODE_ENV=production browserify -g envify src/main.js | babili > dist/radio4000-player.min.js",
 		"test": "ava",
 		"test:watch": "ava --watch",
-		"test:update": "ava --update-snapshots"
+		"test:update": "ava --update-snapshots",
+		"test1": "NODE_ENV=production browserify -g envify src/main.js -o dist/bundle.js",
+		"test2": "rollup dist/bundle.js --format umd --name 'radio4000Player' --output dist/bundle-umd.js",
+		"test3": "babili dist/bundle-umd.js > dist/bundle-umd.min.js"
 	},
 	"browser": "dist/radio4000-player.min.js",
 	"dependencies": {
@@ -35,6 +38,7 @@
 		"require-extension-hooks": "^0.2.0",
 		"require-extension-hooks-babel": "^0.1.1",
 		"require-extension-hooks-vue": "^0.3.1",
+		"rollup": "^0.45.2",
 		"serve": "^6.0.1",
 		"vueify": "^9.4.1",
 		"watchify": "^3.4.0"
