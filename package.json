@@ -11,9 +11,6 @@
 		"test": "ava",
 		"test:watch": "ava --watch",
 		"test:update": "ava --update-snapshots",
-		"test1": "NODE_ENV=production browserify -g envify src/main.js -o dist/bundle.js",
-		"test2": "rollup dist/bundle.js --format umd --name 'radio4000Player' --output dist/bundle-umd.js",
-		"test3": "babili dist/bundle-umd.js > dist/bundle-umd.min.js"
 	},
 	"browser": "dist/radio4000-player.min.js",
 	"dependencies": {
