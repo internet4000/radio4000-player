@@ -10,7 +10,7 @@
 		"build": "NODE_ENV=production rollup --config && npm run build-minify",
 		"build-minify": "babili dist/radio4000-player.js > dist/radio4000-player.min.js",
 		"test": "ava",
-		"prepublishOnly": "npm run build && npm run minify"
+		"prepublishOnly": "npm run build && npm run build-minify"
 	},
 	"browser": "dist/radio4000-player.min.js",
 	"main": "dist/radio4000-player.min.js",
