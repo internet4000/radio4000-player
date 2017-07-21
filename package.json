@@ -7,8 +7,8 @@
 		"start": "run-p server watch",
 		"server": "serve --cache 0 --port 4002",
 		"watch": "NODE_ENV=development rollup --config --watch",
-		"build": "NODE_ENV=production rollup --config && npm run minify",
-		"minify": "babili dist/radio4000-player.js > dist/radio4000-player.min.js",
+		"build": "NODE_ENV=production rollup --config && npm run build-minify",
+		"build-minify": "babili dist/radio4000-player.js > dist/radio4000-player.min.js",
 		"test": "ava",
 		"prepublishOnly": "npm run build && npm run minify"
 	},
