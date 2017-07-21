@@ -1,25 +1,41 @@
 # Radio4000 Player
 
-A player for Radio4000 channels. It is an example of how you could build your own player using the official [radio4000-api](https://github.com/internet4000/radio4000-api) and Vue.js components.
+This is a web component that plays [Radio4000](htttps://radio4000.com) channels. It uses the open [radio4000-api](https://github.com/internet4000/radio4000-api) and Vue.js.
 
-## How to embed
+## How to use
 
-We are working on an iframe embed. Coming soon.
-
-## How to use as a web component
-
-Copy and paste this snippet to your website:
+You can either load the player directly like this:
 
 ```html
-<script async src="https://rawgit.com/internet4000/radio4000-player-vue/master/dist/radio4000-player.min.js"></script>
+<script async src="https://unpkg.com/radio4000-player"></script>
+```
+
+OR, you can download the latest version of the script: 
+
+- https://raw.githubusercontent.com/internet4000/radio4000-player/master/dist/radio4000-player.min.js
+
+OR, you can use a package manager:
+
+- `npm install radio4000-player`
+- `yarn add radio4000-player`
+
+```js
+import 'radio4000-player'
+```
+
+---
+
+In any case, you can now do 
+
+```html
 <radio4000-player channel-slug="good-time-radio"></radio4000-player>
 ```
 
-Remember to change the `channel-slug=""` part to match the radio you want to play. Find more radios on https://radio4000.com/all.
+Remember to change the `channel-slug=""` attribute to match the radio you want to play.
 
 ## API
 
-Here's a list of all the attributes you can set and change on the web component.
+Here's a complete list of all the attributes you can set and change on the web component.
 
 - `channel-slug` [string], a radio4000 channel slug (ex: `oskar`)
 - `channel-id` [string], a radio4000 channel id (ex: `-JYZvhj3vlGCjKXZ2cXO`)
@@ -87,14 +103,12 @@ Therefore, URLs in the player header won't open new browser window but will just
 ## Development
 
 ``` bash
-# install dependencies
-yarn
+# 1. clone and install dependencies
+git clone git@github.com:internet4000/radio4000-player.git
+yarn install
 
-# starts a server at http://localhost:4002 that autobuilds when files change
+# 2. starts a server at http://localhost:4002 that autobuilds when files change
 yarn start
-
-# build for production with minification (will update `dist/radio4000-player.min.js`)
-yarn build
 ```
 
 ## Testing
