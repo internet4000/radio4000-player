@@ -8,9 +8,10 @@ You can either load the player directly like this:
 
 ```html
 <script async src="https://unpkg.com/radio4000-player"></script>
+<radio4000-player channel-slug="good-time-radio"></radio4000-player>
 ```
 
-OR, you can download the latest version of the script: 
+OR, you can download the latest version of the script:
 
 - https://raw.githubusercontent.com/internet4000/radio4000-player/master/dist/radio4000-player.min.js
 
@@ -21,14 +22,6 @@ OR, you can use a package manager:
 
 ```js
 import 'radio4000-player'
-```
-
----
-
-In any case, you can now do 
-
-```html
-<radio4000-player channel-slug="good-time-radio"></radio4000-player>
 ```
 
 Remember to change the `channel-slug=""` attribute to match the radio you want to play.
