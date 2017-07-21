@@ -1,16 +1,16 @@
 <template>
 	<div class="TrackList">
-		<Loading v-if="!tracks || !tracks.length" />
+		<Loading v-if="!tracks || !tracks.length"></Loading>
 		<ol class="TrackList-list">
-			<li v-for="(track, index) in tracks" class="TrackList-item">
-				<track-item :track="track"
-					:class="{ active : currentTrackIndex === index }"
+			<li v-for="(track, index) in tracks" :key="track.id" class="TrackList-item">
+				<track-item
+					:track="track"
+					:class="{active : currentTrackIndex === index}"
 					@select="select"></track-item>
 			</li>
 		</ol>
 		<div v-if="tracks && tracks.length" class="TrackList-controls">
-			<button class="Btn Btn--locateTrack" title="Locate current track"
-				@click="locateCurrentTrack">◎</button>
+			<button class="Btn Btn--locateTrack" title="Locate current track" @click="locateCurrentTrack">◎</button>
 		</div>
 	</div>
 </template>
@@ -78,7 +78,6 @@ export default {
 		font-size: 0.6rem;
 		padding-left: 0.4rem;
 	}
-	
 	.TrackList-controls {
 		position: absolute;
 		bottom: 0.3rem;
