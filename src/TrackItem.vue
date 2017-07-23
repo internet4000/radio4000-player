@@ -1,23 +1,20 @@
 <template>
-	<div class="TrackItem"
-		:class="{active: active}"
-		@click="select">
+	<div class="TrackItem" :class="{active: active}" @click="select">
 		<p class="TrackItem-title">{{track.title}}</p>
-		<p v-if="track.body"
-				class="TrackItem-body">{{track.body}}</p>
+		<p v-if="track.body" class="TrackItem-body">{{track.body}}</p>
 	</div>
 </template>
 
 <script>
-	export default {
-		name: 'track-item',
-		props: ['track', 'active'],
-		methods: {
-			select() {
-				this.$emit('select', this.track)
-			}
+export default {
+	name: 'track-item',
+	props: ['track', 'active'],
+	methods: {
+		select() {
+			this.$emit('select', this.track)
 		}
 	}
+}
 </script>
 
 <style scoped>

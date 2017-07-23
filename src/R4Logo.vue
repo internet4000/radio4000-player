@@ -3,9 +3,9 @@
 </template>
 
 <script>
-	export default {
-		name: 'r4-logo'
-	}
+export default {
+	name: 'r4-logo'
+}
 </script>
 
 <style scoped>

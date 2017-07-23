@@ -43,10 +43,10 @@ export default {
 			const tracks = this.$el.querySelectorAll('li');
 			const activeTrack = tracks[this.currentTrackIndex]
 			if (!activeTrack) return
-				container.scrollTop = activeTrack.offsetTop - 4
-			}
+			container.scrollTop = activeTrack.offsetTop - 4
 		}
 	}
+}
 </script>
 
 <style scoped>

@@ -38,23 +38,23 @@
 </template>
 
 <script>
-	import PlayPauseButton from './PlayPauseButton.vue'
-	export default {
-		name: 'player-controls',
-		components: {PlayPauseButton},
-		props: [
-			'volume',
-			'isPlaying',
-			'isDisabled',
-			'isMuted',
-			'isShuffle'
-		],
-		computed: {
-			isNotFullVolume: function() {
-				return this.volume < 100
-			}
+import PlayPauseButton from './PlayPauseButton.vue'
+export default {
+	name: 'player-controls',
+	components: {PlayPauseButton},
+	props: [
+		'volume',
+		'isPlaying',
+		'isDisabled',
+		'isMuted',
+		'isShuffle'
+	],
+	computed: {
+		isNotFullVolume: function() {
+			return this.volume < 100
 		}
 	}
+}
 </script>
 
 <style scoped>
