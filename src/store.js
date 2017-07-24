@@ -1,6 +1,11 @@
 import fetch from 'unfetch'
 
-const host = 'https://radio4000.firebaseio.com'
+let host = 'https://radio4000.firebaseio.com'
+
+// Allow overwriting the default host.
+if (window.r4.databaseURL) {
+	host = window.r4.databaseURL
+}
 
 // Utilities for working with Firebase REST API.
 const parse = res => res.json()
