@@ -3,7 +3,7 @@ import fetch from 'unfetch'
 let host = 'https://radio4000.firebaseio.com'
 
 // Allow overwriting the default host.
-if (window.r4.databaseURL) {
+if (window.r4 && window.r4.databaseURL) {
 	host = window.r4.databaseURL
 }
 
