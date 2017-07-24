@@ -16,29 +16,29 @@
 </template>
 
 <script>
-	import Loading from './Loading.vue'
-	import R4Logo from './R4Logo.vue'
-	export default {
-		name: 'channel-header',
-		props: [
-			'channel',
-			'track',
-			'image',
-			'r4Url'
-		],
-		components: { Loading, R4Logo },
-		computed: {
-			href: function () {
-				const root = this.r4Url ? '/' : 'https://radio4000.com'
-				const slug = this.channel.slug
-				return slug === undefined ? root : root + slug
-			},
-			channelDescription () {
-				const { title = '', slug = '', body = ''} = this.channel;
-				return `[ ${title}, @${slug} ] ${body}`
-			}
+import Loading from './Loading.vue'
+import R4Logo from './R4Logo.vue'
+export default {
+	name: 'channel-header',
+	props: [
+		'channel',
+		'track',
+		'image',
+		'r4Url'
+	],
+	components: { Loading, R4Logo },
+	computed: {
+		href: function () {
+			const root = this.r4Url ? '/' : 'https://radio4000.com'
+			const slug = this.channel.slug
+			return slug === undefined ? root : root + slug
+		},
+		channelDescription () {
+			const { title = '', slug = '', body = ''} = this.channel;
+			return `[ ${title}, @${slug} ] ${body}`
 		}
 	}
+}
 </script>
 
 <style scoped>

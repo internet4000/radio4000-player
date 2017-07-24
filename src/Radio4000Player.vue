@@ -1,167 +1,162 @@
 <template>
 	<div class="R4PlayerLayout">
-		<slot></slot>
-
 		<channel-header
-				:channel="channel"
-				:image="image"
-				:r4Url="r4Url"
-				:track="currentTrack"></channel-header>
+			:channel="channel"
+			:image="image"
+			:r4Url="r4Url"
+			:track="currentTrack"></channel-header>
 
+		<provider-player
+			:autoplay="autoplay"
+			:isMuted="isMuted"
+			:isPlaying="isPlaying"
+			:track="currentTrack"
+			:volume="volume"
+			@play="play"
+			@pause="pause"
+			@trackEnded="trackEnded"></provider-player>
 
-			<provider-player
-					:autoplay="autoplay"
-					:isMuted="isMuted"
-					:isPlaying="isPlaying"
-					:track="currentTrack"
-					:volume="volume"
-					@play="play"
-					@pause="pause"
-					@trackEnded="trackEnded"></provider-player>
-
-			<track-list
-					:currentTrackIndex="currentTrackIndex"
-					:track="currentTrack"
-					:tracks="tracksPool"
-					@select="playTrack"></track-list>
-
+		<track-list
+			:currentTrackIndex="currentTrackIndex"
+			:track="currentTrack"
+			:tracks="tracksPool"
+			@select="playTrack"></track-list>
 
 		<player-controls
-				:isDisabled="!this.tracksPool.length"
-				:isMuted="isMuted"
-				:isPlaying="isPlaying"
-				:isShuffle="isShuffle"
-				:volume="volume"
-				@play="play"
-				@pause="pause"
-				@toggleMute="toggleMute"
-				@toggleShuffle="toggleShuffle"
-				@next="playNextTrack"></player-controls>
+			:isDisabled="!this.tracksPool.length"
+			:isMuted="isMuted"
+			:isPlaying="isPlaying"
+			:isShuffle="isShuffle"
+			:volume="volume"
+			@play="play"
+			@pause="pause"
+			@toggleMute="toggleMute"
+			@toggleShuffle="toggleShuffle"
+			@next="playNextTrack"></player-controls>
 	</div>
 </template>
 
 <script>
-	import ChannelHeader from './ChannelHeader.vue'
-	import TrackList from './TrackList.vue'
-	import ProviderPlayer from './ProviderPlayer.vue'
-	import PlayerControls from './PlayerControls.vue'
-	import { shuffleArray } from './utils/shuffle-helpers'
+import ChannelHeader from './ChannelHeader.vue'
+import TrackList from './TrackList.vue'
+import ProviderPlayer from './ProviderPlayer.vue'
+import PlayerControls from './PlayerControls.vue'
+import { shuffleArray } from './utils/shuffle-helpers'
 
-	export default {
-		name: 'radio4000-player',
-		components: {
-			ChannelHeader,
-			TrackList,
-			ProviderPlayer,
-			PlayerControls
-		},
-		props: {
-			channel: Object,
-			image: String,
-			tracks: Array,
-			originTrack: Object,
-			autoplay: Boolean,
-			r4Url: Boolean,
-			shuffle: Boolean,
-			volume: Number
-		},
-		data () {
-			return {
-				currentTrack: {},
-				isPlaying: false,
-				isShuffle: this.$props.shuffle,
-				loop: false,
-				playerReady: false,
-				tracksPool: []
-			}
-		},
-		created() {
-			if (Object.keys(this.originTrack).length !== 0) {
-				this.playTrack(this.originTrack)
-			}
-		},
-		computed: {
-			isMuted: {
-				get: function() {
-					return this.volume === 0 
-				},
-				set: function(newValue) {
-					if (newValue) {
-						this.$root.$emit('setVolume', 0)
-					} else {
-						this.$root.$emit('setVolume', 100)
-					}
-				}
+export default {
+	name: 'radio4000-player',
+	components: {
+		ChannelHeader,
+		TrackList,
+		ProviderPlayer,
+		PlayerControls
+	},
+	props: {
+		channel: Object,
+		image: String,
+		tracks: Array,
+		originTrack: Object,
+		autoplay: Boolean,
+		r4Url: Boolean,
+		shuffle: Boolean,
+		volume: Number
+	},
+	data () {
+		return {
+			currentTrack: {},
+			isPlaying: false,
+			isShuffle: this.$props.shuffle,
+			loop: false,
+			playerReady: false,
+			tracksPool: []
+		}
+	},
+	created() {
+		if (Object.keys(this.originTrack).length !== 0) {
+			this.playTrack(this.originTrack)
+		}
+	},
+	computed: {
+		isMuted: {
+			get: function() {
+				return this.volume === 0 
 			},
-			currentTrackIndex() {
-				return this.tracksPool.findIndex(track => track.id === this.currentTrack.id)
-			}
-		},
-		watch: {
-			shuffle: function(shuffle) {
-				this.isShuffle = shuffle
-			},
-			track: function(track) {
-				this.playTrack(track)
-			},
-			tracks: function(tracks) {
-				this.newTracksPool()
-
-				const noTrack = Object.keys(this.currentTrack).length === 0
-				if (noTrack) this.playNextTrack()
-			}
-		},
-		methods: {
-			playTrack(track) {
-				const previousTrack = this.currentTrack;
-				this.currentTrack = track
-				this.$emit('trackChanged', {
-					track,
-					previousTrack
-				})
-			},
-			newTracksPool() {
-				var newTracksPool = this.tracks.slice().reverse()
-				if (this.isShuffle) {
-					const currentTrackArray = newTracksPool.splice(this.currentTrackIndex, 1)
-					const shuffledArray = shuffleArray(newTracksPool)
-					this.tracksPool = [...currentTrackArray, ...shuffledArray]
+			set: function(newValue) {
+				if (newValue) {
+					this.$root.$emit('setVolume', 0)
 				} else {
-					this.tracksPool = newTracksPool
+					this.$root.$emit('setVolume', 100)
 				}
-			},
-			playNextTrack() {
-				const track = this.getNextTrack()
-				if (!track) return
- 				this.playTrack(track)
-			},
-			getNextTrack() {
-				const pool = this.tracksPool
-				const index = this.currentTrackIndex
-				return pool[index + 1]
-			},
-			play() {
-				this.isPlaying = true
-			},
-			pause() {
-				this.isPlaying = false
-			},
-			toggleShuffle() {
-				this.isShuffle = !this.isShuffle
-				this.newTracksPool()
-			},
-			toggleMute() {
-				this.isMuted = !this.isMuted
-			},
-			trackEnded() {
-				console.log('trackEnded', this.currentTrack)
-				this.$emit('trackEnded', {
-					track: this.currentTrack
-				})
-				this.playNextTrack()
 			}
+		},
+		currentTrackIndex() {
+			return this.tracksPool.findIndex(track => track.id === this.currentTrack.id)
+		}
+	},
+	watch: {
+		shuffle: function(shuffle) {
+			this.isShuffle = shuffle
+		},
+		track: function(track) {
+			this.playTrack(track)
+		},
+		tracks: function(tracks) {
+			this.newTracksPool()
+
+			const noTrack = Object.keys(this.currentTrack).length === 0
+			if (noTrack) this.playNextTrack()
+		}
+	},
+	methods: {
+		playTrack(track) {
+			const previousTrack = this.currentTrack;
+			this.currentTrack = track
+			this.$emit('trackChanged', {
+				track,
+				previousTrack
+			})
+		},
+		newTracksPool() {
+			var newTracksPool = this.tracks.slice().reverse()
+			if (this.isShuffle) {
+				const currentTrackArray = newTracksPool.splice(this.currentTrackIndex, 1)
+				const shuffledArray = shuffleArray(newTracksPool)
+				this.tracksPool = [...currentTrackArray, ...shuffledArray]
+			} else {
+				this.tracksPool = newTracksPool
+			}
+		},
+		playNextTrack() {
+			const track = this.getNextTrack()
+			if (!track) return
+			this.playTrack(track)
+		},
+		getNextTrack() {
+			const pool = this.tracksPool
+			const index = this.currentTrackIndex
+			return pool[index + 1]
+		},
+		play() {
+			this.isPlaying = true
+		},
+		pause() {
+			this.isPlaying = false
+		},
+		toggleShuffle() {
+			this.isShuffle = !this.isShuffle
+			this.newTracksPool()
+		},
+		toggleMute() {
+			this.isMuted = !this.isMuted
+		},
+		trackEnded() {
+			this.$emit('trackEnded', {
+				track: this.currentTrack
+			})
+			this.playNextTrack()
 		}
 	}
+}
 </script>
 
 <style>
@@ -228,4 +223,3 @@
 	}
 
 </style>
-
