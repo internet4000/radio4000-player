@@ -97,7 +97,7 @@ export default {
 		shuffle: function(shuffle) {
 			this.isShuffle = shuffle
 		},
-		track: function(track) {
+		originTrack: function(track) {
 			this.playTrack(track)
 		},
 		tracks: function(tracks) {
