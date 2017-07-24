@@ -3,7 +3,7 @@
 		v-if="canLoad"
 		:channel="channel"
 		:tracks="tracks"
-		:track="track"
+		:originTrack="track"
 		:image="image"
 		:autoplay="autoplay"
 		:r4Url="r4Url"
