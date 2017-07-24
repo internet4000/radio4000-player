@@ -12,8 +12,8 @@
 		"test": "ava",
 		"prepublishOnly": "npm run build"
 	},
+	"main": "dist/radio4000-player.js",
 	"browser": "dist/radio4000-player.min.js",
-	"main": "dist/radio4000-player.min.js",
 	"dependencies": {
 		"lodash.debounce": "^4.0.8",
 		"unfetch": "^3.0.0",
