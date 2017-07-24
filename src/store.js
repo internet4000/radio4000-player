@@ -7,6 +7,10 @@ if (window.r4 && window.r4.databaseURL) {
 	host = window.r4.databaseURL
 }
 
+if (process.env.NODE_ENV = 'development') {
+	host = 'https://radio4000-staging.firebaseio.com'
+}
+
 // Utilities for working with Firebase REST API.
 const parse = res => res.json()
 const serializeId = (data, id) => Object.assign(data, {id})
