@@ -59,7 +59,7 @@
 			channel: Object,
 			image: String,
 			tracks: Array,
-			track: Object,
+			originTrack: Object,
 			autoplay: Boolean,
 			r4Url: Boolean,
 			shuffle: Boolean,
@@ -76,8 +76,8 @@
 			}
 		},
 		created() {
-			if (Object.keys(this.track).length !== 0) {
-				this.playTrack(this.track)
+			if (Object.keys(this.originTrack).length !== 0) {
+				this.playTrack(this.originTrack)
 			}
 		},
 		computed: {
@@ -154,8 +154,9 @@
 				this.isMuted = !this.isMuted
 			},
 			trackEnded() {
+				console.log('trackEnded', this.currentTrack)
 				this.$emit('trackEnded', {
-					track: this.track
+					track: this.currentTrack
 				})
 				this.playNextTrack()
 			}
