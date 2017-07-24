@@ -55,13 +55,13 @@ export default {
 		channel: Object,
 		image: String,
 		tracks: Array,
-		track: Object,
+		originTrack: Object,
 		autoplay: Boolean,
 		r4Url: Boolean,
 		shuffle: Boolean,
 		volume: Number
 	},
-	data() {
+	data () {
 		return {
 			currentTrack: {},
 			isPlaying: false,
@@ -72,16 +72,16 @@ export default {
 		}
 	},
 	created() {
-		if (Object.keys(this.track).length !== 0) {
-			this.playTrack(this.track)
+		if (Object.keys(this.originTrack).length !== 0) {
+			this.playTrack(this.originTrack)
 		}
 	},
 	computed: {
 		isMuted: {
-			get: function () {
-				return this.volume === 0
+			get: function() {
+				return this.volume === 0 
 			},
-			set: function (newValue) {
+			set: function(newValue) {
 				if (newValue) {
 					this.$root.$emit('setVolume', 0)
 				} else {
@@ -94,13 +94,13 @@ export default {
 		}
 	},
 	watch: {
-		shuffle: function (shuffle) {
+		shuffle: function(shuffle) {
 			this.isShuffle = shuffle
 		},
-		track: function (track) {
+		track: function(track) {
 			this.playTrack(track)
 		},
-		tracks: function (tracks) {
+		tracks: function(tracks) {
 			this.newTracksPool()
 
 			const noTrack = Object.keys(this.currentTrack).length === 0
@@ -151,7 +151,7 @@ export default {
 		},
 		trackEnded() {
 			this.$emit('trackEnded', {
-				track: this.track
+				track: this.currentTrack
 			})
 			this.playNextTrack()
 		}
@@ -160,7 +160,10 @@ export default {
 </script>
 
 <style>
-	/* Box sizing for all elements of the web component in non scoped style */
+	/* 
+		 Box sizing for all elements of the web component
+		 in non scoped style
+	 */
 	radio4000-player {
 		box-sizing: border-box;
 	}
@@ -218,4 +221,5 @@ export default {
     overflow-x: hidden;
     overflow-y: scroll;
 	}
+
 </style>
