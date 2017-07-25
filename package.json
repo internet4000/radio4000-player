@@ -5,7 +5,7 @@
 	"version": "0.1.3",
 	"scripts": {
 		"start": "run-p server watch",
-		"server": "serve --cache 0 --port 4002",
+		"server": "NODE_ENV=development serve --cache 0 --port 4002",
 		"watch": "NODE_ENV=development rollup --config --watch",
 		"build": "NODE_ENV=production rollup --config && npm run build-minify",
 		"build-minify": "babili dist/radio4000-player.js > dist/radio4000-player.min.js",

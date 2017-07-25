@@ -1,14 +1,14 @@
 import fetch from 'unfetch'
 
-let host = 'https://radio4000.firebaseio.com'
 
-// Allow overwriting the default host.
-if (window.r4 && window.r4.databaseURL) {
-	host = window.r4.databaseURL
+let host = 'https://radio4000-staging.firebaseio.com'
+
+if (process.env.NODE_ENV = 'production') {
+	host = 'https://radio4000.firebaseio.com'
 }
 
-if (process.env.NODE_ENV = 'development') {
-	host = 'https://radio4000-staging.firebaseio.com'
+if (window.r4 && window.r4.databaseURL) {
+	host = window.r4.databaseURL
 }
 
 // Utilities for working with Firebase REST API.
