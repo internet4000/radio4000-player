@@ -34,7 +34,7 @@ export default {
 		commonjs(),
 		replace({
 			// See https://vuejs.org/v2/guide/deployment.html#With-Build-Tools
-			'process.env.NODE_ENV': JSON.stringify('production')
+			'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'production')
 		}),
 		// Do not rely on node utils in browser environment.
 		// nodeBuiltins()
