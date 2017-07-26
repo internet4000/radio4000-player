@@ -1,15 +1,17 @@
 import fetch from 'unfetch'
 
-
-let host = 'https://radio4000-staging.firebaseio.com'
-
-if (process.env.NODE_ENV = 'production') {
-	host = 'https://radio4000.firebaseio.com'
+// Prioritze the host from R4, then production, then staging.
+const getHost = () => {
+	if (window && window.r4 && window.r4.databaseURL) {
+		return window.r4.databaseURL
+	}
+	if (process.env.NODE_ENV === 'production') {
+		return 'https://radio4000.firebaseio.com'
+	}
+	return 'https://radio4000-staging.firebaseio.com'
 }
 
-if (window.r4 && window.r4.databaseURL) {
-	host = window.r4.databaseURL
-}
+const host = getHost()
 
 // Utilities for working with Firebase REST API.
 const parse = res => res.json()
