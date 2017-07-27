@@ -29,7 +29,7 @@ export default {
 	components: { Loading, R4Logo },
 	computed: {
 		href: function () {
-			const root = this.r4Url ? '/' : 'https://radio4000.com'
+			const root = this.r4Url ? '/' : 'https://radio4000.com/'
 			const slug = this.channel.slug
 			return slug === undefined ? root : root + slug
 		},
