@@ -22,8 +22,8 @@ export default {
 		cursor: pointer;
 		display: block;
 		width: 100%;
-		padding-bottom: 0.3rem;
-		padding-left: 0.6rem;
+		padding-bottom: 0.3em;
+		padding-left: 0.6em;
 	}
 	.TrackItem-title,
 	.TrackItem-body {
@@ -33,17 +33,17 @@ export default {
 		margin-bottom: 0;
 	}
 	.TrackItem-title {
-		padding: 0.2rem 0.3rem;
+		padding: 0.2rem 0.3em;
 		float: left;
 	}
 	.TrackItem-body {
 		display: block;
 		clear: both;
-		margin-left: 0.4rem;
+		margin-left: 0.4em;
 		border-left: 1px solid #cecece;
-		padding-top: 0.1rem;
-		padding-left: 0.4rem;
-		margin-bottom: 0.3rem;
+		padding-top: 0.1em;
+		padding-left: 0.4em;
+		margin-bottom: 0.3em;
 		font-style: italic;
 		color: #737373;
 	}

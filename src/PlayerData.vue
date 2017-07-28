@@ -144,7 +144,7 @@ export default {
 <style>
 	.Console {
 		font-family: monospace;
-		padding: 0 1rem;
+		padding: 0 1em;
 		line-height: 1.4;
 	}
 </style>

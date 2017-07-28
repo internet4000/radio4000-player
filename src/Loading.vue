@@ -13,7 +13,7 @@ export default {
 
 <style scoped>
 	.Loading {
-		font-size: 0.9rem;
+		font-size: 0.9em;
 		position: relative;
 	}
 	.Loading span::before {
@@ -22,8 +22,8 @@ export default {
 		position: absolute;
 		top: 0;
 		left: 0;
-		width: 10rem;
-		height: 0.2rem;
+		width: 10em;
+		height: 2px;
 		background: linear-gradient( to right, #a7a7a7, rgba(255, 255, 255, 0));
 
 		animation-name: Loading;
