@@ -32,7 +32,7 @@
 			<button title="Next track"
 				:disabled="isDisabled"
 				@click="$emit('next')"
-				class="Btn Btn--next">→</button>
+				class="Btn Btn--next"><span>→</span></button>
 		</div>
 	</footer>
 </template>
@@ -59,23 +59,25 @@ export default {
 
 <style scoped>
 	.PlayerControl {
+		min-height: 2.5em;
+	}
+	.PlayerControl {
 		border-top: 1px solid hsl(0, 0%, 60%);
 		margin: 0;
 		padding: 0;
 		display: flex;
 		flex-flow: row nowrap;
-		min-height: 2.6rem;
 		position: relative; /* on top of ProviderPlayer */
 	}
 	.PlayerControl-group {
-		flex-basis: 3rem;
+		flex-basis: 3em;
 	}
 	.PlayerControl-group--large {
 		flex: 1;
 	}
 	.Btn {
 		width: 100%;
-		min-height: 2.6rem;
+		height: 100%;
 		background: hsl(0, 0%, 96%);
 		border: 0;
 		font-size: 0.8125em;
@@ -95,12 +97,12 @@ export default {
 		padding-top: 0;
 		padding-bottom: 0;
 	}
-	.Btn--shuffle {
-		font-size: 1.7rem;
-		line-height: 1;
+	.Btn--next span,
+	.Btn--shuffle span {
+		font-size: 1.7em;
 	}
-	.Btn--next {
-		font-size: 1.7rem;
+	.Btn--shuffle {
+		line-height: 1;
 	}
 	.Btn--shuffle.is-active span {
 		opacity: 0.5;

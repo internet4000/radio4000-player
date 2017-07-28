@@ -62,26 +62,26 @@ export default {
 	}
 	.TrackList-item {
 		font-size: 0.777em;
-		padding-right: 0.6rem;
+		padding-right: 0.6em;
 		display: flex;
 		flex-direction: row;
 		flex-wrap: nowrap;
 		align-items: center;
 	}
 	.TrackList-item:first-child {
-		padding-top: 0.6rem;
+		padding-top: 0.6em;
 	}
 	.TrackList-item::after {
 		content: counter(tracks) "";
 		counter-increment: tracks;
 		color: #737373;
-		font-size: 0.6rem;
-		padding-left: 0.4rem;
+		font-size: 0.6em;
+		padding-left: 0.4em;
 	}
 	.TrackList-controls {
 		position: absolute;
-		bottom: 0.3rem;
-		right: 1.3rem;
+		bottom: 0.3em;
+		right: 1.3em;
 		z-index: 1;
 		opacity: 0.6;
 	}
@@ -89,7 +89,7 @@ export default {
 		opacity: 1;
 	}
 	.Btn--locateTrack {
-		padding: 0.5rem;
+		padding: 0.5em;
 		margin: 0;
 		line-height: 1;
 		border: 1px solid #999;
