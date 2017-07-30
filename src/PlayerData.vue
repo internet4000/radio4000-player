@@ -81,7 +81,10 @@ export default {
 			this.loadChannelById(id)
 		},
 		trackId: function (id) {
-			this.loadTrack(id).then(track => this.loadChannelById(track.channel))
+			this.loadTrack(id).then(track => {
+				if (this.channel.id === track.channel) return
+				this.loadChannelById(track.channel)
+			})
 		}
 	},
 	computed: {
@@ -118,7 +121,6 @@ export default {
 			return findTrack(trackId).then(this.updatePlayerWithTrack)
 		},
 		updatePlayerWithChannel(channel) {
-			if (channel.id === this.channel.id) return
 			this.channel = channel
 			this.loadChannelExtra(this.channel)
 		},
