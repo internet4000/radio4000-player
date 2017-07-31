@@ -106,23 +106,27 @@ export default {
 		loadChannelBySlug(slug) {
 			return findChannelBySlug(slug)
 				.then(this.updatePlayerWithChannel)
+				.catch(err => {console.log(err)})
 		},
 		loadChannelById(id) {
 			return findChannelById(id)
 				.then(this.updatePlayerWithChannel)
+				.catch(err => {console.log(err)})
 		},
 		loadChannelExtra(channel) {
 			findChannelTracks(channel.id)
 				.then(this.updatePlayerWithTracks)
+				.catch(err => {console.log(err)})
 			findChannelImage(channel)
 				.then(this.updatePlayerWithImage)
+				.catch(err => {console.log(err)})
 		},
 		loadTrack(trackId) {
 			return findTrack(trackId).then(this.updatePlayerWithTrack)
 		},
 		updatePlayerWithChannel(channel) {
-			this.channel = channel
 			this.tracks = [] // remove current tracks to show loading
+			this.channel = channel
 			this.loadChannelExtra(this.channel)
 		},
 		updatePlayerWithTrack(track) {
