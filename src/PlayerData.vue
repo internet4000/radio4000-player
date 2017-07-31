@@ -122,6 +122,7 @@ export default {
 		},
 		updatePlayerWithChannel(channel) {
 			this.channel = channel
+			this.tracks = [] // remove current tracks to show loading
 			this.loadChannelExtra(this.channel)
 		},
 		updatePlayerWithTrack(track) {
