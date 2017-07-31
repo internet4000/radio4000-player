@@ -62,9 +62,9 @@ export default {
 		}, 100))
 
 		// Decide which method to use to load data.
-		const { channelSlug, channelId, trackId } = this;
+		const { channelSlug, channelId, trackId } = this
 		if (trackId) {
-			return this.loadTrack(trackId).then(track => this.loadChannelById(track.channel))
+			return this.loadChannelByTrack(trackId)
 		}
 		if (channelSlug) {
 			return this.loadChannelBySlug(channelSlug)
@@ -81,10 +81,7 @@ export default {
 			this.loadChannelById(id)
 		},
 		trackId: function (id) {
-			this.loadTrack(id).then(track => {
-				if (this.channel.id === track.channel) return
-				this.loadChannelById(track.channel)
-			})
+			this.loadChannelByTrack(id)
 		}
 	},
 	computed: {
@@ -113,6 +110,14 @@ export default {
 				.then(this.updatePlayerWithChannel)
 				.catch(err => {console.log(err)})
 		},
+		loadChannelByTrack(id) {
+			return findTrack(id)
+				.then(track => {
+					this.track = track
+					if (this.channel.id === track.channel) return
+					return this.loadChannelById(track.channel)
+				})
+		},
 		loadChannelExtra(channel) {
 			findChannelTracks(channel.id)
 				.then(this.updatePlayerWithTracks)
@@ -121,16 +126,10 @@ export default {
 				.then(this.updatePlayerWithImage)
 				.catch(err => {console.log(err)})
 		},
-		loadTrack(trackId) {
-			return findTrack(trackId).then(this.updatePlayerWithTrack)
-		},
 		updatePlayerWithChannel(channel) {
 			this.tracks = [] // remove current tracks to show loading
 			this.channel = channel
 			this.loadChannelExtra(this.channel)
-		},
-		updatePlayerWithTrack(track) {
-			return this.track = track
 		},
 		updatePlayerWithTracks(tracks) {
 			return this.tracks = tracks
