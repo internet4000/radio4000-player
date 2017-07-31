@@ -28,7 +28,7 @@ import {
 	findChannelTracks,
 	findChannelImage,
 	findTrack
-} from './store'
+} from './utils/store'
 
 export default {
 	name: 'player-data',
