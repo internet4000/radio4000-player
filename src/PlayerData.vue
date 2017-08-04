@@ -28,7 +28,7 @@ import {
 	findChannelTracks,
 	findChannelImage,
 	findTrack
-} from './store'
+} from './utils/store'
 
 export default {
 	name: 'player-data',
@@ -62,9 +62,9 @@ export default {
 		}, 100))
 
 		// Decide which method to use to load data.
-		const { channelSlug, channelId, trackId } = this;
+		const { channelSlug, channelId, trackId } = this
 		if (trackId) {
-			return this.loadTrack(trackId).then(track => this.loadChannelById(track.channel))
+			return this.loadChannelByTrack(trackId)
 		}
 		if (channelSlug) {
 			return this.loadChannelBySlug(channelSlug)
@@ -81,7 +81,7 @@ export default {
 			this.loadChannelById(id)
 		},
 		trackId: function (id) {
-			this.loadTrack(id).then(track => this.loadChannelById(track.channel))
+			this.loadChannelByTrack(id)
 		}
 	},
 	computed: {
@@ -103,27 +103,33 @@ export default {
 		loadChannelBySlug(slug) {
 			return findChannelBySlug(slug)
 				.then(this.updatePlayerWithChannel)
+				.catch(err => {console.log(err)})
 		},
 		loadChannelById(id) {
 			return findChannelById(id)
 				.then(this.updatePlayerWithChannel)
+				.catch(err => {console.log(err)})
+		},
+		loadChannelByTrack(id) {
+			return findTrack(id)
+				.then(track => {
+					this.track = track
+					if (this.channel.id === track.channel) return
+					return this.loadChannelById(track.channel)
+				})
 		},
 		loadChannelExtra(channel) {
 			findChannelTracks(channel.id)
 				.then(this.updatePlayerWithTracks)
+				.catch(err => {console.log(err)})
 			findChannelImage(channel)
 				.then(this.updatePlayerWithImage)
-		},
-		loadTrack(trackId) {
-			return findTrack(trackId).then(this.updatePlayerWithTrack)
+				.catch(err => {console.log(err)})
 		},
 		updatePlayerWithChannel(channel) {
-			if (channel.id === this.channel.id) return
+			this.tracks = [] // remove current tracks to show loading
 			this.channel = channel
 			this.loadChannelExtra(this.channel)
-		},
-		updatePlayerWithTrack(track) {
-			return this.track = track
 		},
 		updatePlayerWithTracks(tracks) {
 			return this.tracks = tracks
