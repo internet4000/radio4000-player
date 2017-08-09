@@ -1,13 +1,10 @@
 import alias from 'rollup-plugin-alias'
 import commonjs from 'rollup-plugin-commonjs'
 import replace from 'rollup-plugin-replace'
-// import nodeBuiltins from 'rollup-plugin-node-builtins'
 import nodeResolve from 'rollup-plugin-node-resolve'
 import nodeGlobals from 'rollup-plugin-node-globals'
+import babel from 'rollup-plugin-babel'
 import vue from 'rollup-plugin-vue'
-
-// const isProduction = process.env.NODE_ENV === `production`
-// const isDevelopment = process.env.NODE_ENV === `development`
 
 export default {
 	entry: 'src/main.js',
@@ -37,8 +34,10 @@ export default {
 			'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'production')
 		}),
 		// Do not rely on node utils in browser environment.
-		// nodeBuiltins()
-		nodeGlobals()
+		nodeGlobals(),
+		babel({
+			exclude: 'node_modules/**'
+		})
 	],
 	dest: 'dist/radio4000-player.js'
 }
