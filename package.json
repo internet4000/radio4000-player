@@ -2,7 +2,7 @@
 	"name": "radio4000-player",
 	"description": "A player for Radio4000 channels",
 	"author": "Internet4000",
-	"version": "0.1.6",
+	"version": "0.1.7",
 	"scripts": {
 		"start": "run-p server watch",
 		"server": "serve --cache 0 --port 4002",

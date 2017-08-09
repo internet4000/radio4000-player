@@ -35,6 +35,7 @@ export default {
 		}),
 		// Do not rely on node utils in browser environment.
 		nodeGlobals(),
+		// Transpile ES6 (and more) to ES5 code. Also see the .babelrc file.
 		babel({
 			exclude: 'node_modules/**'
 		})
