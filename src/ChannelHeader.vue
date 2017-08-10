@@ -1,5 +1,8 @@
 <template>
 	<header class="Header">
+		<a class="Header-logo" :href="href" target="_blank" title="Open this radio on Radio4000.com">
+			<R4Logo></R4Logo>
+		</a>
 		<a :href="href" class="Header-media" :title="channelDescription">
 			<img v-if="image" :src="image" alt="">
 			<loading v-else/>
@@ -9,9 +12,6 @@
 			<marquee class="Header-track" :title="[track.body ? track.body : '']">{{track.title}}</marquee>
 		</div>
 		<loading v-else/>
-		<a class="Header-logo" :href="href" target="_blank" title="Open this radio on Radio4000.com">
-			<R4Logo></R4Logo>
-		</a>
 	</header>
 </template>
 
