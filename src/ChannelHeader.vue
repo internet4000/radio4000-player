@@ -44,7 +44,7 @@ export default {
 <style scoped>
 	.Header {
 		position: relative;
-		min-height: 3em;
+		min-height: 3.5em;
 		display: flex;
 		flex-wrap: nowrap;
 		align-items: center;
@@ -55,7 +55,7 @@ export default {
 		position: relative;
 		width: 1em;
 		height: 1em;
-		font-size: 3em;
+		font-size: 3.5em;
 	}
 	.Header-media img {
 		display: inline-block;
