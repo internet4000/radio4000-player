@@ -67,14 +67,13 @@ export default {
 		line-height: 1.4;
 	}
 	.Header-channel {
-		font-size: 0.9em;
 		margin-left: 0.3em;
 		margin-bottom: 0;
 		margin-top: 0;
 	}
 	.Header-track {
+		font-size: 0.9375em; /* 15/16 */
 		margin: 0;
-		font-size: 0.8125em;
 	}
 	marquee {
 		display: block;

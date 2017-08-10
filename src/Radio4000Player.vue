@@ -171,7 +171,7 @@ export default {
 	radio4000-player {
 		display: block;
 		border: 1px solid hsl(0, 0%, 60%);
-		font-family: 'maisonneue', 'system-ui', sans-serif;
+		font-family: 'Maison Neue', 'maisonneue', 'system-ui', sans-serif;
 		background-color: hsl(260, 10%, 92% );
 		color: hsl(0, 0%, 10%);
 		font-size: 1em;

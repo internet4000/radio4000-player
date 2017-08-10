@@ -61,7 +61,7 @@ export default {
 		transform: translateZ(0);
 	}
 	.TrackList-item {
-		font-size: 0.777em;
+		font-size: 0.8125em; /* 13/16 */
 		padding-right: 0.6em;
 		display: flex;
 		flex-direction: row;
