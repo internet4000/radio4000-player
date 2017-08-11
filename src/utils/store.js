@@ -55,7 +55,7 @@ export function findChannelImage(channel) {
 	const url = `${host}/images.json?orderBy="channel"&startAt="${channel.id}"&endAt="${channel.id}"&limitToLast=1`
 	return fetch(url).then(parse).then(toArray).then(getFirst).then(img => {
 		const rootURL = 'https://res.cloudinary.com/radio4000/image/upload/'
-		const transforms = `q_100,w_48,h_48,c_thumb,c_fill,fl_lossy`
+		const transforms = `q_100,w_56,h_56,c_thumb,c_fill,fl_lossy`
 		return `${rootURL}/${transforms}/${img.src}`
 	})
 }

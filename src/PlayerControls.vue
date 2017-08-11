@@ -80,7 +80,7 @@ export default {
 		height: 100%;
 		background: hsl(0, 0%, 96%);
 		border: 0;
-		font-size: 0.8125em;
+		font-size: 0.8125em; /* 13/16 */
 		padding: 0.2em 0.5em 0.1em;
 	}
 	.Btn--isNotFullVolume span {

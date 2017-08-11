@@ -1,5 +1,8 @@
 <template>
 	<header class="Header">
+		<a class="Header-logo" :href="href" target="_blank" title="Open this radio on Radio4000.com">
+			<R4Logo></R4Logo>
+		</a>
 		<a :href="href" class="Header-media" :title="channelDescription">
 			<img v-if="image" :src="image" alt="">
 			<loading v-else/>
@@ -9,9 +12,6 @@
 			<marquee class="Header-track" :title="[track.body ? track.body : '']">{{track.title}}</marquee>
 		</div>
 		<loading v-else/>
-		<a class="Header-logo" :href="href" target="_blank" title="Open this radio on Radio4000.com">
-			<R4Logo></R4Logo>
-		</a>
 	</header>
 </template>
 
@@ -44,7 +44,7 @@ export default {
 <style scoped>
 	.Header {
 		position: relative;
-		min-height: 3em;
+		min-height: 3.5em;
 		display: flex;
 		flex-wrap: nowrap;
 		align-items: center;
@@ -55,7 +55,7 @@ export default {
 		position: relative;
 		width: 1em;
 		height: 1em;
-		font-size: 3em;
+		font-size: 3.5em;
 	}
 	.Header-media img {
 		display: inline-block;
@@ -67,14 +67,13 @@ export default {
 		line-height: 1.4;
 	}
 	.Header-channel {
-		font-size: 0.9em;
 		margin-left: 0.3em;
 		margin-bottom: 0;
 		margin-top: 0;
 	}
 	.Header-track {
+		font-size: 0.9375em; /* 15/16 */
 		margin: 0;
-		font-size: 0.8125em;
 	}
 	marquee {
 		display: block;

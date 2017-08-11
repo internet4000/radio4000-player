@@ -170,12 +170,12 @@ export default {
 	}
 	radio4000-player {
 		display: block;
+		width: 100%;
 		border: 1px solid hsl(0, 0%, 60%);
-		font-family: 'maisonneue', 'system-ui', sans-serif;
+		font-size: 16px;
+		font-family: 'Maison Neue', 'maisonneue', 'system-ui', sans-serif;
 		background-color: hsl(260, 10%, 92% );
 		color: hsl(0, 0%, 10%);
-		font-size: 1em;
-		width: 100%;
 	}
 </style>
 
