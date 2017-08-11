@@ -62,7 +62,7 @@ export default {
 		min-height: 2.5em;
 	}
 	.PlayerControl {
-		border-top: 1px solid hsl(0, 0%, 60%);
+		border-top: 1px solid hsl(0, 0%, 70%);
 		margin: 0;
 		padding: 0;
 		display: flex;
