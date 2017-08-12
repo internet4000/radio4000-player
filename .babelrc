@@ -1,14 +1,11 @@
 {
-  "presets": [
-    ["env", {
+	"presets": [
+		["env", {
 			"modules": false,
-      "targets": {
-        "browsers": ["last 2 versions", "safari >= 7"]
-      }
-    }]
-  ],
-  "plugins": [
-    "external-helpers"
-  ]
+				"targets": {
+					"browsers": ["last 2 versions", "safari >= 7"]
+				}
+		}]
+	]
 }
 
