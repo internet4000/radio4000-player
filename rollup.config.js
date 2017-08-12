@@ -8,6 +8,7 @@ import vue from 'rollup-plugin-vue'
 
 export default {
 	entry: 'src/main.js',
+	dest: 'dist/radio4000-player.js',
 	// We want UMD so it works in the browser and node.
 	format: 'umd',
 	moduleName: 'radio4000player',
@@ -37,8 +38,8 @@ export default {
 		nodeGlobals(),
 		// Transpile ES6 (and more) to ES5 code. Also see the .babelrc file.
 		babel({
-			exclude: 'node_modules/**'
+			exclude: 'node_modules/**',
+			plugins:['external-helpers']
 		})
-	],
-	dest: 'dist/radio4000-player.js'
+	]
 }
