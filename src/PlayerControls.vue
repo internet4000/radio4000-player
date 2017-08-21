@@ -71,13 +71,13 @@ export default {
 	}
 	.PlayerControl-group {
 		flex-basis: 3em;
+		display: flex;
 	}
 	.PlayerControl-group--large {
 		flex: 1;
 	}
 	.Btn {
 		width: 100%;
-		height: 100%;
 		background: hsl(0, 0%, 96%);
 		border: 0;
 		font-size: 0.8125em; /* 13/16 */
