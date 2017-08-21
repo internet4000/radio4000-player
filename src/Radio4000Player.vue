@@ -1,38 +1,46 @@
 <template>
-	<div class="R4PlayerLayout">
-		<channel-header
-			:channel="channel"
-			:image="image"
-			:r4Url="r4Url"
-			:track="currentTrack"></channel-header>
-
-		<provider-player
-			:autoplay="autoplay"
-			:isMuted="isMuted"
-			:isPlaying="isPlaying"
-			:track="currentTrack"
-			:volume="volume"
-			@play="play"
-			@pause="pause"
-			@trackEnded="trackEnded"></provider-player>
-
-		<track-list
-			:currentTrackIndex="currentTrackIndex"
-			:track="currentTrack"
-			:tracks="tracksPool"
-			@select="playTrack"></track-list>
-
-		<player-controls
-			:isDisabled="!this.tracksPool.length"
-			:isMuted="isMuted"
-			:isPlaying="isPlaying"
-			:isShuffle="isShuffle"
-			:volume="volume"
-			@play="play"
-			@pause="pause"
-			@toggleMute="toggleMute"
-			@toggleShuffle="toggleShuffle"
-			@next="playNextTrack"></player-controls>
+	<div class="Layout">
+		<div class="Layout-header">
+			<channel-header
+				slot="header"
+				:channel="channel"
+				:image="image"
+				:r4Url="r4Url"
+				:track="currentTrack"></channel-header>
+		</div>
+		<div class="Layout-section">
+			<div class="Layout-aside">
+				<provider-player
+					:autoplay="autoplay"
+					:isMuted="isMuted"
+					:isPlaying="isPlaying"
+					:track="currentTrack"
+					:volume="volume"
+					@play="play"
+					@pause="pause"
+					@trackEnded="trackEnded"></provider-player>
+			</div>
+			<div class="Layout-main">
+				<track-list
+				:currentTrackIndex="currentTrackIndex"
+ 				:track="currentTrack"
+ 				:tracks="tracksPool"
+				 @select="playTrack"></track-list>
+			</div>
+		</div>
+		<div class="Layout-footer">
+			<player-controls
+				:isDisabled="!this.tracksPool.length"
+				:isMuted="isMuted"
+				:isPlaying="isPlaying"
+				:isShuffle="isShuffle"
+				:volume="volume"
+				@play="play"
+				@pause="pause"
+				@toggleMute="toggleMute"
+				@toggleShuffle="toggleShuffle"
+				@next="playNextTrack"></player-controls>
+		</div>
 	</div>
 </template>
 
@@ -159,63 +167,98 @@ export default {
 </script>
 
 <style>
-	/* Box sizing for all elements of the web component in non scoped style */
-	radio4000-player {
-		box-sizing: border-box;
-	}
-	radio4000-player *,
-	radio4000-player *:before,
-	radio4000-player *:after {
-		box-sizing: inherit;
-	}
-	radio4000-player {
-		display: block;
-		width: 100%;
-		border: 1px solid hsl(0, 0%, 70%);
-		background-color: hsl(260, 10%, 92%);
-		color: hsl(0, 0%, 10%);
-		font-size: 16px;
-		font-family: 'Maison Neue', 'maisonneue', 'system-ui', sans-serif;
-	}
+/* Box sizing for all elements of the web component in non scoped style */
+
+radio4000-player {
+	box-sizing: border-box;
+}
+
+radio4000-player *,
+radio4000-player *:before,
+radio4000-player *:after {
+	box-sizing: inherit;
+}
+
+radio4000-player {
+	display: flex;
+	width: 100%;
+	/* youtube requirements */
+	min-width: 200px;
+	/* min and max heights need to be on root elemenet aka <radio4000-player> */
+	/* header+aside+footer height */
+	min-height: calc(3.5em + 200px + 2.75em);
+	/* don't expand the viewport */
+	max-height: 100vh;
+	/* default height */
+	height: 500px;
+	height: calc(3.5em + 400px + 2.75em);
+	background-color: hsl(260, 10%, 92%);
+	color: hsl(0, 0%, 10%);
+	font-size: 16px;
+	font-family: 'Maison Neue', 'maisonneue', 'system-ui', sans-serif;
+}
 </style>
 
-<style>
-	/* 
-		 Follwing styles are used to make
-		 the player and all its child DOM elements
-		 responsive to its own size,
-		 without the need of a media queries
-		 (because they are triggered by viewport size)
-	 */
+<style scoped>
+.Layout {
+	/* expand to container */
+	flex: 1;
+	/* allow scrolling */
+	display: flex;
+	flex-direction: column;
+	overflow: hidden;
+	border: 1px solid hsl(0, 0%, 70%);
+}
 
-	.R4PlayerLayout {
-		display: flex;
-		flex-direction: row;
-		flex-wrap: wrap;
-	}
+.Layout-header {
+	flex-shrink: 0;
+	min-height: 3.5em;
+}
 
-	.Header,
-	.PlayerControl {
-		flex-grow: 1;
-		flex-basis: 100%;
-	}
+.Layout-footer {
+	flex-shrink: 0;
+	min-height: 2.75em;
+	display: flex;
+}
 
-	.ProviderPlayer {
-		flex-basis: 200px;
-		flex-shrink: 0;
-		flex-grow: 1;
-	}
-	
-	.TrackList {
-		flex-basis: 200px;
-		flex-grow: 1;
-		max-width: 400px;
-	}
+.Layout-aside > *,
+.Layout-footer > * {
+	flex: 1;
+}
 
-	.TrackList-list {
-		height: 30vh;
-    overflow-x: hidden;
-    overflow-y: scroll;
-	}
+.Layout-section {
+	flex: 1;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	min-height: 0;
+	/* allow scrolling in FF */
+	overflow: hidden;
+}
 
+.Layout-section>* {
+	flex-grow: 1;
+}
+
+.Layout-aside {
+	min-height: 200px;
+	/* youtube requirements */
+	display: flex;
+	/* allow child to expand */
+}
+
+.Layout-main {
+	flex-basis: 20em;
+	min-height: 15em;
+	/* this is where it breaks into two columns */
+	max-width: 30rem;
+	position: relative;
+}
+
+.Layout .TrackList-list {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	overflow-y: auto;
+}
 </style>

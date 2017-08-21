@@ -52,7 +52,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 	.ProviderPlayer {
 		background-color: black;
 		overflow: hidden;
