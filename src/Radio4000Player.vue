@@ -255,7 +255,7 @@ radio4000-player {
 	position: relative;
 }
 
-.Layout .TrackList-list {
+.Layout .TrackList {
 	position: absolute;
 	width: 100%;
 	height: 100%;
