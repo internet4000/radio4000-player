@@ -14,6 +14,7 @@
 	},
 	"main": "dist/radio4000-player.js",
 	"browser": "dist/radio4000-player.min.js",
+	"files": ["dist/"],
 	"dependencies": {
 		"lodash.debounce": "^4.0.8",
 		"unfetch": "^3.0.0",
