@@ -249,16 +249,10 @@ radio4000-player {
 
 .Layout-main {
 	flex-basis: 20em;
-	min-height: 15em;
+	min-height: 200px;
 	/* this is where it breaks into two columns */
 	max-width: 30rem;
 	position: relative;
 }
 
-.Layout .TrackList {
-	position: absolute;
-	width: 100%;
-	height: 100%;
-	overflow-y: auto;
-}
 </style>
