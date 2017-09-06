@@ -44,7 +44,6 @@ export default {
 <style scoped>
 	.Header {
 		position: relative;
-		min-height: 3.5em;
 		display: flex;
 		flex-wrap: nowrap;
 		align-items: center;

@@ -50,10 +50,11 @@ export default {
 </script>
 
 <style scoped>
-	.TrackList {
-		position: relative;
-	}
 	.TrackList-list {
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		overflow-y: auto;
 		margin: 0;
 		padding: 0;
 		list-style: none;
@@ -80,7 +81,7 @@ export default {
 	}
 	.TrackList-controls {
 		position: absolute;
-		bottom: 0.3em;
+		bottom: 0.5em;
 		right: 1.3em;
 		z-index: 1;
 		opacity: 0.6;
