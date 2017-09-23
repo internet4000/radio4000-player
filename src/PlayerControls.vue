@@ -14,14 +14,14 @@
 		<div class="PlayerControl-group">
 			<button title="Shuffle tracks (on/off)"
 				class="Btn Btn--shuffle"
-				:class="{ 'is-active' : !isShuffle }"
+				:class="{ 'is-active' : isShuffle }"
 				:disabled="isDisabled"
 				@click="$emit('toggleShuffle')">
 				<span>↝</span>
 			</button>
 		</div>
 		<div class="PlayerControl-group PlayerControl-group--large">
-			<PlayPauseButton title="Play/pause"
+			<PlayPauseButton 
 				class="Btn"
 				:isPlaying="isPlaying"
 				@play="$emit('play')"
@@ -60,6 +60,7 @@ export default {
 <style scoped>
 	.PlayerControl {
 		min-height: 2.5em;
+		background: hsl(0, 0%, 96%);
 	}
 	.PlayerControl {
 		border-top: 1px solid hsl(0, 0%, 70%);
@@ -78,10 +79,11 @@ export default {
 	}
 	.Btn {
 		width: 100%;
+		padding: 0 0.5rem;
+		font-size: 0.8em;
+		line-height: 1;
 		background: hsl(0, 0%, 96%);
 		border: 0;
-		font-size: 0.8125em; /* 13/16 */
-		padding: 0.2em 0.5em 0.1em;
 	}
 	.Btn--isNotFullVolume span {
 		opacity: 0.4;
@@ -92,19 +94,19 @@ export default {
 	.Btn--mute.is-active span::before {
 		content: '□';
 	}
-	.PlayPause,
 	.Btn--shuffle {
-		padding-top: 0;
-		padding-bottom: 0;
+		font-size: 2em;
 	}
-	.Btn--next span,
 	.Btn--shuffle span {
-		font-size: 1.7em;
-	}
-	.Btn--shuffle {
-		line-height: 1;
+		position: relative;
+		top: -0.05em;
+		opacity: 0.5;
 	}
 	.Btn--shuffle.is-active span {
-		opacity: 0.5;
+		opacity: 1;
+	}
+	.PlayPause {}
+	.Btn--next {
+		font-size: 1.5em;
 	}
 </style>
