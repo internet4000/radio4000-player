@@ -1,7 +1,7 @@
 <template>
 	<div class="PlayPause">
 		<input type="checkbox" :id="uid" class="PlayPause-state"
-			v-model="playing" @change="toggle" />
+			:checked="isPlaying" @change="toggle" />
 		<label :for="uid" :title="isPlaying ? 'Pause' : 'Play'" class="PlayPause-label">
 			<div class="PlayPause-controller"></div>
 		</label>
@@ -17,14 +17,6 @@ export default {
 	computed: {
 		uid() {
 			return `id${this._uid}`
-		},
-		playing: {
-			get: function () {
-				return this.$props.isPlaying
-			},
-			set: function () {
-				// catch it to avoid a Vue warning
-			}
 		}
 	},
 	methods: {
