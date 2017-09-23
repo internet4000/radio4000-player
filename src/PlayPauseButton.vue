@@ -18,8 +18,13 @@ export default {
 		uid() {
 			return `id${this._uid}`
 		},
-		playing() {
-			return this.$props.isPlaying
+		playing: {
+			get: function () {
+				return this.$props.isPlaying
+			},
+			set: function () {
+				// catch it to avoid a Vue warning
+			}
 		}
 	},
 	methods: {
