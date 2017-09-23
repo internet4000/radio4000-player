@@ -20,7 +20,7 @@ export default {
 <style scoped>
 	.TrackItem {
 		width: 100%;
-		padding: 0.5em 0.6em;
+		padding: 0.4em 0.6em;
 		cursor: pointer;
 	}
 	.TrackItem-title,
@@ -33,8 +33,7 @@ export default {
 	.TrackItem-title {
 		display: inline-block; /* for .active styles */
 		font-size: 0.8125em; /* 13/16 */
-		line-height: 1.5;
-		margin-bottom: 0.1em;
+		line-height: 1.4;
 	}
 	.TrackItem-body {
 		font-size: 0.75em; /* 12/16 */
