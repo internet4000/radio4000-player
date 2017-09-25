@@ -127,7 +127,9 @@ export default {
 				.catch(err => {console.log(err)})
 		},
 		updatePlayerWithChannel(channel) {
-			this.tracks = [] // remove current tracks to show loading
+			// Reset tracks and image to show loading UX immediately.
+			this.tracks = []
+			this.image = ''
 			this.channel = channel
 			this.loadChannelExtra(this.channel)
 		},
