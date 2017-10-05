@@ -23,6 +23,7 @@
 			<div class="Layout-main">
 				<track-list
 				:currentTrackIndex="currentTrackIndex"
+				:channelSlug="channel.slug"
  				:track="currentTrack"
  				:tracks="tracksPool"
 				 @select="playTrack"></track-list>
