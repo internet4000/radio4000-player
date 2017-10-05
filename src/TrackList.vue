@@ -24,6 +24,7 @@ export default {
 	props: {
 		tracks: Array,
 		track: Object,
+		channelSlug: String,
 		currentTrackIndex: Number
 	},
 	components: {

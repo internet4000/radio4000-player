@@ -8,7 +8,7 @@
 <script>
 export default {
 	name: 'track-item',
-	props: ['track', 'active'],
+	props: ['track', 'active', 'channelSlug'],
 	computed: {
 		href: function() {
 			return `https://radio4000.com/${this.channelSlug}/${this.track.id}`
