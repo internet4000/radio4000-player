@@ -1,5 +1,5 @@
 <template>
-	<a :href="href" class="TrackItem" :class="{active: active}" @click="select">
+	<a :href="href" class="TrackItem" @click="select">
 		<p class="TrackItem-title">{{track.title}}</p>
 		<p v-if="track.body" class="TrackItem-body">{{track.body}}</p>
 	</a>
@@ -8,7 +8,10 @@
 <script>
 export default {
 	name: 'track-item',
-	props: ['track', 'active', 'channelSlug'],
+	props: [
+		'track',
+		'channelSlug'
+	],
 	computed: {
 		href: function() {
 			return `https://radio4000.com/${this.channelSlug}/${this.track.id}`
