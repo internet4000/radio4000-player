@@ -10,12 +10,12 @@
 import YouTubePlayer from 'youtube-player'
 export default {
 	name: 'youtube-player',
-	props: [
-		'autoplay',
-		'volume',
-		'isPlaying',
-		'videoId'
-	],
+	props: {
+		autoplay: Boolean,
+		isPlaying: Boolean,
+		videoId: String,
+		volume: Number
+	},
 	data() {
 		return {
 			player: {},

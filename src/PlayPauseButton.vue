@@ -13,7 +13,9 @@
 // 'pause' or 'play' depending on the state.
 export default {
 	name: 'play-pause-button',
-	props: ['isPlaying'],
+	props: {
+		isPlaying: Boolean
+	},
 	computed: {
 		uid() {
 			return `id${this._uid}`

@@ -7,7 +7,9 @@
 
 <script>
 export default {
-	props: ['message']
+	props: {
+		message: String
+	}
 }
 </script>
 
