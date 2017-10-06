@@ -5,6 +5,7 @@
 			<li v-for="(track, index) in tracks" :key="track.id" class="TrackList-item">
 				<track-item
 					:track="track"
+					:channelSlug="channelSlug"
 					:class="{active : currentTrackIndex === index}"
 					@select="select"></track-item>
 			</li>
@@ -23,6 +24,7 @@ export default {
 	props: {
 		tracks: Array,
 		track: Object,
+		channelSlug: String,
 		currentTrackIndex: Number
 	},
 	components: {
