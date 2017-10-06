@@ -145,12 +145,3 @@ export default {
 	}
 }
 </script>
-
-<style>
-.ytplayer {
-	width: 100%;
-	height: 100%;
-	/* https://stackoverflow.com/questions/15381172/how-to-make-flexbox-children-100-height-of-their-parent  */
-	position: absolute;
-}
-</style>
