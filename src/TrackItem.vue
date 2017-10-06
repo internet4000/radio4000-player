@@ -33,7 +33,7 @@ export default {
 		width: 100%;
 		padding-bottom: 0.3em;
 		padding-left: 0.6em;
-		color: black;
+		color: initial;
 		text-decoration: none;
 	}
 	.TrackItem-title,
