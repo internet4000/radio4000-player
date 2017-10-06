@@ -18,8 +18,8 @@ export default {
 		}
 	},
 	methods: {
-		select(Event) {
-			Event.preventDefault();
+		select(event) {
+			event.preventDefault()
 			this.$emit('select', this.track)
 		}
 	}
