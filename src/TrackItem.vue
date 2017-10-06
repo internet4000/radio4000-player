@@ -1,16 +1,25 @@
 <template>
-	<div class="TrackItem" :class="{active: active}" @click="select">
+	<a :href="href" class="TrackItem" @click="select">
 		<p class="TrackItem-title">{{track.title}}</p>
 		<p v-if="track.body" class="TrackItem-body">{{track.body}}</p>
-	</div>
+	</a>
 </template>
 
 <script>
 export default {
 	name: 'track-item',
-	props: ['track', 'active'],
+	props: [
+		'track',
+		'channelSlug'
+	],
+	computed: {
+		href: function() {
+			return `https://radio4000.com/${this.channelSlug}/${this.track.id}`
+		}
+	},
 	methods: {
-		select() {
+		select(event) {
+			event.preventDefault()
 			this.$emit('select', this.track)
 		}
 	}
@@ -22,7 +31,9 @@ export default {
 		width: 100%;
 		padding: 0.4em 0.6em;
 		cursor: pointer;
-	}
+    color: initial;
+		text-decoration: none;
+  }
 	.TrackItem-title,
 	.TrackItem-body {
 		margin: 0;
