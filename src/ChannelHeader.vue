@@ -3,7 +3,7 @@
 		<a class="Header-logo" :href="href" target="_blank" title="Open this radio on Radio4000.com">
 			<R4Logo></R4Logo>
 		</a>
-		<a :href="href" class="Header-media" :title="channelDescription">
+		<a :href="href" class="Header-media" :title="channelDescription" target="_blank">
 			<img v-if="image" :src="image" alt="">
 			<loading v-else/>
 		</a>
