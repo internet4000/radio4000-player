@@ -28,6 +28,7 @@ export default {
 
 <style scoped>
 	.TrackItem {
+		display: block;
 		width: 100%;
 		padding: 0.4em 0.6em;
 		cursor: pointer;
