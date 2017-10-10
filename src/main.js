@@ -5,6 +5,7 @@ import 'document-register-element/build/document-register-element'
 import PlayerData from './PlayerData.vue'
 
 Vue.config.devtools = true
+Vue.config.productionTip = false
 
 // Register our Vue commponent as the <radio4000-player> element.
 Vue.use(vueCustomElement)
