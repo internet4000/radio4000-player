@@ -18,6 +18,7 @@ export default {
 	},
 	data() {
 		return {
+			didPlay: false,
 			player: {},
 			playerVars: {
 				controls: 1,
@@ -27,8 +28,7 @@ export default {
 				playsinline: 1,
 				rel: 0,
 				showinfo: 0
-			},
-			didPlay: false
+			}
 		}
 	},
 	mounted() {
@@ -40,9 +40,10 @@ export default {
 		videoId(videoId) {
 			this.initPlayer().then(this.setTrackOnProvider(videoId))
 		},
-		isPlaying(isPlaying) {
+		isPlaying(val, oldVal) {
 			if (!this.player) return
-			if (isPlaying) {
+			console.log({newVal: val, oldVal})
+			if (val) {
 				this.playProvider()
 			} else {
 				this.pauseProvider()
@@ -100,7 +101,7 @@ export default {
 			}
 		},
 		handleStateChange(event) {
-			const eventsName = {
+			const events = {
 				'-1': 'unstarted',
 				0: 'ended',
 				1: 'playing',
@@ -109,8 +110,8 @@ export default {
 				5: 'cued'
 			}
 			const id = event.data
-			const name = eventsName[id]
-
+			const name = events[id]
+			console.log('yt:'+name)
 			const actions = {
 				'-1': () => {},
 				0: () => this.$emit('ended'),
@@ -119,7 +120,6 @@ export default {
 				3: () => this.$emit('buffering'),
 				5: () => this.$emit('cued')
 			}
-
 			if (id < 3) {
 				actions[id]()
 			}
@@ -128,19 +128,29 @@ export default {
 		// select track to play
 		setTrackOnProvider(videoId) {
 			if (!videoId) return
+			console.log('\nset track')
 			if (this.autoplay || this.didPlay) {
 				// The extra .then -> play here is to autoplay on mobile.
-				this.player.loadVideoById({videoId}).then(this.playProvider)
+				this.player.loadVideoById({videoId})
+					.then(() => {
+						console.log('set track √')
+						// this.playProvider()
+						// this.$nextTick(this.playProvider)
+						setTimeout(this.playProvider, 200)
+					})
 			} else {
 				this.player.cueVideoById({videoId})
+				console.log('set track √')
 				this.didPlay = true
 			}
 		},
 		playProvider() {
-			this.player.playVideo()
+			console.log('playProvider')
+			return this.player.playVideo()
 		},
 		pauseProvider() {
-			this.player.pauseVideo()
+			console.log('pauseProvider')
+			return this.player.pauseVideo()
 		}
 	}
 }
