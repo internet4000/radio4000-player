@@ -92,7 +92,7 @@ export default {
 			});
 		},
 		handleError(event) {
-			this.$emit('trackEnded')
+			this.$emit('ended')
 		},
 		handleVolumeChange(event) {
 			if (event.data.volume !== this.volume) {
@@ -113,11 +113,11 @@ export default {
 
 			const actions = {
 				'-1': () => {},
-				0: () => this.$emit('trackEnded'),
-				1: () => this.$emit('play'),
-				2: () => this.$emit('pause'),
-				3: () => {},
-				5: () => {}
+				0: () => this.$emit('ended'),
+				1: () => this.$emit('playing'),
+				2: () => this.$emit('paused'),
+				3: () => this.$emit('buffering'),
+				5: () => this.$emit('cued')
 			}
 
 			if (id < 3) {

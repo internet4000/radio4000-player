@@ -6,9 +6,9 @@
 			:autoplay="autoplay"
 			:videoId="track.ytid"
 			:isPlaying="isPlaying"
-			@play="playProvider"
-			@pause="pauseProvider"
-			@trackEnded="trackEnded"></youtube-player>
+			@playing="playProvider"
+			@paused="pauseProvider"
+			@ended="trackEnded"></youtube-player>
 	</div>
 </template>
 
@@ -34,13 +34,13 @@ export default {
 	},
 	methods: {
 		playProvider() {
-			this.$emit('play');
+			this.$emit('play')
 		},
 		pauseProvider() {
-			this.$emit('pause');
+			this.$emit('pause')
 		},
 		muteProvider() {
-			this.$emit('mute');
+			this.$emit('mute')
 		},
 		unMuteProvider() {
 			this.$emit('unMute')
