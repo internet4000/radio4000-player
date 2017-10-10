@@ -20,12 +20,12 @@ import Loading from './Loading.vue'
 import R4Logo from './R4Logo.vue'
 export default {
 	name: 'channel-header',
-	props: [
-		'channel',
-		'track',
-		'image',
-		'r4Url'
-	],
+	props: {
+		channel: Object,
+		track: Object,
+		image: String,
+		r4Url: Boolean
+	},
 	components: { Loading, R4Logo },
 	computed: {
 		href: function () {

@@ -12,7 +12,7 @@ test.cb('renders', t => {
 	t.snapshot(tree)
 
 	t.is(vm.$el.className, 'ytplayer', 'has an element for the youtube iframe')
-	t.is(vm.$props.autoplay, undefined, 'autoplay is not enabled')
+	t.is(vm.$props.autoplay, false, 'autoplay is not enabled')
 
 	t.is(vm.$data.didPlay, false)
 	vm.$props.videoId = '-Op4D4bkK6Y'

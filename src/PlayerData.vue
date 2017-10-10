@@ -149,7 +149,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 	.Console {
 		font-family: monospace;
 		padding: 0 1em;

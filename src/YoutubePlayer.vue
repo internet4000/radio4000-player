@@ -10,12 +10,12 @@
 import YouTubePlayer from 'youtube-player'
 export default {
 	name: 'youtube-player',
-	props: [
-		'autoplay',
-		'volume',
-		'isPlaying',
-		'videoId'
-	],
+	props: {
+		autoplay: Boolean,
+		isPlaying: Boolean,
+		videoId: String,
+		volume: Number
+	},
 	data() {
 		return {
 			player: {},
@@ -145,12 +145,3 @@ export default {
 	}
 }
 </script>
-
-<style>
-.ytplayer {
-	width: 100%;
-	height: 100%;
-	/* https://stackoverflow.com/questions/15381172/how-to-make-flexbox-children-100-height-of-their-parent  */
-	position: absolute;
-}
-</style>

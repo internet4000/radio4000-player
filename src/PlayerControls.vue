@@ -42,13 +42,13 @@ import PlayPauseButton from './PlayPauseButton.vue'
 export default {
 	name: 'player-controls',
 	components: {PlayPauseButton},
-	props: [
-		'volume',
-		'isPlaying',
-		'isDisabled',
-		'isMuted',
-		'isShuffle'
-	],
+	props: { 
+		volume: Number,
+		isPlaying: Boolean,
+		isDisabled: Boolean,
+		isMuted: Boolean,
+		isShuffle: Boolean
+	},
 	computed: {
 		isNotFullVolume: function() {
 			return this.volume < 100

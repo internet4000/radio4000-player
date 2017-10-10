@@ -8,10 +8,10 @@
 <script>
 export default {
 	name: 'track-item',
-	props: [
-		'track',
-		'channelSlug'
-	],
+	props: { 
+		track: Object,
+		channelSlug: String
+	},
 	computed: {
 		href: function() {
 			return `https://radio4000.com/${this.channelSlug}/${this.track.id}`

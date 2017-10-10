@@ -20,12 +20,12 @@ export default {
 	components: {
 		YoutubePlayer
 	},
-	props: [
-		'volume',
-		'autoplay',
-		'isPlaying',
-		'track',
-	],
+	props: {
+		autoplay: Boolean,
+		isPlaying: Boolean,
+		track: Object,
+		volume: Number
+	},
 	computed: {
 		provider: function() {
 			if (this.track && this.track.ytid) return 'youtube'
@@ -60,5 +60,10 @@ export default {
 		/* Youtube requirements */
 		min-height: 200px;
 		min-width: 200px;
+	}
+	.ytplayer {
+		width: 100%;
+		height: 100%;
+		position: absolute;
 	}
 </style>
