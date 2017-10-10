@@ -4,7 +4,11 @@ import replace from 'rollup-plugin-replace'
 import nodeResolve from 'rollup-plugin-node-resolve'
 import nodeGlobals from 'rollup-plugin-node-globals'
 import babel from 'rollup-plugin-babel'
+import serve from 'rollup-plugin-serve'
+import livereload from 'rollup-plugin-livereload'
 import vue from 'rollup-plugin-vue'
+
+const isProduction = process.env.NODE_ENV === 'production'
 
 export default {
 	entry: 'src/main.js',
@@ -40,6 +44,11 @@ export default {
 		babel({
 			exclude: 'node_modules/**',
 			plugins:['external-helpers']
-		})
+		}),
+		!isProduction && serve({
+			contentBase: ['.'],
+			port: 4002
+		}),
+		!isProduction && livereload()
 	]
 }
