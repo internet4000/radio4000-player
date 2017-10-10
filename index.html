@@ -22,23 +22,19 @@
 	<!-- <radio4000-player channel-id="-KFzPXLNzmKjPGwyY-xx"></radio4000-player> -->
 
 	<script>
-		var player = document.querySelector('radio4000-player')
-		player.addEventListener('trackChanged', (event) => {
-			console.info('[event:trackChanged]', event.detail[0])
-		})
-		player.addEventListener('trackEnded', (event) => {
-			console.info('[event:trackEnded]', event.detail[0])
-		})
+		// var player = document.querySelector('radio4000-player')
+		// player.addEventListener('trackChanged', (event) => {
+		// 	console.info('[event:trackChanged]', event.detail[0])
+		// })
+		// player.addEventListener('trackEnded', (event) => {
+		// 	console.info('[event:trackEnded]', event.detail[0])
+		// })
 	</script>
 
 	<!-- development script-->
 	<script async src="dist/radio4000-player.js"></script>
-
 	<!--production scripts -->
 	<!-- <script async src="dist/radio4000-player.min.js"></script> -->
-
-	<!-- cdn url from the production version from github master-->
-	<!-- <script src="https://rawgit.com/internet4000/radio4000-player-vue/master/dist/radio4000-player.min.js" async></script> -->
 
 </body>
 </html>
