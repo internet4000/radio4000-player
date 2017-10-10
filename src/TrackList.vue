@@ -64,22 +64,20 @@ export default {
 		transform: translateZ(0);
 	}
 	.TrackList-item {
-		font-size: 0.8125em; /* 13/16 */
-		padding-right: 0.6em;
-		display: flex;
-		flex-direction: row;
-		flex-wrap: nowrap;
-		align-items: center;
+		position: relative;
+		border-bottom: 1px solid #e0e0e0;
 	}
-	.TrackList-item:first-child {
-		padding-top: 0.6em;
+	.TrackList-item:last-child {
+		border-bottom: 0;
 	}
 	.TrackList-item::after {
 		content: counter(tracks) "";
 		counter-increment: tracks;
 		color: #737373;
-		font-size: 0.6em;
-		padding-left: 0.4em;
+		font-size: 0.5em;
+		position: absolute;
+		top: 0.5em;
+		right: 0.5em;
 	}
 	.TrackList-controls {
 		position: absolute;

@@ -196,6 +196,9 @@ radio4000-player {
 	background-color: hsl(260, 10%, 92%);
 	color: hsl(0, 0%, 10%);
 	font-size: 16px;
+}
+radio4000-player,
+radio4000-player .Btn {
 	font-family: 'Maison Neue', 'maisonneue', 'system-ui', sans-serif;
 }
 </style>
