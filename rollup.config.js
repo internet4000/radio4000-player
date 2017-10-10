@@ -16,7 +16,7 @@ export default {
 	// We want UMD so it works in the browser and node.
 	format: 'umd',
 	moduleName: 'radio4000player',
-	sourceMap: false,
+	sourceMap: !isProduction,
 	plugins: [
 		alias({
 			// See https://vuejs.org/v2/guide/installation.html#Runtime-Compiler-vs-Runtime-only
