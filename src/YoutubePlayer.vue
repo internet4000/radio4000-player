@@ -18,6 +18,7 @@ export default {
 	},
 	data() {
 		return {
+			ytstate: -1,
 			didPlay: false,
 			player: {},
 			playerVars: {
@@ -40,13 +41,15 @@ export default {
 		videoId(videoId) {
 			this.initPlayer().then(this.setTrackOnProvider(videoId))
 		},
-		isPlaying(val, oldVal) {
-			if (!this.player) return
-			console.log({newVal: val, oldVal})
+		isPlaying(val) {
 			if (val) {
 				this.playProvider()
 			} else {
-				this.pauseProvider()
+				// Calling `loadVideoById` sends a `paused` event. This makes sure
+				// we only pause if it's not already paused.
+				if (this.ytstate !== 2) {
+					this.pauseProvider()
+				}
 			}
 		},
 		volume(vol) {
@@ -95,6 +98,7 @@ export default {
 			}
 		},
 		handleStateChange(event) {
+			const id = event.data
 			const events = {
 				'-1': 'unstarted',
 				0: 'ended',
@@ -103,8 +107,8 @@ export default {
 				3: 'buffering',
 				5: 'cued'
 			}
-			const id = event.data
 			const name = events[id]
+			this.ytstate = id
 			console.log('yt:'+name)
 			const actions = {
 				'-1': () => {},
@@ -114,9 +118,7 @@ export default {
 				3: () => this.$emit('buffering'),
 				5: () => this.$emit('cued')
 			}
-			if (id < 3) {
-				actions[id]()
-			}
+			actions[id]()
 		},
 
 		// select track to play
@@ -124,19 +126,14 @@ export default {
 			if (!videoId) return
 			console.log('\nset track')
 			if (this.autoplay || this.didPlay) {
-				// The extra .then -> play here is to autoplay on mobile.
 				this.player.loadVideoById({videoId})
-					.then(() => {
-						console.log('set track √')
-						// this.playProvider()
-						// this.$nextTick(this.playProvider)
-						setTimeout(this.playProvider, 200)
-					})
+				// The extra play here is to autoplay on mobile.
+				// this.playProvider()
 			} else {
 				this.player.cueVideoById({videoId})
-				console.log('set track √')
 				this.didPlay = true
 			}
+			console.log('set track √')
 		},
 		playProvider() {
 			console.log('playProvider')
