@@ -63,26 +63,20 @@ export default {
 	},
 	methods: {
 		initPlayer() {
+			var player
+			var playerVars = this.playerVars
+			var element = this.$el
+
 			return new Promise(resolve => {
-				if (this.playerExists) {
-					resolve()
-					return
+				if (!this.playerExists) {
+					player = YouTubePlayer(element, {playerVars})
+					player.on('error', this.handleError)
+					player.on('stateChange', this.handleStateChange)
+					player.on('ready', this.handleReady)
+					player.on('volumeChange', this.handleVolumeChange)
+					this.player = player
 				}
-				const el = this.$el
-				this.player = YouTubePlayer(el, {
-					playerVars: this.playerVars
-				})
-				resolve(this.attachEventListeners())
-			})
-		},
-		attachEventListeners() {
-			return new Promise(resolve => {
-				var player = this.player;
-				player.on('error', this.handleError)
-				player.on('stateChange', this.handleStateChange)
-				player.on('ready', this.handleReady)
-				player.on('volumeChange', this.handleVolumeChange)
-				resolve()
+				resolve(this.player)
 			})
 		},
 		handleReady(resolve) {
@@ -90,7 +84,7 @@ export default {
 			let vol = this.volume
 			this.player.unMute().then(() => {
 				this.player.setVolume(vol)
-			});
+			})
 		},
 		handleError(event) {
 			this.$emit('ended')
