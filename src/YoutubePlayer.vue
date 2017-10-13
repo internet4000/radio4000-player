@@ -43,13 +43,11 @@ export default {
 		},
 		isPlaying(val) {
 			if (val) {
-				this.playProvider()
+				if (this.ytstate !== 1) this.playProvider()
 			} else {
 				// Calling `loadVideoById` sends a `paused` event. This makes sure
 				// we only pause if it's not already paused.
-				if (this.ytstate !== 2) {
-					this.pauseProvider()
-				}
+				if (this.ytstate !== 2) this.pauseProvider()
 			}
 		},
 		volume(vol) {
@@ -98,7 +96,7 @@ export default {
 			}
 		},
 		handleStateChange(event) {
-			const id = event.data
+			this.ytstate = event.data
 			const events = {
 				'-1': 'unstarted',
 				0: 'ended',
@@ -107,9 +105,7 @@ export default {
 				3: 'buffering',
 				5: 'cued'
 			}
-			const name = events[id]
-			this.ytstate = id
-			console.log('yt:'+name)
+			const eventName = events[this.ytstate]
 			const actions = {
 				'-1': () => {},
 				0: () => this.$emit('ended'),
@@ -118,7 +114,8 @@ export default {
 				3: () => this.$emit('buffering'),
 				5: () => this.$emit('cued')
 			}
-			actions[id]()
+			console.log('yt:'+eventName)
+			actions[this.ytstate]()
 		},
 
 		// select track to play
