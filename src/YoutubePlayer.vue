@@ -114,14 +114,13 @@ export default {
 				3: () => this.$emit('buffering'),
 				5: () => this.$emit('cued')
 			}
-			console.log('yt:'+eventName)
+			// console.log('yt:'+eventName)
 			actions[this.ytstate]()
 		},
 
 		// select track to play
 		setTrackOnProvider(videoId) {
 			if (!videoId) return
-			console.log('\nset track')
 			if (this.autoplay || this.didPlay) {
 				this.player.loadVideoById({videoId})
 				// The extra play here is to autoplay on mobile.
@@ -130,14 +129,11 @@ export default {
 				this.player.cueVideoById({videoId})
 				this.didPlay = true
 			}
-			console.log('set track √')
 		},
 		playProvider() {
-			console.log('playProvider')
 			return this.player.playVideo()
 		},
 		pauseProvider() {
-			console.log('pauseProvider')
 			return this.player.pauseVideo()
 		}
 	}
