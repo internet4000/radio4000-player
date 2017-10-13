@@ -1,14 +1,25 @@
 <template>
 	<header class="Header">
-		<a class="Header-logo" :href="href" target="_blank" title="Open this radio on Radio4000.com">
+		<a class="Header-logo"
+			:href="linkHref"
+			:target="linkTarget"
+			title="Open this radio on Radio4000.com"
+		>
 			<R4Logo></R4Logo>
 		</a>
-		<a :href="href" class="Header-media" :title="channelDescription" target="_blank">
+		<a
+			:href="linkHref"
+			:target="linkTarget"
+			class="Header-media"
+			title="Open this radio on Radio4000.com"
+		>
 			<img v-if="image" :src="image" alt="">
 			<loading v-else/>
 		</a>
 		<div class="Header-body" v-if="channel.title">
-			<p class="Header-channel" :title="channelDescription"><strong>{{channel.title}}</strong></p>
+			<p class="Header-channel" :title="channelDescription">
+				<strong>{{channel.title}}</strong>
+			</p>
 			<marquee class="Header-track" :title="[track.body ? track.body : '']">{{track.title}}</marquee>
 		</div>
 		<loading v-else/>
@@ -28,12 +39,15 @@ export default {
 	},
 	components: { Loading, R4Logo },
 	computed: {
-		href: function () {
+		linkHref() {
 			const root = this.r4Url ? '/' : 'https://radio4000.com/'
 			const slug = this.channel.slug
 			return slug === undefined ? root : root + slug
 		},
-		channelDescription () {
+		linkTarget() {
+			return this.r4Url ? '_self' : '_blank'
+		},
+		channelDescription() {
 			const { title = '', slug = '', body = ''} = this.channel;
 			return `[ ${title}, @${slug} ] ${body}`
 		}
