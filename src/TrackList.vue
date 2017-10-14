@@ -41,7 +41,7 @@ export default {
 			this.$emit('select', track)
 		},
 		locateCurrentTrack() {
-			if (!this.currentTrackIndex) return
+			if (isNaN(this.currentTrackIndex)) return
 			const container = this.$el.querySelector('.TrackList-list');
 			const tracks = this.$el.querySelectorAll('li');
 			const activeTrack = tracks[this.currentTrackIndex]
