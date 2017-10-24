@@ -1,6 +1,6 @@
 # Radio4000 Player
 
-This is a web component that plays [Radio4000](htttps://radio4000.com) channels. It uses the open [radio4000-api](https://github.com/internet4000/radio4000-api) and Vue.js.
+This is a web component that plays channels from [Radio4000](htttps://radio4000.com). It uses the public [radio4000-api](https://github.com/internet4000/radio4000-api) and Vue.js.
 
 ## How to use
 
@@ -11,24 +11,23 @@ You can either load the player directly like this:
 <radio4000-player channel-slug="good-time-radio"></radio4000-player>
 ```
 
-OR, you can download the latest version of the script:
-
-- https://raw.githubusercontent.com/internet4000/radio4000-player/master/dist/radio4000-player.min.js
-
 OR, you can use a package manager:
 
-- `npm install radio4000-player`
-- `yarn add radio4000-player`
-
 ```js
+// npm install radio4000-player
 import 'radio4000-player'
+// now you can use <radio4000-player> in your templates
 ```
 
-Remember to change the `channel-slug=""` attribute to match the radio you want to play.
+OR, you can use an iframe ([source](https://github.com/internet4000/radio4000-api/blob/master/src/embed/index.js)):
+
+```html
+<iframe src="https://api.radio4000.com/embed?slug=detecteve" width="320" height="500" frameborder="0"></iframe>
+```
 
 ## API
 
-Here's a complete list of all the attributes you can set and change on the web component.
+Here's a complete list of all the attributes you can set and change on the web component. These are not related to the iframe version.
 
 - `channel-slug` [string], a radio4000 channel slug (ex: `oskar`)
 - `channel-id` [string], a radio4000 channel id (ex: `-JYZvhj3vlGCjKXZ2cXO`)
