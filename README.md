@@ -31,14 +31,16 @@ Here's a complete list of all the attributes you can set and change on the web c
 
 |Attribute|Type|Description|
 |----|----|----|
-|channelSlug|`string`|Radio4000 channel slug (ex: `oskar`)
-|channelId|`string`|Radio4000 channel id (ex: `-JYZvhj3vlGCjKXZ2cXO`)
-|trackId|`string`|Radio4000 track id (ex: `-JYEosmvT82Ju0vcSHVP`)
+|channel-slug|`string`|Radio4000 channel slug (ex: `oskar`)
+|channel-id|`string`|Radio4000 channel id (ex: `-JYZvhj3vlGCjKXZ2cXO`)
+|track-id|`string`|Radio4000 track id (ex: `-JYEosmvT82Ju0vcSHVP`)
 |volume|`integer`|from 0 to 100 (default: `100`)
 |autoplay|`boolean`|if it should start playing automatically (default: `false`)
 |shuffle|`boolean`|if tracks should be shuffled (default: `false`)
 
 ### Examples
+
+Remember that HTML attributes are dasherized `channel-slug` whereas JavaScript expects CamelCase `channelSlug`.
 
 ```js
 var player = document.querySelector('radio4000-player')
@@ -66,8 +68,6 @@ To enable autoplay:
 ## Events
 
 You can listen for events directly on each `<radio4000-player>` element.
-
-### Supported events
 
 - `trackChanged` - This event fires whenever the current track is
   changed. It is an object containing two `track` objects,
