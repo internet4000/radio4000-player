@@ -27,14 +27,16 @@ OR, you can use an iframe ([source](https://github.com/internet4000/radio4000-ap
 
 ## API
 
-Here's a complete list of all the attributes you can set and change on the web component. These are not related to the iframe version.
+Here's a complete list of all the attributes you can set and change on the web component. These do not affect the iframe version.
 
-- `channel-slug` [string], a radio4000 channel slug (ex: `oskar`)
-- `channel-id` [string], a radio4000 channel id (ex: `-JYZvhj3vlGCjKXZ2cXO`)
-- `track-id` [string], a radio4000 track id (ex: `-JYEosmvT82Ju0vcSHVP`)
-- `volume` [integer] from 0 to 100 (default: `100`)
-- `autoplay` [boolean], if it should start playing automatically (default: `false`)
-- `shuffle` [boolean], if tracks should be shuffled (default: `false`)
+|Attribute|Type|Description|
+|----|----|----|
+|channelSlug|`string`|Radio4000 channel slug (ex: `oskar`)
+|channelId|`string`|Radio4000 channel id (ex: `-JYZvhj3vlGCjKXZ2cXO`)
+|trackId|`string`|Radio4000 track id (ex: `-JYEosmvT82Ju0vcSHVP`)
+|volume|`integer`|from 0 to 100 (default: `100`)
+|autoplay|`boolean`|if it should start playing automatically (default: `false`)
+|shuffle|`boolean`|if tracks should be shuffled (default: `false`)
 
 ### Examples
 
