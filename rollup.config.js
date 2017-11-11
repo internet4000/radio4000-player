@@ -11,12 +11,14 @@ import vue from 'rollup-plugin-vue'
 const isProduction = process.env.NODE_ENV === 'production'
 
 export default {
-	entry: 'src/main.js',
-	dest: 'dist/radio4000-player.js',
-	// We want UMD so it works in the browser and node.
-	format: 'umd',
-	moduleName: 'radio4000player',
-	sourceMap: !isProduction,
+	input: 'src/main.js',
+	output: {
+		file: 'dist/radio4000-player.js',
+		// We want UMD so it works in the browser and node.
+		format: 'umd'
+	},
+	name: 'radio4000player',
+	sourcemap: !isProduction,
 	plugins: [
 		alias({
 			// See https://vuejs.org/v2/guide/installation.html#Runtime-Compiler-vs-Runtime-only
