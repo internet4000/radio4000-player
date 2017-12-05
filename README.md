@@ -81,7 +81,7 @@ Here's an example of how to listen for the `trackChanged` event. It is the same 
 var player = document.querySelector('radio4000-player')
 player.addEventListener('trackChanged', (event) => {
   console.info('trackChanged event', event.detail[0])
-	// { track: { [...] } }
+  // { track: { [...] } }
 })
 ```
 
@@ -89,9 +89,11 @@ player.addEventListener('trackChanged', (event) => {
 
 If this player is used inside radio4000.com, we want the links to switch URL internally.
 For that you can use the boolean property `r4-url` like so.
-```
+
+```html
 <radio4000-player r4-url="true"></radio4000-player>
 ```
+
 Therefore, URLs in the player header won't open new browser window but will just replace the URL like Ember router would have done.
 
 ## Development
