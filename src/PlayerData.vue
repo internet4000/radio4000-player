@@ -103,12 +103,12 @@
 			// all start method must return a `channel@r4` model
 			loadChannelBySlug(slug) {
 				return findChannelBySlug(slug)
-					.then(this.updatePlayerData)
+					.then(this.updatePlayerWithChannel)
 					.catch(err => {console.log(err)})
 			},
 			loadChannelById(id) {
 				return findChannelById(id)
-					.then(this.updatePlayerData)
+					.then(this.updatePlayerWithChannel)
 					.catch(err => {console.log(err)})
 			},
 			loadChannelByTrack(id) {
