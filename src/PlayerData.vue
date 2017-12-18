@@ -119,11 +119,14 @@
 						return this.loadChannelById(track.channel)
 					})
 			},
-			
-			loadChannelExtra(channel) {
+
+			loadChannelTracks(channel) {
 				findChannelTracks(channel.id)
 					.then(this.updatePlayerWithTracks)
 					.catch(err => {console.log(err)})
+			},
+			loadChannelImage(channel) {
+				console.log('loadChannelImage channel', channel);
 				findChannelImage(channel)
 					.then(this.updatePlayerWithImage)
 					.catch(err => {console.log(err)})
@@ -134,12 +137,26 @@
 				 used to put the data on the player
 			 */
 			
-			updatePlayerData(channel) {
-				// Reset tracks and image to show loading UX immediately.
-					this.tracks = [];
+			updatePlayerWithChannel(channel) {
+				/* Reset tracks and image to show loading UX immediately.*/
+				this.tracks = [];
 				this.image = '';
-				this.channel = channel;
-				this.loadChannelExtra(this.channel);
+				
+				console.log('updatePlayerWithChannel channel', channel)
+				
+				if (!channel.image) {
+					this.loadChannelImage(channel);
+				} else {updatePlayerWithTracks
+					this.updatePlayerWithImage(channel.image);
+				}
+				
+				if (!channel.tracks.length) {
+					this.loadChannelTracks(channel);
+				} else {
+					this.updatePlayerWithTracks(channel.tracks)
+				}
+
+				this.channel = channel
 			},
 			updatePlayerWithTracks(tracks) {
 				return this.tracks = tracks
@@ -155,9 +172,8 @@
 			
 			/* methods*/
 			updatePlayerWithPlaylist(playlist) {
-				console.log('updatePlayerWithPlaylist:playlist', playlist);
-				this.updatePlayerWithTracks(playlist.tracks);
-				this.updatePlayerData(playlist.channel)
+				console.log('updatePlayer:playlist', playlist);
+				this.updatePlayerWithChannel(playlist)
 			},
 			
 			/* events */
