@@ -20,133 +20,155 @@
 </template>
 
 <script>
-import debounce from 'lodash.debounce'
-import Radio4000Player from './Radio4000Player.vue'
-import {
-	findChannelById,
-	findChannelBySlug,
-	findChannelTracks,
-	findChannelImage,
-	findTrack
-} from './utils/store'
+	import debounce from 'lodash.debounce'
+	import Radio4000Player from './Radio4000Player.vue'
+	import {
+		findChannelById,
+		findChannelBySlug,
+		findChannelTracks,
+		findChannelImage,
+		findTrack
+	} from './utils/store'
 
-export default {
-	name: 'player-data',
-	components: {Radio4000Player},
-	props: {
-		autoplay: Boolean,
-		channelSlug: String,
-		channelId: String,
-		trackId: String,
-		r4Url: {
-			type: Boolean,
-			default: false
-		},
-		volume: {
-			type: Number,
-			default: 100
-		},
-		shuffle: Boolean
-	},
-	data () {
-		return {
-			channel: {},
-			image: '',
-			tracks: [],
-			track: {}
-		}
-	},
-	created() {
-		this.$root.$on('setVolume', debounce(vol => {
-			this.localVolume = vol
-		}, 100))
-
-		// Decide which method to use to load data.
-		const { channelSlug, channelId, trackId } = this
-		if (trackId) {
-			return this.loadChannelByTrack(trackId)
-		}
-		if (channelSlug) {
-			return this.loadChannelBySlug(channelSlug)
-		}
-		if (channelId) {
-			return this.loadChannelById(channelId)
-		}
-	},
-	watch: {
-		channelSlug: function (slug) {
-			this.loadChannelBySlug(slug)
-		},
-		channelId: function (id) {
-			this.loadChannelById(id)
-		},
-		trackId: function (id) {
-			this.loadChannelByTrack(id)
-		}
-	},
-	computed: {
-		localVolume: {
-			get: function() {
-				return this.volume
+	export default {
+		name: 'player-data',
+		components: {Radio4000Player},
+		props: {
+			autoplay: Boolean,
+			channelSlug: String,
+			channelId: String,
+			trackId: String,
+			r4Url: {
+				type: Boolean,
+				default: false
 			},
-			set: function(volume) {
-				this.$root.$el.parentNode.volume = volume;
+			volume: {
+				type: Number,
+				default: 100
+			},
+			shuffle: Boolean
+		},
+		data () {
+			return {
+				channel: {},
+				image: '',
+				tracks: [],
+				track: {}
 			}
 		},
-		canLoad: function() {
-			return this.channelSlug || this.channelId || this.trackId
-		}
-	},
-	methods: {
-		// start player session by:
-		// all start method must return a `channel@r4` model
-		loadChannelBySlug(slug) {
-			return findChannelBySlug(slug)
-				.then(this.updatePlayerWithChannel)
-				.catch(err => {console.log(err)})
+		created() {
+			this.$root.$on('setVolume', debounce(vol => {
+				this.localVolume = vol
+			}, 100))
+
+			// Decide which method to use to load data.
+					 const { channelSlug, channelId, trackId } = this
+			if (trackId) {
+				return this.loadChannelByTrack(trackId)
+			}
+			if (channelSlug) {
+				return this.loadChannelBySlug(channelSlug)
+			}
+			if (channelId) {
+				return this.loadChannelById(channelId)
+			}
 		},
-		loadChannelById(id) {
-			return findChannelById(id)
-				.then(this.updatePlayerWithChannel)
-				.catch(err => {console.log(err)})
+		watch: {
+			channelSlug: function (slug) {
+				this.loadChannelBySlug(slug)
+			},
+			channelId: function (id) {
+				this.loadChannelById(id)
+			},
+			trackId: function (id) {
+				this.loadChannelByTrack(id)
+			}
 		},
-		loadChannelByTrack(id) {
-			return findTrack(id)
-				.then(track => {
-					this.track = track
-					if (this.channel.id === track.channel) return
-					return this.loadChannelById(track.channel)
-				})
+		computed: {
+			localVolume: {
+				get: function() {
+					return this.volume
+				},
+				set: function(volume) {
+					this.$root.$el.parentNode.volume = volume;
+				}
+			},
+			canLoad: function() {
+				return this.channelSlug || this.channelId || this.trackId
+			}
 		},
-		loadChannelExtra(channel) {
-			findChannelTracks(channel.id)
-				.then(this.updatePlayerWithTracks)
-				.catch(err => {console.log(err)})
-			findChannelImage(channel)
-				.then(this.updatePlayerWithImage)
-				.catch(err => {console.log(err)})
-		},
-		updatePlayerWithChannel(channel) {
-			// Reset tracks and image to show loading UX immediately.
-			this.tracks = []
-			this.image = ''
-			this.channel = channel
-			this.loadChannelExtra(this.channel)
-		},
-		updatePlayerWithTracks(tracks) {
-			return this.tracks = tracks
-		},
-		updatePlayerWithImage(image) {
-			return this.image = image ? image : ''
-		},
-		onTrackChanged(...args) {
-			this.$emit('trackChanged', ...args)
-		},
-		onTrackEnded(...args) {
-			this.$emit('trackEnded', ...args)
+		methods: {
+			
+			// start player session by:
+			// all start method must return a `channel@r4` model
+			loadChannelBySlug(slug) {
+				return findChannelBySlug(slug)
+					.then(this.updatePlayerData)
+					.catch(err => {console.log(err)})
+			},
+			loadChannelById(id) {
+				return findChannelById(id)
+					.then(this.updatePlayerData)
+					.catch(err => {console.log(err)})
+			},
+			loadChannelByTrack(id) {
+				return findTrack(id)
+					.then(track => {
+						this.track = track
+						if (this.channel.id === track.channel) return
+						return this.loadChannelById(track.channel)
+					})
+			},
+			
+			loadChannelExtra(channel) {
+				findChannelTracks(channel.id)
+					.then(this.updatePlayerWithTracks)
+					.catch(err => {console.log(err)})
+				findChannelImage(channel)
+					.then(this.updatePlayerWithImage)
+					.catch(err => {console.log(err)})
+			},
+
+			
+			/* 
+				 used to put the data on the player
+			 */
+			
+			updatePlayerData(channel) {
+				// Reset tracks and image to show loading UX immediately.
+					this.tracks = [];
+				this.image = '';
+				this.channel = channel;
+				this.loadChannelExtra(this.channel);
+			},
+			updatePlayerWithTracks(tracks) {
+				return this.tracks = tracks
+			},
+			updatePlayerWithImage(image) {
+				return this.image = image ? image : ''
+			},
+
+			
+			/*
+				 Public API: events sent to the outside world
+			 */
+			
+			/* methods*/
+			updatePlayerWithPlaylist(playlist) {
+				console.log('updatePlayerWithPlaylist:playlist', playlist);
+				this.updatePlayerWithTracks(playlist.tracks);
+				this.updatePlayerData(playlist.channel)
+			},
+			
+			/* events */
+			onTrackChanged(...args) {
+				this.$emit('trackChanged', ...args)
+			},
+			onTrackEnded(...args) {
+				this.$emit('trackEnded', ...args)
+			}
 		}
 	}
-}
 </script>
 
 <style scoped>
