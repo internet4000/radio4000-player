@@ -62,7 +62,7 @@
 			}, 100))
 
 			// Decide which method to use to load data.
-					 const { channelSlug, channelId, trackId } = this
+			const { channelSlug, channelId, trackId } = this
 			if (trackId) {
 				return this.loadChannelByTrack(trackId)
 			}
@@ -93,12 +93,13 @@
 					this.$root.$el.parentNode.volume = volume;
 				}
 			},
+			// When either of these is set, it means we can load and show the player.
 			canLoad: function() {
-				return this.channelSlug || this.channelId || this.trackId
+				return this.channel || this.channelSlug || this.channelId || this.trackId
 			}
 		},
 		methods: {
-			
+
 			// start player session by:
 			// all start method must return a `channel@r4` model
 			loadChannelBySlug(slug) {
@@ -132,24 +133,24 @@
 					.catch(err => {console.log(err)})
 			},
 
-			
-			/* 
+
+			/*
 				 used to put the data on the player
 			 */
-			
+
 			updatePlayerWithChannel(channel) {
 				/* Reset tracks and image to show loading UX immediately.*/
 				this.tracks = [];
 				this.image = '';
-				
+
 				console.log('updatePlayerWithChannel channel', channel)
-				
+
 				if (!channel.image) {
 					this.loadChannelImage(channel);
 				} else {updatePlayerWithTracks
 					this.updatePlayerWithImage(channel.image);
 				}
-				
+
 				if (!channel.tracks.length) {
 					this.loadChannelTracks(channel);
 				} else {
@@ -165,17 +166,17 @@
 				return this.image = image ? image : ''
 			},
 
-			
+
 			/*
 				 Public API: events sent to the outside world
 			 */
-			
+
 			/* methods*/
 			updatePlayerWithPlaylist(playlist) {
 				console.log('updatePlayer:playlist', playlist);
 				this.updatePlayerWithChannel(playlist)
 			},
-			
+
 			/* events */
 			onTrackChanged(...args) {
 				this.$emit('trackChanged', ...args)
