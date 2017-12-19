@@ -2,6 +2,7 @@
 	<div class="TrackList">
 		<Loading v-if="!tracks || !tracks.length"></Loading>
 		<ol class="TrackList-list">
+			<li v-if="query" class="TrackList-query">Playing selection <em>"{{query}}"</em></li>
 			<li v-for="(track, index) in tracks" :key="track.id" class="TrackList-item">
 				<track-item
 					:track="track"
@@ -25,7 +26,8 @@ export default {
 		tracks: Array,
 		track: Object,
 		channelSlug: String,
-		currentTrackIndex: Number
+		currentTrackIndex: Number,
+		query: String
 	},
 	components: {
 		Loading,
@@ -79,6 +81,13 @@ export default {
 		position: absolute;
 		top: 0.5em;
 		right: 0.5em;
+	}
+	.TrackList-query {
+		background-color: hsla(0, 0%, 50%, 0.2);
+		padding: 0.5em;
+		font-size: 0.75em;
+		/*color: #737373;*/
+		text-align: center;
 	}
 	.TrackList-controls {
 		position: absolute;

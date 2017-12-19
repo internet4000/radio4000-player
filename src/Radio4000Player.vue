@@ -26,6 +26,7 @@
 					:channelSlug="channel.slug"
 					:track="currentTrack"
 					:tracks="tracksPool"
+					:query="query"
 					@select="playTrack"></track-list>
 			</div>
 		</div>
@@ -68,7 +69,8 @@ export default {
 		autoplay: Boolean,
 		r4Url: Boolean,
 		shuffle: Boolean,
-		volume: Number
+		volume: Number,
+		query: String
 	},
 	data () {
 		return {
