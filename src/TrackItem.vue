@@ -40,7 +40,7 @@ export default {
 		margin: 0;
 		padding-left: 0.3em;
 		padding-right: 0.3em;
-		word-break: break-word;
+		word-break: break-all;
 	}
 	.TrackItem-title {
 		display: inline-block; /* for .active styles */
