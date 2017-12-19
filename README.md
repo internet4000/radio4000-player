@@ -110,6 +110,9 @@ Therefore, URLs in the player header won't open new browser window but will just
 
 ## Development
 
+- Feature branches are made from the `master` branch.
+- `production` branch is used for the production version releases.
+
 ``` bash
 # 1. clone and install dependencies
 git clone git@github.com:internet4000/radio4000-player.git
@@ -131,3 +134,8 @@ ava --watch
 # update test snapshots
 ava --update-snapshots
 ```
+
+## NPM release
+
+- `npm version <newversion>` (try `npm version --help`)
+- `npm publish`
