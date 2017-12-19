@@ -120,30 +120,28 @@
 						return this.loadChannelById(track.channel)
 					})
 			},
-
 			loadChannelTracks(channel) {
 				findChannelTracks(channel.id)
 					.then(this.updatePlayerWithTracks)
 					.catch(err => {console.log(err)})
 			},
 			loadChannelImage(channel) {
-				console.log('loadChannelImage channel', channel);
 				findChannelImage(channel)
 					.then(this.updatePlayerWithImage)
-					.catch(err => {console.log(err)})
+					.catch(err => {
+						// console.log(err)
+					})
 			},
 
-
 			/*
-				 used to put the data on the player
+				 As an alternative to letting the player load the right data for you,
+				 you can pass a "channel" object.
 			 */
 
 			updatePlayerWithChannel(channel) {
 				/* Reset tracks and image to show loading UX immediately.*/
-				this.tracks = [];
-				this.image = '';
-
-				console.log('updatePlayerWithChannel channel', channel)
+				this.tracks = []
+				this.image = ''
 
 				if (!channel.image) {
 					this.loadChannelImage(channel);
@@ -166,14 +164,12 @@
 				return this.image = image ? image : ''
 			},
 
-
 			/*
 				 Public API: events sent to the outside world
 			 */
 
 			/* methods*/
 			updatePlayerWithPlaylist(playlist) {
-				console.log('updatePlayer:playlist', playlist);
 				this.updatePlayerWithChannel(playlist)
 			},
 
