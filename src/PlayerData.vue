@@ -104,12 +104,12 @@
 			// all start method must return a `channel@r4` model
 			loadChannelBySlug(slug) {
 				return findChannelBySlug(slug)
-					.then(this.updatePlayerWithChannel)
+					.then(this.updateChannel)
 					.catch(err => {console.log(err)})
 			},
 			loadChannelById(id) {
 				return findChannelById(id)
-					.then(this.updatePlayerWithChannel)
+					.then(this.updateChannel)
 					.catch(err => {console.log(err)})
 			},
 			loadChannelByTrack(id) {
@@ -122,12 +122,12 @@
 			},
 			loadChannelTracks(channel) {
 				findChannelTracks(channel.id)
-					.then(this.updatePlayerWithTracks)
+					.then(this.updateTracks)
 					.catch(err => {console.log(err)})
 			},
 			loadChannelImage(channel) {
 				findChannelImage(channel)
-					.then(this.updatePlayerWithImage)
+					.then(this.updateImage)
 					.catch(err => {
 						// console.log(err)
 					})
@@ -138,29 +138,29 @@
 				 you can pass a "channel" object.
 			 */
 
-			updatePlayerWithChannel(channel) {
+			updateChannel(channel) {
 				/* Reset tracks and image to show loading UX immediately.*/
 				this.tracks = []
 				this.image = ''
 
 				if (!channel.image) {
-					this.loadChannelImage(channel);
-				} else {updatePlayerWithTracks
-					this.updatePlayerWithImage(channel.image);
+					this.loadChannelImage(channel)
+				} else {
+					this.updateImage(channel.image)
 				}
 
 				if (!channel.tracks.length) {
-					this.loadChannelTracks(channel);
+					this.loadChannelTracks(channel)
 				} else {
-					this.updatePlayerWithTracks(channel.tracks)
+					this.updateTracks(channel.tracks)
 				}
 
 				this.channel = channel
 			},
-			updatePlayerWithTracks(tracks) {
+			updateTracks(tracks) {
 				return this.tracks = tracks
 			},
-			updatePlayerWithImage(image) {
+			updateImage(image) {
 				return this.image = image ? image : ''
 			},
 
@@ -169,8 +169,8 @@
 			 */
 
 			/* methods*/
-			updatePlayerWithPlaylist(playlist) {
-				this.updatePlayerWithChannel(playlist)
+			updatePlaylist(playlist) {
+				this.updateChannel(playlist)
 			},
 
 			/* events */
