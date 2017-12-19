@@ -85,7 +85,19 @@ player.addEventListener('trackChanged', (event) => {
 })
 ```
 
-## More
+## Methods
+
+Danger zone. We are still finalizing the API for methods so except this to change.
+
+```js
+// Get access to the Vue component behind the web component to access methods.
+var player = document.querySelector('radio4000-player')
+var vue = player.__vue_custom_element__.$children[0]
+// playlist = {channel..., tracks: []}
+vue.updatePlaylist(playlist)
+```
+
+## Using internal links
 
 If this player is used inside radio4000.com, we want the links to switch URL internally.
 For that you can use the boolean property `r4-url` like so.
