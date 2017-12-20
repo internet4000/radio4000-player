@@ -3,6 +3,9 @@
   "description": "A player for Radio4000 channels",
   "author": "Internet4000",
   "version": "0.3.4",
+  "homepage": "https://github.com/internet4000/radio4000-player",
+  "bugs": "https://github.com/internet4000/radio4000-player/issues",
+  "license": "GPL-3.0",
   "scripts": {
     "start": "NODE_ENV=development rollup --config --watch",
     "build": "NODE_ENV=production rollup --config && npm run build-minify",
