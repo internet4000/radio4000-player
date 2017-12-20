@@ -22,7 +22,7 @@
     "lodash.debounce": "^4.0.8",
     "unfetch": "^3.0.0",
     "vue": "^2.4.2",
-    "vue-custom-element": "^1.1.0",
+    "vue-custom-element": "^2.0.0",
     "youtube-player": "^5.4.0"
   },
   "devDependencies": {
