@@ -112,5 +112,6 @@ export default {
 		margin: 0;
 		line-height: 1;
 		border: 1px solid #999;
+		border-radius: 3px;
 	}
 </style>
