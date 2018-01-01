@@ -118,7 +118,7 @@ export default {
 	},
 	methods: {
 		playTrack(track) {
-			const previousTrack = this.currentTrack;
+			const previousTrack = this.currentTrack
 			this.currentTrack = track
 			this.$emit('trackChanged', {
 				track,

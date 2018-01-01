@@ -8,7 +8,7 @@
 <script>
 export default {
 	name: 'track-item',
-	props: { 
+	props: {
 		track: Object,
 		channelSlug: String
 	},
@@ -23,12 +23,10 @@ export default {
 <style scoped>
 	.TrackItem {
 		display: block;
-		width: 100%;
 		padding: 0.4em 0.6em;
-		cursor: pointer;
-    color: initial;
+		color: initial;
 		text-decoration: none;
-  }
+	}
 	.TrackItem-title,
 	.TrackItem-body {
 		margin: 0;

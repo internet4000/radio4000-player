@@ -3,7 +3,9 @@
 		<Loading v-if="!hasTracks"></Loading>
 
 		<ol class="TrackList-list">
-			<li v-if="query" class="TrackList-query">Playing selection <em>"{{query}}"</em></li>
+			<li v-if="query" class="TrackList-query">
+				Playing selection <em>"{{query}}"</em>
+			</li>
 			<li v-for="(track, index) in tracks" :key="track.id" class="TrackList-item">
 				<track-item
 					:track="track"
@@ -16,12 +18,14 @@
 		<div v-if="hasTracks" class="TrackList-controls">
 			<button class="Btn Btn--locateTrack" title="Locate current track" @click="locateCurrentTrack">◎</button>
 		</div>
+
 	</div>
 </template>
 
 <script>
 import TrackItem from './TrackItem.vue'
 import Loading from './Loading.vue'
+
 export default {
 	name: 'track-list',
 	props: {
@@ -41,6 +45,7 @@ export default {
 		}
 	},
 	watch: {
+		// When the `tracks` array is changed, scroll to current track.
 		tracks() {
 			this.$nextTick(this.locateCurrentTrack)
 		}
@@ -48,8 +53,8 @@ export default {
 	methods: {
 		locateCurrentTrack() {
 			if (isNaN(this.currentTrackIndex)) return
-			const container = this.$el.querySelector('.TrackList-list');
-			const tracks = this.$el.querySelectorAll('li');
+			const container = this.$el.querySelector('.TrackList-list')
+			const tracks = this.$el.querySelectorAll('li')
 			const activeTrack = tracks[this.currentTrackIndex]
 			if (!activeTrack) return
 			container.scrollTop = activeTrack.offsetTop - 4
@@ -90,7 +95,6 @@ export default {
 		background-color: hsla(0, 0%, 50%, 0.2);
 		padding: 0.5em;
 		font-size: 0.75em;
-		/*color: #737373;*/
 		text-align: center;
 	}
 	.TrackList-controls {
