@@ -1,5 +1,5 @@
 <template>
-	<a :href="href" class="TrackItem" @click="select">
+	<a :href="href" class="TrackItem" @click.prevent="$emit('select')">
 		<p class="TrackItem-title">{{track.title}}</p>
 		<p v-if="track.body" class="TrackItem-body">{{track.body}}</p>
 	</a>
@@ -15,12 +15,6 @@ export default {
 	computed: {
 		href: function() {
 			return `https://radio4000.com/${this.channelSlug}/${this.track.id}`
-		}
-	},
-	methods: {
-		select(event) {
-			event.preventDefault()
-			this.$emit('select', this.track)
 		}
 	}
 }
