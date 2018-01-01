@@ -27,7 +27,7 @@ export default {
 		volume: Number
 	},
 	computed: {
-		provider: function() {
+		provider() {
 			if (this.track && this.track.ytid) return 'youtube'
 			return undefined
 		}

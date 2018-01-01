@@ -13,7 +13,7 @@ export default {
 		channelSlug: String
 	},
 	computed: {
-		href: function() {
+		href() {
 			return `https://radio4000.com/${this.channelSlug}/${this.track.id}`
 		}
 	}
