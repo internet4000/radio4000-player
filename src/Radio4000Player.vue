@@ -2,7 +2,6 @@
 	<div class="Layout">
 		<div class="Layout-header">
 			<channel-header
-				slot="header"
 				:channel="channel"
 				:image="image"
 				:r4Url="r4Url"
