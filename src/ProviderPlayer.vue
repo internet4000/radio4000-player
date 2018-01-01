@@ -6,9 +6,9 @@
 			:autoplay="autoplay"
 			:videoId="track.ytid"
 			:isPlaying="isPlaying"
-			@playing="playProvider"
-			@paused="pauseProvider"
-			@ended="trackEnded"></youtube-player>
+			@playing="$emit('play')"
+			@paused="$emit('pause')"
+			@ended="$emit('trackEnded')"></youtube-player>
 	</div>
 </template>
 
@@ -30,17 +30,6 @@ export default {
 		provider() {
 			if (this.track && this.track.ytid) return 'youtube'
 			return undefined
-		}
-	},
-	methods: {
-		playProvider() {
-			this.$emit('play')
-		},
-		pauseProvider() {
-			this.$emit('pause')
-		},
-		trackEnded() {
-			this.$emit('trackEnded')
 		}
 	}
 }

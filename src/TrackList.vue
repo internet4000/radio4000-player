@@ -8,7 +8,7 @@
 					:track="track"
 					:channelSlug="channelSlug"
 					:class="{active : currentTrackIndex === index}"
-					@select="select"></track-item>
+					@select="$emit('select', track)"></track-item>
 			</li>
 		</ol>
 		<div v-if="tracks && tracks.length" class="TrackList-controls">
@@ -39,9 +39,6 @@ export default {
 		}
 	},
 	methods: {
-		select(track) {
-			this.$emit('select', track)
-		},
 		locateCurrentTrack() {
 			if (isNaN(this.currentTrackIndex)) return
 			const container = this.$el.querySelector('.TrackList-list');
