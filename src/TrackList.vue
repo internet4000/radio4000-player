@@ -1,6 +1,7 @@
 <template>
 	<div class="TrackList">
-		<Loading v-if="!tracks || !tracks.length"></Loading>
+		<Loading v-if="!hasTracks"></Loading>
+
 		<ol class="TrackList-list">
 			<li v-if="query" class="TrackList-query">Playing selection <em>"{{query}}"</em></li>
 			<li v-for="(track, index) in tracks" :key="track.id" class="TrackList-item">
@@ -11,7 +12,8 @@
 					@select="$emit('select', track)"></track-item>
 			</li>
 		</ol>
-		<div v-if="tracks && tracks.length" class="TrackList-controls">
+
+		<div v-if="hasTracks" class="TrackList-controls">
 			<button class="Btn Btn--locateTrack" title="Locate current track" @click="locateCurrentTrack">◎</button>
 		</div>
 	</div>
@@ -32,6 +34,11 @@ export default {
 	components: {
 		Loading,
 		TrackItem
+	},
+	computed: {
+		hasTracks() {
+			return this.tracks && this.tracks.length > 0
+		}
 	},
 	watch: {
 		tracks() {
