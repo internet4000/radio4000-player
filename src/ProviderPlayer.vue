@@ -39,12 +39,6 @@ export default {
 		pauseProvider() {
 			this.$emit('pause')
 		},
-		muteProvider() {
-			this.$emit('mute')
-		},
-		unMuteProvider() {
-			this.$emit('unMute')
-		},
 		trackEnded() {
 			this.$emit('trackEnded')
 		}
