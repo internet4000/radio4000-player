@@ -19,9 +19,9 @@ export function shuffleArray(array) {
 		i = Math.floor(Math.random() * m--)
 
 		// And swap it with the current element.
-			t = array[m]
+		t = array[m]
 		array[m] = array[i]
 		array[i] = t
 	}
-	return array;
+	return array
 }
