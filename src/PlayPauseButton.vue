@@ -35,60 +35,60 @@ export default {
 	display: flex;
 }
 .PlayPause::-moz-selection {
-  background-color: transparent;
+	background-color: transparent;
 }
 .PlayPause::selection {
-  background-color: transparent;
+	background-color: transparent;
 }
 .PlayPause-state {
-  width: 0;
-  height: 0;
-  border: none;
-  visibility: hidden;
-  margin: 0;
-  position: absolute;
+	width: 0;
+	height: 0;
+	border: none;
+	visibility: hidden;
+	margin: 0;
+	position: absolute;
 }
 .PlayPause-label {
-	flex: 1;	
-  display: flex;
+	flex: 1;
+	display: flex;
 }
 .PlayPause-controller {
-  display: inline-block;
-  position: relative;
-  font-size: 16px;
-  width: 1em;
-  height: 1.2em;
-  padding: 0;
-  margin: auto;
+	display: inline-block;
+	position: relative;
+	font-size: 16px;
+	width: 1em;
+	height: 1.2em;
+	padding: 0;
+	margin: auto;
 }
 .PlayPause-controller::before,
 .PlayPause-controller::after {
-  box-sizing: content-box;
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  content: "";
-  border-top: 0.3em solid transparent;
-  border-bottom: 0.3em solid transparent;
-  border-left: 0.5em solid black;
+	box-sizing: content-box;
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	content: "";
+	border-top: 0.3em solid transparent;
+	border-bottom: 0.3em solid transparent;
+	border-left: 0.5em solid black;
 }
 .PlayPause-controller::before {
-  left: 0;
-  transition: all 100ms linear;
-  width: 0;
-  height: 0.6em;
+	left: 0;
+	transition: all 100ms linear;
+	width: 0;
+	height: 0.6em;
 }
 .PlayPause-controller::after {
-  right: 0;
-  transition: all 150ms linear;
-  width: 0;
-  height: 0;
+	right: 0;
+	transition: all 150ms linear;
+	width: 0;
+	height: 0;
 }
 .PlayPause-state:checked + .PlayPause-label .PlayPause-controller::before,
 .PlayPause-state:checked + .PlayPause-label .PlayPause-controller::after {
-  border-top-width: 0;
-  border-bottom-width: 0;
-  border-left-width: 0.38em;
-  height: 100%;
+	border-top-width: 0;
+	border-bottom-width: 0;
+	border-left-width: 0.38em;
+	height: 100%;
 }
 </style>

@@ -21,7 +21,7 @@
 			</button>
 		</div>
 		<div class="PlayerControl-group PlayerControl-group--large">
-			<PlayPauseButton 
+			<PlayPauseButton
 				class="Btn"
 				:isPlaying="isPlaying"
 				@play="$emit('play')"
@@ -42,7 +42,7 @@ import PlayPauseButton from './PlayPauseButton.vue'
 export default {
 	name: 'player-controls',
 	components: {PlayPauseButton},
-	props: { 
+	props: {
 		volume: Number,
 		isPlaying: Boolean,
 		isDisabled: Boolean,
@@ -50,7 +50,7 @@ export default {
 		isShuffle: Boolean
 	},
 	computed: {
-		isNotFullVolume: function() {
+		isNotFullVolume() {
 			return this.volume < 100
 		}
 	}

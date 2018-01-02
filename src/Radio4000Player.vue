@@ -2,7 +2,6 @@
 	<div class="Layout">
 		<div class="Layout-header">
 			<channel-header
-				slot="header"
 				:channel="channel"
 				:image="image"
 				:r4Url="r4Url"
@@ -89,10 +88,10 @@ export default {
 	},
 	computed: {
 		isMuted: {
-			get: function() {
+			get() {
 				return this.volume === 0
 			},
-			set: function(newValue) {
+			set(newValue) {
 				if (newValue) {
 					this.$root.$emit('setVolume', 0)
 				} else {
@@ -105,13 +104,13 @@ export default {
 		}
 	},
 	watch: {
-		shuffle: function(shuffle) {
+		shuffle(shuffle) {
 			this.isShuffle = shuffle
 		},
-		originTrack: function(track) {
+		originTrack(track) {
 			this.playTrack(track)
 		},
-		tracks: function(tracks) {
+		tracks(tracks) {
 			this.newTracksPool()
 			const noTrack = Object.keys(this.currentTrack).length === 0
 			if (noTrack) this.playNextTrack()
@@ -119,7 +118,7 @@ export default {
 	},
 	methods: {
 		playTrack(track) {
-			const previousTrack = this.currentTrack;
+			const previousTrack = this.currentTrack
 			this.currentTrack = track
 			this.$emit('trackChanged', {
 				track,

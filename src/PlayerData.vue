@@ -76,27 +76,28 @@
 			}
 		},
 		watch: {
-			channelSlug: function (slug) {
+			channelSlug(slug) {
 				this.loadChannelBySlug(slug)
 			},
-			channelId: function (id) {
+			channelId(id) {
 				this.loadChannelById(id)
 			},
-			trackId: function (id) {
+			trackId(id) {
 				this.loadChannelByTrack(id)
 			}
 		},
 		computed: {
 			localVolume: {
-				get: function() {
+				get() {
 					return this.volume
 				},
-				set: function(volume) {
-					this.$root.$el.parentNode.volume = volume;
+				set(volume) {
+					const el = this.$root.$el.parentNode
+					el.setAttribute('volume', volume)
 				}
 			},
 			// When either of these is set, it means we can load and show the player.
-			canLoad: function() {
+			canLoad() {
 				return this.channel || this.channelSlug || this.channelId || this.trackId
 			}
 		},
