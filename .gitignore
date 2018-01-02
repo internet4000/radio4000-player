@@ -5,4 +5,5 @@ yarn-error.log
 dist/radio4000-player.js
 dist/radio4000-player.js.map
 .vscode
+cypress/videos/
 

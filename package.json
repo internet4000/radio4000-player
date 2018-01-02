@@ -31,6 +31,7 @@
     "babel-preset-env": "^1.6.1",
     "babili": "^0.1.4",
     "browser-env": "^3.2.2",
+    "cypress": "^1.4.1",
     "require-extension-hooks": "^0.3.2",
     "require-extension-hooks-babel": "^0.1.1",
     "require-extension-hooks-vue": "^0.4.1",
