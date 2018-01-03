@@ -48,7 +48,7 @@ export default {
 			return this.r4Url ? '_self' : '_blank'
 		},
 		channelDescription() {
-			const { title = '', slug = '', body = ''} = this.channel;
+			const { title = '', slug = '', body = ''} = this.channel
 			return `[ ${title}, @${slug} ] ${body}`
 		}
 	}
