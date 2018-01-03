@@ -1,6 +1,3 @@
-// `describe` and `it` comes from Mocha
-// `expect` comes from Chai
-
 describe('My First Test', function() {
 	it('Does not do much!', function() {
 		expect(true).to.equal(true)
@@ -10,7 +7,6 @@ describe('My First Test', function() {
 describe('<radio4000-player> tests', function() {
 	before(() => {
 		// You will need to run `yarn start` yourself.
-		// cy.exec('yarn start')
 
 		// Visiting our app before each test removes any state build up from
 		// previous tests. Visiting acts as if we closed a tab and opened a fresh one
