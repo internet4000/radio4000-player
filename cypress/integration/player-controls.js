@@ -1,6 +1,6 @@
 describe('player controls', function() {
 	before(() => {
-		cy.visit('http://localhost:4002')
+		cy.visit('/')
 	})
 
 	it('it is not playing', function() {

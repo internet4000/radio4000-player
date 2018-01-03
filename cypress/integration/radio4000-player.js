@@ -11,7 +11,7 @@ describe('<radio4000-player> tests', function() {
 		// Visiting our app before each test removes any state build up from
 		// previous tests. Visiting acts as if we closed a tab and opened a fresh one
 		// https://on.cypress.io/visit
-		cy.visit('http://localhost:4002')
+		cy.visit('/')
 	})
 
 	beforeEach(function() {

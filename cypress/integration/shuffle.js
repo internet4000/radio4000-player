@@ -1,6 +1,6 @@
 describe('shuffle', function() {
 	before(() => {
-		cy.visit('http://localhost:4002')
+		cy.visit('/')
 	})
 
 	it('pressing "shuffle" shuffles the track list', function() {
