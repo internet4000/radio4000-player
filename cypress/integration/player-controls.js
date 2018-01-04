@@ -7,6 +7,13 @@ describe('player controls', function() {
 		cy.get('.PlayPause-state').should('not.be.checked')
 	})
 
+	it('has all the buttons', () => {
+		cy.get('.Btn--mute').should('have.length', 1)
+		cy.get('.Btn--shuffle').should('have.length', 1)
+		cy.get('.Btn--next').should('have.length', 1)
+		cy.get('.PlayPause').should('have.length', 1)
+	})
+
 	it('first track is selected', function() {
 		cy.get('radio4000-player').find('.TrackItem').first().should('have.class', 'active')
 	})

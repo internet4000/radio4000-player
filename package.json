@@ -9,7 +9,8 @@
   "scripts": {
     "start": "poi",
     "build": "poi build",
-    "test": "npm start & cypress run",
+    "test": "start-server-and-test start http://localhost:4002 test-cypress",
+    "test-cypress": "cypress run",
     "prepublishOnly": "npm run build"
   },
   "main": "src/index.js",
@@ -26,7 +27,8 @@
   },
   "devDependencies": {
     "cypress": "^1.4.1",
-    "poi": "^9.6.9"
+    "poi": "^9.6.9",
+    "start-server-and-test": "^1.0.0"
   },
   "poi": {
     "port": 4002,
@@ -37,6 +39,8 @@
     "extractCSS": false,
     "filename": {
       "js": "radio4000-player.min.js"
-    }
+    },
+    "format": "umd",
+    "moduleName": "radio4000Player"
   }
 }
