@@ -1,10 +1,4 @@
-describe('My First Test', function() {
-	it('Does not do much!', function() {
-		expect(true).to.equal(true)
-	})
-})
-
-describe('<radio4000-player> tests', function() {
+describe('<radio4000-player> web component', function() {
 	before(() => {
 		// You will need to run `yarn start` yourself.
 
@@ -30,10 +24,13 @@ describe('<radio4000-player> tests', function() {
 		})
 	})
 
-	it('it can change radio', function() {
-		cy.get('radio4000-player').then($player => {
-			$player.attr('channel-slug', 'oskar')
-			cy.get('.Header-channel').should('contain', 'Radio Oskar')
+	it('pressing "shuffle" shuffles the track list', function() {
+		cy.get('.TrackItem-title').eq(1).then($el => {
+			var title = $el.text()
+			cy.get('.Btn--shuffle').click()
+			cy.get('.TrackItem-title').eq(1).should('not.contain', title)
+			cy.get('.Btn--shuffle').click()
+			cy.get('.TrackItem-title').eq(1).should('contain', title)
 		})
 	})
 })

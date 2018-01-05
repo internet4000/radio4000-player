@@ -27,9 +27,11 @@
     "youtube-player": "^5.4.0"
   },
   "devDependencies": {
+    "@cypress/webpack-preprocessor": "^1.1.2",
     "cypress": "^1.4.1",
     "poi": "^9.6.9",
-    "start-server-and-test": "^1.0.0"
+    "start-server-and-test": "^1.0.0",
+    "vue-test-utils": "^1.0.0-beta.9"
   },
   "poi": {
     "port": 4002,
