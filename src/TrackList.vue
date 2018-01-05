@@ -1,25 +1,31 @@
 <template>
 	<div class="TrackList">
-		<Loading v-if="!tracks || !tracks.length"></Loading>
+		<Loading v-if="!hasTracks"></Loading>
+
 		<ol class="TrackList-list">
-			<li v-if="query" class="TrackList-query">Playing selection <em>"{{query}}"</em></li>
+			<li v-if="query" class="TrackList-query">
+				Playing selection <em>"{{query}}"</em>
+			</li>
 			<li v-for="(track, index) in tracks" :key="track.id" class="TrackList-item">
 				<track-item
 					:track="track"
 					:channelSlug="channelSlug"
 					:class="{active : currentTrackIndex === index}"
-					@select="select"></track-item>
+					@select="$emit('select', track)"></track-item>
 			</li>
 		</ol>
-		<div v-if="tracks && tracks.length" class="TrackList-controls">
+
+		<div v-if="hasTracks" class="TrackList-controls">
 			<button class="Btn Btn--locateTrack" title="Locate current track" @click="locateCurrentTrack">◎</button>
 		</div>
+
 	</div>
 </template>
 
 <script>
 import TrackItem from './TrackItem.vue'
 import Loading from './Loading.vue'
+
 export default {
 	name: 'track-list',
 	props: {
@@ -33,19 +39,22 @@ export default {
 		Loading,
 		TrackItem
 	},
+	computed: {
+		hasTracks() {
+			return this.tracks && this.tracks.length > 0
+		}
+	},
 	watch: {
+		// When the `tracks` array is changed, scroll to current track.
 		tracks() {
 			this.$nextTick(this.locateCurrentTrack)
 		}
 	},
 	methods: {
-		select(track) {
-			this.$emit('select', track)
-		},
 		locateCurrentTrack() {
 			if (isNaN(this.currentTrackIndex)) return
-			const container = this.$el.querySelector('.TrackList-list');
-			const tracks = this.$el.querySelectorAll('li');
+			const container = this.$el.querySelector('.TrackList-list')
+			const tracks = this.$el.querySelectorAll('li')
 			const activeTrack = tracks[this.currentTrackIndex]
 			if (!activeTrack) return
 			container.scrollTop = activeTrack.offsetTop - 4
@@ -86,7 +95,6 @@ export default {
 		background-color: hsla(0, 0%, 50%, 0.2);
 		padding: 0.5em;
 		font-size: 0.75em;
-		/*color: #737373;*/
 		text-align: center;
 	}
 	.TrackList-controls {
@@ -104,5 +112,6 @@ export default {
 		margin: 0;
 		line-height: 1;
 		border: 1px solid #999;
+		border-radius: 3px;
 	}
 </style>
