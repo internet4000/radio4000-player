@@ -1,14 +1,6 @@
 describe('<radio4000-player> web component', function() {
 	before(() => {
-		// You will need to run `yarn start` yourself.
-
-		// Visiting our app before each test removes any state build up from
-		// previous tests. Visiting acts as if we closed a tab and opened a fresh one
-		// https://on.cypress.io/visit
 		cy.visit('/')
-	})
-
-	beforeEach(function() {
 	})
 
 	it('it renders', function() {

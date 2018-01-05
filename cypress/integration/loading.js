@@ -6,8 +6,8 @@ describe('<Loading> component', function() {
 		let wrapper = mount(Loading)
 		let vm = wrapper.vm
 		vm.$props.message = 'hello this is dog'
-		return cy.wait(10).then(() => {
 		// vm.$nextTick(() => {
+		return cy.wait(10).then(() => {
 			assert.equal(wrapper.element.innerText, 'hello this is dog')
 		})
 	})
