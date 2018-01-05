@@ -9,8 +9,9 @@
   "scripts": {
     "start": "poi",
     "build": "poi build",
-    "test": "start-server-and-test start http://localhost:4002 test-cypress",
-    "test-cypress": "cypress run",
+    "test": "start-server-and-test start http://localhost:4002 cy:run",
+    "cy:run": "cypress run",
+    "cy:open": "cypress open",
     "prepublishOnly": "npm run build"
   },
   "main": "src/index.js",

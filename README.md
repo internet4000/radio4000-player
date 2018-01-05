@@ -125,17 +125,15 @@ yarn start
 ## Testing
 
 ```bash
-# run tests using ava
+# run tests once
 yarn test
 
 # watch for changes and run tests
-ava --watch
-
-# update test snapshots
-ava --update-snapshots
+yarn start; yarn cypress open
 ```
 
-## NPM release
+## How to release a new version
 
 - `npm version <newversion>` (try `npm version --help`)
 - `npm publish`
+- `git push --tags`
