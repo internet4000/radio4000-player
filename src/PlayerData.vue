@@ -77,12 +77,15 @@
 		},
 		watch: {
 			channelSlug(slug) {
+				if (!id) return
 				this.loadChannelBySlug(slug)
 			},
 			channelId(id) {
+				if (!id) return
 				this.loadChannelById(id)
 			},
 			trackId(id) {
+				if (!id) return
 				this.loadChannelByTrack(id)
 			}
 		},
@@ -131,9 +134,7 @@
 			loadChannelImage(channel) {
 				findChannelImage(channel)
 					.then(this.updateImage)
-					.catch(err => {
-						// console.log(err)
-					})
+					.catch(err => {console.log(err)})
 			},
 
 			/*
