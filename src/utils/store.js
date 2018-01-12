@@ -51,7 +51,7 @@ export function findTrack(id) {
 }
 
 export function findChannelImage(channel) {
-	if (!channel || !channel.images) throw new Error('no images')
+	if (!channel || !channel.images) return Promise.reject()
 	const url = `${host}/images.json?orderBy="channel"&startAt="${channel.id}"&endAt="${channel.id}"&limitToLast=1`
 	return fetch(url).then(parse).then(toArray).then(getFirst).then(img => {
 		const rootURL = 'https://res.cloudinary.com/radio4000/image/upload/'
