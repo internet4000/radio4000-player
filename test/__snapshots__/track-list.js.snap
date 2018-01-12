@@ -1,7 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`renders 1`] = `
-Object {
-  "$el": "<div style=\\"overflow-y: scroll;\\"><div class=\\"Loading Loading--hasNoMessage\\"><span></span></div><ol class=\\"TrackList\\"></ol><!----></div>",
-}
-`;

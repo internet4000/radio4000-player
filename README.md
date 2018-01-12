@@ -116,26 +116,24 @@ Therefore, URLs in the player header won't open new browser window but will just
 ``` bash
 # 1. clone and install dependencies
 git clone git@github.com:internet4000/radio4000-player.git
-yarn install
+yarn
 
-# 2. starts a server at http://localhost:4002 that autobuilds when files change
+# 2. starts a server on http://localhost:4002 that autobuilds when files change
 yarn start
 ```
 
 ## Testing
 
 ```bash
-# run tests using ava
+# run tests once
 yarn test
 
 # watch for changes and run tests
-ava --watch
-
-# update test snapshots
-ava --update-snapshots
+yarn start; yarn cypress open
 ```
 
-## NPM release
+## How to release a new version
 
 - `npm version <newversion>` (try `npm version --help`)
 - `npm publish`
+- `git push --tags`
