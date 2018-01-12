@@ -77,7 +77,7 @@
 		},
 		watch: {
 			channelSlug(slug) {
-				if (!id) return
+				if (!slug) return
 				this.loadChannelBySlug(slug)
 			},
 			channelId(id) {
