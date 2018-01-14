@@ -27,4 +27,12 @@ describe('<TrackList> component', function() {
 			assert.equal(wrapper.findAll('.TrackItem-title').wrappers[2].element.textContent, 'c')
 		})
 	})
+
+	it('shows query message if supplied', function() {
+		assert.isNotOk(wrapper.find('.TrackList-query').element)
+		wrapper.vm.$props.query = '#jazz #funk'
+		return cy.wait(10).then(() => {
+			assert.isOk(wrapper.find('.TrackList-query').element)
+		})
+	})
 })

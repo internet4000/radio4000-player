@@ -9,7 +9,6 @@
 		:r4Url="r4Url"
 		:volume="localVolume"
 		:shuffle="shuffle"
-		:query="query"
 		@trackChanged="onTrackChanged"
 		@trackEnded="onTrackEnded">
 	</radio4000-player>
@@ -47,8 +46,7 @@
 				type: Number,
 				default: 100
 			},
-			shuffle: Boolean,
-			query: String
+			shuffle: Boolean
 		},
 		data () {
 			return {

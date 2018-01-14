@@ -25,7 +25,7 @@
 					:channelSlug="channel.slug"
 					:track="currentTrack"
 					:tracks="tracksPool"
-					:query="query"
+					:query="channel.query"
 					@select="playTrack"></track-list>
 			</div>
 		</div>
