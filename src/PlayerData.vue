@@ -132,7 +132,7 @@
 			loadChannelImage(channel) {
 				findChannelImage(channel)
 					.then(this.updateImage)
-					.catch(err => {console.log(err)})
+					// .catch(err => {console.log(err)})
 			},
 
 			/*
