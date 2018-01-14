@@ -120,7 +120,17 @@
 				return findTrack(id)
 					.then(track => {
 						this.track = track
-						if (this.channel.id === track.channel) return
+
+						// don't refresh
+						const hasQuery = this.channel.query
+						const sameChannel = this.channel.id === track.channel
+						const trackAlreadyLoaded = this.tracks.filterBy('id', id).length === 1
+						// console.log({hasQuery, sameChannel, trackAlreadyLoaded})
+						if (sameChannel && hasQuery && trackAlreadyLoaded || sameChannel && !hasQuery) {
+							return
+						}
+
+						// refresh
 						return this.loadChannelById(track.channel)
 					})
 			},
