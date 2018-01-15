@@ -97,6 +97,8 @@ var vue = player.__vue_custom_element__.$children[0]
 vue.updatePlaylist(playlist)
 ```
 
+If the playlist object contains a `query` string it will be shown on top of the track list.
+
 ## Using internal links
 
 If this player is used inside radio4000.com, we want the links to switch URL internally.

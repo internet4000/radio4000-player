@@ -9,7 +9,6 @@
 		:r4Url="r4Url"
 		:volume="localVolume"
 		:shuffle="shuffle"
-		:query="query"
 		@trackChanged="onTrackChanged"
 		@trackEnded="onTrackEnded">
 	</radio4000-player>
@@ -47,8 +46,7 @@
 				type: Number,
 				default: 100
 			},
-			shuffle: Boolean,
-			query: String
+			shuffle: Boolean
 		},
 		data () {
 			return {
@@ -122,7 +120,17 @@
 				return findTrack(id)
 					.then(track => {
 						this.track = track
-						if (this.channel.id === track.channel) return
+
+						// don't refresh
+						const hasQuery = this.channel.query
+						const sameChannel = this.channel.id === track.channel
+						const trackAlreadyLoaded = this.tracks.filterBy('id', id).length === 1
+						// console.log({hasQuery, sameChannel, trackAlreadyLoaded})
+						if (sameChannel && hasQuery && trackAlreadyLoaded || sameChannel && !hasQuery) {
+							return
+						}
+
+						// refresh
 						return this.loadChannelById(track.channel)
 					})
 			},
@@ -134,7 +142,7 @@
 			loadChannelImage(channel) {
 				findChannelImage(channel)
 					.then(this.updateImage)
-					.catch(err => {console.log(err)})
+					// .catch(err => {console.log(err)})
 			},
 
 			/*
