@@ -136,6 +136,7 @@ yarn start; yarn cypress open
 
 ## How to release a new version
 
+- `npm build`, so it creates `dist/radio4000-player.min.js`
 - `npm version <newversion>` (try `npm version --help`)
 - `npm publish`
 - `git push --tags`
