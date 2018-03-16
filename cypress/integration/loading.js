@@ -1,4 +1,4 @@
-import { mount } from 'vue-test-utils'
+import { mount } from '@vue/test-utils'
 import Loading from '../../src/Loading.vue'
 
 describe('<Loading> component', function() {
