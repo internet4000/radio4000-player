@@ -100,7 +100,7 @@ export default {
 	.TrackList-controls {
 		position: absolute;
 		bottom: -0.1em;
-		right: 1em;
+		right: 1.5em;
 		z-index: 1;
 		opacity: 0.6;
 	}
