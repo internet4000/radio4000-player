@@ -99,8 +99,8 @@ export default {
 	}
 	.TrackList-controls {
 		position: absolute;
-		bottom: 0.5em;
-		right: 1.3em;
+		bottom: -0.1em;
+		right: 1.5em;
 		z-index: 1;
 		opacity: 0.6;
 	}
@@ -108,10 +108,11 @@ export default {
 		opacity: 1;
 	}
 	.Btn--locateTrack {
-		padding: 0.5em;
+		padding: 0.9em;
 		margin: 0;
 		line-height: 1;
 		border: 1px solid #999;
+		background-color: hsl(0, 0%, 96%);
 		border-radius: 3px;
 	}
 </style>
