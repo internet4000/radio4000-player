@@ -1,4 +1,4 @@
-import { mount } from 'vue-test-utils'
+import { mount } from '@vue/test-utils'
 import TrackList from '../../src/TrackList.vue'
 
 describe('<TrackList> component', function() {
