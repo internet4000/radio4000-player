@@ -130,13 +130,25 @@ yarn start
 # run tests once
 yarn test
 
-# watch for changes and run tests
+# (re)run tests as files change
 yarn start; yarn cypress open
 ```
 
 ## How to release a new version
 
-- `npm build`, so it creates `dist/radio4000-player.min.js`
-- `npm version <newversion>` (try `npm version --help`)
-- `npm publish`
-- `git push --tags`
+Release a new patch e.g. `1.0.4` to `1.0.5`.
+
+```
+yarn release
+```
+
+Release a minor, major, or specific version:
+
+```
+yarn release minor
+yarn release major
+yarn release 0.8.3
+```
+
+Running this command create a new, tagged "release" commit including a production build and pushes it to Git and NPM. See [release-it](https://github.com/webpro/release-it) for more.
+
