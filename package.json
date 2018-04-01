@@ -12,7 +12,7 @@
     "test": "start-server-and-test start http://localhost:4002 cy:run",
     "cy:run": "cypress run",
     "cy:open": "cypress open",
-    "prepublishOnly": "npm run build"
+    "release": "release-it --buildCommand 'npm build'"
   },
   "main": "src/index.js",
   "browser": "dist/radio4000-player.min.js",
@@ -32,6 +32,7 @@
     "@vue/test-utils": "^1.0.0-beta.12",
     "cypress": "^2.1.0",
     "poi": "^9.6.13",
+    "release-it": "^7.2.1",
     "start-server-and-test": "^1.1.0"
   },
   "poi": {
