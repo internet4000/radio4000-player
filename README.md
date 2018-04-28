@@ -93,7 +93,22 @@ Danger zone. We are still finalizing the API for methods so except this to chang
 // Get access to the Vue component behind the web component to access methods.
 var player = document.querySelector('radio4000-player')
 var vue = player.__vue_custom_element__.$children[0]
-// playlist = {channel..., tracks: []}
+
+var tracks = [
+	{
+		id: 'uniqueId',
+		title: 'A title to display',
+		url: 'an url to link to in the track list',
+		ytid: 'an id to the youtube video'
+	}
+];
+
+var playlist = {
+	title: `A title for this list`,
+	image: 'https://raw.githubusercontent.com/internet4000/assets/master/radio4000/icon-r4.svg',
+	tracks: tracks
+};
+
 vue.updatePlaylist(playlist)
 ```
 
