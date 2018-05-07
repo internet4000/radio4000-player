@@ -1,6 +1,11 @@
 # Radio4000 Player
 
-This is a web component that plays channels from [Radio4000](htttps://radio4000.com). It uses the public [radio4000-api](https://github.com/internet4000/radio4000-api) and Vue.js.
+This is a web component that plays channels from
+[Radio4000](htttps://radio4000.com). It uses the public
+[radio4000-api](https://github.com/internet4000/radio4000-api) and
+Vue.js.
+
+[![](https://data.jsdelivr.com/v1/package/npm/radio4000-player/badge)](https://www.jsdelivr.com/package/npm/radio4000-player)
 
 ## How to use
 
@@ -167,3 +172,5 @@ yarn release 0.8.3
 
 Running this command create a new, tagged "release" commit including a production build and pushes it to Git and NPM. See [release-it](https://github.com/webpro/release-it) for more.
 
+- https://www.npmjs.com/package/radio4000-player
+- https://www.jsdelivr.com/package/npm/radio4000-player
