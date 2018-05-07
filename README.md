@@ -9,10 +9,10 @@ Vue.js.
 
 ## How to use
 
-You can either load the player directly like this:
+You can load the player with a CDN, like this:
 
 ```html
-<script async src="https://unpkg.com/radio4000-player"></script>
+<script async src="https://cdn.jsdelivr.net/npm/radio4000-player"></script>
 <radio4000-player channel-slug="good-time-radio"></radio4000-player>
 ```
 
