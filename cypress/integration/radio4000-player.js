@@ -19,10 +19,19 @@ describe('<radio4000-player> web component', function() {
 	it('pressing "shuffle" shuffles the track list', function() {
 		cy.get('.TrackItem-title').eq(1).then($el => {
 			var title = $el.text()
+
+			// enable shuffle
 			cy.get('.Btn--shuffle').click()
+			var shuffleTitle = $el.text()
 			cy.get('.TrackItem-title').eq(1).should('not.contain', title)
+
+			// disable shuffle
 			cy.get('.Btn--shuffle').click()
 			cy.get('.TrackItem-title').eq(1).should('contain', title)
+
+			// enabling shuffle again doesn't reuse previous shuffled list
+			cy.get('.Btn--shuffle').click()
+			cy.get('.TrackItem-title').eq(1).should('not.contain', shuffleTitle)
 		})
 	})
 })
