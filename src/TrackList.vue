@@ -85,7 +85,7 @@ export default {
 	.TrackList-item::after {
 		content: counter(tracks) "";
 		counter-increment: tracks;
-		color: #737373;
+		color: #696969;
 		font-size: 0.5em;
 		position: absolute;
 		top: 0.5em;
