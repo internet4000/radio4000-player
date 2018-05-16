@@ -3,6 +3,7 @@
 		<a class="Header-logo"
 			:href="linkHref"
 			:target="linkTarget"
+			:rel="linkRel"
 			title="Open this radio on Radio4000.com"
 		>
 			<R4Logo></R4Logo>
@@ -10,6 +11,7 @@
 		<a
 			:href="linkHref"
 			:target="linkTarget"
+			:rel="linkRel"
 			class="Header-media"
 			title="Open this radio on Radio4000.com"
 		>
@@ -46,6 +48,9 @@ export default {
 		},
 		linkTarget() {
 			return this.r4Url ? '_self' : '_blank'
+		},
+		linkRel() {
+			return this.r4Url ? '' : 'noopener'
 		},
 		channelDescription() {
 			const { title = '', slug = '', body = ''} = this.channel

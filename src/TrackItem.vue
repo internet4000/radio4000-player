@@ -41,7 +41,7 @@ export default {
 	}
 	.TrackItem-body {
 		font-size: 0.75em; /* 12/16 */
-		color: #737373;
+		color: #696969;
 	}
 	.TrackItem:hover,
 	.TrackItem.active {
