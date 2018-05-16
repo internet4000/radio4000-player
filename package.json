@@ -12,7 +12,7 @@
     "test": "start-server-and-test start http://localhost:4002 cy:run",
     "cy:run": "cypress run",
     "cy:open": "cypress open",
-    "release": "release-it --buildCommand 'npm build'"
+    "release": "release-it --buildCommand 'npm run build'"
   },
   "main": "src/index.js",
   "browser": "dist/radio4000-player.min.js",
