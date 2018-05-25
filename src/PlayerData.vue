@@ -75,16 +75,13 @@
 		},
 		watch: {
 			channelSlug(slug) {
-				if (!slug) return
-				this.loadChannelBySlug(slug)
+				if (slug) this.loadChannelBySlug(slug)
 			},
 			channelId(id) {
-				if (!id) return
-				this.loadChannelById(id)
+				if (id) this.loadChannelById(id)
 			},
 			trackId(id) {
-				if (!id) return
-				this.loadChannelByTrack(id)
+				if (id) this.loadChannelByTrack(id)
 			}
 		},
 		computed: {
@@ -103,7 +100,6 @@
 			}
 		},
 		methods: {
-
 			// start player session by:
 			// all start method must return a `channel@r4` model
 			loadChannelBySlug(slug) {
@@ -149,7 +145,6 @@
 				 As an alternative to letting the player load the right data for you,
 				 you can pass a "channel" object.
 			 */
-
 			updateChannel(channel) {
 				/* Reset tracks and image to show loading UX immediately.*/
 				this.tracks = []
