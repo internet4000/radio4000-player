@@ -20,11 +20,11 @@
     "dist/"
   ],
   "dependencies": {
-    "document-register-element": "^1.7.2",
+    "document-register-element": "^1.8.1",
     "lodash.debounce": "^4.0.8",
     "unfetch": "^3.0.0",
     "vue": "^2.5.16",
-    "vue-custom-element": "^2.1.0",
+    "vue-custom-element": "^3.0.6",
     "youtube-player": "^5.5.0"
   },
   "devDependencies": {

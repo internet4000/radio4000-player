@@ -2552,9 +2552,9 @@ dns-txt@^2.0.2:
   dependencies:
     buffer-indexof "^1.0.0"
 
-document-register-element@^1.7.2:
-  version "1.7.2"
-  resolved "https://registry.yarnpkg.com/document-register-element/-/document-register-element-1.7.2.tgz#f864286516ab7e29c7051d6e1d00b89fa5f94175"
+document-register-element@^1.8.1:
+  version "1.8.1"
+  resolved "https://registry.yarnpkg.com/document-register-element/-/document-register-element-1.8.1.tgz#db841ece6cba28e6e538ac8e815413b59e86047e"
   dependencies:
     lightercollective "^0.0.0"
 
@@ -7438,9 +7438,9 @@ vm-browserify@0.0.4:
   dependencies:
     indexof "0.0.1"
 
-vue-custom-element@^2.1.0:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/vue-custom-element/-/vue-custom-element-2.1.0.tgz#bf1b8a031d60cdd43055ecbc4f70726aa904bdbc"
+vue-custom-element@^3.0.6:
+  version "3.0.6"
+  resolved "https://registry.yarnpkg.com/vue-custom-element/-/vue-custom-element-3.0.6.tgz#5d7c448efc4cd83361ab63c1f7fb96fc2b376db2"
 
 vue-hot-reload-api@^2.2.0:
   version "2.3.0"
