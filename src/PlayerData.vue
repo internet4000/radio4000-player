@@ -114,7 +114,7 @@
 			},
 			loadChannelByTrack(id) {
 				// avoid loading track twice
-				let track = this.tracks && this.tracks.filter(t => t.id === id)[0]
+				let track = this.tracks && this.tracks.find(t => t.id === id)
 				if (track) {
 					return this.track = track
 				}
