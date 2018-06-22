@@ -113,16 +113,19 @@
 					.catch(err => {console.log(err)})
 			},
 			loadChannelByTrack(id) {
-				return findTrack(id)
-					.then(track => {
+				// avoid loading track twice
+				let track = this.tracks && this.tracks.find(t => t.id === id)
+				if (track) {
+					return this.track = track
+				}
+
+				return findTrack(id).then(track => {
 						this.track = track
 
-						// don't refresh
+						// avoid loading the same channel twice
 						const hasQuery = this.channel.query
 						const sameChannel = this.channel.id === track.channel
-						const trackAlreadyLoaded = this.tracks.filterBy('id', id).length === 1
-						// console.log({hasQuery, sameChannel, trackAlreadyLoaded})
-						if (sameChannel && hasQuery && trackAlreadyLoaded || sameChannel && !hasQuery) {
+						if (sameChannel && hasQuery || sameChannel && !hasQuery) {
 							return
 						}
 
@@ -138,7 +141,7 @@
 			loadChannelImage(channel) {
 				findChannelImage(channel)
 					.then(this.updateImage)
-					// .catch(err => {console.log(err)})
+					// no catch because no image is ok
 			},
 
 			/*
