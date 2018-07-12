@@ -10,7 +10,8 @@
 		:volume="localVolume"
 		:shuffle="shuffle"
 		@trackChanged="onTrackChanged"
-		@trackEnded="onTrackEnded">
+		@trackEnded="onTrackEnded"
+		@mediaNotAvailable="onMediaNotAvailable">
 	</radio4000-player>
 	<div v-else class="Console">
 		<p>Radio4000-player is ready to start playing:
@@ -62,7 +63,7 @@
 			}, 100))
 
 			// Decide which method to use to load data.
-			const { channelSlug, channelId, trackId } = this
+					 const { channelSlug, channelId, trackId } = this
 			if (trackId) {
 				return this.loadChannelByTrack(trackId)
 			}
@@ -95,9 +96,9 @@
 				}
 			},
 			// When either of these is set, it means we can load and show the player.
-			canLoad() {
-				return this.channel || this.channelSlug || this.channelId || this.trackId
-			}
+				canLoad() {
+					return this.channel || this.channelSlug || this.channelId || this.trackId
+				}
 		},
 		methods: {
 			// start player session by:
@@ -120,18 +121,18 @@
 				}
 
 				return findTrack(id).then(track => {
-						this.track = track
+					this.track = track
 
-						// avoid loading the same channel twice
-						const hasQuery = this.channel.query
-						const sameChannel = this.channel.id === track.channel
-						if (sameChannel && hasQuery || sameChannel && !hasQuery) {
-							return
-						}
+					// avoid loading the same channel twice
+					const hasQuery = this.channel.query
+					const sameChannel = this.channel.id === track.channel
+					if (sameChannel && hasQuery || sameChannel && !hasQuery) {
+						return
+					}
 
-						// refresh
-						return this.loadChannelById(track.channel)
-					})
+					// refresh
+					return this.loadChannelById(track.channel)
+				})
 			},
 			loadChannelTracks(channel) {
 				findChannelTracks(channel.id)
@@ -141,7 +142,7 @@
 			loadChannelImage(channel) {
 				findChannelImage(channel)
 					.then(this.updateImage)
-					// no catch because no image is ok
+				// no catch because no image is ok
 			},
 
 			/*
@@ -189,6 +190,9 @@
 			},
 			onTrackEnded(...args) {
 				this.$emit('trackEnded', ...args)
+			},
+			onMediaNotAvailable(...args) {
+				this.$emit('mediaNotAvailable', ...args)
 			}
 		}
 	}
