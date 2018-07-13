@@ -1,4 +1,4 @@
-u<template>
+<template>
   <div class="ytplayer"></div>
 </template>
 
