@@ -63,7 +63,7 @@
 			}, 100))
 
 			// Decide which method to use to load data.
-					 const { channelSlug, channelId, trackId } = this
+			const { channelSlug, channelId, trackId } = this
 			if (trackId) {
 				return this.loadChannelByTrack(trackId)
 			}
@@ -96,9 +96,9 @@
 				}
 			},
 			// When either of these is set, it means we can load and show the player.
-				canLoad() {
-					return this.channel || this.channelSlug || this.channelId || this.trackId
-				}
+			canLoad() {
+				return this.channel || this.channelSlug || this.channelId || this.trackId
+			}
 		},
 		methods: {
 			// start player session by:
