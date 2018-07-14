@@ -79,6 +79,20 @@ You can listen for events directly on each `<radio4000-player>` element.
   `previousTrack` and `track`
 - `trackEnded` - This event fires when the current track finishes
   playing. It is an object containing one `track` object.
+- `mediaNotAvailable` - This event fires when a track could not be
+  played by its provider player (youtube etc.), since its media for
+  not available to be played. It is an object containing one `track`
+  object, the track which youtube video could not be played. Youtube
+  does not give much detail about "why" a media could not be player,
+  in the event sent by their javascript player. In you application you
+  could make a call to youtube's apis to get more info about a track,
+  and figure out why, with a request such as the following.
+	
+```
+# unrelated example of an HTTP query to Youtube api for details about
+a video (replace `YOUTUBE_API_KEY` and `YOUTUBE_VIDEO_ID`)
+GET https://www.googleapis.com/youtube/v3/videos?key=YOUTUBE_API_KEY&id=YOUTUBE_VIDEO_ID&fields=items(id,snippet,contentDetails,statistics)&part=snippet,contentDetails,statistics
+```
 
 Here's an example of how to listen for the `trackChanged` event. It is the same approach for all events. In the case of both `trackChanged` and `trackEnded`, the `event.detail[0]` argument will be a Radio4000 `track` object.
 
