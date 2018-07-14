@@ -8,6 +8,7 @@
 			:isPlaying="isPlaying"
 			@playing="$emit('play')"
 			@paused="$emit('pause')"
+			@mediaNotAvailable="$emit('mediaNotAvailable')"
 			@ended="$emit('trackEnded')"></youtube-player>
 	</div>
 </template>

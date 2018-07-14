@@ -10,7 +10,8 @@
 		:volume="localVolume"
 		:shuffle="shuffle"
 		@trackChanged="onTrackChanged"
-		@trackEnded="onTrackEnded">
+		@trackEnded="onTrackEnded"
+		@mediaNotAvailable="onMediaNotAvailable">
 	</radio4000-player>
 	<div v-else class="Console">
 		<p>Radio4000-player is ready to start playing:
@@ -120,18 +121,18 @@
 				}
 
 				return findTrack(id).then(track => {
-						this.track = track
+					this.track = track
 
-						// avoid loading the same channel twice
-						const hasQuery = this.channel.query
-						const sameChannel = this.channel.id === track.channel
-						if (sameChannel && hasQuery || sameChannel && !hasQuery) {
-							return
-						}
+					// avoid loading the same channel twice
+					const hasQuery = this.channel.query
+					const sameChannel = this.channel.id === track.channel
+					if (sameChannel && hasQuery || sameChannel && !hasQuery) {
+						return
+					}
 
-						// refresh
-						return this.loadChannelById(track.channel)
-					})
+					// refresh
+					return this.loadChannelById(track.channel)
+				})
 			},
 			loadChannelTracks(channel) {
 				findChannelTracks(channel.id)
@@ -141,7 +142,7 @@
 			loadChannelImage(channel) {
 				findChannelImage(channel)
 					.then(this.updateImage)
-					// no catch because no image is ok
+					.catch(this.updateImage)
 			},
 
 			/*
@@ -189,6 +190,9 @@
 			},
 			onTrackEnded(...args) {
 				this.$emit('trackEnded', ...args)
+			},
+			onMediaNotAvailable(...args) {
+				this.$emit('mediaNotAvailable', ...args)
 			}
 		}
 	}
