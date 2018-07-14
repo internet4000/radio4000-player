@@ -142,7 +142,7 @@
 			loadChannelImage(channel) {
 				findChannelImage(channel)
 					.then(this.updateImage)
-				// no catch because no image is ok
+					.catch(this.updateImage)
 			},
 
 			/*
