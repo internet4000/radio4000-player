@@ -10,6 +10,12 @@
 			@paused="$emit('pause')"
 			@mediaNotAvailable="$emit('mediaNotAvailable')"
 			@ended="$emit('trackEnded')"></youtube-player>
+
+		<file-player
+			v-if="provider === 'file'"
+			:volume="volume"
+			:videoId="track.mediaUrl"
+			@playing="$emit('play')"></file-player>
 	</div>
 </template>
 
@@ -29,7 +35,8 @@ export default {
 	},
 	computed: {
 		provider() {
-			if (this.track && this.track.ytid) return 'youtube'
+			if (this.track && this.track.ytid) return 'youtube';
+			if (this.track && this.track.mediaUrl) return 'file'			
 			return undefined
 		}
 	}

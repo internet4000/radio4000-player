@@ -10,6 +10,9 @@
 		</FetchData>
 
 		<div class="Layout-header">
+
+			<p>channel {{channel.title}}</p>
+			
 			<channel-header
 				:channel="channel"
 				:image="image"

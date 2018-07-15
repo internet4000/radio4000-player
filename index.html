@@ -16,7 +16,7 @@
 
 	<!-- There are three different ways to start playing: -->
 	<!-- <radio4000-player channel-slug="200ok"></radio4000-player> -->
-	<radio4000-player channel-slug="good-time-radio"></radio4000-player>
+	<!-- <radio4000-player channel-slug="good-time-radio"></radio4000-player> -->
 	<!-- <radio4000-player track-id="-KdVUsr70yYdIoBDmL43"></radio4000-player> -->
 	<!-- <radio4000-player channel-slug="oskar"></radio4000-player> -->
 	<!-- <radio4000-player channel-id="-KFzPXLNzmKjPGwyY-xx"></radio4000-player> -->
@@ -28,8 +28,12 @@
 	<!-- dead track link -->
 	<!-- <radio4000-player track-id="-JyCMmQETox_SF6-x6Tr"></radio4000-player> -->
 
+	<!-- media is a local audio file-player -->
+	<radio4000-player></radio4000-player>
+
 	<script>
 		var player = document.querySelector('radio4000-player')
+		
 		player.addEventListener('trackChanged', (event) => {
 		 	console.info('[event:trackChanged]', event.detail[0])
 		})
@@ -38,6 +42,27 @@
 		})
 		player.addEventListener('mediaNotAvailable', (event) => {
 		 	console.info('[event:mediaNotAvailable]', event.detail[0])
+		})
+		player.addEventListener('playerReady', () => {
+			console.info('[event:playerReady]');
+
+			var playerInstance = player.__vue_custom_element__.$children[0];			 
+			var tracks = [
+				{
+					id: 'uniqueId',
+					title: 'A title to display',
+					url: 'a url to link to in the track list',
+					mediaUrl: '~/music/200ok/17. Jackie Mittoo - Super Charge-HYAplhAh4Ho.m4a'
+				}
+			];
+
+			var playlist = {
+				title: 'title for this list',
+				/* image: 'https://raw.githubusercontent.com/internet4000/assets/master/radio4000/icon-r4.svg',*/
+				tracks: []
+			};
+
+			playerInstance.updatePlaylist(playlist)
 		})
 	</script>
 
