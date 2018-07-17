@@ -46,13 +46,15 @@
 		player.addEventListener('playerReady', () => {
 			console.info('[event:playerReady]');
 
-			var playerInstance = player.__vue_custom_element__.$children[0];			 
+			var playerVue = player.__vue_custom_element__.$children[0]
+			console.log({playerVue})
 			var tracks = [
 				{
 					id: 'uniqueId',
 					title: 'A title to display',
 					url: 'a url to link to in the track list',
 					mediaUrl: '~/music/200ok/17. Jackie Mittoo - Super Charge-HYAplhAh4Ho.m4a'
+					//mediaUrl: '~/Sites/internet4000/radio4000-player/the-panthers-malkaus-hhoQjJrEWbw.m4a'
 				}
 			];
 
@@ -62,7 +64,7 @@
 				tracks: []
 			};
 
-			playerInstance.updatePlaylist(playlist)
+			playerVue.updatePlaylist(playlist)
 		})
 	</script>
 
