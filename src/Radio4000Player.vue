@@ -4,6 +4,8 @@
 			:channelId="channelId"
 			:channelSlug="channelSlug"
 			:trackId="trackId"
+			:currentChannel="channel"
+			:currentTracks="tracks"
 			@afterFetch="updateData">
 		</FetchData>
 
@@ -163,7 +165,6 @@
 
 		methods: {
 			updateData(newData) {
-				console.log({updateData: newData})
 				if (newData.channel) this.channel = newData.channel
 				if (newData.image) this.image = newData.image
 				if (newData.tracks) this.tracks = newData.tracks

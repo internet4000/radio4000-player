@@ -2,8 +2,10 @@
 
 <script>
 	import {
-		findChannelById, findChannelBySlug,
-		findChannelTracks, findChannelImage,
+		findChannelById,
+		findChannelBySlug,
+		findChannelTracks,
+		findChannelImage,
 		findTrack
 	} from './utils/store'
 
@@ -14,8 +16,8 @@
 			trackId: String,
 
 			// needed for caching
-			channel: Object,
-			tracks: Array,
+			currentChannel: Object,
+			currentTracks: Array
 		},
 
 		watch: {
@@ -46,18 +48,19 @@
 			loadChannelByTrack(id) {
 				if (!id) return
 				// avoid loading track twice
-				let track = this.tracks && this.tracks.find(t => t.id === id)
+				let track = this.currentTracks && this.currentTracks.find(t => t.id === id)
 				if (track) {
-					return this.track = track
+					this.afterFetch({track})
+					return
 				}
 
 				return findTrack(id).then(track => {
-					this.track = track
+					this.afterFetch({track})
 
 					// avoid loading the same channel twice
-					const hasQuery = this.channel.query
-					const sameChannel = this.channel.id === track.channel
-					if (sameChannel && hasQuery || sameChannel && !hasQuery) {
+					const query = this.currentChannel.query
+					const sameChannel = this.currentChannel.id === track.channel
+					if (sameChannel && query || sameChannel && !query) {
 						return
 					}
 
