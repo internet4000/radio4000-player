@@ -14,33 +14,36 @@
 		<file-player
 			v-if="provider === 'file'"
 			:volume="volume"
-			:videoId="track.mediaUrl"
+			:mediaUrl="track.mediaUrl"
 			@playing="$emit('play')"></file-player>
 	</div>
 </template>
 
 <script>
-import YoutubePlayer from './YoutubePlayer.vue'
+	import YoutubePlayer from './YoutubePlayer.vue'
+	import FilePlayer from './FilePlayer.vue'
 
-export default {
-	name: 'provider-player',
-	components: {
-		YoutubePlayer
-	},
-	props: {
-		autoplay: Boolean,
-		isPlaying: Boolean,
-		track: Object,
-		volume: Number
-	},
-	computed: {
-		provider() {
-			if (this.track && this.track.ytid) return 'youtube';
-			if (this.track && this.track.mediaUrl) return 'file'			
-			return undefined
+	export default {
+		name: 'provider-player',
+		components: {
+			YoutubePlayer,
+			FilePlayer
+		},
+		props: {
+			autoplay: Boolean,
+			isPlaying: Boolean,
+			track: Object,
+			volume: Number
+		},
+		computed: {
+			provider() {
+				if(!this.track) return undefined
+				if (this.track.ytid) return 'youtube'
+				if (this.track.mediaUrl) return 'file'			
+				return undefined
+			}
 		}
 	}
-}
 </script>
 
 <style>
