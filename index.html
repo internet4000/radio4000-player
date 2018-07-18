@@ -33,7 +33,7 @@
 
 	<script>
 		var player = document.querySelector('radio4000-player')
-		
+
 		player.addEventListener('trackChanged', (event) => {
 		 	console.info('[event:trackChanged]', event.detail[0])
 		})
@@ -48,12 +48,18 @@
 
 			var playerVue = player.__vue_custom_element__.$children[0]
 			console.log({playerVue})
+
 			var tracks = [
 				{
 					id: 'uniqueId',
-					title: 'A title to display',
+					title: 'First track. A title to display',
 					url: 'https://200okrecords.com',
 					mediaUrl: 'https://upload.wikimedia.org/wikipedia/commons/5/53/Birds_Polyphonic.ogg'
+				},
+				{
+					id: 'b',
+					title: 'Blue tit',
+					mediaUrl: 'http://194.66.233.31/SoundsServer2016/Early-wildlife-recordings/022A-1SS0001932XX-AAAFA1.mp3?dk=0B638AF7E9D1AA47667B254B90A2430B2D3985814446528D60EFCD054B726B22B88962083FE10E6CB6308AF26CAB0B4BFD5BC647EB5F99E89939EA983E8F5883D113531EE4EE2456BE313B801540E80159FFD53816038AC0'
 				}
 			];
 
