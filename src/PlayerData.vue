@@ -74,8 +74,6 @@
 				return this.loadChannelById(channelId)
 			}
 		},
-		mounted() {
-		},
 		watch: {
 			channelSlug(slug) {
 				if (slug) this.loadChannelBySlug(slug)
@@ -87,7 +85,10 @@
 				if (id) this.loadChannelByTrack(id)
 			}
 		},
-		computed: {	
+		computed: {
+			canLoad() {
+				return this.channel || this.channelSlug || this.channelId || this.trackId
+			},
 			localVolume: {
 				get() {
 					return this.volume
@@ -96,11 +97,7 @@
 					const el = this.$root.$el.parentNode
 					el.setAttribute('volume', volume)
 				}
-			},
-							 // When either of these is set, it means we can load and show the player.
-								 canLoad() {
-									 return this.channel || this.channelSlug || this.channelId || this.trackId
-								 }
+			}
 		},
 		methods: {
 			// start player session by:
@@ -152,9 +149,7 @@
 				 you can pass a "channel" object.
 			 */
 			updateChannel(channel) {
-				/* Reset tracks and image to show loading UX immediately.*/
-				this.tracks = []
-				this.image = ''
+				this.resetInterface()
 
 				if (!channel.image) {
 					this.loadChannelImage(channel)
@@ -176,14 +171,25 @@
 			updateImage(image) {
 				return this.image = image ? image : ''
 			},
+			resetInterface() {
+				/* Reset tracks and image to show loading UX immediately.*/
+				this.tracks = []
+				this.image = ''
+			},
 
 			/*
 				 Public API: events sent to the outside world
 			 */
-
+			
 			/* methods*/
-			updatePlaylist(playlist) {	
-				this.updateChannel(playlist)
+			updatePlaylist(playlist) {
+
+				this.resetInterface();
+				this.updateImage(playlist.image)
+				this.updateTracks(playlist.tracks)
+
+				this.channel = playlist
+				
 			},
 
 			/* events */
