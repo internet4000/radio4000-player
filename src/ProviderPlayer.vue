@@ -1,10 +1,10 @@
 <template>
-	<div class="ProviderPlayer">
+	<div class="ProviderPlayer" :class="{'ProviderPlayer--file': provider === 'file'}">
 		<youtube-player
 			v-if="provider === 'youtube'"
+			:videoId="track.ytid"
 			:volume="volume"
 			:autoplay="autoplay"
-			:videoId="track.ytid"
 			:isPlaying="isPlaying"
 			@playing="$emit('play')"
 			@paused="$emit('pause')"
@@ -60,5 +60,11 @@
 		/* Youtube requirements */
 		min-height: 200px;
 		min-width: 200px;
+	}
+	.ProviderPlayer--file {
+		display: flex;
+	}
+	.ProviderPlayer audio {
+		margin: auto;
 	}
 </style>
