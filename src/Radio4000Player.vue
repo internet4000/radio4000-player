@@ -44,7 +44,7 @@
 				:isDisabled="!this.tracksPool.length"
 				:isMuted="isMuted"
 				:isPlaying="isPlaying"
-				:isShuffle="shuffle"
+				:isShuffle="isShuffle"
 				:volume="volume"
 				@play="play"
 				@pause="pause"
@@ -104,7 +104,8 @@
 				tracks: [],
 				tracksPool: [],
 				currentTrack: {},
-				isPlaying: false
+				isPlaying: false,
+				isShuffle: this.$props.shuffle
 			}
 		},
 
@@ -172,7 +173,7 @@
 
 			newTracksPool() {
 				var pool = this.tracks.slice().reverse()
-				if (this.shuffle) {
+				if (this.isShuffle) {
 					const currentTrackArray = pool.splice(this.currentTrackIndex, 1)
 					const shuffledArray = shuffleArray(pool)
 					this.tracksPool = [...currentTrackArray, ...shuffledArray]
@@ -205,7 +206,7 @@
 				this.isPlaying = false
 			},
 			toggleShuffle() {
-				this.shuffle = !this.shuffle
+				this.isShuffle = !this.isShuffle
 				this.newTracksPool()
 			},
 			toggleMute() {
