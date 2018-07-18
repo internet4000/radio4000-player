@@ -1,11 +1,10 @@
 <template>
-	<div class="FilePlayer">
-		<audio
-      controls
-      :src="mediaUrl">
-      Your browser does not support the <code>audio</code> element.
-    </audio>
-	</div>
+	<audio class="FilePlayer"
+		controls
+		:src="mediaUrl"
+		:autoplay="autoplay">
+		Your browser does not support the <code>audio</code> element.
+	</audio>
 </template>
 
 <script>
