@@ -17,11 +17,16 @@
 			mediaUrl: String,
 			volume: Number
 		},
-		computed: {			 
+		mounted() {
+			const el = this.$el
+			// Set up events.
+			el.addEventListener('play', this.$emit('playing'))
+			el.addEventListener('pause', this.$emit('paused'))
+			el.addEventListener('ended', this.$emit('ended'))
+			el.addEventListener('error', this.$emit('ended'))
+			el.addEventListener('volumechange', (event) => {
+				console.log('todo volumechange', event)
+			})
 		}
 	}
 </script>
-
-<style>
-
-</style>

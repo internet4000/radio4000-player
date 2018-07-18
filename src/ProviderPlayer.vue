@@ -9,13 +9,19 @@
 			@playing="$emit('play')"
 			@paused="$emit('pause')"
 			@mediaNotAvailable="$emit('mediaNotAvailable')"
-			@ended="$emit('trackEnded')"></youtube-player>
+			@ended="$emit('trackEnded')"
+		></youtube-player>
 
 		<file-player
 			v-if="provider === 'file'"
-			:volume="volume"
 			:mediaUrl="track.mediaUrl"
-			@playing="$emit('play')"></file-player>
+			:volume="volume"
+			:autoplay="autoplay"
+			:isPlaying="isPlaying"
+			@playing="$emit('play')"
+			@paused="$emit('pause')"
+			@ended="$emit('trackEnded')"
+		></file-player>
 	</div>
 </template>
 
@@ -37,9 +43,9 @@
 		},
 		computed: {
 			provider() {
-				if(!this.track) return undefined
+				if (!this.track) return undefined
 				if (this.track.ytid) return 'youtube'
-				if (this.track.mediaUrl) return 'file'			
+				if (this.track.mediaUrl) return 'file'
 				return undefined
 			}
 		}
