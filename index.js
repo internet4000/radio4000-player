@@ -3,13 +3,13 @@ import 'document-register-element'
 
 import Vue from 'vue'
 import vueCustomElement from 'vue-custom-element'
-import PlayerData from './src/PlayerData.vue'
+import Radio4000Player from './src/Radio4000Player.vue'
 
 Vue.config.devtools = true
 Vue.config.productionTip = false
 
 // Register our Vue commponent as the <radio4000-player> element.
 Vue.use(vueCustomElement)
-Vue.customElement('radio4000-player', PlayerData, {
+Vue.customElement('radio4000-player', Radio4000Player, {
 	shadow: false
 })
