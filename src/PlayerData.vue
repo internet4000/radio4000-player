@@ -35,7 +35,10 @@
 		name: 'player-data',
 		components: {Radio4000Player},
 		props: {
-			autoplay: Boolean,
+			autoplay: {
+				type: Boolean,
+				default: false
+			},
 			channelSlug: String,
 			channelId: String,
 			trackId: String,
