@@ -2,7 +2,7 @@
 	<audio class="FilePlayer"
 		controls
 		:src="mediaUrl"
-		:autoplay="false">
+		:autoplay="autoplay">
 		Your browser does not support the <code>audio</code> element.
 	</audio>
 </template>
