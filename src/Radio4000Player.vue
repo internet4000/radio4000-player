@@ -213,14 +213,14 @@
 			 */
 
 			// As an alternative to letting the player load the right data for you, you can pass a "playlist" object.
-			updatePlaylist(channel) {
+			updatePlaylist(playlist) {
 				//  Reset tracks and image to show loading UX immediately.
 				this.tracks = []
 				this.image = ''
 
-				this.channel = channel
-				if (channel.image) this.image = channel.image
-				if (channel.tracks.length) this.tracks = channel.tracks
+				this.channel = playlist
+				if (playlist.image) this.image = playlist.image
+				if (playlist.tracks.length) this.tracks = playlist.tracks
 			},
 
 			/**
