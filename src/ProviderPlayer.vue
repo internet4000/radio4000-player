@@ -14,7 +14,7 @@
 
 		<file-player
 			v-if="provider === 'file'"
-			:mediaUrl="track.mediaUrl"
+			:url="track.mediaUrl"
 			:volume="volume"
 			:autoplay="autoplay"
 			:isPlaying="isPlaying"

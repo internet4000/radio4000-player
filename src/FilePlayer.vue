@@ -1,7 +1,7 @@
 <template>
 	<audio class="FilePlayer"
 		controls
-		:src="mediaUrl"
+		:src="url"
 		:autoplay="autoplay">
 		Your browser does not support the <code>audio</code> element.
 	</audio>
@@ -18,11 +18,11 @@
 		props: {
 			autoplay: Boolean,
 			isPlaying: Boolean,
-			mediaUrl: String,
+			url: String,
 			volume: Number
 		},
 		watch: {
-			url(url) {
+			url() {
 				this.$nextTick(() => {
 					this.$el.play()
 				})
@@ -36,10 +36,10 @@
 			}
 		},
 		mounted() {
-			this.initPlayer(this.$el);
+			this.initPlayer(this.$el)
 		},
 		beforeDestroy() {
-			this.unmountPlayer(this.$el);
+			this.unmountPlayer(this.$el)
 		},
 		methods: {
 			unmountPlayer($el) {
