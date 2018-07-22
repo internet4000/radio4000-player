@@ -81,7 +81,7 @@
 
 			loadTracksAndImageFromChannel(channel) {
 				/* Reset tracks and image to show loading UX immediately.*/
-				this.$emit('afterFetch', {tracks: [], image: ''})
+				this.afterFetch({tracks: [], image: ''})
 
 				if (channel.image) {
 					this.afterFetch({image: channel.image})
@@ -95,8 +95,6 @@
 					this.loadChannelTracks(channel)
 				}
 			},
-
-
 			afterFetch(data) {
 				this.$emit('afterFetch', data)
 			}
