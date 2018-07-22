@@ -7,6 +7,7 @@ Vue.js.
 
 [![](https://data.jsdelivr.com/v1/package/npm/radio4000-player/badge)](https://www.jsdelivr.com/package/npm/radio4000-player)
 
+
 ## How to use
 
 You can load the player with a CDN, like this:
@@ -42,8 +43,26 @@ Here's a complete list of all the attributes you can set and change on the web c
 |volume|`integer`|from 0 to 100 (default: `100`)
 |autoplay|`boolean`|if it should start playing automatically (default: `false`)
 |shuffle|`boolean`|if tracks should be shuffled (default: `false`)
+|r4-url|`boolean`|if channel image url and track url point to radio4000 (default: `false`)
+
+
 
 ### Examples
+
+The are therefore three available attributes to instanciate a player
+with a Radio4000 channel.
+
+In an HTML file you could add the following to generate three players,
+instanciated with `channel-slug`, `channel-id` and `track-id`.
+
+```
+<script async src="https://cdn.jsdelivr.net/npm/radio4000-player"></script>
+<radio4000-player channel-slug="good-time-radio"></radio4000-player>
+<radio4000-player channel-id="-JYZvhj3vlGCjKXZ2cXO"></radio4000-player>
+<radio4000-player track-id="-JYEosmvT82Ju0vcSHVP"></radio4000-player>
+```
+
+You can also set and update these player attribute values with javascript.
 
 Remember that HTML attributes are dasherized `channel-slug` whereas JavaScript expects CamelCase `channelSlug`.
 
@@ -70,7 +89,7 @@ To enable autoplay:
 <radio4000-player channel-slug="200ok" autoplay="true"></radio4000-player>
 ```
 
-## Events
+### Events
 
 You can listen for events directly on each `<radio4000-player>` element.
 
@@ -104,9 +123,18 @@ player.addEventListener('trackChanged', (event) => {
 })
 ```
 
-## Methods
+### Methods
 
-Danger zone. We are still finalizing the API for methods so except this to change.
+> !!! Danger zone. We are still finalizing the API for methods so
+> except this to change.
+
+It is possible to load data to the `<radio4000-player>`, 
+without any relation to the Radio4000 database.
+
+To do that there is an available method `updatePlaylist`, on the
+javascript instance of the player, which accepts a `playlist` object.
+
+It can be used this way.
 
 ```js
 // Get access to the Vue component behind the web component to access methods.
@@ -131,9 +159,96 @@ var playlist = {
 vue.updatePlaylist(playlist)
 ```
 
-If the playlist object contains a `query` string it will be shown on top of the track list.
+#### The `playlist` Object
 
-## Using internal links
+A playlist object can have the following attributes:
+
+- `title`, the title displayed in the heade
+
+``` javascript
+var tracks = [
+    {
+	id: '1',
+	title: 'Randomfunk.ogg',
+	url: 'https://200okrecords.com',
+	mediaUrl: 'https://ia801409.us.archive.org/5/items/DWK051/Rare_and_Cheese_-_01_-_Randomfunk.ogg'
+    },
+    {
+	id: '2',
+	title: '02_-_Jazzpolice.ogg',
+	url: 'http://zty.pe',
+	mediaUrl: 'https://ia801409.us.archive.org/5/items/DWK051/Rare_and_Cheese_-_02_-_Jazzpolice.ogg'
+    }
+];
+
+const playlist = {
+    title: 'A title for this list',
+    image: 'https://78.media.tumblr.com/5080191d7d19fe64da558f2b4324563e/tumblr_p8eoiltn1t1twkjb3o1_1280.png',
+    tracks: tracks
+};
+
+```
+
+#### The `track` object
+
+The track object attributes are based on the track model of Radio4000
+api.
+Available attributes can be found there:
+[github.com/internet4000/radio4000-api#track](https://github.com/internet4000/radio4000-api#track)
+
+This is an array of `track`, which have a property `ytid`, so the
+`<radio4000-player>` will read them with Youtube's iframe player.
+``` javascript
+const tracks = {
+    {
+        "id": "-JYZtlEKiZY75Wt6QpA5",
+        "channel":"-JYZtdQfLSl6sUpyIJx6",
+        "created": 1412589649848,
+        "title":"Kleeer - Tonight",
+        "url":"https://www.youtube.com/watch?v=cVXURwACwtk",
+        "ytid":"cVXURwACwtk"
+    },
+    {
+        "id": "-Jf2HYHsVl7iPDGZNbCa",
+        "channel":"-J_QdrlmldCa7DFyh5GH",
+        "created":1420615680144,
+        "title":"Patrick Watson - Adventures In Your Own Backyard (Altered Route Video Edit)",
+        "url":"https://www.youtube.com/watch?v=cbSbbY5ibas",
+        "ytid":"cbSbbY5ibas"
+    }
+}
+```
+
+If instead of a `ytid` (being a Youtube video id), you use the key
+`mediaUrl`, the player will attempt to read the media to which this
+url points to. It will use an HTML `<audio>` element, to which the
+supported media type list can be found on [Mozilla MDN
+documentation](https://developer.mozilla.org/en-US/docs/Web/HTML/Supported_media_formats).
+
+This is an array of `track` objects, with a `mediaUrl` key pointing to
+remote media in the *ogg* format.
+``` javascript
+var tracks = [
+    {
+        id: '1',
+        title: 'Randomfunk.ogg',
+        url: 'https://200okrecords.com',
+        mediaUrl: 'https://ia801409.us.archive.org/5/items/DWK051/Rare_and_Cheese_-_01_-_Randomfunk.ogg'
+    },
+    {
+        id: '2',
+        title: '02_-_Jazzpolice.ogg',
+        url: 'http://zty.pe',
+        mediaUrl: 'https://ia801409.us.archive.org/5/items/DWK051/Rare_and_Cheese_-_02_-_Jazzpolice.ogg'
+    }
+]
+
+```
+
+The `track.url` property is used to create the link that this track
+points to when right clicking it on the player's track list.
+
+### r4-url, Using internal links
 
 If this player is used inside radio4000.com, we want the links to switch URL internally.
 For that you can use the boolean property `r4-url` like so.
@@ -158,7 +273,7 @@ yarn
 yarn start
 ```
 
-## Testing
+### Testing
 
 ```bash
 # run tests once
@@ -168,7 +283,7 @@ yarn test
 yarn start; yarn cypress open
 ```
 
-## How to release a new version
+### How to release a new version
 
 Release a new patch e.g. `1.0.4` to `1.0.5`.
 
