@@ -32,7 +32,7 @@
 				return findChannelBySlug(slug)
 					.then(channel => {
 						this.loadTracksAndImageFromChannel(channel)
-						this.afterFetch({channel})
+						this.update({channel})
 					})
 					.catch(err => {console.log(err)})
 			},
@@ -41,7 +41,7 @@
 				return findChannelById(id)
 					.then(channel => {
 						this.loadTracksAndImageFromChannel(channel)
-						this.afterFetch({channel})
+						this.update({channel})
 					})
 					.catch(err => {console.log(err)})
 			},
@@ -50,12 +50,12 @@
 				// avoid loading track twice
 				let track = this.currentTracks && this.currentTracks.find(t => t.id === id)
 				if (track) {
-					this.afterFetch({track})
+					this.update({track})
 					return
 				}
 
 				return findTrack(id).then(track => {
-					this.afterFetch({track})
+					this.update({track})
 
 					// avoid loading the same channel twice
 					const query = this.currentChannel.query
@@ -70,32 +70,32 @@
 			},
 			loadChannelTracks(channel) {
 				findChannelTracks(channel.id)
-					.then(tracks => this.afterFetch({tracks}))
+					.then(tracks => this.update({tracks}))
 					.catch(err => {console.log(err)})
 			},
 			loadChannelImage(channel) {
 				findChannelImage(channel)
-					.then(image => this.afterFetch({image}))
-					.catch(() => this.afterFetch({image}))
+					.then(image => this.update({image}))
+					.catch(() => this.update({image}))
 			},
 
 			loadTracksAndImageFromChannel(channel) {
 				/* Reset tracks and image to show loading UX immediately.*/
-				this.afterFetch({tracks: [], image: ''})
+				this.update({tracks: [], image: ''})
 
 				if (channel.image) {
-					this.afterFetch({image: channel.image})
+					this.update({image: channel.image})
 				} else {
 					this.loadChannelImage(channel)
 				}
 
 				if (channel.tracks.length) {
-					this.afterFetch({tracks: channel.tracks})
+					this.update({tracks: channel.tracks})
 				} else {
 					this.loadChannelTracks(channel)
 				}
 			},
-			afterFetch(data) {
+			update(data) {
 				this.$emit('afterFetch', data)
 			}
 		}
