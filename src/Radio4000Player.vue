@@ -1,5 +1,14 @@
 <template>
-	<div class="Layout">
+	<div class="Layout" v-if="canLoad">
+		<FetchData
+			:channelId="channelId"
+			:channelSlug="channelSlug"
+			:trackId="trackId"
+			:currentChannel="channel"
+			:currentTracks="tracks"
+			@afterFetch="updateData">
+		</FetchData>
+
 		<div class="Layout-header">
 			<channel-header
 				:channel="channel"
@@ -14,7 +23,7 @@
 					:isMuted="isMuted"
 					:isPlaying="isPlaying"
 					:track="currentTrack"
-					:volume="volume"
+					:volume="internalVolume"
 					@play="play"
 					@pause="pause"
 					@mediaNotAvailable="mediaNotAvailable"
@@ -44,50 +53,89 @@
 				@next="playNextTrack"></player-controls>
 		</div>
 	</div>
+	<div v-else class="Console">
+		<p>Radio4000-player is ready to start playing:
+			<a href="https://github.com/internet4000/radio4000-player-vue">documentation</a>
+		</p>
+	</div>
 </template>
 
 <script>
+	import debounce from 'lodash.debounce'
+	import { shuffleArray } from './utils/shuffle-helpers'
+
+	import FetchData from './FetchData.vue'
 	import ChannelHeader from './ChannelHeader.vue'
 	import TrackList from './TrackList.vue'
 	import ProviderPlayer from './ProviderPlayer.vue'
 	import PlayerControls from './PlayerControls.vue'
-	import { shuffleArray } from './utils/shuffle-helpers'
 
 	export default {
-		name: 'radio4000-player',
 		components: {
+			FetchData,
 			ChannelHeader,
 			TrackList,
 			ProviderPlayer,
 			PlayerControls
 		},
+
+		// Top level properties are also exposed as attributes on the web component.
 		props: {
-			channel: Object,
-			image: String,
-			tracks: Array,
-			originTrack: Object,
+			channelSlug: String,
+			channelId: String,
+			trackId: String,
 			autoplay: Boolean,
-			r4Url: Boolean,
+			r4Url: {
+				type: Boolean,
+				default: false
+			},
+			volume: {
+				type: Number,
+				default: 100
+			},
 			shuffle: Boolean,
-			volume: Number,
 			query: String
 		},
+
 		data () {
 			return {
+				channel: {},
+				image: '',
+				tracks: [],
+				tracksPool: [],
 				currentTrack: {},
 				isPlaying: false,
-				isShuffle: this.$props.shuffle,
-				loop: false,
-				playerReady: false,
-				tracksPool: []
+				isShuffle: this.$props.shuffle
 			}
 		},
+
 		created() {
-			if (Object.keys(this.originTrack).length !== 0) {
-				this.playTrack(this.originTrack)
+			if (Object.keys(this.currentTrack).length !== 0) {
+				this.playTrack(this.currentTrack)
 			}
+
+			this.$root.$on('setVolume', debounce(vol => {
+				this.internalVolume = vol
+			}, 100))
 		},
+
 		computed: {
+			// When either of these is set, it means we can load and show the player.
+			canLoad() {
+				return this.channel || this.channelSlug || this.channelId || this.trackId
+			},
+			currentTrackIndex() {
+				return this.tracksPool.findIndex(track => track.id === this.currentTrack.id)
+			},
+			internalVolume: {
+				get() {
+					return this.volume
+				},
+				set(volume) {
+					const el = this.$root.$el.parentNode
+					el.setAttribute('volume', volume)
+				}
+			},
 			isMuted: {
 				get() {
 					return this.volume === 0
@@ -99,16 +147,14 @@
 						this.$root.$emit('setVolume', 100)
 					}
 				}
-			},
-			currentTrackIndex() {
-				return this.tracksPool.findIndex(track => track.id === this.currentTrack.id)
 			}
 		},
+
 		watch: {
 			shuffle(shuffle) {
-				this.isShuffle = shuffle
+				this.shuffle = shuffle
 			},
-			originTrack(track) {
+			currentTrack(track) {
 				this.playTrack(track)
 			},
 			tracks(tracks) {
@@ -117,24 +163,29 @@
 				if (noTrack) this.playNextTrack()
 			}
 		},
+
 		methods: {
+			updateData(newData) {
+				if (newData.channel) this.channel = newData.channel
+				if (newData.image) this.image = newData.image
+				if (newData.tracks) this.tracks = newData.tracks
+			},
+			newTracksPool() {
+				var pool = this.tracks.slice().reverse()
+				if (this.isShuffle) {
+					const currentTrackArray = pool.splice(this.currentTrackIndex, 1)
+					const shuffledArray = shuffleArray(pool)
+					this.tracksPool = [...currentTrackArray, ...shuffledArray]
+				} else {
+					this.tracksPool = pool
+				}
+			},
 			playTrack(track) {
 				const previousTrack = this.currentTrack
 				this.currentTrack = track
 				this.$emit('trackChanged', {
-					track,
-					previousTrack
+					track, previousTrack
 				})
-			},
-			newTracksPool() {
-				var newTracksPool = this.tracks.slice().reverse()
-				if (this.isShuffle) {
-					const currentTrackArray = newTracksPool.splice(this.currentTrackIndex, 1)
-					const shuffledArray = shuffleArray(newTracksPool)
-					this.tracksPool = [...currentTrackArray, ...shuffledArray]
-				} else {
-					this.tracksPool = newTracksPool
-				}
 			},
 			playNextTrack() {
 				const track = this.getNextTrack()
@@ -159,6 +210,26 @@
 			toggleMute() {
 				this.isMuted = !this.isMuted
 			},
+
+			/**
+			 * Public methods
+			 */
+
+			// As an alternative to letting the player load the right data for you, you can pass a "playlist" object.
+			updatePlaylist(channel) {
+				//  Reset tracks and image to show loading UX immediately.
+				this.tracks = []
+				this.image = ''
+
+				this.channel = channel
+				if (channel.image) this.image = channel.image
+				if (channel.tracks.length) this.tracks = channel.tracks
+			},
+
+			/**
+			 * Public events
+			 */
+
 			trackEnded() {
 				this.$emit('trackEnded', {
 					track: this.currentTrack
@@ -169,9 +240,8 @@
 				this.$emit('mediaNotAvailable', {
 					track: this.currentTrack
 				})
-				// trigger track ended
-				this.trackEnded();
-			}
+				this.trackEnded()
+			},
 		}
 	}
 </script>
@@ -213,6 +283,12 @@
 </style>
 
 <style scoped>
+	.Console {
+		font-family: monospace;
+		padding: 0 1em;
+		line-height: 1.4;
+	}
+
 	.Layout {
 		/* expand to container */
 		flex: 1;
