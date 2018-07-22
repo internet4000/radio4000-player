@@ -23,7 +23,7 @@
 		},
 		data() {
 			return {
-				continousPlay: true
+				continuousPlay: true
 			}
 		},
 		watch: {
@@ -75,10 +75,10 @@
 				console.log('event volumechange', arguments)
 			},
 			handleLoadedData() {
-				if(this.continousPlay) {
-					this.$el.play();					
+				if (this.continuousPlay) {
+					this.$el.play()
 				} else {
-					this.$el.pause();					
+					this.$el.pause()
 				}
 			},
 			/* https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/error */
