@@ -12,10 +12,9 @@ Vue.config.productionTip = false
 Vue.use(vueCustomElement)
 Vue.customElement('radio4000-player', Radio4000Player, {
 	shadow: false,
+
 	// Element is mounted/inserted into document.
 	connectedCallback() {
-		console.log('radio4000-player connectedCallback')
-
 		const dispatchReadyEvent = () => {
 			let event = new Event('playerReady')
 			this.dispatchEvent(event)
