@@ -14,7 +14,7 @@
 				:channel="channel"
 				:image="image"
 				:r4Url="r4Url"
-				:track="currentTrack"></channel-header>
+				:track="track"></channel-header>
 		</div>
 		<div class="Layout-section">
 			<div class="Layout-aside">
@@ -22,7 +22,7 @@
 					:autoplay="autoplay"
 					:isMuted="isMuted"
 					:isPlaying="isPlaying"
-					:track="currentTrack"
+					:track="track"
 					:volume="internalVolume"
 					@play="play"
 					@pause="pause"
@@ -33,7 +33,7 @@
 				<track-list
 					:currentTrackIndex="currentTrackIndex"
 					:channelSlug="channel.slug"
-					:track="currentTrack"
+					:track="track"
 					:tracks="tracksPool"
 					:query="channel.query"
 					@select="playTrack"></track-list>
@@ -102,18 +102,14 @@
 				channel: {},
 				image: '',
 				tracks: [],
+				track: {},
 				tracksPool: [],
-				currentTrack: {},
 				isPlaying: false,
 				isShuffle: this.$props.shuffle
 			}
 		},
 
 		created() {
-			if (Object.keys(this.currentTrack).length !== 0) {
-				this.playTrack(this.currentTrack)
-			}
-
 			this.$root.$on('setVolume', debounce(vol => {
 				this.internalVolume = vol
 			}, 100))
@@ -125,7 +121,7 @@
 				return this.channel || this.channelSlug || this.channelId || this.trackId
 			},
 			currentTrackIndex() {
-				return this.tracksPool.findIndex(track => track.id === this.currentTrack.id)
+				return this.tracksPool.findIndex(track => track.id === this.track.id)
 			},
 			internalVolume: {
 				get() {
@@ -154,12 +150,9 @@
 			shuffle(shuffle) {
 				this.shuffle = shuffle
 			},
-			currentTrack(track) {
-				this.playTrack(track)
-			},
 			tracks(tracks) {
 				this.newTracksPool()
-				const noTrack = Object.keys(this.currentTrack).length === 0
+				const noTrack = Object.keys(this.track).length === 0
 				if (noTrack) this.playNextTrack()
 			}
 		},
@@ -169,6 +162,10 @@
 				if (newData.channel) this.channel = newData.channel
 				if (newData.image) this.image = newData.image
 				if (newData.tracks) this.tracks = newData.tracks
+				if (newData.track) {
+					// Don't set track directly.
+					this.playTrack(newData.track)
+				}
 			},
 			newTracksPool() {
 				var pool = this.tracks.slice().reverse()
@@ -181,8 +178,8 @@
 				}
 			},
 			playTrack(track) {
-				const previousTrack = this.currentTrack
-				this.currentTrack = track
+				const previousTrack = this.track
+				this.track = track
 				this.$emit('trackChanged', {
 					track, previousTrack
 				})
@@ -232,13 +229,13 @@
 
 			trackEnded() {
 				this.$emit('trackEnded', {
-					track: this.currentTrack
+					track: this.track
 				})
 				this.playNextTrack()
 			},
 			mediaNotAvailable() {
 				this.$emit('mediaNotAvailable', {
-					track: this.currentTrack
+					track: this.track
 				})
 				this.trackEnded()
 			},
