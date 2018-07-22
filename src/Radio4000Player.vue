@@ -170,7 +170,6 @@
 				if (newData.image) this.image = newData.image
 				if (newData.tracks) this.tracks = newData.tracks
 			},
-
 			newTracksPool() {
 				var pool = this.tracks.slice().reverse()
 				if (this.isShuffle) {
@@ -181,7 +180,6 @@
 					this.tracksPool = pool
 				}
 			},
-
 			playTrack(track) {
 				const previousTrack = this.currentTrack
 				this.currentTrack = track

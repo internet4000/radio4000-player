@@ -47,7 +47,8 @@
 			},
 			loadChannelByTrack(id) {
 				if (!id) return
-				// avoid loading track twice
+
+				// Use track from cache if possible.
 				let track = this.currentTracks && this.currentTracks.find(t => t.id === id)
 				if (track) {
 					this.update({track})
@@ -57,14 +58,14 @@
 				return findTrack(id).then(track => {
 					this.update({track})
 
-					// avoid loading the same channel twice
+					// Avoid loading the same channel twice.
 					const query = this.currentChannel.query
 					const sameChannel = this.currentChannel.id === track.channel
 					if (sameChannel && query || sameChannel && !query) {
 						return
 					}
 
-					// refresh
+					// Load new channel.
 					return this.loadChannelById(track.channel)
 				})
 			},
@@ -78,9 +79,8 @@
 					.then(image => this.update({image}))
 					.catch(() => this.update({image}))
 			},
-
 			loadTracksAndImageFromChannel(channel) {
-				/* Reset tracks and image to show loading UX immediately.*/
+				// Reset tracks and image to show loading UX immediately.
 				this.update({tracks: [], image: ''})
 
 				if (channel.image) {
