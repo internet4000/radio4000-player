@@ -14,7 +14,7 @@
 
 		<file-player
 			v-if="provider === 'file'"
-			:url="track.mediaUrl"
+			:url="track.url"
 			:volume="volume"
 			:autoplay="autoplay"
 			:isPlaying="isPlaying"
@@ -28,6 +28,7 @@
 <script>
 	import YoutubePlayer from './YoutubePlayer.vue'
 	import FilePlayer from './FilePlayer.vue'
+	import { mediaUrlParser } from 'media-url-parser'
 
 	export default {
 		name: 'provider-player',
@@ -43,10 +44,9 @@
 		},
 		computed: {
 			provider() {
-				if (!this.track) return undefined
-				if (this.track.ytid) return 'youtube'
-				if (this.track.mediaUrl) return 'file'
-				return undefined
+				if (!this.track || !this.track.url) return undefined
+				let parsedUrl = mediaUrlParser(this.track.url)
+				return parsedUrl.provider
 			}
 		}
 	}

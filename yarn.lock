@@ -2788,6 +2788,10 @@ escope@^3.6.0:
     esrecurse "^4.1.0"
     estraverse "^4.1.1"
 
+esm@^3.0.72:
+  version "3.0.72"
+  resolved "https://registry.yarnpkg.com/esm/-/esm-3.0.72.tgz#8f71b3f54b978bbbcbb9788f7f3569a36578c136"
+
 esprima@^2.6.0:
   version "2.7.3"
   resolved "https://registry.yarnpkg.com/esprima/-/esprima-2.7.3.tgz#96e3b70d5779f6ad49cd032673d1c312767ba581"
@@ -4634,6 +4638,13 @@ md5.js@^1.3.4:
 media-typer@0.3.0:
   version "0.3.0"
   resolved "https://registry.yarnpkg.com/media-typer/-/media-typer-0.3.0.tgz#8710d7af0aa626f8fffa1ce00168545263255748"
+
+media-url-parser@^0.0.5:
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/media-url-parser/-/media-url-parser-0.0.5.tgz#5a2f954aa66eb74829a7418d14682e902909c6af"
+  dependencies:
+    esm "^3.0.72"
+    youtube-regex "^1.0.5"
 
 mem@^1.1.0:
   version "1.1.0"
@@ -7868,3 +7879,7 @@ youtube-player@^5.5.0:
     debug "^2.6.6"
     load-script "^1.0.0"
     sister "^3.0.0"
+
+youtube-regex@^1.0.5:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/youtube-regex/-/youtube-regex-1.0.5.tgz#5f27facab0b7d66d01eebc7afc9a6a69cf61abd8"
