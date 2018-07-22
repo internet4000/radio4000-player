@@ -41,13 +41,6 @@
 			track: Object,
 			volume: Number
 		},
-		mounted() {
-			if (!this.autoplay) {
-				this.$emit('play')
-			} else {
-				this.$emit('pause')				
-			}
-		},
 		computed: {
 			provider() {
 				if (!this.track) return undefined

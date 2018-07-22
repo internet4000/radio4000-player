@@ -21,12 +21,12 @@
 			mediaUrl: String,
 			volume: Number
 		},
-		data() {
-			return {
-				continuousPlay: true
-			}
-		},
 		watch: {
+			url(url) {
+				this.$nextTick(() => {
+					this.$el.play()
+				})
+			},
 			isPlaying(isPlaying) {
 				if (isPlaying) {
 					this.$el.play().catch(this.handleEnded)
@@ -74,15 +74,9 @@
 			handleVolumeChange() {
 				console.log('event volumechange', arguments)
 			},
-			handleLoadedData() {
-				if (this.continuousPlay) {
-					this.$el.play()
-				} else {
-					this.$el.pause()
-				}
-			},
-			/* https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/error */
+			handleLoadedData() {},
 			handleError(event) {
+				/* https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/error */
 				let error = this.$el.error
 				console.log('FilePlayer error', error)
 
