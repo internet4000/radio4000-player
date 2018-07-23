@@ -5,6 +5,14 @@ This is a web component that plays channels from
 [radio4000-api](https://github.com/internet4000/radio4000-api) and
 Vue.js.
 
+- [How to use](#how-to-use)
+- [API](#api)
+	- [Attributes](#attributes)
+	- [Examples](#examples)
+	- [Events](#events)
+	- [Methods](#methods)
+- [Development](#development)
+
 [![](https://data.jsdelivr.com/v1/package/npm/radio4000-player/badge)](https://www.jsdelivr.com/package/npm/radio4000-player)
 
 
@@ -32,6 +40,8 @@ OR, you can use an iframe ([source](https://github.com/internet4000/radio4000-ap
 ```
 
 ## API
+
+### Attributes
 
 Here's a complete list of all the attributes you can set and change on the web component. These do not affect the iframe version.
 
