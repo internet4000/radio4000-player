@@ -43,11 +43,12 @@ Here's a complete list of all the attributes you can set and change on the web c
 |volume|`integer`|from 0 to 100 (default: `100`)
 |autoplay|`boolean`|if it should start playing automatically (default: `false`)
 |shuffle|`boolean`|if tracks should be shuffled (default: `false`)
-|r4-url|`boolean`|use relative, internal  channel image url and track url point to radio4000 (default: `false`)
+|r4-url|`boolean`|use relative, internal links. When the player is used on radio4000.com we want the links to not open a new window. (default: `false`)
 
 ### Examples
 
-The are three available attributes to start the player: `channel-slug`, `channel-id` and `track-id`.  
+The are three available attributes to start the player: `channel-slug`, `channel-id` and `track-id`.
+
 In a HTML file, add the following to generate three players:
 
 ```html
@@ -181,14 +182,6 @@ If instead of a `ytid` (being a Youtube video id), you use the key
 url points to. It will use an HTML `<audio>` element, to which the
 supported media type list can be found on [Mozilla MDN
 documentation](https://developer.mozilla.org/en-US/docs/Web/HTML/Supported_media_formats).
-
-### r4-url, Using internal links
-
-By default links to tracks or a channel will open in a new browser window. If the player is used inside radio4000.com, we want the links to be internal and relative. For that you can use the boolean property `r4-url` like so.
-
-```html
-<radio4000-player r4-url="true"></radio4000-player>
-```
 
 ## Development
 
