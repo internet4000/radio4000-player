@@ -87,25 +87,11 @@ To enable autoplay:
 
 You can listen for events directly on each `<radio4000-player>` element.
 
-- `trackChanged` - This event fires whenever the current track is
-  changed. It is an object containing two `track` objects,
-  `previousTrack` and `track`
-- `trackEnded` - This event fires when the current track finishes
-  playing. It is an object containing one `track` object.
-- `mediaNotAvailable` - This event fires when a track can not be
-  played by its provider player (youtube etc.), since its media for
-  not available to be played. It is an object containing one `track`
-  object, the track which youtube video could not be played. Youtube
-  does not give much detail about "why" a media could not be played,
-  in the event sent by their javascript player. In your application you
-  can make a request to youtube's apis to get more info about a track,
-  and figure out why, with a request such as the following.
-	
-```
-# unrelated example of an HTTP query to Youtube api for details about
-a video (replace `YOUTUBE_API_KEY` and `YOUTUBE_VIDEO_ID`)
-GET https://www.googleapis.com/youtube/v3/videos?key=YOUTUBE_API_KEY&id=YOUTUBE_VIDEO_ID&fields=items(id,snippet,contentDetails,statistics)&part=snippet,contentDetails,statistics
-```
+|Event name|Description|Arguments|
+|----|----|----|
+|`trackChanged`|Fires whenever the current track is changed|`{previousTrack, track}`
+|`trackEnded`|Fires when the current track finishes playing|`{track}`
+|`mediaNotAvailable`|Fires when a track can not be played by its provider (YouTube etc.)|`{track}`
 
 Here's an example of how to listen for the `trackChanged` event. It is the same approach for all events. In the case of both `trackChanged` and `trackEnded`, the `event.detail[0]` argument will be a Radio4000 `track` object.
 
@@ -119,68 +105,45 @@ player.addEventListener('trackChanged', (event) => {
 
 ### Methods
 
-> !!! Danger zone. We are still finalizing the API for methods so except this to change.
+> !!! Danger zone. We are still finalizing the API for methods so expect this to change.
 
-It is possible to load data to the `<radio4000-player>`, 
-without any relation to the Radio4000 database.
-
-To do that there is an available method `updatePlaylist`, on the
-javascript instance of the player, which accepts a `playlist` object. Like this:
-
-```js
-// Get access to the Vue component behind the web component to access methods.
-var player = document.querySelector('radio4000-player')
-var vue = player.__vue_custom_element__.$children[0]
-
-var tracks = [
-	{
-		id: 'uniqueId',
-		title: 'A title to display',
-		url: 'an url to link to in the track list',
-		ytid: 'an id to the youtube video'
-	}
-];
-
-var playlist = {
-	title: 'A title for the playlist',
-	image: 'https://raw.githubusercontent.com/internet4000/assets/master/radio4000/icon-r4.svg',
-	tracks: tracks
-};
-
-vue.updatePlaylist(playlist)
-```
+It is possible to load data to the `<radio4000-player>` without any relation to the Radio4000 database. To do that use the `updatePlaylist` method, on the JavaScript instance of the player. It accepts a `playlist` object.
 
 #### The `playlist` object
-
-A playlist object can have the following attributes:
 
 |Attribute|Type|Description|
 |----|----|----|
 |title|`string`|Displayed in the header
-|image|`string`|URL to an image (~60px)
+|image|`string`|URL to an image (square ~60px)
 |tracks|`string`|An array of track objects
 
+Here's an example an array of a `playlist` object. Note how the tracks' `url` key points to remote media in the *ogg* format (can be any format your browser supports).
+
 ``` javascript
-var tracks = [
+// Create a playlist.
+const playlist = {
+  title: 'A title for this list',
+  image: 'https://78.media.tumblr.com/5080191d7d19fe64da558f2b4324563e/tumblr_p8eoiltn1t1twkjb3o1_1280.png',
+  tracks = [
     {
-	id: '1',
-	title: 'Randomfunk.ogg',
-	url: 'https://200okrecords.com',
-	mediaUrl: 'https://ia801409.us.archive.org/5/items/DWK051/Rare_and_Cheese_-_01_-_Randomfunk.ogg'
+      id: '1',
+      title: 'Randomfunk.ogg',
+      url: 'https://ia801409.us.archive.org/5/items/DWK051/Rare_and_Cheese_-_01_-_Randomfunk.ogg'
     },
     {
-	id: '2',
-	title: '02_-_Jazzpolice.ogg',
-	url: 'http://zty.pe',
-	mediaUrl: 'https://ia801409.us.archive.org/5/items/DWK051/Rare_and_Cheese_-_02_-_Jazzpolice.ogg'
+      id: '2',
+      title: 'Rare and Cheese - Jazzpolice',
+      url: 'https://ia801409.us.archive.org/5/items/DWK051/Rare_and_Cheese_-_02_-_Jazzpolice.ogg'
     }
-];
+  ]
+}
 
-const playlist = {
-    title: 'A title for this list',
-    image: 'https://78.media.tumblr.com/5080191d7d19fe64da558f2b4324563e/tumblr_p8eoiltn1t1twkjb3o1_1280.png',
-    tracks: tracks
-};
+// Get access to the Vue component behind the web component to access methods.
+var player = document.querySelector('radio4000-player')
+var vue = player.__vue_custom_element__.$children[0]
+
+// Update player with our new playlist.
+vue.updatePlaylist(playlist)
 ```
 
 #### The `track` object
@@ -214,33 +177,10 @@ const tracks = {
 ```
 
 If instead of a `ytid` (being a Youtube video id), you use the key
-`mediaUrl`, the player will attempt to read the media to which this
+`url`, the player will attempt to read the media to which this
 url points to. It will use an HTML `<audio>` element, to which the
 supported media type list can be found on [Mozilla MDN
 documentation](https://developer.mozilla.org/en-US/docs/Web/HTML/Supported_media_formats).
-
-This is an array of `track` objects, with a `mediaUrl` key pointing to
-remote media in the *ogg* format.
-
-``` javascript
-var tracks = [
-    {
-        id: '1',
-        title: 'Randomfunk.ogg',
-        url: 'https://200okrecords.com',
-        mediaUrl: 'https://ia801409.us.archive.org/5/items/DWK051/Rare_and_Cheese_-_01_-_Randomfunk.ogg'
-    },
-    {
-        id: '2',
-        title: '02_-_Jazzpolice.ogg',
-        url: 'http://zty.pe',
-        mediaUrl: 'https://ia801409.us.archive.org/5/items/DWK051/Rare_and_Cheese_-_02_-_Jazzpolice.ogg'
-    }
-]
-```
-
-The `track.url` property is used to create the link that this track
-points to when right clicking it on the player's track list.
 
 ### r4-url, Using internal links
 
