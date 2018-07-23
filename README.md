@@ -170,16 +170,12 @@ This is an array of `track`, which have a property `ytid`, so the
 const tracks = {
     {
         "id": "-JYZtlEKiZY75Wt6QpA5",
-        "channel": "-JYZtdQfLSl6sUpyIJx6",
-        "created": 1412589649848,
         "title": "Kleeer - Tonight",
         "url":" https://www.youtube.com/watch?v=cVXURwACwtk",
         "ytid": "cVXURwACwtk"
     },
     {
         "id": "-Jf2HYHsVl7iPDGZNbCa",
-        "channel":"-J_QdrlmldCa7DFyh5GH",
-        "created": 1420615680144,
         "title":" Patrick Watson - Adventures In Your Own Backyard (Altered Route Video Edit)",
         "url":" https://www.youtube.com/watch?v=cbSbbY5ibas",
         "ytid": "cbSbbY5ibas"
@@ -217,6 +213,8 @@ yarn start; yarn cypress open
 ```
 
 ### How to release a new version
+
+> Do not use `npm publish` or `yarn publish` directly! (unless you can remember to `yarn build` before releasing)
 
 Release a new patch e.g. `1.0.4` to `1.0.5`.
 
