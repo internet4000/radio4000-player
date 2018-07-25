@@ -1,6 +1,6 @@
 describe('player controls', function() {
 	before(() => {
-		cy.visit('/')
+		cy.visit('/test.html')
 	})
 
 	it('it is not playing', function() {
