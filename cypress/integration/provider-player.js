@@ -23,9 +23,6 @@ describe('<ProviderPlayer> component', function() {
 		vm.track = {url: testYouTubeUrl}
 		vm.$nextTick(() => {
 			expect(vm.provider, 'youtube')
-			vm.$nextTick(() => {
-				expect(vm.provider, 'file')
-			})
 		})
 	})
 
