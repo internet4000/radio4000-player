@@ -22,7 +22,7 @@ describe('<Radio4000> and data fetching', function() {
 
 describe('<radio4000-player> web component', function() {
 	before(() => {
-		cy.visit('/')
+		cy.visit('/test.html')
 	})
 
 	it('it renders', function() {
