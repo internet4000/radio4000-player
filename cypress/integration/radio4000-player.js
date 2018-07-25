@@ -1,6 +1,6 @@
 describe('<Radio4000> and data fetching', function() {
 	beforeEach(function() {
-		cy.visit('/')
+		cy.visit('/test.html')
 	})
 
 	it('it can change radio', function() {
