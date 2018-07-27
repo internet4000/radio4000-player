@@ -47,6 +47,7 @@
       "js": "radio4000-player.min.js"
     },
     "format": "umd",
-    "moduleName": "radio4000Player"
+    "moduleName": "radio4000Player",
+    "transformModules": ["media-url-parser"]
   }
 }
