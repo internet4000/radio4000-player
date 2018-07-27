@@ -20,9 +20,13 @@ module.exports = {
 
 	webpack(config) {
 		// Exclude `url` module and rely on global in browsers.
-		config.externals = {
-			url: 'URL'
+		var isProduction = process.env.NODE_ENV === 'production'
+		if (isProduction) {
+			config.externals = {
+				url: 'URL'
+			}
 		}
+
 		return config
 	}
 }
