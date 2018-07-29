@@ -5,7 +5,16 @@ This is a web component that plays channels from
 [radio4000-api](https://github.com/internet4000/radio4000-api) and
 Vue.js.
 
+- [How to use](#how-to-use)
+- [API](#api)
+	- [Attributes](#attributes)
+	- [Examples](#examples)
+	- [Events](#events)
+	- [Methods](#methods)
+- [Development](#development)
+
 [![](https://data.jsdelivr.com/v1/package/npm/radio4000-player/badge)](https://www.jsdelivr.com/package/npm/radio4000-player)
+
 
 ## How to use
 
@@ -32,6 +41,8 @@ OR, you can use an iframe ([source](https://github.com/internet4000/radio4000-ap
 
 ## API
 
+### Attributes
+
 Here's a complete list of all the attributes you can set and change on the web component. These do not affect the iframe version.
 
 |Attribute|Type|Description|
@@ -42,10 +53,23 @@ Here's a complete list of all the attributes you can set and change on the web c
 |volume|`integer`|from 0 to 100 (default: `100`)
 |autoplay|`boolean`|if it should start playing automatically (default: `false`)
 |shuffle|`boolean`|if tracks should be shuffled (default: `false`)
+|r4-url|`boolean`|use relative, internal links. When the player is used on radio4000.com we want the links to not open a new window. (default: `false`)
 
 ### Examples
 
-Remember that HTML attributes are dasherized `channel-slug` whereas JavaScript expects CamelCase `channelSlug`.
+The are three available attributes to start the player: `channel-slug`, `channel-id` and `track-id`.
+
+In a HTML file, add the following to generate three players:
+
+```html
+<script async src="https://cdn.jsdelivr.net/npm/radio4000-player"></script>
+
+<radio4000-player channel-slug="good-time-radio"></radio4000-player>
+<radio4000-player channel-id="-JYZvhj3vlGCjKXZ2cXO"></radio4000-player>
+<radio4000-player track-id="-JYEosmvT82Ju0vcSHVP"></radio4000-player>
+```
+
+You can also set and update the player attributes using JavaScript. Remember that HTML attributes are dasherized `channel-slug` whereas JavaScript expects CamelCase `channelSlug`.
 
 ```js
 var player = document.querySelector('radio4000-player')
@@ -70,29 +94,15 @@ To enable autoplay:
 <radio4000-player channel-slug="200ok" autoplay="true"></radio4000-player>
 ```
 
-## Events
+### Events
 
 You can listen for events directly on each `<radio4000-player>` element.
 
-- `trackChanged` - This event fires whenever the current track is
-  changed. It is an object containing two `track` objects,
-  `previousTrack` and `track`
-- `trackEnded` - This event fires when the current track finishes
-  playing. It is an object containing one `track` object.
-- `mediaNotAvailable` - This event fires when a track could not be
-  played by its provider player (youtube etc.), since its media for
-  not available to be played. It is an object containing one `track`
-  object, the track which youtube video could not be played. Youtube
-  does not give much detail about "why" a media could not be player,
-  in the event sent by their javascript player. In you application you
-  could make a call to youtube's apis to get more info about a track,
-  and figure out why, with a request such as the following.
-	
-```
-# unrelated example of an HTTP query to Youtube api for details about
-a video (replace `YOUTUBE_API_KEY` and `YOUTUBE_VIDEO_ID`)
-GET https://www.googleapis.com/youtube/v3/videos?key=YOUTUBE_API_KEY&id=YOUTUBE_VIDEO_ID&fields=items(id,snippet,contentDetails,statistics)&part=snippet,contentDetails,statistics
-```
+|Event name|Description|Arguments|
+|----|----|----|
+|`trackChanged`|Fires whenever the current track is changed|`{previousTrack, track}`
+|`trackEnded`|Fires when the current track finishes playing|`{track}`
+|`mediaNotAvailable`|Fires when a track can not be played by its provider (YouTube etc.)|`{track}`
 
 Here's an example of how to listen for the `trackChanged` event. It is the same approach for all events. In the case of both `trackChanged` and `trackEnded`, the `event.detail[0]` argument will be a Radio4000 `track` object.
 
@@ -104,50 +114,84 @@ player.addEventListener('trackChanged', (event) => {
 })
 ```
 
-## Methods
+### Methods
 
-Danger zone. We are still finalizing the API for methods so except this to change.
+> !!! Danger zone. We are still finalizing the API for methods so expect this to change.
 
-```js
+It is possible to load data to the `<radio4000-player>` without any relation to the Radio4000 database. To do that use the `updatePlaylist` method, on the JavaScript instance of the player. It accepts a `playlist` object.
+
+#### The `playlist` object
+
+|Attribute|Type|Description|
+|----|----|----|
+|title|`string`|Displayed in the header
+|image|`string`|URL to an image (square ~60px)
+|tracks|`string`|An array of track objects
+
+Here's an example an array of a `playlist` object. Note how the tracks' `url` key points to remote media in the *ogg* format (can be any format your browser supports).
+
+``` javascript
+// Create a playlist.
+const playlist = {
+  title: 'A title for this list',
+  image: 'https://78.media.tumblr.com/5080191d7d19fe64da558f2b4324563e/tumblr_p8eoiltn1t1twkjb3o1_1280.png',
+  tracks = [
+    {
+      id: '1',
+      title: 'Randomfunk.ogg',
+      url: 'https://ia801409.us.archive.org/5/items/DWK051/Rare_and_Cheese_-_01_-_Randomfunk.ogg'
+    },
+    {
+      id: '2',
+      title: 'Rare and Cheese - Jazzpolice',
+      url: 'https://ia801409.us.archive.org/5/items/DWK051/Rare_and_Cheese_-_02_-_Jazzpolice.ogg'
+    }
+  ]
+}
+
 // Get access to the Vue component behind the web component to access methods.
 var player = document.querySelector('radio4000-player')
 var vue = player.__vue_custom_element__.$children[0]
 
-var tracks = [
-	{
-		id: 'uniqueId',
-		title: 'A title to display',
-		url: 'an url to link to in the track list',
-		ytid: 'an id to the youtube video'
-	}
-];
-
-var playlist = {
-	title: `A title for this list`,
-	image: 'https://raw.githubusercontent.com/internet4000/assets/master/radio4000/icon-r4.svg',
-	tracks: tracks
-};
-
+// Update player with our new playlist.
 vue.updatePlaylist(playlist)
 ```
 
-If the playlist object contains a `query` string it will be shown on top of the track list.
+#### The `track` object
 
-## Using internal links
+The track object attributes are based on the track model of Radio4000 API.
+Available attributes can be found there:
+[github.com/internet4000/radio4000-api#track](https://github.com/internet4000/radio4000-api#track)
 
-If this player is used inside radio4000.com, we want the links to switch URL internally.
-For that you can use the boolean property `r4-url` like so.
+This is an array of `track`, which have a property `ytid`, so the
+`<radio4000-player>` will read them with YouTube's iframe player.
 
-```html
-<radio4000-player r4-url="true"></radio4000-player>
+``` javascript
+const tracks = {
+    {
+        "id": "-JYZtlEKiZY75Wt6QpA5",
+        "title": "Kleeer - Tonight",
+        "url":" https://www.youtube.com/watch?v=cVXURwACwtk",
+        "ytid": "cVXURwACwtk"
+    },
+    {
+        "id": "-Jf2HYHsVl7iPDGZNbCa",
+        "title":" Patrick Watson - Adventures In Your Own Backyard (Altered Route Video Edit)",
+        "url":" https://www.youtube.com/watch?v=cbSbbY5ibas",
+        "ytid": "cbSbbY5ibas"
+    }
+}
 ```
 
-Therefore, URLs in the player header won't open new browser window but will just replace the URL like Ember router would have done.
+If instead of a `ytid` (being a Youtube video id), you use the key
+`url`, the player will attempt to read the media to which this
+url points to. It will use an HTML `<audio>` element, to which the
+supported media type list can be found on [Mozilla MDN
+documentation](https://developer.mozilla.org/en-US/docs/Web/HTML/Supported_media_formats).
 
 ## Development
 
 - Feature branches are made from the `master` branch.
-- `production` branch is used for the production version releases.
 
 ``` bash
 # 1. clone and install dependencies
@@ -158,7 +202,7 @@ yarn
 yarn start
 ```
 
-## Testing
+### Testing
 
 ```bash
 # run tests once
@@ -168,7 +212,9 @@ yarn test
 yarn start; yarn cypress open
 ```
 
-## How to release a new version
+### How to release a new version
+
+> Do not use `npm publish` or `yarn publish` directly! (unless you can remember to `yarn build` before releasing)
 
 Release a new patch e.g. `1.0.4` to `1.0.5`.
 

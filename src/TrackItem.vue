@@ -14,7 +14,12 @@ export default {
 	},
 	computed: {
 		href() {
-			return `https://radio4000.com/${this.channelSlug}/${this.track.id}`
+			// If slug is defined it means we're dealing with an R4 channel.
+			if (this.channelSlug) {
+				return `https://radio4000.com/${this.channelSlug}/${this.track.id}`
+			} else {
+				return this.track.url
+			}
 		}
 	}
 }

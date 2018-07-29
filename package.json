@@ -22,6 +22,7 @@
   "dependencies": {
     "document-register-element": "^1.8.1",
     "lodash.debounce": "^4.0.8",
+    "media-url-parser": "^0.0.7",
     "unfetch": "^3.0.0",
     "vue": "^2.5.16",
     "vue-custom-element": "^3.0.6",
@@ -34,18 +35,5 @@
     "poi": "^9.6.13",
     "release-it": "^7.2.1",
     "start-server-and-test": "^1.1.0"
-  },
-  "poi": {
-    "port": 4002,
-    "vendor": false,
-    "html": {
-      "template": "index.html"
-    },
-    "extractCSS": false,
-    "filename": {
-      "js": "radio4000-player.min.js"
-    },
-    "format": "umd",
-    "moduleName": "radio4000Player"
   }
 }

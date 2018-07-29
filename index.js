@@ -11,5 +11,20 @@ Vue.config.productionTip = false
 // Register our Vue commponent as the <radio4000-player> element.
 Vue.use(vueCustomElement)
 Vue.customElement('radio4000-player', Radio4000Player, {
-	shadow: false
+	shadow: false,
+
+	// Element is mounted/inserted into document.
+	connectedCallback() {
+		const dispatchReadyEvent = () => {
+			let event = new Event('playerReady')
+			this.dispatchEvent(event)
+		}
+
+		// Catch the internal ready event and emit our own event.
+		this.addEventListener('vce-ready', dispatchReadyEvent)
+	},
+
+	disconnectedCallback() {
+		this.removeEventListener('vce-ready')
+	}
 })

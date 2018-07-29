@@ -1,47 +1,88 @@
 <!doctype html>
 <html>
-<head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Radio4000 player</title>
-	<style>
-		/* styles for this demo */
-		body {
-			margin: 0;
-			padding: 2rem;
-		}
-	</style>
-</head>
-<body>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Radio4000 player</title>
+		<style>
+			/* styles for this demo */
+			body {
+				margin: 0;
+				padding: 2rem;
+			}
+		</style>
+	</head>
+	<body>
 
-	<!-- There are three different ways to start playing: -->
-	<!-- <radio4000-player channel-slug="200ok"></radio4000-player> -->
-	<radio4000-player channel-slug="good-time-radio"></radio4000-player>
-	<!-- <radio4000-player track-id="-KdVUsr70yYdIoBDmL43"></radio4000-player> -->
-	<!-- <radio4000-player channel-slug="oskar"></radio4000-player> -->
-	<!-- <radio4000-player channel-id="-KFzPXLNzmKjPGwyY-xx"></radio4000-player> -->
+		<!-- There are three different ways to start playing: -->
+		<!-- <radio4000-player channel-slug="200ok"></radio4000-player> -->
+		<!-- <radio4000-player channel-slug="good-time-radio"></radio4000-player> -->
+		<!-- <radio4000-player track-id="-KdVUsr70yYdIoBDmL43"></radio4000-player> -->
+		<!-- <radio4000-player channel-slug="oskar"></radio4000-player> -->
+		<!-- <radio4000-player channel-id="-KFzPXLNzmKjPGwyY-xx"></radio4000-player> -->
 
-	<!-- tests -->
-	<!-- <radio4000-player channel-slug="200ok" autoplay="true"></radio4000-player> -->
-	<!-- <radio4000-player channel-slug="200ok" shuffle="true"></radio4000-player> -->
+		<!-- tests -->
+		<!-- <radio4000-player channel-slug="200ok" autoplay="true"></radio4000-player> -->
+		<!-- <radio4000-player channel-slug="200ok" shuffle="true"></radio4000-player> -->
 
-	<!-- dead track link -->
-	<!-- <radio4000-player track-id="-JyCMmQETox_SF6-x6Tr"></radio4000-player> -->
+		<!-- dead track link -->
+		<!-- <radio4000-player track-id="-JyCMmQETox_SF6-x6Tr"></radio4000-player> -->
 
-	<script>
-		var player = document.querySelector('radio4000-player')
-		player.addEventListener('trackChanged', (event) => {
-		 	console.info('[event:trackChanged]', event.detail[0])
-		})
-		player.addEventListener('trackEnded', (event) => {
-		 	console.info('[event:trackEnded]', event.detail[0])
-		})
-		player.addEventListener('mediaNotAvailable', (event) => {
-		 	console.info('[event:mediaNotAvailable]', event.detail[0])
-		})
-	</script>
+		<!-- media is a local audio file-player -->
+		<radio4000-player></radio4000-player>
 
-	<!-- script is automatically injected via `poi` -->
+		<script>
+			var player = document.querySelector('radio4000-player')
 
-</body>
+			player.addEventListener('trackChanged', (event) => {
+		 		console.info('[event:trackChanged]', event.detail[0])
+			})
+			player.addEventListener('trackEnded', (event) => {
+		 		console.info('[event:trackEnded]', event.detail[0])
+			})
+			player.addEventListener('mediaNotAvailable', (event) => {
+		 		console.info('[event:mediaNotAvailable]', event.detail[0])
+			})
+			player.addEventListener('playerReady', () => {
+				console.info('[event:playerReady]');
+
+				var playerVue = player.__vue_custom_element__.$children[0]
+				console.log({playerVue})
+
+				var tracks = [
+					{
+						id: '4',
+						title: 'A track with a bad mediaUrl',
+						url: '~/me.mp3'
+					},
+					{
+						id: '1',
+						title: 'Birds_Polyphonic.ogg',
+						url: 'https://upload.wikimedia.org/wikipedia/commons/5/53/Birds_Polyphonic.ogg'
+					},
+					{
+						id: '2',
+						title: 'Tittums.ogg',
+						url: 'https://upload.wikimedia.org/wikipedia/commons/e/ef/Tittums.ogg'
+					},
+					{
+						id: '3',
+						title: 'Blue tit',
+						url: 'https://upload.wikimedia.org/wikipedia/commons/7/7a/Neural-Correlates-of-Natural-Human-Echolocation-in-Early-and-Late-Blind-Echolocation-Experts-pone.0020162.s021.ogg'
+					}
+				];
+
+				var playlist = {
+					title: 'title for this list',
+					image: 'https://78.media.tumblr.com/5080191d7d19fe64da558f2b4324563e/tumblr_p8eoiltn1t1twkjb3o1_1280.png',
+					tracks: tracks
+				};
+
+				playerVue.updatePlaylist(playlist)
+			})
+		</script>
+
+		<!-- script is automatically injected via `poi` -->
+
+	</body>
 </html>
