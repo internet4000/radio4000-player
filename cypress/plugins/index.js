@@ -13,15 +13,21 @@
 
 // 1/2 Tell Cypress how to load .Vue files.
 const webpack = require('@cypress/webpack-preprocessor')
+const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const webpackOptions = {
 	module: {
 		rules: [
 			{
 				test: /\.vue$/,
 				loader: 'vue-loader'
+			},
+			{
+				test: /\.css$/,
+				use: ['vue-style-loader', 'css-loader']
 			}
 		]
-	}
+	},
+	plugins: [new VueLoaderPlugin()]
 }
 const options = {
 	// send options from your webpack.config.js, so it works the same as your app's code
