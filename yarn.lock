@@ -4639,9 +4639,9 @@ media-typer@0.3.0:
   version "0.3.0"
   resolved "https://registry.yarnpkg.com/media-typer/-/media-typer-0.3.0.tgz#8710d7af0aa626f8fffa1ce00168545263255748"
 
-media-url-parser@^0.0.6:
-  version "0.0.6"
-  resolved "https://registry.yarnpkg.com/media-url-parser/-/media-url-parser-0.0.6.tgz#848f28d805a1510b84b59c19d4631a4ac858152f"
+media-url-parser@^0.0.7:
+  version "0.0.7"
+  resolved "https://registry.yarnpkg.com/media-url-parser/-/media-url-parser-0.0.7.tgz#4ff0cf9e521b83a4d0b50b02ff9e7ed9b38770c1"
   dependencies:
     esm "^3.0.72"
     youtube-regex "^1.0.5"

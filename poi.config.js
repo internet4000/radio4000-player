@@ -16,17 +16,5 @@ module.exports = {
 	format: 'umd',
 	moduleName: 'radio4000Player',
 
-	transformModules: ['media-url-parser'],
-
-	webpack(config) {
-		// Exclude `url` module and rely on global in browsers.
-		var isProduction = process.env.NODE_ENV === 'production'
-		if (isProduction) {
-			config.externals = {
-				url: 'URL'
-			}
-		}
-
-		return config
-	}
+	transformModules: ['media-url-parser']
 }
