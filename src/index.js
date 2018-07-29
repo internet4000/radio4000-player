@@ -3,7 +3,7 @@ import 'document-register-element'
 
 import Vue from 'vue'
 import vueCustomElement from 'vue-custom-element'
-import Radio4000Player from './src/Radio4000Player.vue'
+import Radio4000Player from './Radio4000Player.vue'
 
 Vue.config.devtools = true
 Vue.config.productionTip = false
