@@ -100,6 +100,7 @@ You can listen for events directly on each `<radio4000-player>` element.
 
 |Event name|Description|Arguments|
 |----|----|----|
+|`playerReady`|Fires when ready|
 |`trackChanged`|Fires whenever the current track is changed|`{previousTrack, track}`
 |`trackEnded`|Fires when the current track finishes playing|`{track}`
 |`mediaNotAvailable`|Fires when a track can not be played by its provider (YouTube etc.)|`{track}`
