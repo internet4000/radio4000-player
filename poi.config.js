@@ -1,20 +1,18 @@
-// poi.config.js
 module.exports = {
-	port: 4002,
-	html: {
-		template: 'index.html'
-	},
-	extractCSS: false,
+	// Use UMD format so you can use in <script> tags.
+	format: 'umd',
+	moduleName: 'radio4000Player',
 	filename: {
 		js: 'radio4000-player.min.js'
 	},
+	css: {
+		// Don't extract CSS into standalone files.
+		extract: false
+	},
 
-	// Don't split bundle in two files
-	vendor: false,
-
-	// Package as UMD module.
-	format: 'umd',
-	moduleName: 'radio4000Player',
-
-	transformModules: ['media-url-parser']
+	// Development settings
+	port: 4002,
+	html: {
+		template: 'index.html'
+	}
 }
