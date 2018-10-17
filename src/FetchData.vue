@@ -5,8 +5,8 @@
 		findChannelById,
 		findChannelBySlug,
 		findChannelTracks,
-		findChannelImage,
-		findTrack
+		findTrack,
+		buildThumbnail
 	} from './utils/store'
 
 	export default {
@@ -74,19 +74,12 @@
 					.then(tracks => this.update({tracks}))
 					.catch(err => {console.log(err)})
 			},
-			loadChannelImage(channel) {
-				findChannelImage(channel)
-					.then(image => this.update({image}))
-					.catch(() => this.update({image}))
-			},
 			loadTracksAndImageFromChannel(channel) {
 				// Reset tracks and image to show loading UX immediately.
 				this.update({tracks: [], image: ''})
 
 				if (channel.image) {
-					this.update({image: channel.image})
-				} else {
-					this.loadChannelImage(channel)
+					this.update({image: buildThumbnail(channel.image)})
 				}
 
 				if (channel.tracks.length) {
