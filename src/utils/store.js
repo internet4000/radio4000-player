@@ -51,6 +51,6 @@ export function findTrack(id) {
 }
 
 export function buildThumbnail(cloudinaryId) {
-	return `https://res.cloudinary.com/radio4000/image/upload/w_120,h_120,q_60,c_thumb,fl_lossy/${cloudinaryId}`
+	return `https://res.cloudinary.com/radio4000/image/upload/w_250,h_250,q_60,c_thumb,fl_lossy/${cloudinaryId}`
 }
 
