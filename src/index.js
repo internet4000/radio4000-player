@@ -22,9 +22,5 @@ Vue.customElement('radio4000-player', Radio4000Player, {
 
 		// Catch the internal ready event and emit our own event.
 		this.addEventListener('vce-ready', dispatchReadyEvent)
-	},
-
-	disconnectedCallback() {
-		this.removeEventListener('vce-ready')
 	}
 })
