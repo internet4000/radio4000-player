@@ -3456,8 +3456,9 @@ eslint-scope@^4.0.0:
     estraverse "^4.1.1"
 
 esm@^3.0.72:
-  version "3.0.72"
-  resolved "https://registry.yarnpkg.com/esm/-/esm-3.0.72.tgz#8f71b3f54b978bbbcbb9788f7f3569a36578c136"
+  version "3.0.84"
+  resolved "https://registry.yarnpkg.com/esm/-/esm-3.0.84.tgz#bb108989f4673b32d4f62406869c28eed3815a63"
+  integrity sha512-SzSGoZc17S7P+12R9cg21Bdb7eybX25RnIeRZ80xZs+VZ3kdQKzqTp2k4hZJjR7p9l0186TTXSgrxzlMDBktlw==
 
 esprima@^2.6.0:
   version "2.7.3"
@@ -5314,9 +5315,10 @@ media-typer@0.3.0:
   version "0.3.0"
   resolved "https://registry.yarnpkg.com/media-typer/-/media-typer-0.3.0.tgz#8710d7af0aa626f8fffa1ce00168545263255748"
 
-media-url-parser@^0.0.7:
-  version "0.0.7"
-  resolved "https://registry.yarnpkg.com/media-url-parser/-/media-url-parser-0.0.7.tgz#4ff0cf9e521b83a4d0b50b02ff9e7ed9b38770c1"
+media-url-parser@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/media-url-parser/-/media-url-parser-0.1.0.tgz#2f243a66e0f39c3b79f48d35b92ed2e72b2e26e4"
+  integrity sha512-84ZqvEsJWe8ltOELCiEvdJ8EwZnZnQnB4kbvqOTxnPm4nAWdVJ4H6byMtb5+n/M33/QHvDWYzc9rmuFPcN6AEg==
   dependencies:
     esm "^3.0.72"
     youtube-regex "^1.0.5"
@@ -8512,3 +8514,4 @@ youtube-player@^5.5.0:
 youtube-regex@^1.0.5:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/youtube-regex/-/youtube-regex-1.0.5.tgz#5f27facab0b7d66d01eebc7afc9a6a69cf61abd8"
+  integrity sha1-Xyf6yrC31m0B7rx6/Jpqac9hq9g=
