@@ -1,7 +1,7 @@
 # Radio4000 Player
 
 This is a web component that plays channels from
-[Radio4000](htttps://radio4000.com). It uses the public
+[Radio4000](https://radio4000.com). It uses the public
 [radio4000-api](https://github.com/internet4000/radio4000-api) and
 Vue.js.
 
