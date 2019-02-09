@@ -7,14 +7,14 @@
   "bugs": "https://github.com/internet4000/radio4000-player/issues",
   "license": "GPL-3.0",
   "scripts": {
-    "start": "poi",
-    "build": "poi build",
+    "start": "poi --serve",
+    "build": "poi --production",
     "test": "start-server-and-test start http://localhost:4002 cy:run",
     "cy:run": "cypress run",
     "cy:open": "cypress open",
     "release": "release-it --buildCommand 'npm run build'"
   },
-  "main": "src/index.js",
+  "source": "src/index.js",
   "browser": "dist/radio4000-player.min.js",
   "files": [
     "dist/"
@@ -25,15 +25,16 @@
     "media-url-parser": "^0.1.0",
     "unfetch": "^3.0.0",
     "vue": "^2.5.16",
-    "vue-custom-element": "^3.0.6",
+    "vue-custom-element": "^3.2.6",
     "youtube-player": "^5.5.0"
   },
   "devDependencies": {
     "@cypress/webpack-preprocessor": "^2.0.1",
     "@vue/test-utils": "^1.0.0-beta.12",
     "cypress": "^3.0.2",
-    "poi": "^10.2.9",
+    "poi": "^12.5.5",
     "release-it": "^7.2.1",
-    "start-server-and-test": "^1.1.0"
+    "start-server-and-test": "^1.1.0",
+    "vue-template-compiler": "2.5.16"
   }
 }
