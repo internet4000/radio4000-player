@@ -3,7 +3,7 @@
 		<FetchData
 			:channelId="channelId"
 			:channelSlug="channelSlug"
-			:trackId="trackId"
+			:trackId="track.id"
 			:currentChannel="channel"
 			:currentTracks="tracks"
 			@afterFetch="updateData">
@@ -62,6 +62,7 @@
 
 <script>
 	import debounce from 'lodash.debounce'
+	import { mediaUrlParser } from 'media-url-parser'
 	import { shuffleArray } from './utils/shuffle-helpers'
 
 	import FetchData from './FetchData.vue'
@@ -158,6 +159,17 @@
 		},
 
 		methods: {
+			serializeTracks(tracks) {
+				return tracks.map(track => {
+					let parsed = mediaUrlParser(track.url)
+					return {
+						id: track.id || parsed.id,
+						provider: parsed.provider,
+						url: parsed.url,
+						title: track.title
+					}
+				})
+			},
 			updateData(newData) {
 				if (newData.channel) this.channel = newData.channel
 				if (newData.image) this.image = newData.image
@@ -217,10 +229,14 @@
 				//  Reset tracks and image to show loading UX immediately.
 				this.tracks = []
 				this.image = ''
-
+				
 				this.channel = playlist
 				if (playlist.image) this.image = playlist.image
-				if (playlist.tracks.length) this.tracks = playlist.tracks
+				if (playlist.tracks.length) {
+					const serializedTracks = this.serializeTracks(playlist.tracks)
+					console.log('serializedTracks', serializedTracks)
+					this.tracks = serializedTracks
+				}
 			},
 
 			/**

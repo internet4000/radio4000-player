@@ -2,7 +2,7 @@
 	<div class="ProviderPlayer" :class="{'ProviderPlayer--file': provider === 'file'}">
 		<youtube-player
 			v-if="provider === 'youtube'"
-			:videoId="track.ytid"
+			:videoId="track.id"
 			:volume="volume"
 			:autoplay="autoplay"
 			:isPlaying="isPlaying"
@@ -22,11 +22,24 @@
 			@paused="$emit('pause')"
 			@ended="$emit('trackEnded')"
 		></file-player>
+
+		<vimeo-player
+			v-if="provider === 'vimeo'"
+			:videoId="track.ytid"
+			:volume="volume"
+			:autoplay="autoplay"
+			:isPlaying="isPlaying"
+			@playing="$emit('play')"
+			@paused="$emit('pause')"
+			@mediaNotAvailable="$emit('mediaNotAvailable')"
+			@ended="$emit('trackEnded')"
+		></vimeo-player>
 	</div>
 </template>
 
 <script>
 	import YoutubePlayer from './YoutubePlayer.vue'
+	import VimeoPlayer from './VimeoPlayer.vue'
 	import FilePlayer from './FilePlayer.vue'
 	import { mediaUrlParser } from 'media-url-parser'
 
@@ -34,6 +47,7 @@
 		name: 'provider-player',
 		components: {
 			YoutubePlayer,
+			VimeoPlayer,
 			FilePlayer
 		},
 		props: {
@@ -44,9 +58,8 @@
 		},
 		computed: {
 			provider() {
-				if (!this.track || !this.track.url) return undefined
-				let parsedUrl = mediaUrlParser(this.track.url)
-				return parsedUrl.provider
+				if (!this.track || !this.track.url || !this.track.provider) return undefined
+				return this.track.provider
 			}
 		}
 	}

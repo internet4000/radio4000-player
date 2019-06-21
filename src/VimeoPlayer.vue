@@ -1,5 +1,5 @@
 <template>
-	<div class="ytplayer"></div>
+	<div class="VimeoPlayer">Vimeo</div>
 </template>
 
 <script>
@@ -9,7 +9,7 @@
 	// https://developers.google.com/youtube/iframe_api_reference
 	import YouTubePlayer from 'youtube-player'
 	export default {
-		name: 'youtube-player',
+		name: 'vimeo-player',
 		props: {
 			autoplay: Boolean,
 			isPlaying: Boolean,
@@ -33,16 +33,14 @@
 			}
 		},
 		mounted() {
-			console.log('video', this.videoId)
-			debugger
-			if (this.videoId) {
-				return this.initPlayer().then(this.setTrackOnProvider(this.videoId))
-			}
+			/* if (this.videoId) {
+				 this.initPlayer().then(this.setTrackOnProvider(this.videoId))
+				 } */
 		},
 		watch: {
-			videoId(videoId) {
-				return this.initPlayer().then(this.setTrackOnProvider(videoId))
-			},
+			/* videoId(videoId) {
+				 this.initPlayer().then(this.setTrackOnProvider(videoId))
+				 }, */
 			isPlaying(val) {
 				if (val) {
 					if (this.ytstate !== 1) this.playProvider()
@@ -61,7 +59,6 @@
 		},
 		computed: {
 			playerExists() {
-				if (!this.player) return false
 				return this.player.hasOwnProperty('getIframe')
 			}
 		},
@@ -72,7 +69,6 @@
 				var element = this.$el
 
 				return new Promise(resolve => {
-					console.log('exists', this.playerExists)
 					if (!this.playerExists) {
 						player = YouTubePlayer(element, {playerVars})
 						player.on('error', this.handleError)
@@ -130,12 +126,12 @@
 			},
 
 			// select track to play
-			setTrackOnProvider(videoUrl) {
-				if (!videoUrl) return
+			setTrackOnProvider(videoId) {
+				if (!videoId) return
 				if (this.autoplay || this.didPlay) {
 					this.player.loadVideoById({videoId})
 					// The extra play here is to autoplay on mobile.
-					// this.playProvider()
+							 // this.playProvider()
 				} else {
 					this.player.cueVideoById({videoId})
 					this.didPlay = true
@@ -152,9 +148,10 @@
 </script>
 
 <style>
-	.ytplayer {
+	.VimeoPlayer {
 		width: 100%;
 		height: 100%;
 		position: absolute;
+		color: red;
 	}
 </style>
