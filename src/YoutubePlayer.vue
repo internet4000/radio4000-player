@@ -33,8 +33,6 @@
 			}
 		},
 		mounted() {
-			console.log('video', this.videoId)
-			debugger
 			if (this.videoId) {
 				return this.initPlayer().then(this.setTrackOnProvider(this.videoId))
 			}
@@ -130,8 +128,8 @@
 			},
 
 			// select track to play
-			setTrackOnProvider(videoUrl) {
-				if (!videoUrl) return
+			setTrackOnProvider(videoId) {
+				if (!videoId) return
 				if (this.autoplay || this.didPlay) {
 					this.player.loadVideoById({videoId})
 					// The extra play here is to autoplay on mobile.
