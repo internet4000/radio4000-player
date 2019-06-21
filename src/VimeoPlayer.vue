@@ -27,15 +27,10 @@
 			return {}
 		},
 		mounted() {
-			this.init()
+			this.initPlayer()
 		},
 		beforeDestroy() {
-			this.player.off('ended', this.handleEnded);
-			this.player.destroy().then(function() {
-				// the player was destroyed
-			}).catch(function(error) {
-				// an error occurred
-			});
+			this.destroyPlayer()
 		},
 		watch: {
 			videoId(videoId) {
@@ -44,11 +39,11 @@
 						if (this.isPlaying) {
 							this.playProvider()
 						} else {
-							this.pauseProvider()
+							/* this.pauseProvider() */
 						}
 					})
 				} else {
-					this.init()
+					this.initPlayer()
 				}
 			},
 			isPlaying() {
@@ -64,7 +59,7 @@
 		computed: {
 		},
 		methods: {
-			init() {
+			initPlayer() {
 				var element = this.$el
 				var iframe = element.querySelector('#VimeoPlayerR4')
 				var options = {
@@ -73,7 +68,7 @@
 				};
 				var player = new Player(iframe, options);
 				
-				/* player.on('pause', this.handlePause); */
+				player.on('pause', this.handlePause);
 				player.on('play', this.handlePlay);
 				player.on('ended', this.handleEnded);
 				player.on('volumechange', this.handleVolume);
@@ -83,6 +78,13 @@
 				if (this.isPlaying || this.autoPlay) {
 					this.playProvider()
 				}
+			},
+			destroyPlayer() {
+				this.player.off('pause', this.handlePause);
+				this.player.off('play', this.handlePlay);
+				this.player.off('ended', this.handleEnded);
+				this.player.off('volumechange', this.handleVolume);
+				return this.player.destroy()
 			},
 			handleEnded() {
 				this.$emit('ended')
@@ -94,7 +96,7 @@
 			},
 			handlePause() {
 				this.$emit('paused')
-				console.log('paused')
+				console.log('emit paused')
 
 			},
 			handleError() {
