@@ -36,6 +36,6 @@
     "poi": "^12.5.5",
     "release-it": "^7.2.1",
     "start-server-and-test": "^1.1.0",
-    "vue-template-compiler": "2.5.16"
+    "vue-template-compiler": "^2.6.10"
   }
 }
