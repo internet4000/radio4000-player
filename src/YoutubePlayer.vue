@@ -1,5 +1,7 @@
 <template>
-	<div class="ytplayer"></div>
+	<div class="ytplayer">
+		<article id="YoutubeIframeR4"></article>
+	</div>
 </template>
 
 <script>
@@ -34,7 +36,20 @@
 		},
 		mounted() {
 			if (this.videoId) {
-				return this.initPlayer().then(this.setTrackOnProvider(this.videoId))
+				this.initPlayer().then(this.setTrackOnProvider(this.videoId))
+			}
+		},
+		beforeDestroy() {
+			if (this.playerExists) {
+				this.player.getIframe().then(() => {
+					this.player.removeEventListener('error', this.handleError)
+					this.player.removeEventListener('stateChange', this.handleStateChange)
+					this.player.removeEventListener('ready', this.handleReady)
+					this.player.removeEventListener('volumeChange', this.handleVolumeChange)
+					this.player.destroy().then(() => {
+						console.log('yt iframe player destroyed')
+					})
+				})
 			}
 		},
 		watch: {
@@ -68,18 +83,19 @@
 				var player
 				var playerVars = this.playerVars
 				var element = this.$el
+				var YoutubeIframeR4 = element.querySelector('#YoutubeIframeR4')
 
 				return new Promise(resolve => {
-					console.log('exists', this.playerExists)
 					if (!this.playerExists) {
-						player = YouTubePlayer(element, {playerVars})
+						player = YouTubePlayer(YoutubeIframeR4, {playerVars})
 						player.on('error', this.handleError)
 						player.on('stateChange', this.handleStateChange)
 						player.on('ready', this.handleReady)
 						player.on('volumeChange', this.handleVolumeChange)
 						this.player = player
+						resolve(this.player)
 					}
-					resolve(this.player)
+					resolve()
 				})
 			},
 			handleReady(resolve) {

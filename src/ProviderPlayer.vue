@@ -1,5 +1,16 @@
 <template>
 	<div class="ProviderPlayer" :class="{'ProviderPlayer--file': provider === 'file'}">
+		<file-player
+			v-if="provider === 'file'"
+			:url="track.url"
+			:volume="volume"
+			:autoplay="autoplay"
+			:isPlaying="isPlaying"
+			@playing="$emit('play')"
+			@paused="$emit('pause')"
+			@ended="$emit('trackEnded')"
+		></file-player>
+
 		<youtube-player
 			v-if="provider === 'youtube'"
 			:videoId="track.id"
@@ -11,17 +22,6 @@
 			@mediaNotAvailable="$emit('mediaNotAvailable')"
 			@ended="$emit('trackEnded')"
 		></youtube-player>
-
-		<file-player
-			v-if="provider === 'file'"
-			:url="track.url"
-			:volume="volume"
-			:autoplay="autoplay"
-			:isPlaying="isPlaying"
-			@playing="$emit('play')"
-			@paused="$emit('pause')"
-			@ended="$emit('trackEnded')"
-		></file-player>
 
 		<vimeo-player
 			v-if="provider === 'vimeo'"
