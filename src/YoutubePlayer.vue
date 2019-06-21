@@ -46,9 +46,7 @@
 					this.player.removeEventListener('stateChange', this.handleStateChange)
 					this.player.removeEventListener('ready', this.handleReady)
 					this.player.removeEventListener('volumeChange', this.handleVolumeChange)
-					this.player.destroy().then(() => {
-						console.log('yt iframe player destroyed')
-					})
+					return this.player.destroy()
 				})
 			}
 		},
@@ -84,7 +82,7 @@
 				var playerVars = this.playerVars
 				var element = this.$el
 				var YoutubeIframeR4 = element.querySelector('#YoutubeIframeR4')
-
+				
 				return new Promise(resolve => {
 					if (!this.playerExists) {
 						player = YouTubePlayer(YoutubeIframeR4, {playerVars})
@@ -146,7 +144,7 @@
 			// select track to play
 			setTrackOnProvider(videoId) {
 				if (!videoId) return
-				if (this.autoplay || this.didPlay) {
+				if (this.autoplay || this.didPlay || this.isPlaying) {
 					this.player.loadVideoById({videoId})
 					// The extra play here is to autoplay on mobile.
 					// this.playProvider()

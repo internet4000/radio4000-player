@@ -36,7 +36,7 @@
 			}
 		},
 		mounted() {
-			this.initPlayer(this.$el)
+			this.initPlayer(this.$el, this.isPlaying)
 		},
 		beforeDestroy() {
 			this.unmountPlayer(this.$el)
@@ -50,7 +50,7 @@
 				$el.removeEventListener('error', this.handleError)
 				$el.removeEventListener('volumechange', this.handleVolumeChange)
 			},
-			initPlayer($el) {
+			initPlayer($el, isPlaying) {
 				// Set up events
 				// $el.addEventListener('playing', () => this.$emit('playing'))
 				$el.addEventListener('loadeddata', this.handleLoadedData)
@@ -59,6 +59,9 @@
 				$el.addEventListener('ended', this.handleEnded)
 				$el.addEventListener('error', this.handleError)
 				$el.addEventListener('volumechange', this.handleVolumeChange)
+				if (isPlaying) {
+					this.$el.play()
+				}
 			},
 
 			/* Event handlers */
