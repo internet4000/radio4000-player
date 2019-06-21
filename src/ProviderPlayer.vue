@@ -25,7 +25,7 @@
 
 		<vimeo-player
 			v-if="provider === 'vimeo'"
-			:videoId="track.ytid"
+			:videoId="track.id"
 			:volume="volume"
 			:autoplay="autoplay"
 			:isPlaying="isPlaying"

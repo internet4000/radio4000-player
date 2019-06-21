@@ -353,7 +353,6 @@
 		flex-basis: 20em;
 		min-height: 200px;
 		/* this is where it breaks into two columns */
-		max-width: 30rem;
 		position: relative;
 	}
 </style>

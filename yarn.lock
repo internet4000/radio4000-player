@@ -894,6 +894,14 @@
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/@types/sinon/-/sinon-4.0.0.tgz#9a93ffa4ee1329e85166278a5ed99f81dc4c8362"
 
+"@vimeo/player@^2.9.1":
+  version "2.9.1"
+  resolved "https://registry.yarnpkg.com/@vimeo/player/-/player-2.9.1.tgz#63b0c19c127579ff839b6e2546b82ab6719effc0"
+  integrity sha512-f2OdhJ9T2AezA8g8dy+5fzOJ52afkBEfULnDGZBYwSQuOepWgmBpaC9SgVkhyrO458sYi4Ie1G3rjxprg1C8HA==
+  dependencies:
+    native-promise-only "0.8.1"
+    weakmap-polyfill "2.0.0"
+
 "@vue/component-compiler-utils@^2.5.1":
   version "2.5.2"
   resolved "https://registry.yarnpkg.com/@vue/component-compiler-utils/-/component-compiler-utils-2.5.2.tgz#a8d57e773354ab10e4742c7d6a8dd86184d4d7be"
@@ -6220,6 +6228,11 @@ nanomatch@^1.2.9:
     snapdragon "^0.8.1"
     to-regex "^3.0.1"
 
+native-promise-only@0.8.1:
+  version "0.8.1"
+  resolved "https://registry.yarnpkg.com/native-promise-only/-/native-promise-only-0.8.1.tgz#20a318c30cb45f71fe7adfbf7b21c99c1472ef11"
+  integrity sha1-IKMYwwy0X3H+et+/eyHJnBRy7xE=
+
 needle@^2.2.1:
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/needle/-/needle-2.2.1.tgz#b5e325bd3aae8c2678902fa296f729455d1d3a7d"
@@ -9076,6 +9089,11 @@ wcwidth@^1.0.1:
   resolved "https://registry.yarnpkg.com/wcwidth/-/wcwidth-1.0.1.tgz#f0b0dcf915bc5ff1528afadb2c0e17b532da2fe8"
   dependencies:
     defaults "^1.0.3"
+
+weakmap-polyfill@2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/weakmap-polyfill/-/weakmap-polyfill-2.0.0.tgz#8f28f935e3853896ad40747e5258db578d9dc8de"
+  integrity sha1-jyj5NeOFOJatQHR+UljbV42dyN4=
 
 webpack-chain@^5.0.1:
   version "5.2.0"
