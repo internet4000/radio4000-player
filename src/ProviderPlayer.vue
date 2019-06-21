@@ -73,6 +73,7 @@
 		/* Youtube requirements */
 		min-height: 200px;
 		min-width: 200px;
+		flex-grow: 1;
 	}
 	.ProviderPlayer--file {
 		display: flex;
