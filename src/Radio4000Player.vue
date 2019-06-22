@@ -114,6 +114,10 @@
 			this.$root.$on('setVolume', debounce(vol => {
 				this.internalVolume = vol
 			}, 100))
+
+			if (this.autoplay) {
+				this.play()
+			}
 		},
 
 		computed: {
@@ -164,8 +168,9 @@
 			},
 			serializeTrack(track) {
 				let parsed = mediaUrlParser(track.url.trim())
+				const randomString = window.crypto.getRandomValues(new Uint32Array(1))[0]
 				return {
-					uid: parsed.id + new Date().getTime(),
+					uid: parsed.id + randomString,
 					id: parsed.id,
 					provider: parsed.provider,
 					url: parsed.url,
