@@ -25,7 +25,7 @@
 				player: {},
 				playerVars: {
 					controls: 1,
-					fs: 0,
+					fs: 1,
 					modestbranding: 1,
 					origin: window.location.origin,
 					playsinline: 1,
