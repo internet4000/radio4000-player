@@ -2,7 +2,8 @@
 	<audio class="FilePlayer"
 		controls
 		:src="url"
-		:autoplay="autoplay">
+		:autoplay="autoplay"
+		:volume="providerVolume">
 		Your browser does not support the <code>audio</code> element.
 	</audio>
 </template>
@@ -33,6 +34,15 @@
 				} else {
 					this.$el.pause()
 				}
+			},
+			volume(vol) {
+				if (vol === this.$el.volume * 100) return
+				this.$el.volume = vol / 100
+			}
+		},
+		computed: {
+			providerVolume() {
+				return this.volume / 100
 			}
 		},
 		mounted() {
@@ -60,6 +70,7 @@
 				$el.addEventListener('error', this.handleError)
 				$el.addEventListener('volumechange', this.handleVolumeChange)
 				if (isPlaying) {
+					this.$el.volume = this.volume / 100
 					this.$el.play()
 				}
 			},
@@ -74,8 +85,9 @@
 			handleEnded() {
 				this.$emit('ended')
 			},
-			handleVolumeChange() {
-				console.log('event volumechange', arguments)
+			handleVolumeChange(event) {
+				console.log('event volumechange', event.target.volume)
+				this.$root.$emit('setVolume', event.target.volume * 100)
 			},
 			handleLoadedData() {},
 			handleError(event) {
