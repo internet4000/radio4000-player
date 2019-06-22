@@ -114,7 +114,6 @@
 					// then emit ended, when we are in playing mode
 					// racing......
 					this.$emit('ended')
-					console.log('ended')
 				})
 			},
 			handlePlay() {
@@ -125,7 +124,6 @@
 			},
 			handleError(error) {
 				this.$emit('error')
-				console.log('error', error)
 
 				// the vimeo API sends pause events
 				// and we send a play event to keep in play state
@@ -135,7 +133,6 @@
 				// name: "PlayInterrupted"
 				if (error.name === 'PlayInterrupted') {
 					this.player.getPaused().then(paused => {
-						console.log('paused?', paused)
 						if (paused) {
 							this.playProvider()
 						}
@@ -143,7 +140,6 @@
 				}
 			},
 			handleVolume(event) {
-				console.log(event)
 				if (event.volume !== this.volume) {
 					this.$root.$emit('setVolume', event.volume * 100)
 				}
