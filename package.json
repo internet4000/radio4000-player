@@ -23,7 +23,7 @@
     "@vimeo/player": "^2.9.1",
     "document-register-element": "^1.8.1",
     "lodash.debounce": "^4.0.8",
-    "media-url-parser": "^0.1.0",
+    "media-url-parser": "^0.1.2",
     "unfetch": "^3.0.0",
     "vue": "^2.5.16",
     "vue-custom-element": "^3.2.6",
