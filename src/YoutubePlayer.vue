@@ -91,6 +91,7 @@
 						player.on('ready', this.handleReady)
 						player.on('volumeChange', this.handleVolumeChange)
 						this.player = player
+						this.setVolume()
 						resolve(this.player)
 					}
 					resolve()
@@ -98,10 +99,7 @@
 			},
 			handleReady(resolve) {
 				// Set initial volume.
-					let vol = this.volume
-				this.player.unMute().then(() => {
-					this.player.setVolume(vol)
-				})
+				this.setVolume()
 			},
 			handleError({data}) {
 				// error codes
@@ -158,6 +156,16 @@
 			},
 			pauseProvider() {
 				return this.player.pauseVideo()
+			},
+			setVolume() {
+				let vol = this.volume
+				if (vol != 0) {
+					return this.player.unMute().then(() => {
+						this.player.setVolume(vol)
+					})
+				} else {
+					this.player.setVolume(vol)
+				}
 			}
 		}
 	}
