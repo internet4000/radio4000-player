@@ -25,6 +25,7 @@
 
 		<vimeo-player
 			v-if="provider === 'vimeo'"
+			:key="trackKey"
 			:videoId="track.id"
 			:volume="volume"
 			:autoplay="autoplay"
@@ -57,6 +58,12 @@
 			volume: Number
 		},
 		computed: {
+			// this is a trick, to force reload the component,
+			// when this key changes. We use it for vimeo,
+			// which sends API triggered pause to the player
+			trackKey() {
+				return this.track && this.track.id
+			},
 			provider() {
 				if (!this.track || !this.track.url || !this.track.provider) return undefined
 				return this.track.provider

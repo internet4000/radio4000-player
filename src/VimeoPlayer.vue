@@ -2,8 +2,6 @@
 	<div class="VimeoPlayer">
 		<article
 			id="VimeoPlayerR4"
-			data-vimeo-autoplay="true"
-			dnt="true"
 		></article>
 	</div>
 </template>
@@ -14,6 +12,20 @@
 		 https://developer.vimeo.com/player/sdk/basics
 		 https://github.com/vimeo/player.js
 	 */
+
+	/* 
+		 Notes:
+		 Vimeo sends API calls, that pause the player,
+		 https://github.com/vimeo/player.js/issues/435
+		 when a video is finished. It is not triggered by the user,
+		 but there is no way to differenciate both.
+		 Therefore it puts our player in pause state, when it should
+		 continue playing,e because User did not ask this.
+		 Our take, is:
+		 - to force the player to reload when the videoId changes
+		 - put the vimeo in autoplay, and pause/play manually when needed
+		 - a few more tricks along the way
+ */
 	import Player from '@vimeo/player';
 	export default {
 		name: 'vimeo-player',
@@ -33,22 +45,9 @@
 			this.destroyPlayer()
 		},
 		watch: {
-			videoId(videoId) {
-				if (this.player) {
-					this.player.loadVideo(videoId).then((data) => {
-						if (this.isPlaying) {
-							this.playProvider()
-						} else {
-							/* this.pauseProvider() */
-						}
-					})
-				} else {
-					this.initPlayer()
-				}
-			},
 			isPlaying() {
 				if (this.isPlaying) {
-					this.player.getPaused().then(paused => {
+					this.player.getPaused().then(() => {
 						this.playProvider()
 					})
 				} else {
@@ -63,11 +62,17 @@
 				var element = this.$el
 				var iframe = element.querySelector('#VimeoPlayerR4')
 				var options = {
-					id: this.videoId
-					/* responsive: true */
+					// do not track
+					dnt: true,
+					id: this.videoId,
+					// for the API pause issue
+					autoplay: true,
+					autopause: false
 				};
+
 				var player = new Player(iframe, options);
-				
+
+				player.on('error', this.handleError);
 				player.on('pause', this.handlePause);
 				player.on('play', this.handlePlay);
 				player.on('ended', this.handleEnded);
@@ -80,6 +85,7 @@
 				}
 			},
 			destroyPlayer() {
+				this.player.off('error', this.handleError);
 				this.player.off('pause', this.handlePause);
 				this.player.off('play', this.handlePlay);
 				this.player.off('ended', this.handleEnded);
@@ -87,26 +93,47 @@
 				return this.player.destroy()
 			},
 			handleEnded() {
-				this.$emit('ended')
-				console.log('ended')
+				// if the player ended, but is paused
+				// it is because vimeo API triggered pause, not user
+				this.player.getPaused().then(paused => {
+					if (paused) {
+						this.$emit('playing')
+					}
+					// then emit ended, when we are in playing mode
+					// racing......
+					this.$emit('ended')
+					console.log('ended')
+				})
 			},
 			handlePlay() {
 				this.$emit('playing')
-				console.log('playing')
 			},
 			handlePause() {
 				this.$emit('paused')
-				console.log('emit paused')
-
 			},
-			handleError() {
+			handleError(error) {
+				this.$emit('error')
+				console.log('error', error)
+
+				// the vimeo API sends pause events
+				// and we send a play event to keep in play state
+				// let's try and force playing a little more
+				// message: "The play() request was interrupted by a call to pause()"
+				// method: "play"
+				// name: "PlayInterrupted"
+				if (error.name === 'PlayInterrupted') {
+					this.player.getPaused().then(paused => {
+						console.log('paused?', paused)
+						if (paused) {
+							this.playProvider()
+						}
+					})
+				}
 			},
 			handleVolume(event) {
 				if (event.volume !== this.volume) {
 					this.$root.$emit('setVolume', event.volume)
 				}
-			},
-			handleStateChange() {
 			},
 			playProvider() {
 				this.player.play()
