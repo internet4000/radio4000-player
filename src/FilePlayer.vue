@@ -86,7 +86,6 @@
 				this.$emit('ended')
 			},
 			handleVolumeChange(event) {
-				console.log('event volumechange', event.target.volume)
 				this.$root.$emit('setVolume', event.target.volume * 100)
 			},
 			handleLoadedData() {},
