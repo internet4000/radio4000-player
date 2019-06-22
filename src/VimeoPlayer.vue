@@ -53,9 +53,19 @@
 				} else {
 					this.pauseProvider()
 				}
+			},
+			volume(vol) {
+				this.player.getVolume().then(providerVol => {
+					const providerHarmonized = providerVol * 100
+					if (vol === providerHarmonized) return
+					this.player.setVolume(vol / 100)
+				})
 			}
 		},
 		computed: {
+			providerVolume() {
+				
+			}
 		},
 		methods: {
 			initPlayer() {
@@ -71,6 +81,8 @@
 				};
 
 				var player = new Player(iframe, options);
+
+				player.setVolume(this.volume / 100);
 
 				player.on('error', this.handleError);
 				player.on('pause', this.handlePause);
@@ -131,8 +143,9 @@
 				}
 			},
 			handleVolume(event) {
+				console.log(event)
 				if (event.volume !== this.volume) {
-					this.$root.$emit('setVolume', event.volume)
+					this.$root.$emit('setVolume', event.volume * 100)
 				}
 			},
 			playProvider() {
