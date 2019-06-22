@@ -3,7 +3,7 @@
 		<FetchData
 			:channelId="channelId"
 			:channelSlug="channelSlug"
-			:trackId="track.id"
+			:trackId="trackId"
 			:currentChannel="channel"
 			:currentTracks="tracks"
 			@afterFetch="updateData">
@@ -122,7 +122,7 @@
 				return this.channel || this.channelSlug || this.channelId || this.trackId
 			},
 			currentTrackIndex() {
-				return this.tracksPool.findIndex(track => track.id === this.track.id)
+				return this.tracksPool.findIndex(track => track.uid === this.track.uid)
 			},
 			internalVolume: {
 				get() {
@@ -160,23 +160,28 @@
 
 		methods: {
 			serializeTracks(tracks) {
-				return tracks.map(track => {
-					let parsed = mediaUrlParser(track.url)
-					return {
-						id: track.id || parsed.id,
-						provider: parsed.provider,
-						url: parsed.url,
-						title: track.title
-					}
-				})
+				return tracks.map(this.serializeTrack)
+			},
+			serializeTrack(track) {
+				let parsed = mediaUrlParser(track.url.trim())
+				return {
+					uid: parsed.id + new Date().getTime(),
+					id: parsed.id,
+					provider: parsed.provider,
+					url: parsed.url,
+					title: track.title,
+					body: track.body
+				}
 			},
 			updateData(newData) {
 				if (newData.channel) this.channel = newData.channel
 				if (newData.image) this.image = newData.image
-				if (newData.tracks) this.tracks = newData.tracks
+				if (newData.tracks) {
+					this.tracks = this.serializeTracks(newData.tracks)
+				}
 				if (newData.track) {
 					// Don't set track directly.
-					this.playTrack(newData.track)
+					this.playTrack(this.serializeTrack(newData.track))
 				}
 			},
 			newTracksPool() {
