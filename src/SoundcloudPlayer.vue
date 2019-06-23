@@ -3,13 +3,16 @@
 		<article
 			id="SoundcloudPlayerR4"
 		>
+			<!--
+					 no soundcloud specific param are defined on the iframe,
+					 but :src, that loads the media when it changes
+			-->
 			<iframe
 				width="100%"
 				height="166"
 				scrolling="no"
 				frameborder="no"
 				allow="autoplay"
-				auto_play="true"
 				:src="iframeSrc">
 			</iframe>
 		</article>
@@ -26,7 +29,8 @@
 
 	/* 
 		 Notes:		  
- */
+	 */
+	import '../libs/soundcloud.js'
 	export default {
 		name: 'soundcloud-player',
 		props: {
@@ -42,12 +46,14 @@
 			this.initPlayer()
 		},
 		beforeDestroy() {
-			this.destroyPlayer()
+			this.destroyPlayer(this.player)
 		},
 		watch: {
 			isPlaying() {
 				if (this.isPlaying) {
-					this.playProvider()
+					this.player.isPaused((isPaused) => {
+						isPaused && this.playProvider()
+					})
 				} else {
 					this.pauseProvider()
 				}
@@ -63,7 +69,9 @@
 			iframeSrc() {
 				const videoUrl = `https://soundcloud.com/${this.videoId}`
 				const src = `https://w.soundcloud.com/player/?url=${videoUrl}`
-				return src
+				const srcWithParams = `${src}/&amp;auto_play=true`
+
+				return srcWithParams
 			}
 		},
 		methods: {
@@ -72,45 +80,37 @@
 				const $iframe = element.querySelector('#SoundcloudPlayerR4 iframe')
 				let player = SC.Widget($iframe);
 
-				player.setVolume(this.volume);
-
-				player.bind(SC.Widget.Events.READY, this.handleReady);
-				player.bind(SC.Widget.Events.ERROR, this.handleError);
-				player.bind(SC.Widget.Events.PAUSE, this.handlePause);
-				player.bind(SC.Widget.Events.PLAY, this.handlePlay);
-				player.bind(SC.Widget.Events.FINISH, this.handleEnded);
-				this.$iframe = $iframe
-				this.player = player
+				this.player = player;
+				this.player.setVolume(this.volume);
+				this.player.bind(SC.Widget.Events.READY, this.handleReady);
 			},
-			destroyPlayer() {
-				const player = this.player
+			destroyPlayer(player) {
 				if (player) {
+					/* player.unbind(SC.Widget.Events.ERROR) */
+					/* player.unbind(SC.Widget.Events.PAUSE) */
+					/* player.unbind(SC.Widget.Events.PLAY) */
+					/* player.unbind(SC.Widget.Events.FINISH)					 */
 					player.unbind(SC.Widget.Events.READY);
-					player.unbind(SC.Widget.Events.ERROR);
-					player.unbind(SC.Widget.Events.PAUSE)
-					player.unbind(SC.Widget.Events.PLAY)
-					player.unbind(SC.Widget.Events.FINISH)					
 				}				 
 			},
 			handleError(error) {
+				console.log('error', error)
 				this.$emit('error')
 			},
 			handleReady() {
-				console.log('~~~~~ soundcloud player ready!')
-				/* if (this.isPlaying || this.autoPlay) {
-					 this.playProvider()
-					 } */
+				this.player.bind(SC.Widget.Events.ERROR, this.handleError);
+				this.player.bind(SC.Widget.Events.PAUSE, this.handlePause);
+				this.player.bind(SC.Widget.Events.PLAY, this.handlePlay);
+				this.player.bind(SC.Widget.Events.FINISH, this.handleEnded);
 			},
-			handleEnded() {
-				console.log('ended')
+			handleEnded(ended) {
+				console.log('ended', ended)
 				this.$emit('ended')
 			},
 			handlePlay() {
-				console.log('play')
 				this.$emit('playing')
 			},
 			handlePause() {
-				console.log('pause')
 				this.$emit('paused')
 			},
 			
