@@ -41,13 +41,7 @@
 		},
 		beforeDestroy() {
 			if (this.playerExists) {
-				this.player.getIframe().then(() => {
-					this.player.removeEventListener('error', this.handleError)
-					this.player.removeEventListener('stateChange', this.handleStateChange)
-					this.player.removeEventListener('ready', this.handleReady)
-					this.player.removeEventListener('volumeChange', this.handleVolumeChange)
-					return this.player.destroy()
-				})
+				this.player.destroy()
 			}
 		},
 		watch: {
