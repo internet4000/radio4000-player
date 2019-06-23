@@ -42,7 +42,6 @@
 	import YoutubePlayer from './YoutubePlayer.vue'
 	import VimeoPlayer from './VimeoPlayer.vue'
 	import FilePlayer from './FilePlayer.vue'
-	import { mediaUrlParser } from 'media-url-parser'
 
 	export default {
 		name: 'provider-player',
