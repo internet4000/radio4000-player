@@ -82,7 +82,10 @@
 
 				var player = new Player(iframe, options);
 
-				player.setVolume(this.volume / 100);
+				// there is no ready event, but this promise is enough
+				player.ready().then(() => {
+					player.setVolume(this.volume / 100);
+				});
 
 				player.on('error', this.handleError);
 				player.on('pause', this.handlePause);
