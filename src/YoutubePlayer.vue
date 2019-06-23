@@ -91,7 +91,6 @@
 						player.on('ready', this.handleReady)
 						player.on('volumeChange', this.handleVolumeChange)
 						this.player = player
-						this.setVolume()
 						resolve(this.player)
 					}
 					resolve()
