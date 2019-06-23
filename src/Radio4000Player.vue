@@ -167,8 +167,24 @@
 				return tracks.map(this.serializeTrack)
 			},
 			serializeTrack(track) {
-				let parsed = mediaUrlParser(track.url.trim())
 				const randomString = window.crypto.getRandomValues(new Uint32Array(1))[0]
+				let parsed;
+
+				try {
+					parsed = mediaUrlParser(track.url.trim())
+				} catch(e) {
+					console.error('Broken track', track)
+				}
+
+				if (!parsed) {
+					return {
+						uid: randomString,
+						url: track.url,
+						title: `(bad url) ${track.title}`,
+						body: track.body
+					}
+				}
+
 				return {
 					uid: parsed.id + randomString,
 					id: parsed.id,
