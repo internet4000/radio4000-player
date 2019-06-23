@@ -52,7 +52,7 @@
 		},
 		watch: {
 			videoId(videoId) {
-				return this.initPlayer().then(this.setTrackOnProvider(videoId))
+				this.initPlayer().then(this.setTrackOnProvider(videoId))
 			},
 			isPlaying(val) {
 				if (val) {
@@ -98,7 +98,7 @@
 			},
 			handleReady(resolve) {
 				// Set initial volume.
-				this.setVolume()
+				this.setVolume(this.volume)
 			},
 			handleError({data}) {
 				// error codes
@@ -156,14 +156,19 @@
 			pauseProvider() {
 				return this.player.pauseVideo()
 			},
-			setVolume() {
-				let vol = this.volume
-				if (vol != 0) {
-					return this.player.unMute().then(() => {
-						this.player.setVolume(vol)
-					})
+			setVolume(forcedVolume) {
+				let player = this.player
+				let vol = forcedVolume || this.volume
+				if (vol != 0 && vol !=100) {
+					if (player.isMuted()) {
+						player.unMute().then(() => {
+							player.setVolume(vol)
+						})
+					} else {
+						player.setVolume(vol)
+					}
 				} else {
-					this.player.setVolume(vol)
+					player.setVolume(vol)
 				}
 			}
 		}
