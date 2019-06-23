@@ -35,20 +35,35 @@
 			@mediaNotAvailable="$emit('mediaNotAvailable')"
 			@ended="$emit('trackEnded')"
 		></vimeo-player>
+
+		<soundcloud-player
+			v-if="provider === 'soundcloud'"
+			:videoId="track.id"
+			:volume="volume"
+			:autoplay="autoplay"
+			:isPlaying="isPlaying"
+			@playing="$emit('play')"
+			@paused="$emit('pause')"
+			@mediaNotAvailable="$emit('mediaNotAvailable')"
+			@ended="$emit('trackEnded')"
+		></soundcloud-player>
 	</div>
 </template>
 
 <script>
+	import FilePlayer from './FilePlayer.vue'
 	import YoutubePlayer from './YoutubePlayer.vue'
 	import VimeoPlayer from './VimeoPlayer.vue'
-	import FilePlayer from './FilePlayer.vue'
+	import SoundcloudPlayer from './SoundcloudPlayer.vue'
+	import { mediaUrlParser } from 'media-url-parser'
 
 	export default {
 		name: 'provider-player',
 		components: {
+			FilePlayer,
 			YoutubePlayer,
 			VimeoPlayer,
-			FilePlayer
+			SoundcloudPlayer
 		},
 		props: {
 			autoplay: Boolean,
