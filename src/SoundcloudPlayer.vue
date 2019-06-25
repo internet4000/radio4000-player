@@ -48,7 +48,7 @@
 			this.initPlayer()
 		},
 		beforeDestroy() {
-			this.destroyPlayer()
+			this.destroyPlayer(this.player)
 		},
 		watch: {
 			isPlaying() {
@@ -63,7 +63,7 @@
 			videoId() {
 				if (this.player) {
 					/* this.player.load(this.videoUrl) */
-					this.destroyPlayer()
+					this.destroyPlayer(this.player)
 					this.initPlayer()
 				}
 				this.handleIsPlaying()
@@ -71,19 +71,18 @@
 		},
 		computed: {
 			iframeSrc() {
-				const videoUrl = `https://soundcloud.com/${this.videoId}`
-				const src = `https://w.soundcloud.com/player/?url=https://soundcloud.com`
-				/* const src = `https://w.soundcloud.com/player/?url=${videoUrl}` */
-				const srcWithParams = `${src}`
-				// /&auto_play=true
-				return srcWithParams
+				// just a base url to init the player,
+				// even with a wrong video, and then we load the correct one
+				return `https://w.soundcloud.com/player/?url=https://soundcloud.com`
 			},
 			videoUrl() {
+				// the URL we use to load in the player when it needs
 				return `https://soundcloud.com/${this.videoId}`
 			}
 		},
 		methods: {
 			initPlayer(){
+				// find the iframe, bind ready, then do the things
 				const $iframe = this.$el.querySelector('#SoundcloudPlayerR4 iframe')
 				let player = SC.Widget($iframe)
 				player.load(this.videoUrl)
@@ -92,44 +91,44 @@
 				})
 			},
 			handleReady(player) {
+				// keep a trace of the player when we need to access it
 				this.player = player
-				console.log('initplayer, player', this.player)
 				this.player.bind(SC.Widget.Events.ERROR, this.handleError);
 				this.player.bind(SC.Widget.Events.PAUSE, this.handlePause);
 				this.player.bind(SC.Widget.Events.PLAY, this.handlePlay);
 				this.player.bind(SC.Widget.Events.FINISH, this.handleEnded);
 				this.handleIsPlaying()
 			},
-			destroyPlayer() {
-				if (!this.player) return
-				this.player.unbind(SC.Widget.Events.ERROR)
-				this.player.unbind(SC.Widget.Events.PAUSE)
-				this.player.unbind(SC.Widget.Events.PLAY)
-				this.player.unbind(SC.Widget.Events.FINISH)
+			destroyPlayer(player) {
+				if (!player) return
+				// these evens give error when being removed, but to hell yeh?
+				// maybe because removing READY is enough, lo?
+				// https://stackoverflow.com/questions/6033821/do-i-need-to-remove-event-listeners-before-removing-elements
+				/* this.player.unbind(SC.Widget.Events.ERROR)
+					 this.player.unbind(SC.Widget.Events.PAUSE)
+					 this.player.unbind(SC.Widget.Events.PLAY)
+					 this.player.unbind(SC.Widget.Events.FINISH) */
 				this.player.unbind(SC.Widget.Events.READY);
 			},
 			handleError(error) {
+				// not sure what to do yet with the errors
+				// so just logging it out, so we figure
 				console.log('error', error)
-				/* this.$emit('error') */
+				this.$emit('error', error)
 			},			 
 			handleEnded(ended) {
-				console.log('ended', ended)
-				/* this.destroyPlayer() */
 				this.$emit('ended')
 			},
-			handlePlay() {
-				console.log('playing')
-				this.$emit('playing')
+			handlePlay(playing) {
+				/* Why is there 2 playing events being emited? */
+				this.$emit('playing', playing)
 			},
 			handlePause(pause) {
 				if (pause.relativePosition > 0.99) {
 					// if it is a pause emited at the last end of the track.
 					// it is probably soundcloud API triggered, so skip
- 					/* return window.setTimeout(this.handleEnded, 1) */
 					return
 				}
-					
-				console.log('paused', pause)
 				this.$emit('paused')
 			},
 
