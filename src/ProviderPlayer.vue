@@ -39,12 +39,10 @@
 		<soundcloud-player
 			v-if="provider === 'soundcloud'"
 			:videoId="track.id"
-			:volume="volume"
-			:autoplay="autoplay"
 			:isPlaying="isPlaying"
+			:volume="volume"
 			@playing="$emit('play')"
 			@paused="$emit('pause')"
-			@mediaNotAvailable="$emit('mediaNotAvailable')"
 			@ended="$emit('trackEnded')"
 		></soundcloud-player>
 	</div>
