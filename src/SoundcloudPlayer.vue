@@ -28,7 +28,11 @@
 	 */
 
 	/* 
-		 Notes:		  
+		 Notes: soundcloud is a bit tricky
+		 - it does not seem possible to use their js on github, since they don't give api keys no more
+		 - Their widget sends weird pause events when a track is finished
+		 and changing directly the `src` on the iframe breaks the listeners
+		 - We do not, but could, handle sets, just playing the first track for now
 	 */
 	import './libs/soundcloud.js'
 	export default {
@@ -97,6 +101,7 @@
 				this.player.bind(SC.Widget.Events.PAUSE, this.handlePause);
 				this.player.bind(SC.Widget.Events.PLAY, this.handlePlay);
 				this.player.bind(SC.Widget.Events.FINISH, this.handleEnded);
+				this.player.setVolume(this.volume)
 				this.handleIsPlaying()
 			},
 			destroyPlayer(player) {
@@ -115,15 +120,19 @@
 				// so just logging it out, so we figure
 				console.log('error', error)
 				this.$emit('error', error)
+				// emit ended to go to the next track
+				this.$emit('ended')
 			},			 
 			handleEnded(ended) {
 				this.$emit('ended')
 			},
 			handlePlay(playing) {
+				console.log('play')
 				/* Why is there 2 playing events being emited? */
 				this.$emit('playing', playing)
 			},
 			handlePause(pause) {
+				console.log('pause')
 				if (pause.relativePosition > 0.99) {
 					// if it is a pause emited at the last end of the track.
 					// it is probably soundcloud API triggered, so skip

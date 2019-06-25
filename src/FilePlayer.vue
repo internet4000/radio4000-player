@@ -84,6 +84,11 @@
 			},
 			handleEnded() {
 				this.$emit('ended')
+				// it seems the element emits pause at the end of a track
+				// so if we are in pause when ended is handled, we should play!
+				if(!this.isPlaying) {
+					this.$emit('playing')
+				}
 			},
 			handleVolumeChange(event) {
 				this.$root.$emit('setVolume', event.target.volume * 100)
