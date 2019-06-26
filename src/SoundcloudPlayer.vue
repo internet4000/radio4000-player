@@ -1,8 +1,8 @@
 <template>
 	<div class="SoundcloudPlayer">
 		<article
-			id="SoundcloudPlayerR4"
-		>
+			id="SoundcloudPlayerR4">
+
 			<!--
 					 no soundcloud specific param are defined on the iframe,
 					 but :src, that loads the media when it changes
@@ -15,6 +15,7 @@
 				allow="autoplay"
 				:src="iframeSrc">
 			</iframe>
+
 		</article>
 	</div>
 </template>
@@ -30,8 +31,8 @@
 	/* 
 		 Notes: soundcloud is a bit tricky
 		 - it does not seem possible to use their js on github, since they don't give api keys no more
-		 - Their widget sends weird pause events when a track is finished
-		 and changing directly the `src` on the iframe breaks the listeners
+		 - the widget sends weird pause events when a track is finished
+		 - changing directly the `src` on the iframe breaks the listeners
 		 - We do not, but could, handle sets, just playing the first track for now
 	 */
 	import './libs/soundcloud.js'
@@ -94,16 +95,6 @@
 					this.handleReady(player)
 				})
 			},
-			handleReady(player) {
-				// keep a trace of the player when we need to access it
-				this.player = player
-				this.player.bind(SC.Widget.Events.ERROR, this.handleError);
-				this.player.bind(SC.Widget.Events.PAUSE, this.handlePause);
-				this.player.bind(SC.Widget.Events.PLAY, this.handlePlay);
-				this.player.bind(SC.Widget.Events.FINISH, this.handleEnded);
-				this.player.setVolume(this.volume)
-				this.handleIsPlaying()
-			},
 			destroyPlayer(player) {
 				if (!player) return
 				// these evens give error when being removed, but to hell yeh?
@@ -114,6 +105,18 @@
 					 this.player.unbind(SC.Widget.Events.PLAY)
 					 this.player.unbind(SC.Widget.Events.FINISH) */
 				this.player.unbind(SC.Widget.Events.READY);
+			},
+
+			/* event handlers */
+			handleReady(player) {
+				// keep a trace of the player when we need to access it
+				this.player = player
+				this.player.bind(SC.Widget.Events.ERROR, this.handleError);
+				this.player.bind(SC.Widget.Events.PAUSE, this.handlePause);
+				this.player.bind(SC.Widget.Events.PLAY, this.handlePlay);
+				this.player.bind(SC.Widget.Events.FINISH, this.handleEnded);
+				this.player.setVolume(this.volume)
+				this.handleIsPlaying()
 			},
 			handleError(error) {
 				// not sure what to do yet with the errors
@@ -127,20 +130,19 @@
 				this.$emit('ended')
 			},
 			handlePlay(playing) {
-				console.log('play')
-				/* Why is there 2 playing events being emited? */
+				// Why is there 2 playing events being emited?
 				this.$emit('playing', playing)
 			},
 			handlePause(pause) {
-				console.log('pause')
+				// if it is a pause emited at the last end of the track.
+				// it is probably soundcloud API triggered, so skip
 				if (pause.relativePosition > 0.99) {
-					// if it is a pause emited at the last end of the track.
-					// it is probably soundcloud API triggered, so skip
 					return
 				}
 				this.$emit('paused')
 			},
 
+			// should we play or?
 			handleIsPlaying() {
 				if (this.player && this.isPlaying) {
 					this.player.isPaused((isPaused) => {
@@ -150,7 +152,6 @@
 					this.pauseProvider()
 				}
 			},
-			
 			playProvider() {
 				this.player.play()
 			},
