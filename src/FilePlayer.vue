@@ -2,7 +2,8 @@
 	<audio class="FilePlayer"
 		controls
 		:src="url"
-		:autoplay="autoplay">
+		:autoplay="autoplay"
+		:volume="providerVolume">
 		Your browser does not support the <code>audio</code> element.
 	</audio>
 </template>
@@ -33,10 +34,19 @@
 				} else {
 					this.$el.pause()
 				}
+			},
+			volume(vol) {
+				if (vol === this.$el.volume * 100) return
+				this.$el.volume = vol / 100
+			}
+		},
+		computed: {
+			providerVolume() {
+				return this.volume / 100
 			}
 		},
 		mounted() {
-			this.initPlayer(this.$el)
+			this.initPlayer(this.$el, this.isPlaying)
 		},
 		beforeDestroy() {
 			this.unmountPlayer(this.$el)
@@ -50,7 +60,7 @@
 				$el.removeEventListener('error', this.handleError)
 				$el.removeEventListener('volumechange', this.handleVolumeChange)
 			},
-			initPlayer($el) {
+			initPlayer($el, isPlaying) {
 				// Set up events
 				// $el.addEventListener('playing', () => this.$emit('playing'))
 				$el.addEventListener('loadeddata', this.handleLoadedData)
@@ -59,6 +69,10 @@
 				$el.addEventListener('ended', this.handleEnded)
 				$el.addEventListener('error', this.handleError)
 				$el.addEventListener('volumechange', this.handleVolumeChange)
+				if (isPlaying) {
+					this.$el.volume = this.volume / 100
+					this.$el.play()
+				}
 			},
 
 			/* Event handlers */
@@ -71,8 +85,8 @@
 			handleEnded() {
 				this.$emit('ended')
 			},
-			handleVolumeChange() {
-				console.log('event volumechange', arguments)
+			handleVolumeChange(event) {
+				this.$root.$emit('setVolume', event.target.volume * 100)
 			},
 			handleLoadedData() {},
 			handleError(event) {

@@ -14,12 +14,18 @@ const host = getHost()
 
 // Utilities for working with Firebase REST API.
 const parse = res => {
+	if (!res) return null
 	return res.json().then(json => {
+		if (!json) return null
 		if (!Object.keys(json).length) throw new Error('404')
 		return json
 	})
 }
-const serializeId = (data, id) => Object.assign(data, {id})
+const serializeId = (data, id) => {
+	if (data) {
+		return Object.assign(data, {id})
+	}
+}
 const toArray = firebaseObj => {
 	return Object.keys(firebaseObj).map(id => {
 		return Object.assign(firebaseObj[id], {id})

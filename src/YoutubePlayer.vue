@@ -1,5 +1,7 @@
 <template>
-	<div class="ytplayer"></div>
+	<div class="ytplayer">
+		<article id="YoutubeIframeR4"></article>
+	</div>
 </template>
 
 <script>
@@ -23,7 +25,7 @@
 				player: {},
 				playerVars: {
 					controls: 1,
-					fs: 0,
+					fs: 1,
 					modestbranding: 1,
 					origin: window.location.origin,
 					playsinline: 1,
@@ -35,6 +37,11 @@
 		mounted() {
 			if (this.videoId) {
 				this.initPlayer().then(this.setTrackOnProvider(this.videoId))
+			}
+		},
+		beforeDestroy() {
+			if (this.playerExists) {
+				this.player.destroy()
 			}
 		},
 		watch: {
@@ -59,6 +66,7 @@
 		},
 		computed: {
 			playerExists() {
+				if (!this.player) return false
 				return this.player.hasOwnProperty('getIframe')
 			}
 		},
@@ -67,25 +75,24 @@
 				var player
 				var playerVars = this.playerVars
 				var element = this.$el
-
+				var YoutubeIframeR4 = element.querySelector('#YoutubeIframeR4')
+				
 				return new Promise(resolve => {
 					if (!this.playerExists) {
-						player = YouTubePlayer(element, {playerVars})
+						player = YouTubePlayer(YoutubeIframeR4, {playerVars})
 						player.on('error', this.handleError)
 						player.on('stateChange', this.handleStateChange)
 						player.on('ready', this.handleReady)
 						player.on('volumeChange', this.handleVolumeChange)
 						this.player = player
+						resolve(this.player)
 					}
-					resolve(this.player)
+					resolve()
 				})
 			},
 			handleReady(resolve) {
 				// Set initial volume.
-					let vol = this.volume
-				this.player.unMute().then(() => {
-					this.player.setVolume(vol)
-				})
+				this.setVolume(this.volume)
 			},
 			handleError({data}) {
 				// error codes
@@ -128,10 +135,10 @@
 			// select track to play
 			setTrackOnProvider(videoId) {
 				if (!videoId) return
-				if (this.autoplay || this.didPlay) {
+				if (this.autoplay || this.didPlay || this.isPlaying) {
 					this.player.loadVideoById({videoId})
 					// The extra play here is to autoplay on mobile.
-							 // this.playProvider()
+					// this.playProvider()
 				} else {
 					this.player.cueVideoById({videoId})
 					this.didPlay = true
@@ -142,15 +149,25 @@
 			},
 			pauseProvider() {
 				return this.player.pauseVideo()
+			},
+			setVolume(forcedVolume) {
+				let player = this.player
+				let vol = forcedVolume || this.volume
+				if (vol != 0 && vol !=100) {
+					if (player.isMuted()) {
+						player.unMute().then(() => {
+							player.setVolume(vol)
+						})
+					} else {
+						player.setVolume(vol)
+					}
+				} else {
+					player.setVolume(vol)
+				}
 			}
 		}
 	}
 </script>
 
 <style>
-	.ytplayer {
-		width: 100%;
-		height: 100%;
-		position: absolute;
-	}
 </style>

@@ -11,7 +11,7 @@ describe('<YoutubePlayer> component', function() {
 
 	it('component is an empty element for the iframe', function() {
 		expect(wrapper.element.classList.value).to.equal('ytplayer')
-		expect(vm.$el.innerHTML).to.equal('')
+		expect(vm.$el.querySelector('#YoutubeIframeR4').id).to.equal('YoutubeIframeR4')
 	})
 
 	it('autoplay is not enabled', function() {

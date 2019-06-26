@@ -6,7 +6,7 @@
 			<li v-if="query" class="TrackList-query">
 				Playing selection <em>"{{query}}"</em>
 			</li>
-			<li v-for="(track, index) in tracks" :key="track.id" class="TrackList-item">
+			<li v-for="(track, index) in tracks" :key="track.uid" class="TrackList-item">
 				<track-item
 					:track="track"
 					:channelSlug="channelSlug"

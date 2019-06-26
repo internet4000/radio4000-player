@@ -62,6 +62,7 @@
 
 <script>
 	import debounce from 'lodash.debounce'
+	import { mediaUrlParser } from 'media-url-parser'
 	import { shuffleArray } from './utils/shuffle-helpers'
 
 	import FetchData from './FetchData.vue'
@@ -113,6 +114,10 @@
 			this.$root.$on('setVolume', debounce(vol => {
 				this.internalVolume = vol
 			}, 100))
+
+			if (this.autoplay) {
+				this.play()
+			}
 		},
 
 		computed: {
@@ -121,7 +126,7 @@
 				return this.channel || this.channelSlug || this.channelId || this.trackId
 			},
 			currentTrackIndex() {
-				return this.tracksPool.findIndex(track => track.id === this.track.id)
+				return this.tracksPool.findIndex(track => track.uid === this.track.uid)
 			},
 			internalVolume: {
 				get() {
@@ -158,13 +163,46 @@
 		},
 
 		methods: {
+			serializeTracks(tracks) {
+				return tracks.map(this.serializeTrack)
+			},
+			serializeTrack(track) {
+				const randomString = window.crypto.getRandomValues(new Uint32Array(1))[0]
+				let parsed;
+
+				try {
+					parsed = mediaUrlParser(track.url.trim())
+				} catch(e) {
+					console.error('Broken track', track)
+				}
+
+				if (!parsed) {
+					return {
+						uid: randomString,
+						url: track.url,
+						title: `(bad url) ${track.title}`,
+						body: track.body
+					}
+				}
+
+				return {
+					uid: parsed.id + randomString,
+					id: parsed.id,
+					provider: parsed.provider,
+					url: parsed.url,
+					title: track.title,
+					body: track.body
+				}
+			},
 			updateData(newData) {
 				if (newData.channel) this.channel = newData.channel
 				if (newData.image) this.image = newData.image
-				if (newData.tracks) this.tracks = newData.tracks
+				if (newData.tracks) {
+					this.tracks = this.serializeTracks(newData.tracks)
+				}
 				if (newData.track) {
 					// Don't set track directly.
-					this.playTrack(newData.track)
+					this.playTrack(this.serializeTrack(newData.track))
 				}
 			},
 			newTracksPool() {
@@ -217,10 +255,14 @@
 				//  Reset tracks and image to show loading UX immediately.
 				this.tracks = []
 				this.image = ''
-
+				
 				this.channel = playlist
 				if (playlist.image) this.image = playlist.image
-				if (playlist.tracks.length) this.tracks = playlist.tracks
+				if (playlist.tracks.length) {
+					const serializedTracks = this.serializeTracks(playlist.tracks)
+					console.log('serializedTracks', serializedTracks)
+					this.tracks = serializedTracks
+				}
 			},
 
 			/**
@@ -337,7 +379,6 @@
 		flex-basis: 20em;
 		min-height: 200px;
 		/* this is where it breaks into two columns */
-		max-width: 30rem;
 		position: relative;
 	}
 </style>
