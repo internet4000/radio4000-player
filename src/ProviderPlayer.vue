@@ -1,10 +1,17 @@
 <template>
 	<div class="ProviderPlayer" :class="{'ProviderPlayer--file': provider === 'file'}">
+		<div
+			v-if="showLoader"
+			class="ProviderPlayer-loader">
+			<p>loading</p>
+		</div>
+
 		<file-player
 			v-if="provider === 'file'"
 			:url="track.url"
 			:volume="volume"
 			:isPlaying="isPlaying"
+			@ready="handleProviderReady"
 			@playing="$emit('play')"
 			@paused="$emit('pause')"
 			@ended="$emit('trackEnded')"
@@ -15,6 +22,7 @@
 			:videoId="track.id"
 			:volume="volume"
 			:isPlaying="isPlaying"
+			@ready="handleProviderReady"
 			@playing="$emit('play')"
 			@paused="$emit('pause')"
 			@mediaNotAvailable="$emit('mediaNotAvailable')"
@@ -28,6 +36,7 @@
 			:volume="volume"
 			:autoplay="autoplay"
 			:isPlaying="isPlaying"
+			@ready="handleProviderReady"
 			@playing="$emit('play')"
 			@paused="$emit('pause')"
 			@mediaNotAvailable="$emit('mediaNotAvailable')"
@@ -39,6 +48,7 @@
 			:videoId="track.id"
 			:isPlaying="isPlaying"
 			:volume="volume"
+			@ready="handleProviderReady"
 			@playing="$emit('play')"
 			@paused="$emit('pause')"
 			@ended="$emit('trackEnded')"
@@ -67,10 +77,23 @@
 			track: Object,
 			volume: Number
 		},
+		data() {
+			return {
+				providerReady: false
+			}
+		},
+		watch: {
+			track() {
+				this.handleProviderEnded()
+			}
+		},
 		computed: {
 			// this is a trick, to force reload the component,
 			// when this key changes. We use it for vimeo,
 			// which sends API triggered pause to the player
+			showLoader() {
+				return !this.providerReady
+			},
 			trackKey() {
 				return this.track && this.track.id
 			},
@@ -78,6 +101,15 @@
 				if (!this.track || !this.track.url || !this.track.provider) return undefined
 				return this.track.provider
 			}
+		},
+		methods: {
+			handleProviderReady() {
+				console.info('Provider ready: %s', this.provider)
+				this.providerReady = true
+			},
+			handleProviderEnded() {
+				this.providerReady = false
+			}			 
 		}
 	}
 </script>
@@ -102,5 +134,20 @@
 		width: 100%;
 		height: 100%;
 		position: absolute;
+	}
+	.ProviderPlayer-loader {
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		z-index: 2;
+		display: flex;
+
+		align-items: center;
+		justify-content: center;
+		
+		background-color: black;
+		color: white;
 	}
 </style>

@@ -116,6 +116,7 @@
 				this.player.bind(SC.Widget.Events.PLAY, this.handlePlay);
 				this.player.bind(SC.Widget.Events.FINISH, this.handleEnded);
 				this.player.setVolume(this.volume)
+				this.$emit('ready')
 				this.handleIsPlaying()
 			},
 			handleError(error) {

@@ -84,6 +84,7 @@
 
 				// there is no ready event, but this promise is enough
 				player.ready().then(() => {
+					this.$emit('ready')
 					player.setVolume(this.volume / 100);
 				});
 

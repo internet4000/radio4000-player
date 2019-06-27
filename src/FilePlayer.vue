@@ -54,7 +54,7 @@
 		},
 		methods: {
 			unmountPlayer($el) {
-				/* $el.removeEventListener('loadeddata', this.handleLoadedData) */
+				$el.removeEventListener('loadeddata', this.handleLoadedData)
 				$el.removeEventListener('play', this.handlePlay)
 				$el.removeEventListener('pause', this.handlePause)
 				$el.removeEventListener('ended', this.handleEnded)
@@ -64,7 +64,7 @@
 			initPlayer($el, isPlaying) {
 				// Set up events
 				// $el.addEventListener('playing', () => this.$emit('playing'))
-				/* $el.addEventListener('loadeddata', this.handleLoadedData) */
+				$el.addEventListener('loadeddata', this.handleLoadedData)
 				$el.addEventListener('play', this.handlePlay)
 				$el.addEventListener('pause', this.handlePause)
 				$el.addEventListener('ended', this.handleEnded)
@@ -96,6 +96,9 @@
 			},
 			handleVolumeChange(event) {
 				this.$root.$emit('setVolume', event.target.volume * 100)
+			},
+			handleLoadedData() {
+				this.$emit('ready')
 			},
 			handleError(event) {
 				/* https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/error */

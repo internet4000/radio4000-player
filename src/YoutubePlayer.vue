@@ -75,6 +75,7 @@
 				var playerVars = this.playerVars
 				var element = this.$el
 				var YoutubeIframeR4 = element.querySelector('#YoutubeIframeR4')
+				this.$emit('ready')
 				
 				return new Promise(resolve => {
 					if (!this.playerExists) {
