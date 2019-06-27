@@ -1,10 +1,12 @@
 <template>
 	<div class="ProviderPlayer" :class="{'ProviderPlayer--file': provider === 'file'}">
-		<div
+		<aside
 			v-if="showLoader"
-			class="ProviderPlayer-loader">
-			<p>loading</p>
-		</div>
+			:class="loaderClass">
+			<div>
+				<i>Loading {{track.provider}}</i>
+			</div>
+		</aside>
 
 		<file-player
 			v-if="provider === 'file'"
@@ -72,6 +74,7 @@
 			SoundcloudPlayer
 		},
 		props: {
+			isOnline: Boolean,
 			autoplay: Boolean,
 			isPlaying: Boolean,
 			track: Object,
@@ -84,13 +87,20 @@
 		},
 		watch: {
 			track() {
-				this.handleProviderEnded()
+				this.handleNewProvider()
 			}
 		},
 		computed: {
 			// this is a trick, to force reload the component,
 			// when this key changes. We use it for vimeo,
 			// which sends API triggered pause to the player
+			loaderClass() {
+				if (this.showLoader) {
+					return 'ProviderPlayer-loader ProviderPlayer-loader--visible'
+				} else {
+					return 'ProviderPlayer-loader'
+				}
+			},
 			showLoader() {
 				return !this.providerReady
 			},
@@ -107,7 +117,7 @@
 				console.info('Provider ready: %s', this.provider)
 				this.providerReady = true
 			},
-			handleProviderEnded() {
+			handleNewProvider() {
 				this.providerReady = false
 			}			 
 		}
@@ -144,10 +154,19 @@
 		z-index: 2;
 		display: flex;
 
-		align-items: center;
-		justify-content: center;
+		align-items: flex-end;
+		justify-content: flex-end;
 		
 		background-color: black;
-		color: white;
+		color: darkgray;
+		font-size: 0.7rem;
+		text-align: right;
+		padding-right: 0.2rem;
+	}
+	.ProviderPlayer-loader {
+		opacity: 0;
+	}
+	.ProviderPlayer-loader--visible {
+		opacity: 1;
 	}
 </style>
