@@ -1,12 +1,5 @@
 <template>
 	<div class="ProviderPlayer" :class="{'ProviderPlayer--file': provider === 'file'}">
-		<aside
-			v-if="showLoader"
-			:class="loaderClass">
-			<div>
-				<i>Loading {{track.provider}}</i>
-			</div>
-		</aside>
 
 		<file-player
 			v-if="provider === 'file'"
@@ -55,6 +48,14 @@
 			@paused="$emit('pause')"
 			@ended="$emit('trackEnded')"
 		></soundcloud-player>
+
+		<aside
+			v-if="showLoader"
+			:class="loaderClass">
+			<div>
+				<i>Loading {{track.provider}}</i>
+			</div>
+		</aside>
 	</div>
 </template>
 
