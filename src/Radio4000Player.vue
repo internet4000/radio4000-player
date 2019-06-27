@@ -1,6 +1,7 @@
 <template>
 	<div class="Layout" v-if="canLoad">
 		<FetchData
+			v-if="isOnline"
 			:channelId="channelId"
 			:channelSlug="channelSlug"
 			:trackId="trackId"
@@ -11,6 +12,7 @@
 
 		<div class="Layout-header">
 			<channel-header
+				:isOnline="isOnline"
 				:channel="channel"
 				:image="image"
 				:r4Url="r4Url"
@@ -121,6 +123,9 @@
 		},
 
 		computed: {
+			isOnline() {
+				return window.navigator.onLine
+			},
 			// When either of these is set, it means we can load and show the player.
 			canLoad() {
 				return this.channel || this.channelSlug || this.channelId || this.trackId
@@ -329,6 +334,7 @@
 	}
 
 	.Layout {
+		transition: border-color 500ms ease-in-out;
 		/* expand to container */
 		flex: 1;
 		/* allow scrolling */
