@@ -15,7 +15,6 @@
 			v-if="provider === 'youtube'"
 			:videoId="track.id"
 			:volume="volume"
-			:autoplay="autoplay"
 			:isPlaying="isPlaying"
 			@playing="$emit('play')"
 			@paused="$emit('pause')"
