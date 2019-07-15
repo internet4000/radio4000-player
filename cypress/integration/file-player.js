@@ -16,10 +16,6 @@ describe('<FilePlayer> component', function() {
 		expect(wrapper.element.tagName).to.equal('AUDIO')
 	})
 
-	it('autoplay is not enabled', function() {
-		expect(vm.autoplay).to.equal(false)
-	})
-
 	it('not initially marked as playing', function() {
 		expect(vm.isPlaying).to.equal(false)
 	})
