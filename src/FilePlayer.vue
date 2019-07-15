@@ -71,9 +71,9 @@
 				$el.addEventListener('error', this.handleError)
 				$el.addEventListener('volumechange', this.handleVolumeChange)
 
-				this.$el.volume = this.volume / 100
 				if (isPlaying) {
 					this.$el.play()
+					this.$el.volume = this.volume / 100
 				}
 			},
 

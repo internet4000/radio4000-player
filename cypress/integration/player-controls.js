@@ -18,7 +18,15 @@ describe('player controls', function() {
 		cy.get('radio4000-player').find('.TrackItem').first().should('have.class', 'active')
 	})
 
-	it('tapping "next" plays next track', function() {
+	it('tapping "next" does not play next track', function() {
+		cy.get('.Btn--next').click()
+		cy.get('.TrackItem').eq(0).should('not.have.class', 'active')
+		cy.get('.TrackItem').eq(1).should('have.class', 'active')
+		cy.get('.PlayPause-state', {timeout: 20000}).should('not.be.checked')
+	})
+
+	it('tapping "next" plays next track when isPlaying', function() {
+		cy.get('.PlayPause-state').click()
 		cy.get('.Btn--next').click()
 		cy.get('.TrackItem').eq(0).should('not.have.class', 'active')
 		cy.get('.TrackItem').eq(1).should('have.class', 'active')
