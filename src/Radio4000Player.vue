@@ -279,8 +279,8 @@
 				this.$emit('mediaNotAvailable', {
 					track: this.track
 				})
-				this.trackEnded()
-			},
+				this.trackEnded()					
+			}
 		}
 	}
 </script>

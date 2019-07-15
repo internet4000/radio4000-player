@@ -23,9 +23,11 @@
 		},
 		watch: {
 			url() {
-				this.$nextTick(() => {
-					this.$el.play()
-				})
+				if (this.isPlaying) {
+					this.$nextTick(() => {
+						this.$el.play()
+					})
+				}
 			},
 			isPlaying(isPlaying) {
 				if (isPlaying) {
@@ -70,7 +72,6 @@
 				$el.addEventListener('volumechange', this.handleVolumeChange)
 
 				this.$el.volume = this.volume / 100
-				console.log('init file player')
 				if (isPlaying) {
 					this.$el.play()
 				}
@@ -82,7 +83,6 @@
 			},
 			handlePlay() {
 				if (this.isPlaying) {
-					console.log('file play')
 					this.$emit('playing')
 				}
 			},
@@ -90,7 +90,7 @@
 				this.$emit('ended')
 				// it seems the element emits pause at the end of a track
 				// so if we are in pause when ended is handled, we should play!
-				if(!this.isPlaying) {
+				if (!this.isPlaying) {
 					this.$emit('playing')
 				}
 			},
@@ -104,8 +104,8 @@
 
 				if (error.code === 4) {
 					this.$emit('mediaNotAvailable')
-				}
-				this.handleEnded()
+				} 
+				this.$emit('ended')
 			}			
 		}
 	}
