@@ -4,7 +4,6 @@
 			v-if="provider === 'file'"
 			:url="track.url"
 			:volume="volume"
-			:autoplay="autoplay"
 			:isPlaying="isPlaying"
 			@playing="$emit('play')"
 			@paused="$emit('pause')"

@@ -1,8 +1,8 @@
 <template>
 	<audio class="FilePlayer"
 		controls
+		:autoplay="false"
 		:src="url"
-		:autoplay="autoplay"
 		:volume="providerVolume">
 		Your browser does not support the <code>audio</code> element.
 	</audio>
@@ -17,7 +17,6 @@
 	export default {
 		name: 'file-player',
 		props: {
-			autoplay: Boolean,
 			isPlaying: Boolean,
 			url: String,
 			volume: Number
@@ -53,7 +52,7 @@
 		},
 		methods: {
 			unmountPlayer($el) {
-				$el.removeEventListener('loadeddata', this.handleLoadedData)
+				/* $el.removeEventListener('loadeddata', this.handleLoadedData) */
 				$el.removeEventListener('play', this.handlePlay)
 				$el.removeEventListener('pause', this.handlePause)
 				$el.removeEventListener('ended', this.handleEnded)
@@ -63,14 +62,16 @@
 			initPlayer($el, isPlaying) {
 				// Set up events
 				// $el.addEventListener('playing', () => this.$emit('playing'))
-				$el.addEventListener('loadeddata', this.handleLoadedData)
+				/* $el.addEventListener('loadeddata', this.handleLoadedData) */
 				$el.addEventListener('play', this.handlePlay)
 				$el.addEventListener('pause', this.handlePause)
 				$el.addEventListener('ended', this.handleEnded)
 				$el.addEventListener('error', this.handleError)
 				$el.addEventListener('volumechange', this.handleVolumeChange)
+
+				this.$el.volume = this.volume / 100
+				console.log('init file player')
 				if (isPlaying) {
-					this.$el.volume = this.volume / 100
 					this.$el.play()
 				}
 			},
@@ -80,7 +81,10 @@
 				this.$emit('paused')
 			},
 			handlePlay() {
-				this.$emit('playing')
+				if (this.isPlaying) {
+					console.log('file play')
+					this.$emit('playing')
+				}
 			},
 			handleEnded() {
 				this.$emit('ended')
@@ -93,7 +97,6 @@
 			handleVolumeChange(event) {
 				this.$root.$emit('setVolume', event.target.volume * 100)
 			},
-			handleLoadedData() {},
 			handleError(event) {
 				/* https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/error */
 				let error = this.$el.error
