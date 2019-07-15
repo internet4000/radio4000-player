@@ -183,16 +183,22 @@
 
 				if (!parsed) {
 					return {
+						id: track.id,
 						uid: randomString,
 						url: track.url,
 						title: `(bad url) ${track.title}`,
 						body: track.body
 					}
 				}
-
+				// id = original id of the track, untouched when given to the player
+				// (it is also unsused, in this app, just given back in the events
+				// that this player emits to outside apps. Ex: radio4000 when a track changes)
+				// uid = unique id, each track has semi-random id just for itself
+				// pid = id given by the provider for this media (youtube.com/:video-id)
 				return {
 					uid: parsed.id + randomString,
-					id: parsed.id,
+					id: track.id,
+					pid: parsed.id,
 					provider: parsed.provider,
 					url: parsed.url,
 					title: track.title,

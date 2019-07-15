@@ -13,9 +13,8 @@ describe('<ProviderPlayer> component', function() {
 		vm = wrapper.vm
 	})
 
-	it('is initially not marked to play', function() {
-		expect(vm.autoplay).to.equal(false)
-		expect(vm.isPlaying).to.equal(false)
+	it('initil playing state corresponds to html element autoplay', function() {
+		expect(vm.isPlaying).to.equal(vm.autoplay)
 	})
 
 	it('detects youtube provider from track.url', function() {

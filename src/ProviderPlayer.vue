@@ -14,7 +14,7 @@
 
 		<youtube-player
 			v-if="provider === 'youtube'"
-			:videoId="track.id"
+			:videoId="track.pid"
 			:volume="volume"
 			:isPlaying="isPlaying"
 			@ready="handleProviderReady"
@@ -27,7 +27,7 @@
 		<vimeo-player
 			v-if="provider === 'vimeo'"
 			:key="trackKey"
-			:videoId="track.id"
+			:videoId="track.pid"
 			:volume="volume"
 			:autoplay="autoplay"
 			:isPlaying="isPlaying"
@@ -40,7 +40,7 @@
 
 		<soundcloud-player
 			v-if="provider === 'soundcloud'"
-			:videoId="track.id"
+			:videoId="track.pid"
 			:isPlaying="isPlaying"
 			:volume="volume"
 			@ready="handleProviderReady"
