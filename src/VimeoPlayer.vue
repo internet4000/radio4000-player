@@ -76,7 +76,7 @@
 					dnt: true,
 					id: this.videoId,
 					// for the API pause issue
-					autoplay: true,
+					autoplay: false,
 					autopause: false
 				};
 
@@ -95,7 +95,7 @@
 				
 				this.player = player
 
-				if (this.isPlaying || this.autoPlay) {
+				if (this.isPlaying) {
 					this.playProvider()
 				}
 			},

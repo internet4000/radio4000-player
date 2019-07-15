@@ -146,7 +146,7 @@
 			handleIsPlaying() {
 				if (this.player && this.isPlaying) {
 					this.player.isPaused((isPaused) => {
-						if(isPaused) this.playProvider()
+						if (isPaused) this.playProvider()
 					})
 				} else {
 					this.pauseProvider()
