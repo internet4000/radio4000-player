@@ -131,7 +131,21 @@
 				return this.channel || this.channelSlug || this.channelId || this.trackId
 			},
 			currentTrackIndex() {
-				return this.tracksPool.findIndex(track => track.uid === this.track.uid)
+				let index = this.tracksPool.findIndex(track => track.uid === this.track.uid)
+				// if there is no index, find a possible match
+				// the use case is on r4-cms. When we load the player,
+				// starting from `one specific track`, it is serialized outside the `track list`,
+				// therefore its uid, is different from the uid of the same track in the `track list`.
+				if (index < 0) {
+					index = this.tracksPool.findIndex(track => {
+						if (!track.id || !this.track.id) {
+							return false
+						} else {
+							return track.id === this.track.id
+						}
+					})
+				} 
+				return index 
 			},
 			internalVolume: {
 				get() {
@@ -163,7 +177,9 @@
 			tracks(tracks) {
 				this.newTracksPool()
 				const noTrack = Object.keys(this.track).length === 0
-				if (noTrack) this.playNextTrack()
+				if (noTrack) {
+					this.playNextTrack()
+				}
 			}
 		},
 
