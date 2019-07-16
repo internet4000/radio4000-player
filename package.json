@@ -33,7 +33,7 @@
     "@cypress/webpack-preprocessor": "^2.0.1",
     "@vue/test-utils": "^1.0.0-beta.29",
     "cypress": "^3.4.0",
-    "poi": "^12.5.5",
+    "poi": "^12.7.0",
     "release-it": "^7.2.1",
     "start-server-and-test": "^1.9.1",
     "vue-template-compiler": "^2.6.10"
