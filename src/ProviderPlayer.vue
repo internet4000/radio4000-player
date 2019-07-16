@@ -53,7 +53,7 @@
 			v-if="showLoader"
 			:class="loaderClass">
 			<div>
-				<i>Loading {{track.provider}}</i>
+				<i>Loading {{provider}}</i>
 			</div>
 		</aside>
 	</div>
