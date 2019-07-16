@@ -26,7 +26,7 @@ describe('player controls', function() {
 	})
 
 	it('tapping "next" plays next track when isPlaying', function() {
-		cy.get('.PlayPause-state').click()
+		cy.get('.PlayPause-label').click()
 		cy.get('.Btn--next', {timeout: 20000}).click()
 		cy.get('.PlayPause-state', {timeout: 20000}).should('be.checked')
 	})
