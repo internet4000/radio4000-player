@@ -1,8 +1,8 @@
 <template>
 	<audio class="FilePlayer"
 		controls
+		:autoplay="false"
 		:src="url"
-		:autoplay="autoplay"
 		:volume="providerVolume">
 		Your browser does not support the <code>audio</code> element.
 	</audio>
@@ -17,16 +17,17 @@
 	export default {
 		name: 'file-player',
 		props: {
-			autoplay: Boolean,
 			isPlaying: Boolean,
 			url: String,
 			volume: Number
 		},
 		watch: {
 			url() {
-				this.$nextTick(() => {
-					this.$el.play()
-				})
+				if (this.isPlaying) {
+					this.$nextTick(() => {
+						this.$el.play()
+					})
+				}
 			},
 			isPlaying(isPlaying) {
 				if (isPlaying) {
@@ -69,9 +70,10 @@
 				$el.addEventListener('ended', this.handleEnded)
 				$el.addEventListener('error', this.handleError)
 				$el.addEventListener('volumechange', this.handleVolumeChange)
+
 				if (isPlaying) {
-					this.$el.volume = this.volume / 100
 					this.$el.play()
+					this.$el.volume = this.volume / 100
 				}
 			},
 
@@ -80,15 +82,24 @@
 				this.$emit('paused')
 			},
 			handlePlay() {
-				this.$emit('playing')
+				if (this.isPlaying) {
+					this.$emit('playing')
+				}
 			},
 			handleEnded() {
 				this.$emit('ended')
+				// it seems the element emits pause at the end of a track
+				// so if we are in pause when ended is handled, we should play!
+				if (!this.isPlaying) {
+					this.$emit('playing')
+				}
 			},
 			handleVolumeChange(event) {
 				this.$root.$emit('setVolume', event.target.volume * 100)
 			},
-			handleLoadedData() {},
+			handleLoadedData() {
+				this.$emit('ready')
+			},
 			handleError(event) {
 				/* https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/error */
 				let error = this.$el.error
@@ -96,8 +107,8 @@
 
 				if (error.code === 4) {
 					this.$emit('mediaNotAvailable')
-				}
-				this.handleEnded()
+				} 
+				this.$emit('ended')
 			}			
 		}
 	}

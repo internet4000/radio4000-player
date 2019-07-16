@@ -17,11 +17,6 @@
 			 we will use this in the player */
 			var tracks = [
 				{
-					id: '1',
-					title: 'Birds_Polyphonic.ogg',
-					url: 'https://upload.wikimedia.org/wikipedia/commons/5/53/Birds_Polyphonic.ogg'
-				},
-				{
 					id: '2',
 					title: 'A track with a bad mediaUrl',
 					url: '~/me.mp3'
@@ -53,10 +48,27 @@
 					url: 'https://www.youtube.com/watch?v=s0lKUfOAWj8'
 				},
 				{
-					id: '333244516',
+					id: '343084593',
 					title: 'vimeo short',
-					url: 'https://vimeo.com/333244516'
-				}				
+					url: 'https://vimeo.com/343084593'
+				},
+				{
+					title: 'soundcloud track',
+					url: 'https://soundcloud.com/lyl_radio/sur-ecoute-250419-w-pam-belec-danse-toujours-sainte-rita'
+				},
+				{
+					title: 'soundcloud set',
+					url: 'https://soundcloud.com/lyl_radio/sets/lyl-ra-at-dizonord'
+				},
+				{
+					title: 'soundcloud track repetitis',
+					url: 'https://soundcloud.com/short/bennett-short-dus-wat'
+				},
+				{
+					id: '1',
+					title: 'Birds_Polyphonic.ogg',
+					url: 'https://upload.wikimedia.org/wikipedia/commons/5/53/Birds_Polyphonic.ogg'
+				},
 			];
 
 			// a playlist, which includes the tracks
@@ -85,6 +97,7 @@
 
 		<!-- media is a local audio file-player -->
 		<radio4000-player id="playlist-player" autoplay="true"></radio4000-player>
+		<!-- <radio4000-player id="playlist-player"></radio4000-player> -->
 
 		<script>
 
@@ -127,8 +140,5 @@
 				initPlayer($player, playlist)
 			}
 		</script>
-
-		<script src="radio4000-player.min.js"></script>
-
 	</body>
 </html>

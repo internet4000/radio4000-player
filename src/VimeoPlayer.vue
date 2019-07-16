@@ -76,7 +76,7 @@
 					dnt: true,
 					id: this.videoId,
 					// for the API pause issue
-					autoplay: true,
+					autoplay: false,
 					autopause: false
 				};
 
@@ -84,6 +84,7 @@
 
 				// there is no ready event, but this promise is enough
 				player.ready().then(() => {
+					this.$emit('ready')
 					player.setVolume(this.volume / 100);
 				});
 
@@ -95,7 +96,7 @@
 				
 				this.player = player
 
-				if (this.isPlaying || this.autoPlay) {
+				if (this.isPlaying) {
 					this.playProvider()
 				}
 			},

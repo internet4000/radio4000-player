@@ -21,7 +21,6 @@
 		data() {
 			return {
 				ytstate: -1,
-				didPlay: false,
 				player: {},
 				playerVars: {
 					controls: 1,
@@ -76,6 +75,7 @@
 				var playerVars = this.playerVars
 				var element = this.$el
 				var YoutubeIframeR4 = element.querySelector('#YoutubeIframeR4')
+				this.$emit('ready')
 				
 				return new Promise(resolve => {
 					if (!this.playerExists) {
@@ -135,13 +135,12 @@
 			// select track to play
 			setTrackOnProvider(videoId) {
 				if (!videoId) return
-				if (this.autoplay || this.didPlay || this.isPlaying) {
+				if (this.isPlaying) {
 					this.player.loadVideoById({videoId})
 					// The extra play here is to autoplay on mobile.
 					// this.playProvider()
 				} else {
 					this.player.cueVideoById({videoId})
-					this.didPlay = true
 				}
 			},
 			playProvider() {

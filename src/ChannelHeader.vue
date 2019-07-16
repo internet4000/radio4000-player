@@ -1,12 +1,12 @@
 <template>
-	<header class="Header">
+	<header :class="layoutClass">
 		<a class="Header-logo"
 			:href="linkHref"
 			:target="linkTarget"
 			:rel="linkRel"
 			title="Open this radio on Radio4000.com"
 		>
-			<R4Logo></R4Logo>
+			<R4Logo :isOnline="isOnline"></R4Logo>
 		</a>
 		<a
 			:href="linkHref"
@@ -34,6 +34,7 @@ import R4Logo from './R4Logo.vue'
 export default {
 	name: 'channel-header',
 	props: {
+		isOnline: Boolean,
 		channel: Object,
 		track: Object,
 		image: String,
@@ -41,6 +42,13 @@ export default {
 	},
 	components: { Loading, R4Logo },
 	computed: {
+		layoutClass() {
+			if (this.isOnline) {
+				return 'Header Header--isOnline'
+			} else {
+				return 'Header Header--isOffline'
+			}
+		},
 		linkHref() {
 			const root = this.r4Url ? '/' : 'https://radio4000.com/'
 			const slug = this.channel.slug
@@ -105,6 +113,9 @@ export default {
 		transition: opacity 100ms;
 	}
 	.Header-logo:hover {
+		opacity: 1;
+	}
+	.Header--isOffline .Header-logo {
 		opacity: 1;
 	}
 </style>

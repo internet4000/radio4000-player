@@ -1,5 +1,5 @@
 import {mount} from '@vue/test-utils'
-import Component from '../../src/ProviderPlayer.vue'
+import ProviderPlayer from '../../src/ProviderPlayer.vue'
 
 const testYouTubeUrl = 'https://www.youtube.com/watch?v=ihyQf8mww3o'
 const testFileUrl =
@@ -8,30 +8,27 @@ const testFileUrl =
 describe('<ProviderPlayer> component', function() {
 	let wrapper, vm
 
-	beforeEach(() => {
-		wrapper = mount(Component)
+	beforeEach(function() {
+		wrapper = mount(ProviderPlayer)
 		vm = wrapper.vm
 	})
 
-	it('is initially not marked to play', function() {
-		expect(vm.autoplay).to.equal(false)
-		expect(vm.isPlaying).to.equal(false)
+	it('shows loading', function() {
+		vm.track = {
+			url: testYouTubeUrl
+		}
+
+		expect(vm.showLoader).to.equal(true)
+		expect(vm.provider).to.equal(undefined)
 	})
 
-	it('detects youtube provider from track.url', function() {
-		expect(vm.track).to.equal(undefined)
-		vm.track = {url: testYouTubeUrl}
-		vm.$nextTick(() => {
-			expect(vm.provider, 'youtube')
-		})
-	})
+	it('shows loading for specified provider', function() {
+		vm.track = {
+			url: testYouTubeUrl,
+			provider: 'youtube'
+		}
 
-	it('detects file provider from track.url', function() {
-		expect(vm.track).to.equal(undefined)
-		expect(vm.provider, undefined)
-		vm.track = {url: testFileUrl}
-		vm.$nextTick(() => {
-			expect(vm.provider, 'file')
-		})
+		expect(vm.showLoader).to.equal(true)
+		expect(vm.provider).to.equal('youtube')
 	})
 })

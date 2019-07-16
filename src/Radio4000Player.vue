@@ -1,6 +1,7 @@
 <template>
 	<div class="Layout" v-if="canLoad">
 		<FetchData
+			v-if="isOnline"
 			:channelId="channelId"
 			:channelSlug="channelSlug"
 			:trackId="trackId"
@@ -11,6 +12,7 @@
 
 		<div class="Layout-header">
 			<channel-header
+				:isOnline="isOnline"
 				:channel="channel"
 				:image="image"
 				:r4Url="r4Url"
@@ -121,6 +123,9 @@
 		},
 
 		computed: {
+			isOnline() {
+				return window.navigator.onLine
+			},
 			// When either of these is set, it means we can load and show the player.
 			canLoad() {
 				return this.channel || this.channelSlug || this.channelId || this.trackId
@@ -178,16 +183,22 @@
 
 				if (!parsed) {
 					return {
+						id: track.id,
 						uid: randomString,
 						url: track.url,
 						title: `(bad url) ${track.title}`,
 						body: track.body
 					}
 				}
-
+				// id = original id of the track, untouched when given to the player
+				// (it is also unsused, in this app, just given back in the events
+				// that this player emits to outside apps. Ex: radio4000 when a track changes)
+				// uid = unique id, each track has semi-random id just for itself
+				// pid = id given by the provider for this media (youtube.com/:video-id)
 				return {
 					uid: parsed.id + randomString,
-					id: parsed.id,
+					id: track.id,
+					pid: parsed.id,
 					provider: parsed.provider,
 					url: parsed.url,
 					title: track.title,
@@ -279,8 +290,8 @@
 				this.$emit('mediaNotAvailable', {
 					track: this.track
 				})
-				this.trackEnded()
-			},
+				this.trackEnded()					
+			}
 		}
 	}
 </script>
@@ -329,6 +340,7 @@
 	}
 
 	.Layout {
+		transition: border-color 500ms ease-in-out;
 		/* expand to container */
 		flex: 1;
 		/* allow scrolling */
