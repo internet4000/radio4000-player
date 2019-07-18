@@ -75,7 +75,6 @@
 			SoundcloudPlayer
 		},
 		props: {
-			isOnline: Boolean,
 			autoplay: Boolean,
 			isPlaying: Boolean,
 			track: Object,
@@ -87,12 +86,20 @@
 			}
 		},
 		watch: {
-			track() {
+			track(oldTrack, newTrack) {
+				// skip track if the media provider id is the same
+				// aka, "don't play the same track twice in a row"
+				// also solves the loader not being removed is pid the same
+				// because some provider don't then send the ready event
+				if (oldTrack.pid === newTrack.pid) {
+					this.$emit('trackEnded')
+				}
 				this.handleNewProvider()
 			}
 		},
 		computed: {
 			// this is a trick, to force reload the component,
+
 			// when this key changes. We use it for vimeo,
 			// which sends API triggered pause to the player
 			loaderClass() {
@@ -120,7 +127,7 @@
 			},
 			handleNewProvider() {
 				this.providerReady = false
-			}			 
+			}
 		}
 	}
 </script>
