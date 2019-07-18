@@ -2,7 +2,7 @@
   "name": "radio4000-player",
   "description": "A player for Radio4000 channels",
   "author": "Internet4000",
-  "version": "0.6.7",
+  "version": "0.6.8",
   "homepage": "https://github.com/internet4000/radio4000-player",
   "bugs": "https://github.com/internet4000/radio4000-player/issues",
   "license": "GPL-3.0",
@@ -36,8 +36,8 @@
     "@cypress/webpack-preprocessor": "^2.0.1",
     "@vue/test-utils": "^1.0.0-beta.29",
     "cypress": "^3.4.0",
-    "release-it": "^12.3.3",
     "poi": "^12.7.0",
+    "release-it": "^12.3.3",
     "start-server-and-test": "^1.9.1",
     "vue-template-compiler": "^2.6.10"
   }
