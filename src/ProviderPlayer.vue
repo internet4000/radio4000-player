@@ -98,10 +98,6 @@
 			}
 		},
 		computed: {
-			// this is a trick, to force reload the component,
-
-			// when this key changes. We use it for vimeo,
-			// which sends API triggered pause to the player
 			loaderClass() {
 				if (this.showLoader) {
 					return 'ProviderPlayer-loader ProviderPlayer-loader--visible'

@@ -245,6 +245,9 @@
 			playTrack(track) {
 				const previousTrack = this.track
 				this.track = track
+				// force play when asking to play a track
+				// also solves mediaNotAvailable putting pause
+				this.play()
 				this.$emit('trackChanged', {
 					track, previousTrack
 				})
