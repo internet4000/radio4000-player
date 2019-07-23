@@ -118,7 +118,6 @@
 		},
 		methods: {
 			handleProviderReady() {
-				console.info('Provider ready: %s', this.provider)
 				this.providerReady = true
 			},
 			handleNewProvider() {
