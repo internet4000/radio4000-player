@@ -150,11 +150,10 @@ const playlist = {
   ]
 }
 
-// Get access to the Vue component behind the web component to access methods.
+// Get access to the Vue component behind the web component to access methods,
+// and update player with our new playlist.
 var player = document.querySelector('radio4000-player')
-var vue = player.__vue_custom_element__.$children[0]
-
-// Update player with our new playlist.
+var vue = player.getVueInstance()
 vue.updatePlaylist(playlist)
 ```
 
