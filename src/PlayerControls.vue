@@ -84,6 +84,7 @@ export default {
 		line-height: 1;
 		background: hsl(0, 0%, 96%);
 		border: 0;
+		cursor: pointer;
 	}
 	.Btn--isNotFullVolume span {
 		opacity: 0.4;
@@ -105,7 +106,6 @@ export default {
 	.Btn--shuffle.is-active span {
 		opacity: 1;
 	}
-	.PlayPause {}
 	.Btn--next {
 		font-size: 1.5em;
 	}

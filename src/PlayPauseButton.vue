@@ -51,6 +51,7 @@ export default {
 .PlayPause-label {
 	flex: 1;
 	display: flex;
+	cursor: pointer;
 }
 .PlayPause-controller {
 	display: inline-block;
