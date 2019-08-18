@@ -247,7 +247,7 @@
 				this.track = track
 				// force play when asking to play a track
 				// also solves mediaNotAvailable putting pause
-				this.autoplay && this.play()
+				if (this.isPlaying || this.autoplay) this.play()
 				this.$emit('trackChanged', {
 					track, previousTrack
 				})
