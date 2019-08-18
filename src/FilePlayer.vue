@@ -101,10 +101,9 @@
 				this.$emit('ready')
 			},
 			handleError(event) {
-				/* https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/error */
+				// https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/error 
 				let error = this.$el.error
 				console.log('FilePlayer error', error)
-
 				if (error.code === 4) {
 					this.$emit('mediaNotAvailable')
 				} 
