@@ -242,16 +242,6 @@
 					this.tracksPool = pool
 				}
 			},
-			playTrack(track) {
-				const previousTrack = this.track
-				this.track = track
-				// force play when asking to play a track
-				// also solves mediaNotAvailable putting pause
-				if (this.isPlaying || this.autoplay) this.play()
-				this.$emit('trackChanged', {
-					track, previousTrack
-				})
-			},
 			playNextTrack() {
 				const track = this.getNextTrack()
 				if (!track) return
@@ -261,6 +251,20 @@
 				const pool = this.tracksPool
 				const index = this.currentTrackIndex
 				return pool[index + 1]
+			},
+			playTrack(track) {
+				const previousTrack = this.track
+				this.track = track
+
+				// force play when asking to play a track
+				// also solves mediaNotAvailable putting pause
+				if (this.isPlaying || this.autoplay) {
+					this.play()
+				}
+
+				this.$emit('trackChanged', {
+					track, previousTrack
+				})
 			},
 			play() {
 				this.isPlaying = true
@@ -309,6 +313,11 @@
 				this.$emit('mediaNotAvailable', {
 					track: this.track
 				})
+
+				// When not available, player pauses.
+				// Here we set it back to true, for continuous play.
+				this.isPlaying = true 
+
 				this.trackEnded()					
 			}
 		}
