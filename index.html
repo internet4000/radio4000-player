@@ -112,7 +112,7 @@
 				playerDom.addEventListener('playerReady', () => {
 					console.info('[event:playerReady]');
 
-					var playerVue = playerDom.__vue_custom_element__.$children[0]
+					var playerVue = playerDom.getVueInstance()
 					console.log({playerVue})
 
 					if (dataToPlay) {
