@@ -302,7 +302,6 @@
 				if (playlist.image) this.image = playlist.image
 				if (playlist.tracks.length) {
 					const serializedTracks = this.serializeTracks(playlist.tracks)
-					console.log('serializedTracks', serializedTracks)
 					this.tracks = serializedTracks
 				}
 			},

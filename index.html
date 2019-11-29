@@ -32,7 +32,12 @@
 				},
 				{
 					id: 'OkR7UNnQU6c',
-					title: 'youtube',
+					title: 'youtube test',
+					url: 'https://www.youtube.com/watch?v=OkR7UNnQU6c'
+				},
+				{
+					id: 'iiiOkR7UNnQU6c',
+					title: 'youtube test identical id as above',
 					url: 'https://www.youtube.com/watch?v=OkR7UNnQU6c'
 				},
 				{
@@ -110,23 +115,20 @@
 			var initPlayer = function(playerDom, dataToPlay) {
 				// and add event listeners
 				playerDom.addEventListener('playerReady', () => {
-					console.info('[event:playerReady]');
-
+					console.info('r4player:playerReady')
 					var playerVue = playerDom.getVueInstance()
-					console.log({playerVue})
-
 					if (dataToPlay) {
 						playerVue.updatePlaylist(dataToPlay)
 					}
 				})
 				playerDom.addEventListener('trackChanged', (event) => {
-		 			console.info('[event:trackChanged]', event.detail[0])
+		 			console.info('r4player:trackChanged', event.detail[0])
 				})
 				playerDom.addEventListener('trackEnded', (event) => {
-		 			console.info('[event:trackEnded]', event.detail[0])
+		 			console.info('r4player:trackEnded', event.detail[0])
 				})
 				playerDom.addEventListener('mediaNotAvailable', (event) => {
-		 			console.info('[event:mediaNotAvailable]', event.detail[0])
+		 			console.info('r4player:mediaNotAvailable', event.detail[0])
 				})
 			}
 
