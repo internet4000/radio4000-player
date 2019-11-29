@@ -82,7 +82,8 @@
 				this.$emit('paused')
 			},
 			handlePlay() {
-				if (this.isPlaying) {
+				const isPlaying = this.isPlaying
+				if (isPlaying) {
 					this.$emit('playing')
 				}
 			},
