@@ -1,5 +1,5 @@
 <template>
-	<div class="Layout" v-if="canLoad">
+	<div class="Layout" v-if="canLoad" :class="{ isShowHeader: showHeader, isShowTrackList: showTrackList, isShowControls: showControls }">
 		<FetchData
 			v-if="isOnline"
 			:channelId="channelId"
@@ -84,20 +84,39 @@
 
 		// Top level properties are also exposed as attributes on the web component.
 		props: {
+			/* data */
 			channelSlug: String,
 			channelId: String,
 			trackId: String,
-			autoplay: Boolean,
 			r4Url: {
 				type: Boolean,
 				default: false
 			},
+			query: String,
+
+			/* player behavior */
+			autoplay: Boolean,
+			shuffle: Boolean,
 			volume: {
 				type: Number,
 				default: 100
 			},
-			shuffle: Boolean,
-			query: String
+			
+			/* ui */
+			/* we always show media; youtube terms. */
+			/* when all are activated, media is fullscreen */
+			showHeader: {
+				type: Boolean,
+				default: true
+			},
+			showTrackList: {
+				type: Boolean,
+				default: true
+			},
+			showControls: {
+				type: Boolean,
+				default: true
+			}		
 		},
 
 		data () {
@@ -367,6 +386,12 @@
 		flex-direction: column;
 		overflow: hidden;
 		border: 1px solid hsl(0, 0%, 70%);
+	}
+	/* themes given by js classes and r4 props */
+	.Layout:not(.isShowHeader) .Layout-header,
+	.Layout:not(.isShowTrackList) .Layout-main,
+	.Layout:not(.isShowControls) .Layout-footer {
+		display: none
 	}
 
 	.Layout-header {

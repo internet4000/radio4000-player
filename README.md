@@ -45,15 +45,31 @@ OR, you can use an iframe ([source](https://github.com/internet4000/radio4000-ap
 
 Here's a complete list of all the attributes you can set and change on the web component. These do not affect the iframe version.
 
-|Attribute|Type|Description|
-|----|----|----|
-|channel-slug|`string`|Radio4000 channel slug (ex: `oskar`)
-|channel-id|`string`|Radio4000 channel id (ex: `-JYZvhj3vlGCjKXZ2cXO`)
-|track-id|`string`|Radio4000 track id (ex: `-JYEosmvT82Ju0vcSHVP`)
-|volume|`integer`|from 0 to 100 (default: `100`)
-|autoplay|`boolean`|if it should start playing automatically (default: `false`)
-|shuffle|`boolean`|if tracks should be shuffled (default: `false`)
-|r4-url|`boolean`|use relative, internal links. When the player is used on radio4000.com we want the links to not open a new window. (default: `false`)
+| Attribute     | Type              | Description                                                                                                       |
+|---------------|-------------------|-------------------------------------------------------------------------------------------------------------------|
+| channel-slug  | `string`          | Radio4000 channel slug (ex: `oskar`)                                                                              |
+| channel-id    | `string`          | Radio4000 channel id (ex: `-JYZvhj3vlGCjKXZ2cXO`)                                                                 |
+| track-id      | `string`          | Radio4000 track id (ex: `-JYEosmvT82Ju0vcSHVP`)                                                                   |
+| volume        | `integer`         | from 0 to 100 (default: `100`)                                                                                    |
+| autoplay      | `boolean` [false] | if it should start playing automatically, if `volume` is set to `0`. See note.                                                                          |
+| shuffle       | `boolean` [false] | if tracks should be shuffled                                                                                      |
+| r4-url        | `boolean` [false] | use relative, internal links. When the player is used on radio4000.com we want the links to not open a new window |
+| showHeader    | `boolean` [false] | Display or not the header part of the player. Where the channel image and current track are displayed             |
+| showTrackList | `boolean` [false] | Display or not the player's list of tracks                                                                        |
+| showControls  | `boolean` [false] | Display or not the player's controls. Where the play, mute and next buttons are                                   |
+
+Note: If you change `showTrackList` `showControls` `showHeader`, to
+`true`, you will have the effect of a fullscreen mode for the
+player. In which only the media is displayed. Mostly usefull for a tv
+effect, to easily display a channel on a website, for example as a
+animated background. See `autoplay`.
+
+Note: To have `autoplay` working, you should also set the `volume`
+property to `0`. It has for effect of muting the autio of all media
+played in the player, and this is required for the autoplay feature to
+work. This requirement is enforced by browsers (Firefox, Chromium,
+etc.), so the User Experience forbits video to be autoplayed on
+websites, if there is also audio.
 
 ### Examples
 
