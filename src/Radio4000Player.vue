@@ -178,7 +178,11 @@
 				this.newTracksPool()
 				const noTrack = Object.keys(this.track).length === 0
 				if (noTrack) {
-					this.playNextTrack()
+					if ( this.isPlaying) {
+						this.playNextTrack()
+					} else {
+						this.loadNextTrack()
+					}
 				}
 			}
 		},
@@ -242,20 +246,28 @@
 					this.tracksPool = pool
 				}
 			},
-			playTrack(track) {
+			loadTrack(track) {
 				const previousTrack = this.track
 				this.track = track
-				// force play when asking to play a track
-				// also solves mediaNotAvailable putting pause
-				this.play()
 				this.$emit('trackChanged', {
 					track, previousTrack
 				})
+			},
+			playTrack(track) {
+				this.loadTrack(track)
+				// force play when asking to play a track
+				// also solves mediaNotAvailable putting pause
+				this.play()
 			},
 			playNextTrack() {
 				const track = this.getNextTrack()
 				if (!track) return
 				this.playTrack(track)
+			},
+			loadNextTrack() {
+				const track = this.getNextTrack()
+				if (!track) return
+				this.loadTrack(track)
 			},
 			getNextTrack() {
 				const pool = this.tracksPool

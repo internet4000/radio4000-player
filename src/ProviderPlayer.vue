@@ -1,6 +1,5 @@
 <template>
 	<div class="ProviderPlayer" :class="{'ProviderPlayer--file': provider === 'file'}">
-
 		<file-player
 			v-if="provider === 'file'"
 			:url="track.url"

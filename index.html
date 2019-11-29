@@ -101,7 +101,7 @@
 		<!-- <radio4000-player track-id="-JyCMmQETox_SF6-x6Tr"></radio4000-player> -->
 
 		<!-- media is a local audio file-player -->
-		<radio4000-player id="playlist-player" autoplay="true"></radio4000-player>
+		<radio4000-player id="playlist-player" autoplay="false"></radio4000-player>
 		<!-- <radio4000-player id="playlist-player"></radio4000-player> -->
 
 		<script>
@@ -116,8 +116,7 @@
 				// and add event listeners
 				playerDom.addEventListener('playerReady', () => {
 					console.info('r4player:playerReady')
-					var playerVue = playerDom.__vue_custom_element__.$children[0]
-					console.log({playerVue})
+					var playerVue = playerDom.getVueInstance()
 					if (dataToPlay) {
 						playerVue.updatePlaylist(dataToPlay)
 					}
