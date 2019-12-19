@@ -10,11 +10,54 @@
 				margin: 0;
 				padding: 2rem;
 			}
+			details {
+				margin-bottom: 1rem;
+			}
+			summary {
+				font-size: 1.2rem;
+			}
 		</style>
+	</head>
+	<body>
+
+		<p>
+			<nav>
+				<a href="/">Home</a>
+			</nav>
+		</p>
+		
+		<p>See to follwing examples for a few different ways to start playing. Inspect the code of this page to see how it works. For more details, see the complete documentation.</p>
+		
+		<details open="true">
+			<summary>channel-slug="oskar"</summary>
+			<radio4000-player channel-slug="oskar"></radio4000-player>
+		</details>
+		<details>
+			<summary>track-id="-KdVUsr70yYdIoBDmL43"</summary>
+			<radio4000-player track-id="-KdVUsr70yYdIoBDmL43"></radio4000-player>
+		</details>
+		<details>
+			<summary>channel-id="-KFzPXLNzmKjPGwyY-xx"</summary>
+			<radio4000-player channel-id="-KFzPXLNzmKjPGwyY-xx"></radio4000-player>
+		</details>
+
+		<!-- tests -->
+		<!-- <radio4000-player channel-slug="ko002" autoplay="true"></radio4000-player> -->
+		<!-- <radio4000-player channel-slug="ko002" shuffle="true"></radio4000-player> -->
+
+		<details>
+			<summary>dead track link</summary>
+			<radio4000-player track-id="-JyCMmQETox_SF6-x6Tr"></radio4000-player>
+		</details>
+
+		<details>
+			<summary>Media is a local/remote audio file-player</summary>
+			<radio4000-player id="playlist-player" autoplay="false"></radio4000-player>
+		</details>
 
 		<script>
 			/* defined globally some data for bellow,
-			 we will use this in the player */
+				 we will use this in the player */
 			var tracks = [
 				{
 					id: '2',
@@ -83,26 +126,7 @@
 				tracks: tracks
 			};
 		</script>
-	</head>
-	<body>
 
-		<!-- There are a few different ways to start playing: -->
-		<!-- <radio4000-player channel-slug="ko002"></radio4000-player> -->
-		<!-- <radio4000-player channel-slug="good-time-radio"></radio4000-player> -->
-		<!-- <radio4000-player track-id="-KdVUsr70yYdIoBDmL43"></radio4000-player> -->
-		<!-- <radio4000-player channel-slug="oskar"></radio4000-player> -->
-		<!-- <radio4000-player channel-id="-KFzPXLNzmKjPGwyY-xx"></radio4000-player> -->
-
-		<!-- tests -->
-		<!-- <radio4000-player channel-slug="ko002" autoplay="true"></radio4000-player> -->
-		<!-- <radio4000-player channel-slug="ko002" shuffle="true"></radio4000-player> -->
-
-		<!-- dead track link -->
-		<!-- <radio4000-player track-id="-JyCMmQETox_SF6-x6Tr"></radio4000-player> -->
-
-		<!-- media is a local audio file-player -->
-		<radio4000-player id="playlist-player" autoplay="false"></radio4000-player>
-		<!-- <radio4000-player id="playlist-player"></radio4000-player> -->
 		<script>
 
 			/* 
