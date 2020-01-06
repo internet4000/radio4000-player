@@ -15,7 +15,6 @@ Vue.js.
 
 [![](https://data.jsdelivr.com/v1/package/npm/radio4000-player/badge)](https://www.jsdelivr.com/package/npm/radio4000-player)
 
-
 ## How to use
 
 You can load the player with a CDN, like this:
@@ -250,3 +249,7 @@ Running this command create a new, tagged "release" commit including a productio
 
 - https://www.npmjs.com/package/radio4000-player
 - https://www.jsdelivr.com/package/npm/radio4000-player
+
+### Demo
+
+The `./demo/index.html` file will be deployed to player.radio4000.com via Netlify.
