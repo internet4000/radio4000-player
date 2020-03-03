@@ -15,6 +15,8 @@
 			body {
 				margin: 0;
 				min-height: 100vh;
+				display: flex;
+				justify-content: center;
 			}
 			.Site {
 				min-height: 100vh;
@@ -24,8 +26,11 @@
 				align-items: center
 			}
 			.SiteAside {
-				flex-basis: 26rem;
 				padding: 1rem;
+				flex-basis: 26rem;
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
 			}
 			.SiteMain {
 				max-width: 40rem;
@@ -35,6 +40,9 @@
 			.SiteHeader {
 				text-align: center;
 				font-size: 1.2rem;
+			}
+			.SiteTitle {
+				font-style: italic;
 			}
 			.SiteFooter {
 				flex-grow: 1;
@@ -47,6 +55,12 @@
 				display: flex;
 				justify-content: center;
 				padding: 1rem;
+				align-items: center;
+			}
+			.Search-label {
+				padding-right: 0.5rem;
+				font-style: italic;
+				align-self: flex-end;
 			}
 			.EmbedCode {
 				display: flex;
@@ -76,7 +90,7 @@
 			
 			<aside class="SiteAside">
 				<header class="SiteHeader">
-					<h1>radio4000-player</h1>
+					<h1 class="SiteTitle">radio4000-player</h1>
 					<p>
 						This is a demo of the radio4000 player's latest version;
 						<a href="https://github.com/internet4000/radio4000-player">documentation</a>.
@@ -85,6 +99,7 @@
 
 				<!-- this component should be replaced by a new radio4000-search custom-element!? -->
 				<form class="Search">
+					<span class="Search-label">radio4000.com/</span>
 					<input v-model="channelSlug" class="SearchRadio" placeholder="radio4000 channel slug"/>
 				</form>
 				<p>
