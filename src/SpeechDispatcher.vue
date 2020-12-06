@@ -13,7 +13,6 @@
 
 		data() {
 			return {
-				isActivated: true,
 				textToSpeachTag: '#text2speech'
 			}
 		},
@@ -24,7 +23,7 @@
 				const voices = synth.getVoices()
 
 				/* no voices are installed for using speech synthesis */
-				if(!voices.length) return
+				if (!voices.length) return
 
 				var utterThis = new SpeechSynthesisUtterance(text)
 				utterThis.voice = voices[0]
@@ -32,14 +31,11 @@
 			},
 			
 			trackChanged(track) {
-				if(!this.isPlaying
-					 || !this.isActivated
-					 || !track
-					 || !track.body) return
+				if (!this.isPlaying || !track || !track.body) return
 
 				const trackHasSpeechTag = track.body.includes(this.textToSpeachTag)
 
-				if(!trackHasSpeechTag) return
+				if (!trackHasSpeechTag) return
 				
 				const textToSpeachRegex = new RegExp(this.textToSpeachTag, 'g')
 				const textToSpeach = track.body.replace(textToSpeachRegex, '')
