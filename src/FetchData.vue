@@ -40,6 +40,7 @@
 				if (!id) return
 				return findChannelById(id)
 					.then(channel => {
+						if(!channel) return
 						this.loadTracksAndImageFromChannel(channel)
 						this.update({channel})
 					})

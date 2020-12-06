@@ -20,7 +20,6 @@
 
 		methods: {
 			speak(text) {
-				/* if no voices on linux, install speech-dispatcher, espeak ?  */
 				const synth = window.speechSynthesis
 				const voices = synth.getVoices()
 
@@ -28,11 +27,11 @@
 				if(!voices.length) return
 
 				var utterThis = new SpeechSynthesisUtterance(text)
+				utterThis.voice = voices[0]
 				synth.speak(utterThis)
 			},
 			
 			trackChanged(track) {
-				console.log('///// track changed', this.isPlaying)
 				if(!this.isPlaying
 					 || !this.isActivated
 					 || !track
