@@ -12,7 +12,7 @@
     "test": "start-server-and-test start http://localhost:4002 cy:run",
     "cy:run": "cypress run",
     "cy:open": "cypress open",
-    "release": "npm run build && release-it"
+    "release": "release-it"
   },
   "hooks": {
     "before:bump": "npm run build"
