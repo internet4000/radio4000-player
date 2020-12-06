@@ -11,6 +11,7 @@
 		</FetchData>
 
 		<SpeechDispatcher
+			v-if="speech"
 			:isPlaying="isPlaying"
 			:track="track"></SpeechDispatcher>
 
@@ -103,6 +104,7 @@
 			/* player behavior */
 			autoplay: Boolean,
 			shuffle: Boolean,
+			speech: Boolean,
 			volume: {
 				type: Number,
 				default: 100
