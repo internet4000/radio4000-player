@@ -10,6 +10,10 @@
 			@afterFetch="updateData">
 		</FetchData>
 
+		<SpeechDispatcher
+			:isPlaying="isPlaying"
+			:track="track"></SpeechDispatcher>
+
 		<div class="Layout-header">
 			<channel-header
 				:isOnline="isOnline"
@@ -68,6 +72,7 @@
 	import { shuffleArray } from './utils/shuffle-helpers'
 
 	import FetchData from './FetchData.vue'
+	import SpeechDispatcher from './SpeechDispatcher.vue'
 	import ChannelHeader from './ChannelHeader.vue'
 	import TrackList from './TrackList.vue'
 	import ProviderPlayer from './ProviderPlayer.vue'
@@ -76,6 +81,7 @@
 	export default {
 		components: {
 			FetchData,
+			SpeechDispatcher,
 			ChannelHeader,
 			TrackList,
 			ProviderPlayer,
@@ -119,7 +125,7 @@
 			}		
 		},
 
-		data () {
+		data() {
 			return {
 				channel: {},
 				image: '',
