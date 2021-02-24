@@ -92,10 +92,13 @@ export default {
 		right: 0.5em;
 	}
 	.TrackList-query {
-		background-color: hsla(0, 0%, 50%, 0.2);
+		background-color: lightgray;
 		padding: 0.5em;
 		font-size: 0.75em;
 		text-align: center;
+		position: sticky;
+		top: 0;
+		z-index: 1;
 	}
 	.TrackList-controls {
 		position: absolute;
