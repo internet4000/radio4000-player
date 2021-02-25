@@ -20,7 +20,8 @@
 				:isOnline="isOnline"
 				:channel="channel"
 				:image="image"
-				:r4Url="r4Url"
+				:playlistPermalink="playlistPermalink"
+				:platform="platform"
 				:track="track"></channel-header>
 		</div>
 		<div class="Layout-section">
@@ -42,7 +43,9 @@
 					:channelSlug="channel.slug"
 					:track="track"
 					:tracks="tracksPool"
-					:query="channel.query"
+					:query="userQuery"
+					:queryPermalink="queryPermalink"
+					:platform="platform"
 					@select="playTrack"></track-list>
 			</div>
 		</div>
@@ -95,7 +98,12 @@
 			channelSlug: String,
 			channelId: String,
 			trackId: String,
-			r4Url: {
+
+			hostRootUrl: {
+				type: String,
+				default: 'https://radio4000.com/'
+			},
+			platform: {
 				type: Boolean,
 				default: false
 			},
@@ -152,6 +160,34 @@
 		computed: {
 			isOnline() {
 				return window.navigator.onLine
+			},
+			userQuery() {
+				if (this.channel && this.channel.query) {
+					return this.channel.query
+				}
+
+				if (this.query) {
+					return this.query
+				}
+				return ''
+			},
+			playlistPermalink() {
+				let rootUrl = ''
+				if (this.platform) {
+					rootUrl = '/'
+				} else {
+					rootUrl = this.hostRootUrl
+				}
+
+				let channelSlug = this.channelSlug || this.channel?.slug || ''
+				if (channelSlug) {
+					rootUrl = rootUrl + channelSlug
+				}
+				return rootUrl
+			},
+			queryPermalink() {
+				if (this.platform)
+				return this.playlistPermalink + '/tracks?search=' + this.userQuery
 			},
 			// When either of these is set, it means we can load and show the player.
 			canLoad() {
