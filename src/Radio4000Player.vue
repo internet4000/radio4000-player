@@ -179,7 +179,13 @@
 					rootUrl = this.hostRootUrl
 				}
 
-				let channelSlug = this.channelSlug || this.channel?.slug || ''
+				let channelSlug = ''
+				if (this.channelSlug) {
+					channelSlug = this.channelSlug
+				} else if (this.channel && this.channel.slug) {
+					channelSlug = this.channel.slug
+				}
+
 				if (channelSlug) {
 					rootUrl = rootUrl + channelSlug
 				}
