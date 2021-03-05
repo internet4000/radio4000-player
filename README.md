@@ -2,7 +2,7 @@
 
 This is a web component that plays channels from
 [Radio4000](https://radio4000.com). It uses the public
-[radio4000-api](https://github.com/internet4000/radio4000-api) and
+[radio4000-api](https://github.com/internet4000/radio4000-api-vercel) and
 Vue.js.
 
 - [How to use](#how-to-use)
