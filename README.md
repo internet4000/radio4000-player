@@ -44,18 +44,20 @@ OR, you can use an iframe ([source](https://github.com/internet4000/radio4000-ap
 
 Here's a complete list of all the attributes you can set and change on the web component. These do not affect the iframe version.
 
-| Attribute     | Type              | Description                                                                                                       |
-|---------------|-------------------|-------------------------------------------------------------------------------------------------------------------|
-| channel-slug  | `string`          | Radio4000 channel slug (ex: `oskar`)                                                                              |
-| channel-id    | `string`          | Radio4000 channel id (ex: `-JYZvhj3vlGCjKXZ2cXO`)                                                                 |
-| track-id      | `string`          | Radio4000 track id (ex: `-JYEosmvT82Ju0vcSHVP`)                                                                   |
-| volume        | `integer`         | from 0 to 100 (default: `100`)                                                                                    |
-| autoplay      | `boolean` [false] | if it should start playing automatically, if `volume` is set to `0`. See note.                                                                          |
-| shuffle       | `boolean` [false] | if tracks should be shuffled                                                                                      |
-| r4-url        | `boolean` [false] | use relative, internal links. When the player is used on radio4000.com we want the links to not open a new window |
-| showHeader    | `boolean` [false] | Display or not the header part of the player. Where the channel image and current track are displayed             |
-| showTrackList | `boolean` [false] | Display or not the player's list of tracks                                                                        |
-| showControls  | `boolean` [false] | Display or not the player's controls. Where the play, mute and next buttons are                                   |
+| Attribute     | Type              | Description                                                                                                               |
+|---------------|-------------------|---------------------------------------------------------------------------------------------------------------------------|
+| channel-slug  | `string`          | Radio4000 channel slug (ex: `oskar`)                                                                                      |
+| channel-id    | `string`          | Radio4000 channel id (ex: `-JYZvhj3vlGCjKXZ2cXO`)                                                                         |
+| track-id      | `string`          | Radio4000 track id (ex: `-JYEosmvT82Ju0vcSHVP`)                                                                           |
+| volume        | `integer`         | from 0 to 100 (default: `100`)                                                                                            |
+| autoplay      | `boolean` [false] | if it should start playing automatically, if `volume` is set to `0`. See note.                                            |
+| shuffle       | `boolean` [false] | if tracks should be shuffled                                                                                              |
+| r4-url        | `boolean` [false] | use relative, internal links. When the player is used on radio4000.com we want the links to not open a new window         |
+| showHeader    | `boolean` [false] | Display or not the header part of the player. Where the channel image and current track are displayed                     |
+| showTrackList | `boolean` [false] | Display or not the player's list of tracks                                                                                |
+| showControls  | `boolean` [false] | Display or not the player's controls. Where the play, mute and next buttons are                                           |
+| hostRootUrl   | `string`          | Root URL used to build links to the channel and tracks query, defaults to 'radio4000.com'                                 |
+| platform      | `boolean` [false] | Is this player used on a platform? If true, build URL starting from `/`, and use `target="_self"` to not reload the page` |
 
 Note: If you change `showTrackList` `showControls` `showHeader`, to
 `true`, you will have the effect of a fullscreen mode for the

@@ -1,24 +1,29 @@
 <template>
 	<header :class="layoutClass">
 		<a class="Header-logo"
-			:href="linkHref"
+			:href="playlistPermalink"
 			:target="linkTarget"
 			:rel="linkRel"
 			title="Open this radio on Radio4000.com"
 		>
 			<R4Logo :isOnline="isOnline"></R4Logo>
 		</a>
+
 		<a
-			:href="linkHref"
+			v-if="image"
+			:href="playlistPermalink"
 			:target="linkTarget"
 			:rel="linkRel"
 			class="Header-media"
 			title="Open this radio on Radio4000.com"
 		>
-			<img v-if="image" :src="image" alt="">
-			<loading v-else/>
+			<img :src="image" alt="">
 		</a>
-		<div class="Header-body" v-if="channel.title">
+
+		<div
+			class="Header-body"
+			v-if="channel.title"
+		>
 			<p class="Header-channel" :title="channelDescription">
 				<strong>{{channel.title}}</strong>
 			</p>
@@ -38,7 +43,8 @@ export default {
 		channel: Object,
 		track: Object,
 		image: String,
-		r4Url: Boolean
+		playlistPermalink: String,
+		platform: Boolean
 	},
 	components: { Loading, R4Logo },
 	computed: {
@@ -49,16 +55,11 @@ export default {
 				return 'Header Header--isOffline'
 			}
 		},
-		linkHref() {
-			const root = this.r4Url ? '/' : 'https://radio4000.com/'
-			const slug = this.channel.slug
-			return slug === undefined ? root : root + slug
-		},
 		linkTarget() {
-			return this.r4Url ? '_self' : '_blank'
+			return this.platform ? '_self' : '_blank'
 		},
 		linkRel() {
-			return this.r4Url ? '' : 'noopener'
+			return this.platform ? '' : 'noopener'
 		},
 		channelDescription() {
 			const { title = '', slug = '', body = ''} = this.channel
@@ -72,6 +73,7 @@ export default {
 	.Header {
 		position: relative;
 		display: flex;
+		height: 100%;
 		flex-wrap: nowrap;
 		align-items: center;
 		background-color: hsl(0, 0%, 96%);

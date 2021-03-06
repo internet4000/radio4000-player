@@ -4,7 +4,18 @@
 
 		<ol class="TrackList-list">
 			<li v-if="query" class="TrackList-query">
-				Playing selection <em>"{{query}}"</em>
+				<a v-if="queryPermalink"
+					:href="queryPermalink"
+					target="_self"
+					title="Open this radio on Radio4000.com"
+				>
+					Playing selection <em>"{{query}}"</em>
+				</a>
+				<span v-else
+					title="Current player selection (filter global list from selection)"
+				>
+					Playing selection <em>"{{query}}"</em>
+				</span>
 			</li>
 			<li v-for="(track, index) in tracks" :key="track.uid" class="TrackList-item">
 				<track-item
@@ -25,6 +36,7 @@
 <script>
 import TrackItem from './TrackItem.vue'
 import Loading from './Loading.vue'
+import R4Logo from './R4Logo.vue'
 
 export default {
 	name: 'track-list',
@@ -33,11 +45,15 @@ export default {
 		track: Object,
 		channelSlug: String,
 		currentTrackIndex: Number,
-		query: String
+		query: String,
+		queryPermalink: String,
+		platform: Boolean,
+		isOnline: Boolean
 	},
 	components: {
 		Loading,
-		TrackItem
+		TrackItem,
+		R4Logo
 	},
 	computed: {
 		hasTracks() {
@@ -92,10 +108,13 @@ export default {
 		right: 0.5em;
 	}
 	.TrackList-query {
-		background-color: hsla(0, 0%, 50%, 0.2);
+		background-color: lightgray;
 		padding: 0.5em;
 		font-size: 0.75em;
 		text-align: center;
+		position: sticky;
+		top: 0;
+		z-index: 1;
 	}
 	.TrackList-controls {
 		position: absolute;
