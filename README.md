@@ -153,7 +153,7 @@ Here's an example an array of a `playlist` object. Note how the tracks' `url` ke
 const playlist = {
   title: 'A title for this list',
   image: 'https://78.media.tumblr.com/5080191d7d19fe64da558f2b4324563e/tumblr_p8eoiltn1t1twkjb3o1_1280.png',
-  tracks = [
+  tracks: [
     {
       id: '1',
       title: 'Randomfunk.ogg',
