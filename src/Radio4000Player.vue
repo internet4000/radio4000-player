@@ -429,6 +429,12 @@
 	radio4000-player .Btn {
 		font-family: 'Maison Neue', 'maisonneue', 'system-ui', sans-serif;
 	}
+	/* themes given by js classes and r4 props */
+	radio4000-player .Layout:not(.isShowHeader) .Layout-header,
+	radio4000-player .Layout:not(.isShowTracklist) .Layout-main,
+	radio4000-player .Layout:not(.isShowControls) .Layout-footer {
+		display: none
+	}
 </style>
 
 <style scoped>
@@ -447,12 +453,6 @@
 		flex-direction: column;
 		overflow: hidden;
 		border: 1px solid hsl(0, 0%, 70%);
-	}
-	/* themes given by js classes and r4 props */
-	radio4000-player .Layout:not(.isShowHeader) .Layout-header,
-	radio4000-player .Layout:not(.isShowTracklist) .Layout-main,
-	radio4000-player .Layout:not(.isShowControls) .Layout-footer {
-		display: none
 	}
 
 	.Layout-header {
