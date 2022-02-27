@@ -449,9 +449,9 @@
 		border: 1px solid hsl(0, 0%, 70%);
 	}
 	/* themes given by js classes and r4 props */
-	.Layout:not(.isShowHeader) .Layout-header,
-	.Layout:not(.isShowTrackList) .Layout-main,
-	.Layout:not(.isShowControls) .Layout-footer {
+	radio4000-player .Layout:not(.isShowHeader) .Layout-header,
+	radio4000-player .Layout:not(.isShowTrackList) .Layout-main,
+	radio4000-player .Layout:not(.isShowControls) .Layout-footer {
 		display: none
 	}
 
