@@ -125,7 +125,7 @@
 				type: Boolean,
 				default: true
 			},
-			showTrackList: {
+			showTracklist: {
 				type: Boolean,
 				default: true
 			},
