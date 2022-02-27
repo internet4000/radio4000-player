@@ -1,9 +1,9 @@
 <template>
-	<div class="TrackList">
+	<div class="Tracklist">
 		<Loading v-if="!hasTracks"></Loading>
 
-		<ol class="TrackList-list">
-			<li v-if="query" class="TrackList-query">
+		<ol class="Tracklist-list">
+			<li v-if="query" class="Tracklist-query">
 				<a v-if="queryPermalink"
 					:href="queryPermalink"
 					target="_self"
@@ -17,7 +17,7 @@
 					Playing selection <em>"{{query}}"</em>
 				</span>
 			</li>
-			<li v-for="(track, index) in tracks" :key="track.uid" class="TrackList-item">
+			<li v-for="(track, index) in tracks" :key="track.uid" class="Tracklist-item">
 				<track-item
 					:track="track"
 					:channelSlug="channelSlug"
@@ -26,7 +26,7 @@
 			</li>
 		</ol>
 
-		<div v-if="hasTracks" class="TrackList-controls">
+		<div v-if="hasTracks" class="Tracklist-controls">
 			<button class="Btn Btn--locateTrack" title="Locate current track" @click="locateCurrentTrack">◎</button>
 		</div>
 
@@ -39,7 +39,7 @@ import Loading from './Loading.vue'
 import R4Logo from './R4Logo.vue'
 
 export default {
-	name: 'track-list',
+	name: 'tracklist',
 	props: {
 		tracks: Array,
 		track: Object,
@@ -69,7 +69,7 @@ export default {
 	methods: {
 		locateCurrentTrack() {
 			if (isNaN(this.currentTrackIndex)) return
-			const container = this.$el.querySelector('.TrackList-list')
+			const container = this.$el.querySelector('.Tracklist-list')
 			const tracks = this.$el.querySelectorAll('li')
 			const activeTrack = tracks[this.currentTrackIndex]
 			if (!activeTrack) return
@@ -80,7 +80,7 @@ export default {
 </script>
 
 <style scoped>
-	.TrackList-list {
+	.Tracklist-list {
 		position: absolute;
 		width: 100%;
 		height: 100%;
@@ -91,14 +91,14 @@ export default {
 		counter-reset: tracks;
 		transform: translateZ(0);
 	}
-	.TrackList-item {
+	.Tracklist-item {
 		position: relative;
 		border-bottom: 1px solid #e0e0e0;
 	}
-	.TrackList-item:last-child {
+	.Tracklist-item:last-child {
 		border-bottom: 0;
 	}
-	.TrackList-item::after {
+	.Tracklist-item::after {
 		content: counter(tracks) "";
 		counter-increment: tracks;
 		color: #696969;
@@ -107,7 +107,7 @@ export default {
 		top: 0.5em;
 		right: 0.5em;
 	}
-	.TrackList-query {
+	.Tracklist-query {
 		background-color: lightgray;
 		padding: 0.5em;
 		font-size: 0.75em;
@@ -116,14 +116,14 @@ export default {
 		top: 0;
 		z-index: 1;
 	}
-	.TrackList-controls {
+	.Tracklist-controls {
 		position: absolute;
 		bottom: -0.1em;
 		right: 1.5em;
 		z-index: 1;
 		opacity: 0.6;
 	}
-	.TrackList-controls:hover {
+	.Tracklist-controls:hover {
 		opacity: 1;
 	}
 	.Btn--locateTrack {

@@ -1,5 +1,5 @@
 <template>
-	<div class="Layout" v-if="canLoad" :class="{ isShowHeader: showHeader, isShowTrackList: showTrackList, isShowControls: showControls }">
+	<div class="Layout" v-if="canLoad" :class="{ isShowHeader: showHeader, isShowTracklist: showTracklist, isShowControls: showControls }">
 		<FetchData
 			v-if="isOnline"
 			:channelId="channelId"
@@ -38,7 +38,7 @@
 					@trackEnded="trackEnded"></provider-player>
 			</div>
 			<div class="Layout-main">
-				<track-list
+				<tracklist
 					:currentTrackIndex="currentTrackIndex"
 					:channelSlug="channel.slug"
 					:track="track"
@@ -46,7 +46,7 @@
 					:query="userQuery"
 					:queryPermalink="queryPermalink"
 					:platform="platform"
-					@select="playTrack"></track-list>
+					@select="playTrack"></tracklist>
 			</div>
 		</div>
 		<div class="Layout-footer">
@@ -78,7 +78,7 @@
 	import FetchData from './FetchData.vue'
 	import SpeechDispatcher from './SpeechDispatcher.vue'
 	import ChannelHeader from './ChannelHeader.vue'
-	import TrackList from './TrackList.vue'
+	import Tracklist from './Tracklist.vue'
 	import ProviderPlayer from './ProviderPlayer.vue'
 	import PlayerControls from './PlayerControls.vue'
 
@@ -87,7 +87,7 @@
 			FetchData,
 			SpeechDispatcher,
 			ChannelHeader,
-			TrackList,
+			Tracklist,
 			ProviderPlayer,
 			PlayerControls
 		},
@@ -450,7 +450,7 @@
 	}
 	/* themes given by js classes and r4 props */
 	radio4000-player .Layout:not(.isShowHeader) .Layout-header,
-	radio4000-player .Layout:not(.isShowTrackList) .Layout-main,
+	radio4000-player .Layout:not(.isShowTracklist) .Layout-main,
 	radio4000-player .Layout:not(.isShowControls) .Layout-footer {
 		display: none
 	}
