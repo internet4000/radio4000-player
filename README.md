@@ -1,9 +1,7 @@
 # Radio4000 Player
 
-This is a web component that plays channels from
-[Radio4000](https://radio4000.com). It uses the public
-[radio4000-api](https://github.com/internet4000/radio4000-api-vercel) and
-Vue.js.
+This is a web component that plays channels from [Radio4000](https://radio4000.com).   
+It uses the public [radio4000-api](https://github.com/internet4000/radio4000-api-vercel) and Vue.js.
 
 - [How to use](#how-to-use)
 - [API](#api)
@@ -208,7 +206,7 @@ documentation](https://developer.mozilla.org/en-US/docs/Web/HTML/Supported_media
 
 ## Development
 
-- Feature branches are made from the `master` branch.
+- Feature branches are made from the `main` branch.
 
 ``` bash
 # 1. clone and install dependencies
@@ -229,25 +227,15 @@ npm test
 npm start; npm run cypress open
 ```
 
-### How to release a new version
+### Publishing a new release to npm
 
-> Do not use `npm publish` directly! (unless you can remember to `npm run build` before releasing)
+1. Push to the `main` branch
+2. Update version in package.json
+3. Create a tagged commit like `1.2.3`
+4. Create a new GitHub release on the repo
+5. (this triggers automatic github action ci that will publish the package)
 
-Release a new patch e.g. `1.0.4` to `1.0.5`.
-
-```
-npm run release
-```
-
-Release a minor, major, or specific version:
-
-```
-npm run release minor
-npm run release major
-npm run release 0.8.3
-```
-
-Running this command create a new, tagged "release" commit including a production build and pushes it to Git and NPM. See [release-it](https://github.com/webpro/release-it) for more.
+Running this command create a new, tagged "release" commit including a production build and pushes it to Git and NPM. 
 
 - https://www.npmjs.com/package/radio4000-player
 - https://www.jsdelivr.com/package/npm/radio4000-player
@@ -255,3 +243,4 @@ Running this command create a new, tagged "release" commit including a productio
 ### Demo
 
 The `./demo/index.html` file will be deployed to player.radio4000.com via Netlify.
+
