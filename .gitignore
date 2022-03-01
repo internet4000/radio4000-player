@@ -6,3 +6,4 @@ yarn.lock
 dist/
 !dist/radio4000-player.min.js
 .vscode
+yarn.lock

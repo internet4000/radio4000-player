@@ -213,38 +213,38 @@ documentation](https://developer.mozilla.org/en-US/docs/Web/HTML/Supported_media
 ``` bash
 # 1. clone and install dependencies
 git clone git@github.com:internet4000/radio4000-player.git
-yarn
+npm install
 
 # 2. starts a server on http://localhost:4002 that autobuilds when files change
-yarn start
+npm start
 ```
 
 ### Testing
 
 ```bash
 # run tests once
-yarn test
+npm test
 
 # (re)run tests as files change
-yarn start; yarn cypress open
+npm start; npm run cypress open
 ```
 
 ### How to release a new version
 
-> Do not use `npm publish` or `yarn publish` directly! (unless you can remember to `yarn build` before releasing)
+> Do not use `npm publish` directly! (unless you can remember to `npm run build` before releasing)
 
 Release a new patch e.g. `1.0.4` to `1.0.5`.
 
 ```
-yarn release
+npm run release
 ```
 
 Release a minor, major, or specific version:
 
 ```
-yarn release minor
-yarn release major
-yarn release 0.8.3
+npm run release minor
+npm run release major
+npm run release 0.8.3
 ```
 
 Running this command create a new, tagged "release" commit including a production build and pushes it to Git and NPM. See [release-it](https://github.com/webpro/release-it) for more.
