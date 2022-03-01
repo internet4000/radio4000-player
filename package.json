@@ -3,6 +3,7 @@
   "description": "A player for Radio4000 channels",
   "author": "Internet4000",
   "version": "0.6.24",
+  "private": false,
   "homepage": "https://github.com/internet4000/radio4000-player",
   "bugs": "https://github.com/internet4000/radio4000-player/issues",
   "license": "GPL-3.0",
