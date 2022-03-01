@@ -57,7 +57,7 @@ Here's a complete list of all the attributes you can set and change on the web c
 | showTracklist | `boolean` [false] | Display or not the player's list of tracks                                                                                |
 | showControls  | `boolean` [false] | Display or not the player's controls. Where the play, mute and next buttons are                                           |
 | hostRootUrl   | `string`          | Root URL used to build links to the channel and tracks query, defaults to 'radio4000.com'                                 |
-| platform      | `boolean` [false] | Is this player used on a platform? If true, build URL starting from `/`, and use `target="_self"` to not reload the page` |
+| platform      | `boolean` [false] | Is this player used on a platform? If true, build URL starting from `/`, and use `target="_self"` to not reload the page |
 
 Note: If you change `showTracklist` `showControls` `showHeader`, to
 `true`, you will have the effect of a fullscreen mode for the
