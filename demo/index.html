@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>radio4000-player</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width">
+	<head>
+		<title>radio4000-player</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width">
 		<style>
 			/* some styles used to make this page nice */
 			html {
@@ -12,142 +12,117 @@
 			*, *:before, *:after {
 				box-sizing: inherit;
 			}
+			:root {
+				--size: 1em;
+			}
 			body {
 				margin: 0;
 				min-height: 100vh;
 				display: flex;
 				justify-content: center;
+				padding: var(--size);
 			}
-			.Site {
-				min-height: 100vh;
-				display: flex;
-				flex-wrap: wrap;
-				justify-content: center;
-				align-items: center
-			}
-			.SiteAside {
-				padding: 1rem;
-				flex-basis: 26rem;
+			body,
+			radio-manager,
+			radio-manager slot {
 				display: flex;
 				flex-direction: column;
-				justify-content: center;
 			}
-			.SiteMain {
-				max-width: 40rem;
-				flex-grow: 1;
-				padding: 1rem;
-			}
-			.SiteHeader {
-				text-align: center;
-				font-size: 1.2rem;
-			}
-			.SiteTitle {
-				font-style: italic;
-			}
-			.SiteFooter {
-				flex-grow: 1;
-				display: flex;
-				flex-direction: column;
-				padding: 1rem;
-				font-size: 1.2rem;
-			}
-			.Search {
-				display: flex;
-				justify-content: center;
-				padding: 1rem;
-				align-items: center;
-			}
-			.Search-label {
-				padding-right: 0.5rem;
-				font-style: italic;
-				align-self: flex-end;
-			}
-			.EmbedCode {
-				display: flex;
-				font-size: 1.2rem;
-				padding: 1rem;
-				width: 100%;
-				min-height: 40vh;
-			}
-			@media (min-width: 30rem) {
-				.EmbedCode {
-					min-height: 0;
-				}
-			}
-
-			.Tag {
-				font-size: 1.2rem;
-				padding: 0.2rem;
-				background-color: lightgray;
-				cursor: pointer;
+			slot[name="manager"] {
+				padding: var(--size);
 			}
 		</style>
-  </head>
+	</head>
 
-  <body>
-		<!-- the vue.js mini app starts here # -->
-		<div class="Site" id="Radio4000PlayerDemo">
-			
-			<aside class="SiteAside">
-				<header class="SiteHeader">
-					<h1 class="SiteTitle">radio4000-player</h1>
-					<p>
-						This is a demo of the radio4000 player's latest version;
-						<a href="https://github.com/internet4000/radio4000-player">documentation</a>.
-					</p>
-				</header>
-
-				<!-- this component should be replaced by a new radio4000-search custom-element!? -->
-				<form class="Search">
-					<span class="Search-label">radio4000.com/</span>
-					<input v-model="channelSlug" class="SearchRadio" placeholder="radio4000 channel slug"/>
-				</form>
-				<p>
-					Enter a Radio4000 channel slug above, for example:
-					<span v-on:click="setSlug" class="Tag">radio-tobha</span>
-					or
-					<span v-on:click="setSlug" class="Tag">good-time-radio</span>
-					for <a href="https://radio4000.com/good-time-radio" target="_blank">good-time-radio</a>
-				</p>
-			</aside>
-
-			<main class="SiteMain">
-				<!-- the r4 player loaded from cdn, and slug is controlled by vue app -->
-				<radio4000-player v-bind:channel-slug="channelSlug"></radio4000-player>
-			</main>
-
-			<footer class="SiteFooter">
-				<textarea v-model="embedCode" class="EmbedCode" readonly></textarea>
-				<p>Copy and paste the code above in any HTML page to use this player.</p>
-			</footer>
-
-		</div>
-
-		<!-- we need vue.js to create this mini app -->
-		<script src="https://cdn.jsdelivr.net/npm/vue"></script>
-		<!-- we load the r4 player to showcase the latest flavor -->
+	<body>
 		<script async src="https://cdn.jsdelivr.net/npm/radio4000-player"></script>
-
-		<!-- the vue.js application to show the capabilities of the player.
-				 Also, it should help anyone build an instance of the player as they like it -->
 		<script>
-			var app = new Vue({
-				el: '#Radio4000PlayerDemo',
-				data: {
-					channelSlug: 'good-time-radio'
-				},
-				computed: {
-					embedCode() {
-						if (!this.channelSlug) return ''					 
-						return `<iframe src="https://api.radio4000.com/embed?slug=${this.channelSlug}" width="320" height="500" frameborder="0"></iframe>`
-					}
-				},
-				methods: {
-					setSlug(event) {
-						this.channelSlug = event.target.textContent
+			template = `
+				<slot name="manager">
+					<form>
+						<span>radio4000.com/</span>
+						<input name="slug" placeholder="radio4000 channel slug"/>
+						<button type="submit">set channel</button>
+					</form>
+				</slot>
+				<slot name="player">
+					<radio4000-player
+								channel-slug="good-time-radio"
+						></radio4000-player>
+				</slot>
+				<slot name="iframe">
+					<textarea disabled="true"></textarea>
+				</slot>
+			`
+			class RadioManager extends HTMLElement {
+				static get observedAttributes() {
+					return ['channel-slug']
+				}
+				get channelSlug() {
+					const params = new URLSearchParams(window.location.search)
+					const slug = params.get('slug')
+					return slug || this.getAttribute('channel-slug') || 'good-time-radio'
+				}
+				set channelSlug(str) {
+					this.setAttribute('channel-slug', str)
+					const params = new URLSearchParams(window.location.search)
+					params.set('slug', str)
+					const newRelativePathQuery = window.location.pathname + '?' + params.toString()
+					history.pushState(null, '', newRelativePathQuery)
+				}
+
+				state = {}
+
+				connectedCallback() {
+
+					this.innerHTML = template
+					this.$manager = this.querySelector('slot[name="manager"]')
+					this.$player = this.querySelector('slot[name="player"] radio4000-player')
+					this.$iframe = this.querySelector('slot[name="iframe"] textarea')
+
+					if (this.channelSlug) {
+						this.renderPlayer()
+						this.renderForm()
+						this.renderIframe()
 					}
 				}
-			})
+				onChannel() {
+					if (this.state.slug) {
+						this.channelSlug = this.state.slug
+						this.renderPlayer()
+						this.renderIframe()
+					}
+				}
+				renderPlayer() {
+					this.$player.setAttribute('channel-slug', this.channelSlug)
+				}
+				handleInput = (event) => {
+					this.state[event.target.name] = event.target.value
+				}
+				renderForm() {
+					this.$manager.querySelectorAll('input').forEach($input => {
+						$input.addEventListener('input', this.handleInput)
+					})
+					this.$manager.addEventListener('submit', (event) => {
+						event.preventDefault()
+						this.onChannel()
+					})
+				}
+				renderIframe() {
+					const iframe =`<iframe src="https://api.radio4000.com/embed?slug=${this.channelSlug}" width="320" height="500" frameborder="0"></iframe>`
+					this.$iframe.innerHTML = iframe
+				}
+			}
+			customElements.define('radio-manager', RadioManager)
 		</script>
-  </body>
+
+		<header class="SiteHeader">
+			<h1 class="SiteTitle">radio4000-player</h1>
+			<p>
+				This is a demo of the radio4000 player's latest version;
+				<a href="https://github.com/internet4000/radio4000-player">documentation</a>.
+			</p>
+		</header>
+		<radio-manager></radio-manager>
+	</body>
 </html>
