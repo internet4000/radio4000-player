@@ -13,7 +13,8 @@
 				box-sizing: inherit;
 			}
 			:root {
-				--size: 1em;
+				--size: 1.5em;
+				--random-color: transparent;
 			}
 			body {
 				margin: 0;
@@ -27,9 +28,26 @@
 			radio-manager slot {
 				display: flex;
 				flex-direction: column;
+				align-items: center;
+			}
+			radio-manager {
+				padding: var(--size);
+				border: 0.2rem solid var(--random-color);
+			}
+			radio-manager label {
+				padding: calc(var(--size) / 2);
+				margin: var(--size);
 			}
 			slot[name="manager"] {
 				padding: var(--size);
+			}
+			slot[name="player"] {
+				width: 100%;
+				max-width: calc(var(--size) * 20);
+			}
+			slot[name="iframe"] textarea {
+				width: 100%;
+				min-height: calc(var(--size) * 3);
 			}
 		</style>
 	</head>
@@ -38,10 +56,17 @@
 		<script async src="https://cdn.jsdelivr.net/npm/radio4000-player"></script>
 		<script>
 			const template = `
+				<style>
+					:root {
+						--random-color: #${(0x1000000+(Math.random())*0xffffff).toString(16).substr(1,6)};
+					}
+				</style>
 				<slot name="manager">
 					<form>
-						<span>radio4000.com/</span>
-						<input name="slug" placeholder="radio4000 channel slug"/>
+						<label title="The slug of channel, is the part of its URL address after the .com/. You can customize it in your channel's settings">
+							<a href="https://radio4000.com">radio4000.com/</a>
+							<input name="slug" placeholder="radio4000 channel slug"/>
+						</label>
 						<button type="submit">set channel</button>
 					</form>
 				</slot>
@@ -51,7 +76,10 @@
 						></radio4000-player>
 				</slot>
 				<slot name="iframe">
-					<textarea disabled="true"></textarea>
+					<label title="Tips: this code is available on every channel's page">
+						Embed this channel in any web page, with the following HTML code
+						<textarea readonly="true"></textarea>
+					</label>
 				</slot>
 			`
 			class RadioManager extends HTMLElement {
@@ -111,6 +139,7 @@
 				renderIframe() {
 					const iframe =`<iframe src="https://api.radio4000.com/embed?slug=${this.channelSlug}" width="320" height="500" frameborder="0"></iframe>`
 					this.$iframe.innerHTML = iframe
+					this.$iframe.addEventListener('click', () => this.$iframe.select())
 				}
 			}
 			customElements.define('radio-manager', RadioManager)
@@ -119,8 +148,8 @@
 		<header class="SiteHeader">
 			<h1 class="SiteTitle">radio4000-player</h1>
 			<p>
-				This is a demo of the radio4000 player's latest version;
-				<a href="https://github.com/internet4000/radio4000-player">documentation</a>.
+				The radio4000-player element can be used to play media from radio4000.com, as well as from loading a JSON playlist.
+				See the <a href="https://github.com/internet4000/radio4000-player">documentation</a> for examples.
 			</p>
 		</header>
 		<radio-manager></radio-manager>
