@@ -206,7 +206,7 @@ documentation](https://developer.mozilla.org/en-US/docs/Web/HTML/Supported_media
 
 ## Development
 
-- Feature branches are made from the `main` branch.
+As of April 2024 the project runs with Node.js version 16. Possibly others. But at least 16.
 
 ``` bash
 # 1. clone and install dependencies
