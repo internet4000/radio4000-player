@@ -7,6 +7,7 @@ WORKDIR /app
 # Copy application logic to the container
 COPY package*.json ./
 COPY index.html ./
+COPY poi.config.js ./
 
 # shadowed as volumes by compose
 COPY src ./src/
@@ -15,7 +16,7 @@ COPY src ./src/
 RUN npm install
 
 # Expose the port on which the frontend server runs
-EXPOSE 4000
+EXPOSE 4002
 
 # Command to start the development server
 CMD ["npm", "run", "start"]
