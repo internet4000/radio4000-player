@@ -244,3 +244,16 @@ Running this command create a new, tagged "release" commit including a productio
 
 The `./demo/index.html` file will be deployed to player.radio4000.com via Netlify.
 
+### With docker and doker-compose
+Run `docker-compose up` to start a local server and `down` to stop it;
+`build` will re-build a new images for changes made outside of the
+`src` folder.
+
+See `docker-compose.yml` and `Dockerfile`.
+
+With docker compose, the folder `./src` is mounted as a volume, to the container is used
+only for the node version 16 required by the project, and changes
+should be reflected in the live server.
+
+With solely docker, re-build for every change, and re-run the image to
+see them on local server (run inside docker).
