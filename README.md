@@ -249,6 +249,14 @@ Run `docker-compose up` to start a local server and `down` to stop it;
 `build` will re-build a new images for changes made outside of the
 `src` folder.
 
+Profiles can be `dev` (for src work) or `demo` for the website/iframe
+(src from cdn).
+
+```bash
+docker-compose --profile dev up
+docker-compose --profile demo up
+```
+
 See `docker-compose.yml` and `Dockerfile`.
 
 With docker compose, the folder `./src` is mounted as a volume, to the container is used

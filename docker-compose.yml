@@ -2,12 +2,24 @@ version: "3.8"
 
 services:
   frontend:
+    profiles: ["dev"]
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: radio4000-player-vue
-    hostname: radio4000-player-vue
+    container_name: radio4000-player-dev
     ports:
       - "4000:4002"
     volumes:
       - ./src:/app/src
+      - ./index.html:/app/index.html
+  demo:
+    profiles: ["demo"]
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: radio4000-player-demo
+    ports:
+      - "4003:4002"
+    volumes:
+      - ./src:/app/src
+      - ./demo/index.html:/app/index.html

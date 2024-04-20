@@ -6,14 +6,19 @@ WORKDIR /app
 
 # Copy application logic to the container
 COPY package*.json ./
-COPY index.html ./
-COPY poi.config.js ./
-
-# shadowed as volumes by compose
-COPY src ./src/
 
 # Install dependencies
 RUN npm install
+
+# Copy rest of config files
+COPY poi.config.js ./
+
+# Copy index.html and demo/index.html files
+COPY index.html ./index.html
+COPY demo/index.html ./demo/index.html
+
+# shadowed as volumes by compose
+COPY src ./src/
 
 # Expose the port on which the frontend server runs
 EXPOSE 4002
