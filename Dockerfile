@@ -15,7 +15,7 @@ COPY src ./src/
 RUN npm install
 
 # Expose the port on which the frontend server runs
-EXPOSE 4002
+EXPOSE 4000
 
 # Command to start the development server
 CMD ["npm", "run", "start"]

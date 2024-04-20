@@ -8,6 +8,6 @@ services:
     container_name: radio4000-player-vue
     hostname: radio4000-player-vue
     ports:
-      - "4002:4002"
+      - "4000:4000"
     volumes:
       - ./src:/app/src
