@@ -56,7 +56,7 @@ export default {
 			}
 		},
 		linkTarget() {
-			return this.platform ? '_self' : '_blank'
+			return this.platform ? '' : '_blank'
 		},
 		linkRel() {
 			return this.platform ? '' : 'noopener'
